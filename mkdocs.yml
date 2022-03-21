@@ -1,0 +1,100 @@
+# MkDocs configuration file
+site_name: Ansible Workshop
+copyright: Copyright &copy; Computacenter 2022
+extra:
+  social:
+    - icon: fontawesome/brands/git
+      link: https://gitlab.ccloud.ninja/tgruetzmacher/ansible-workshop-exercises
+      name: Projekt im Gitlab
+    - icon: fontawesome/brands/docker
+      link: https://gitlab.ccloud.ninja/tgruetzmacher/ansible-workshop-exercises/-/blob/main/dockerfiles/slim/Dockerfile
+      name: Container Definition
+extra_css:
+  - stylesheets/tables.css
+  - stylesheets/extra.css
+theme:
+  name: material
+  # Comment in, if you want to make an announcement
+  # custom_dir: docs/overrides
+  icon:
+    repo: fontawesome/brands/gitlab
+  logo: assets/ansible-logo-black.png
+  language: de
+  favicon: assets/ansible-logo-black.png
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+  palette:
+    - scheme: default
+      primary: blue
+      toggle:
+        icon: material/toggle-switch-off-outline 
+        name: Switch to dark mode
+    - scheme: slate
+      primary: red
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+plugins:
+  - search:
+      lang: de
+      separator: '[\s]'
+  - awesome-pages
+  - autolinks
+  - mermaid2:
+      arguments:
+        theme: |
+          ^(JSON.parse(__md_get("__palette").index == 1)) ? 'dark' : 'light'
+        securityLevel: 'loose'
+extra_javascript:
+  - https://unpkg.com/mermaid/dist/mermaid.min.js
+  - extra/refresh-on-toggle-dark-light.js
+  - https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js
+  - extra/tablesort.js
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:mermaid2.fence_mermaid
+  - tables
+repo_url: https://gitlab.ccloud.ninja/tgruetzmacher/ansible-workshop-exercises
+repo_name: tgruetzmacher/ansible-workshop-exercises
+# Navigation definition
+nav:
+  - "Home":
+    - demo-environment/demo-environment.md
+    - demo-environment/editor-alternatives.md
+  - "Day 1":
+    - day1/day1-overview.md
+    - day1/ansible-core-intro.md
+    - day1/ansible-core-basics.md
+    - day1/ansible-core-playbook.md
+    - day1/ansible-core-variables.md
+    - day1/ansible-core-handlers.md
+    - day1/ansible-core-templates.md
+    - day1/ansible-core-roles.md
+    - day1/ansible-core-supplemental.md
+  - "Day 2":
+    - day2/day2-overview.md
+    - day2/automation-platform-intro.md
+    - day2/automation-platform-credentials.md
+    - day2/automation-platform-projects.md
+    - day2/automation-platform-surveys.md
+    - day2/automation-platform-rbac.md
+    - day2/automation-platform-workflows.md
+    - day2/automation-platform-wrapup.md
+  - "Day 3":
+    - day3/day3-overview.md
