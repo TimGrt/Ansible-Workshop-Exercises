@@ -8,12 +8,57 @@
 
 These first few lab exercises will be exploring the command-line utilities of the Ansible Automation Platform.  This includes
 
-- [ansible-navigator](https://github.com/ansible/ansible-navigator) - a command line utility and text-based user interface (TUI) for running and developing Ansible automation content.
 - [ansible-core](https://docs.ansible.com/core.html) - the base executable that provides the framework, language and functions that underpin the Ansible Automation Platform.  It also includes various cli tools like `ansible`, `ansible-playbook` and `ansible-doc`.  Ansible Core acts as the bridge between the upstream community with the free and open source Ansible and connects it to the downstream enterprise automation offering from Red Hat, the Ansible Automation Platform.
-- [Execution Environments](https://docs.ansible.com/automation-controller/latest/html/userguide/execution_environments.html) - not specifically covered in this workshop because the built-in Ansible Execution Environments already included all the Red Hat supported collections which includes all the collections we use for this workshop.  Execution Environments are container images that can be utilized as Ansible execution.
+- [ansible-navigator](https://github.com/ansible/ansible-navigator) - a command line utility and text-based user interface (TUI) for running and developing Ansible automation content.
+- [Execution Environments](https://docs.ansible.com/automation-controller/latest/html/userguide/execution_environments.html) - not specifically covered in this workshop (day 1) because the built-in Ansible Execution Environments already included all the Red Hat supported collections which includes all the collections we use for this workshop.  Execution Environments are container images that can be utilized as Ansible execution.
 - [ansible-builder](https://github.com/ansible/ansible-builder) - not specifically covered in this workshop, `ansible-builder` is a command line utility to automate the process of building Execution Environments.
 
 If you need more information on new Ansible Automation Platform components bookmark this landing page [https://red.ht/AAP-20](https://red.ht/AAP-20)
+
+We will be using especially the *ansible-core* executable and the CLI tools it provides, as currently (Q1/2022) it is the main interface to interact with Ansible. 
+
+In the (near) future this will be replaced/supplemented by the *Ansible Navigator*, which on the one hand brings more useful additional features and in the end serves a much greater purpose than just be a drop in replacement or alias to the currently used Ansible utilities. It requires a broader introduction and explanation regarding the use of containers and collections, which we will discuss on workshop day 2.  
+Still, although we will be using the *ansible-core* executable in all exercises, it is shown how to also achieve everything using the `ansible-navigator` utility in a separate tab.
+
+=== "Ansible"
+    ```bash
+    [student<X>@ansible-1 ~]$ ansible-playbook --help
+    usage: ansible-playbook [-h] [--version] [-v] [--private-key PRIVATE_KEY_FILE] [-u REMOTE_USER] [-c CONNECTION] [-T TIMEOUT] [--ssh-common-args SSH_COMMON_ARGS]
+                            [--sftp-extra-args SFTP_EXTRA_ARGS] [--scp-extra-args SCP_EXTRA_ARGS] [--ssh-extra-args SSH_EXTRA_ARGS]
+                            [-k | --connection-password-file CONNECTION_PASSWORD_FILE] [--force-handlers] [--flush-cache] [-b] [--become-method BECOME_METHOD] [--become-user BECOME_USER]
+                            [-K | --become-password-file BECOME_PASSWORD_FILE] [-t TAGS] [--skip-tags SKIP_TAGS] [-C] [--syntax-check] [-D] [-i INVENTORY] [--list-hosts] [-l SUBSET]
+                            [-e EXTRA_VARS] [--vault-id VAULT_IDS] [--ask-vault-password | --vault-password-file VAULT_PASSWORD_FILES] [-f FORKS] [-M MODULE_PATH] [--list-tasks]
+                            [--list-tags] [--step] [--start-at-task START_AT_TASK]
+                            playbook [playbook ...]
+
+    Runs Ansible playbooks, executing the defined tasks on the targeted hosts.
+
+    positional arguments:
+      playbook              Playbook(s)
+
+    optional arguments:
+
+    [...]
+    ```
+
+=== "Navigator"
+
+    ```bash
+    [student<X>@ansible-1 ~]$ ansible-navigator --help
+    usage: ansible-navigator [-h] [--version] [--rad ANSIBLE_RUNNER_ARTIFACT_DIR] [--rac ANSIBLE_RUNNER_ROTATE_ARTIFACTS_COUNT] [--rt ANSIBLE_RUNNER_TIMEOUT]
+                            [--cdcp COLLECTION_DOC_CACHE_PATH] [--ce CONTAINER_ENGINE] [--co CONTAINER_OPTIONS [CONTAINER_OPTIONS ...]] [--dc DISPLAY_COLOR] [--ecmd EDITOR_COMMAND]
+                            [--econ EDITOR_CONSOLE] [--ee EXECUTION_ENVIRONMENT] [--eei EXECUTION_ENVIRONMENT_IMAGE]
+                            [--eev EXECUTION_ENVIRONMENT_VOLUME_MOUNTS [EXECUTION_ENVIRONMENT_VOLUME_MOUNTS ...]] [--la LOG_APPEND] [--lf LOG_FILE] [--ll LOG_LEVEL] [-m MODE] [--osc4 OSC4]
+                            [--penv PASS_ENVIRONMENT_VARIABLE [PASS_ENVIRONMENT_VARIABLE ...]] [--pp PULL_POLICY] [--senv SET_ENVIRONMENT_VARIABLE [SET_ENVIRONMENT_VARIABLE ...]]
+                            {subcommand} --help ...
+
+    optional arguments:
+
+    [...]
+    ```
+
+!!! info
+    Although the tab is titled **Ansible**, this can be any of the *classic* utilities provided by the *ansible-core* executable. The **Navigator** tab uses the same utils but acts as an abstraction layer.
 
 ## Guide
 
@@ -28,22 +73,9 @@ In this lab you work in a pre-configured lab environment. You will have access t
 | Managed Host 2       | node2          |
 | Managed Host 3       | node3          |
 
-### Step 1 - Access the Environment
+Every host is reachable via SSH.
 
-<table>
-<thead>
-  <tr>
-    <th>It is highly encouraged to use Visual Studio Code to complete the workshop exercises. Visual Studio Code provides:
-    <ul>
-    <li>A file browser</li>
-    <li>A text editor with syntax highlighting</li>
-    <li>A in-browser terminal</li>
-    </ul>
-    Direct SSH access is available as a backup, or if Visual Studio Code is not sufficient to the student.  There is a short YouTube video provided if you need additional clarity: <a href="https://youtu.be/Y_Gx4ZBfcuk">Ansible Workshops - Accessing your workbench environment</a>.
-</th>
-</tr>
-</thead>
-</table>
+### Step 1 - Access the Environment
 
 - Connect to Visual Studio Code from the Workshop launch page (provided by your instructor).  The password is provided below the WebUI link.
 
@@ -53,7 +85,7 @@ In this lab you work in a pre-configured lab environment. You will have access t
 
   ![login vs code](images/vscode_login.png)
 
-  - Open the `rhel-workshop` directory in Visual Studio Code:
+- Clicking on `File` &#8594; `Open Folder...` in the menu bar and open the `rhel-workshop` directory in Visual Studio Code (this will reload your browser window).
 
 ### Step 2 - Using the Terminal
 
@@ -61,7 +93,7 @@ In this lab you work in a pre-configured lab environment. You will have access t
 
   ![picture of new terminal](images/vscode-new-terminal.png)
 
-Navigate to the `rhel-workshop` directory on the Ansible control node terminal.
+Navigate to the `rhel-workshop` directory on the Ansible control node terminal (if not already in it).
 
 ```bash
 [student<X>@ansible-1 ~]$ cd ~/rhel-workshop/
@@ -74,57 +106,6 @@ Navigate to the `rhel-workshop` directory on the Ansible control node terminal.
 * `cd` - Linux command to change directory
 * `pwd` - Linux command for print working directory.  This will show the full path to the current working directory.
 
-### Step 3 - Examining Execution Environments
-
-Run the `ansible-navigator` command with the `images` argument to look at execution environments configured on the control node:
-
-```bash
-$ ansible-navigator images
-```
-
-![ansible-navigator images](images/navigator-images.png)
-
-
-!!! note
-    The output  you see might differ from the above output
-
-This command gives you information about all currently installed Execution Environments or EEs for short.  Investigate an EE by pressing the corresponding number.  For example pressing **2** with the above example will open the `ee-supported-rhel8` execution environment:
-
-![ee main menu](images/navigator-ee-menu.png)
-
-Selecting `2` for `Ansible version and collections` will show us all Ansible Collections installed on that particular EE, and the version of `ansible-core`:
-
-![ee info](images/navigator-ee-collections.png)
-
-### Step 4 - Examining the ansible-navigator configuration
-
-Either use Visual Studio Code to open or use the `cat` command to view the contents of the `ansible-navigator.yml` file.  The file is located in the home directory:
-
-```bash
-$ cat ~/.ansible-navigator.yml
----
-ansible-navigator:
-  ansible:
-    inventories:
-    - /home/student<X>/lab_inventory/hosts
-
-  execution-environment:
-    image: registry.redhat.io/ansible-automation-platform-20-early-access/ee-supported-rhel8:2.0.0
-    enabled: true
-    container-engine: podman
-    pull-policy: missing
-    volume-mounts:
-    - src: "/etc/ansible/"
-      dest: "/etc/ansible/"
-```
-
-Note the following parameters within the `ansible-navigator.yml` file:
-
-* `inventories`: shows the location of the ansible inventory being used
-* `execution-environment`: where the default execution environment is set
-
-For a full listing of every configurable knob checkout the [documentation](https://ansible-navigator.readthedocs.io/en/latest/settings/)
-
-### Step 5 - Challenge Labs
+### Step 3 - Challenge Labs
 
 You will soon discover that many chapters in this lab guide come with a "Challenge Lab" section. These labs are meant to give you a small task to solve using what you have learned so far. The solution of the task is shown underneath a warning sign.

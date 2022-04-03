@@ -1,58 +1,15 @@
-# Ansible Workshop - Ansible for Red Hat Enterprise Linux
-
-If you’re new to Ansible Automation, this workshop consists of two parts:
-
-1. starting with the basics of understanding foundational command line activities 
-2. applying what you’ve learned to implement Ansible automation controller to your enterprise use cases. 
-
-You’ll start off by writing your first Ansible playbook, work on Jinja templates, and implement higher-level Ansible roles. Next you’ll get started on automation controller, understand inventory and credential management, projects, job templates, surveys, workflows and more.
-
-After finishing this lab you are ready to start using Ansible for your automation requirements.
-
-## Presentations
-
-The exercises are self explanatory and guide the participants through the entire lab. All concepts are explained when they are introduced.
-
-There is an optional presentation available to support the workshops and explain Automation, the basics of Ansible and the topics of the exercises in more detail:
-[Ansible RHEL Automation](../../decks/ansible_rhel.pdf)
-
-Also have a look at our Ansible Best Practices Deck:
-[Ansible Best Practices](../../decks/ansible_best_practices.pdf)
-
-## Time planning
-
-The time required to do the workshops strongly depends on multiple factors: the number of participants, how familiar those are with Linux in general and how much discussions are done in between.
-
-Having said that, the exercises themselves should take roughly 4-5 hours. The first section is slightly longer than the second one. The accompanying presentation itself adds another hour.
+# RedHat Demo Environment
 
 ## Lab Diagram
 
 ![ansible rhel lab diagram](rhel_lab_diagram.png)
 
-## Section 1 - Command-line Ansible Exercises
+## Visual Studio Code
 
-* [Exercise 1.1 - Check the Prerequisites](ansible-core-intro.md)
-* [Exercise 1.2 - The Ansible Basics](ansible-core-basics.md)
-* [Exercise 1.3 - Writing Your First Playbook](ansible-core-playbook.md)
-* [Exercise 1.4 - Using Variables](ansible-core-variables.md)
-* [Exercise 1.5 - Conditionals, Handlers and Loops](ansible-core-handlers.md)
-* [Exercise 1.6 - Templates](ansible-core-templates.md)
-* [Exercise 1.7 - Roles](ansible-core-roles.md)
+At its heart, Visual Studio Code is a code editor. Like many other code editors, VS Code adopts a common user interface and layout of an explorer on the left, showing all of the files and folders you have access to, and an editor on the right, showing the content of the files you have opened.
 
-## Section 2 - Ansible Automation Platform Exercises
+!!! tip
+    It is highly recommended to use the *VS Code Editor* to write your playbooks, it has **automatic saving** and syntax highlighting enabled!
 
-* [Exercise 2.1 - Introduction to automation controller](automation-platform-intro.md)
-* [Exercise 2.2 - Inventories, credentials and ad hoc commands](automation-platform-credentials.md)
-* [Exercise 2.3 - Projects & job templates](automation-platform-projects.md)
-* [Exercise 2.4 - Surveys](automation-platform-surveys.md)
-* [Exercise 2.5 - Role based access control](automation-platform-rbac.md)
-* [Exercise 2.6 - Workflows](automation-platform-workflows.md)
-* [Exercise 2.7 - Wrap up](automation-platform-wrapup.md)
-
-## Supplemental Exercises
-
-There is also a series of exercises that go above and beyond our normal workshop content.  Please check out our supplemental exercises if you want more content to learn from.
-
-* [Supplemental Exercises](ansible-core-supplemental.md)
-
-![Red Hat Ansible Automation](rh-ansible-automation-platform.png)
+If you want the real YAML challenge, try to write all your playbooks in the terminal/on the command-line. Expect to struggle at first with indentation, which leads to errors trying to run your playbooks.  
+Nevertheless, mastering to write Ansible playbooks without the help of a Code editor is the best possible way to really understand the YAML syntax. It doesn't take long and is highly rewarding.

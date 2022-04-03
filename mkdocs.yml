@@ -3,9 +3,9 @@ site_name: Ansible Workshop
 copyright: Copyright &copy; Computacenter 2022
 extra:
   social:
-    - icon: fontawesome/brands/git
+    - icon: fontawesome/brands/gitlab
       link: https://gitlab.ccloud.ninja/tgruetzmacher/ansible-workshop-exercises
-      name: Projekt im Gitlab
+      name: Project in Gitlab
     - icon: fontawesome/brands/docker
       link: https://gitlab.ccloud.ninja/tgruetzmacher/ansible-workshop-exercises/-/blob/main/dockerfiles/slim/Dockerfile
       name: Container Definition
@@ -17,16 +17,16 @@ theme:
   # Comment in, if you want to make an announcement
   # custom_dir: docs/overrides
   icon:
-    repo: fontawesome/brands/gitlab
+    repo: fontawesome/brands/github
   logo: assets/ansible-logo-black.png
   language: de
   favicon: assets/ansible-logo-black.png
   features:
     - navigation.tabs
     - navigation.tabs.sticky
+    - navigation.top
   palette:
-    - scheme: default
-      primary: blue
+    - scheme: computacenter
       toggle:
         icon: material/toggle-switch-off-outline 
         name: Switch to dark mode
@@ -69,12 +69,14 @@ markdown_extensions:
         - name: mermaid
           class: mermaid
           format: !!python/name:mermaid2.fence_mermaid
+  - pymdownx.tabbed:
+      alternate_style: true 
   - tables
-repo_url: https://gitlab.ccloud.ninja/tgruetzmacher/ansible-workshop-exercises
-repo_name: tgruetzmacher/ansible-workshop-exercises
+repo_url: https://github.com/TimGrt/Ansible-Workshop-Exercises
+repo_name: timgrt/ansible-workshop-exercises
 # Navigation definition
 nav:
-  - "Home":
+  - "Demo Environment":
     - demo-environment/demo-environment.md
     - demo-environment/editor-alternatives.md
   - "Day 1":
