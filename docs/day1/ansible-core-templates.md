@@ -20,15 +20,11 @@ First create the directory `templates` to hold template resources in `~/ansible-
 
 Then in the `~/ansible-files/templates/` directory create the template file `motd-facts.j2`:
 
-<!-- {% raw %} -->
-
 ```html+jinja
 Welcome to {{ ansible_hostname }}.
 {{ ansible_distribution }} {{ ansible_distribution_version}}
 deployed on {{ ansible_architecture }} architecture.
 ```
-
-<!-- {% endraw %} -->
 
 The template file contains the basic text that will later be copied over. It also contains variables which will be replaced on the target machines individually.
 
@@ -64,9 +60,9 @@ Add a line to the template to list the current kernel of the managed node.
 * Find a fact that contains the kernel version using the commands you learned in the "Ansible Facts" chapter.
 
 !!! tip
-    filter for kernel
+    Filter for *kernel*.
 
-> Run the newly created playbook to find the fact name. 
+Run the newly created playbook to find the fact name. 
 
 * Change the template to use the fact you found.
 
@@ -78,19 +74,17 @@ Add a line to the template to list the current kernel of the managed node.
 <details>
 <summary><b>Solution</b></summary>
 
-* Find the fact:
+Find the fact:
 
 ```yaml
 ---
 - name: Capture Kernel Version
   hosts: node1
-
   tasks:
-
     - name: Collect only kernel facts
       ansible.builtin.setup:
         filter:
-        - '*kernel'
+          - '*kernel'
       register: setup
 
     - debug:
@@ -114,12 +108,9 @@ ok: [node1] => {
 ```
 
 With this we can conclude the variable we are looking for is labeled `ansible_kernel`.
-
 Then we can update the motd-facts.j2 template to include `ansible_kernel` as part of its message.
 
-* Modify the template `motd-facts.j2`:
-
-<!-- {% raw %} -->
+Modify the template `motd-facts.j2`:
 
 ```html+jinja
 Welcome to {{ ansible_hostname }}.
@@ -128,15 +119,13 @@ deployed on {{ ansible_architecture }} architecture
 running kernel {{ ansible_kernel }}.
 ```
 
-<!-- {% endraw %} -->
-
-* Run the playbook.
+Run the playbook.
 
 ```bash
-[student<X>@ansible-1 ~]$ ansible-navigator run motd-facts.yml -m stdout
+[student<X>@ansible-1 ~]$ ansible-playbooks motd-facts.yml
 ```
 
-* Verify the new message via SSH login to `node1`.
+Verify the new message via SSH login to `node1`.
 
 ```bash
 [student<X>@ansible-1 ~]$ ssh node1

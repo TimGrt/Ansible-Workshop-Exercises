@@ -137,10 +137,3 @@ Just recall what you have just done: You enabled a restricted user to run an Ans
 Effectively you provided the power to execute automation to another user without handing out your credentials or giving the user the ability to change the automation code. And yet, at the same time the user can still modify things based on the surveys you created.
 
 This capability is one of the main strengths of Ansible automation controller\!
-
----
-**Navigation**
-<br>
-[Previous Exercise](../2.4-surveys) - [Next Exercise](../2.6-workflows)
-
-[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-2---ansible-tower-exercises)

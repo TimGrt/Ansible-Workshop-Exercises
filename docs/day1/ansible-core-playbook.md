@@ -6,9 +6,9 @@ This exercise covers using Ansible to build two Apache web servers on Red Hat En
 
 * Understanding Ansible module parameters
 * Understanding and using the following modules
-  * [yum module](https://docs.ansible.com/ansible/latest/modules/yum_module.html)
-  * [service module](https://docs.ansible.com/ansible/latest/modules/service_module.html)
-  * [copy module](https://docs.ansible.com/ansible/latest/modules/copy_module.html)
+    * [yum module](https://docs.ansible.com/ansible/latest/modules/yum_module.html)
+    * [service module](https://docs.ansible.com/ansible/latest/modules/service_module.html)
+    * [copy module](https://docs.ansible.com/ansible/latest/modules/copy_module.html)
 * Understanding [Idempotence](https://en.wikipedia.org/wiki/Idempotence) and how Ansible modules can be idempotent
 
 ## Guide
@@ -58,14 +58,14 @@ There is a [best practice](https://docs.ansible.com/ansible/latest/user_guide/pl
 
 Instead, we are going to create a very simple directory structure for our playbook, and add just a couple of files to it.
 
-On your control host **ansible**, create a directory called `ansible-files` in your home directory and change directories into it:
+On your control host **ansible-1**, create a directory called `ansible-files` in your home directory and change directories into it:
 
 ```bash
 [student<X>@ansible-1 ~]$ mkdir ansible-files
 [student<X>@ansible-1 ~]$ cd ansible-files/
 ```
 
-Add a file called `apache.yml` with the following content. As discussed in the previous exercises, use `vi`/`vim` or, if you are new to editors on the command line, check out the [editor intro](../0.0-support-docs/editor_intro.md) again.
+Add a file called `apache.yml` with the following content. As discussed in the previous exercises, use `vi`/`vim` or, if you are new to editors on the command line, check out the [editor alternatives](editor-alternatives.md) again.
 
 ```yaml
 ---
@@ -91,10 +91,10 @@ Now that we've defined the play, let's add a task to get something done. We will
   hosts: node1
   become: yes
   tasks:
-  - name: latest Apache version installed
-    yum:
-      name: httpd
-      state: latest
+    - name: latest Apache version installed
+      yum:
+        name: httpd
+        state: latest
 ```
 
 !!! tip
@@ -105,8 +105,8 @@ In the added lines:
 * We started the tasks part with the keyword `tasks:`.
 * A task is named and the module for the task is referenced. Here it uses the `yum` module.
 * Parameters for the module are added:
-  * `name:` to identify the package name
-  * `state:` to define the wanted state of the package
+    * `name:` to identify the package name
+    * `state:` to define the wanted state of the package
 
 !!! tip
     The module parameters are individual to each module. If in doubt, look them up again with `ansible-doc`.
@@ -115,72 +115,19 @@ Save your playbook and exit your editor.
 
 ### Step 3 - Running the Playbook
 
-With the introduction of Ansible Automation Platform 2, several new key components are being introduced as a part of the overall developer experience. Execution environments have been introduced to provide predictable environments to be used during automation runtime. All collection dependencies are contained within the execution environment to ensure that automation created in development environments runs the same as in production environments.
+To run your playbook, use the `ansible-playbook <playbook>` command as follows:
 
-What do you find within an execution environment?
-
-* RHEL UBI 8
-* Ansible 2.9 or Ansible Core 2.11
-* Python 3.8
-* Any content Collections
-* Collection python or binary dependencies.
-
-Why use execution environments?
-
-They provide a standardized way to define, build and distribute the environments that the automation runs in. In a nutshell, Automation execution environments are container images that allow for easier administration of Ansible by the platform administrator.
-
-Considering the shift towards containerized execution of automation, automation development workflow and tooling that existed before Ansible Automation Platform 2 have had to be reimagined. In short, `ansible-navigator` replaces `ansible-playbook` and other `ansible-*` command line utilities.
-
-With this change, Ansible playbooks are executed using the `ansible-navigator` command on the control node.
-
-The prerequisites and best practices for using `ansible-navigator` have been done for you within this lab.
-
-These include:
-* Installing the `ansible-navigator` package
-* Creating a default settings `/home/student<X>/.ansible-navigator.yml` for all your projects (optional)
-* All execution environment (EE) logs are stored within `/home/student<X>/.ansible-navigator/logs/ansible-navigator.log`
-* Playbook artifacts are saved under `/tmp/artifact.json`
-
-For more information on the [Ansible navigator settings](https://github.com/ansible/ansible-navigator/blob/main/docs/settings.rst)
+=== "Ansible"
+    ```bash
+    [student<X>@ansible-1 ansible-files]$ ansible-playbook apache.yml
+    ```
+=== "Navigator"
+    ```bash
+    [student<X>@ansible-1 ansible-files]$ ansible-navigator run apache.yml
+    ```
 
 !!! tip
-    The parameters for ansible-navigator maybe modified for your specific environment. The current settings use a default `ansible-navigator.yml` for all projects, but a specific `ansible-navigator.yml` can be created for each project and is the recommended practice.
-
-To run your playbook, use the `ansible-navigator run <playbook>` command as follows:
-
-```bash
-[student<X>@ansible-1 ansible-files]$ ansible-navigator run apache.yml
-```
-
-!!! tip
-    The existing `ansible-navigator.yml` file provides the location of your inventory file. If this was not set within your `ansible-navigator.yml` file, the command to run the playbook would be: `ansible-navigator run apache.yml -i /home/student<X>/lab_inventory/hosts`
-
-When running the playbook, you'll be displayed a text user interface (TUI) that displays the play name among other information about the playbook that is currently run.
-
-```bash
-  PLAY NAME                        OK  CHANGED    UNREACHABLE      FAILED    SKIPPED    IGNORED    IN PROGRESS     TASK COUNT          PROGRESS
-0│Apache server installed           2        1              0           0          0          0              0              2          COMPLETE
-```
-
-If you notice, prior to the play name `Apache server installed`, you'll see a `0`. By pressing the `0` key on your keyboard, you will be provided a new window view displaying the different tasks that ran for the playbook completion. In this example, those tasks included the "Gathering Facts" and "latest Apache version installed". The "Gathering Facts" is a built-in task that runs automatically at the beginning of each play. It collects information about the managed nodes. Exercises later on will cover this in more detail. The "latest Apache version installed" was the task created within the `apache.yml` file that installed `httpd`.
-
-The display should look something like this:
-
-```bash
-  RESULT      HOST	NUMBER      CHANGED       TASK                                                   TASK ACTION           DURATION
-0│OK          node1          0        False       Gathering Facts                                        gather_facts                1s
-1│OK          node1          1         True       latest Apache version installed                        yum                         4s
-```
-
-Taking a closer look, you'll notice that each task is associated with a number. Task 1, "latest Apache version installed", had a change and used the `yum` module. In this case, the change is the installation of Apache (`httpd` package) on the host `node1`.
-
-By pressing `0` or `1` on your keyboard, you can see further details of the task being run. If a more traditional output view is desired, type `:st` within the text user interface.
-
-Once you've completed, reviewing your Ansible playbook, you can exit out of the TUI via the Esc key on your keyboard.
-
-!!! tip
-    The Esc key only takes you back to the previous screen. Once at the main overview screen an additional Esc key will take you back to the terminal window.
-
+    The existing `/home/student<X>/.ansible.cfg` file provides the location of your inventory file. If this was not set within your `ansible.cfg` file, the command to run the playbook would be: `ansible-playbook -i /home/student<X>/lab_inventory/hosts apache.yml`
 
 Once the playbook has completed, connect to `node1` via SSH to make sure Apache has been installed:
 
@@ -201,7 +148,6 @@ Version     : 2.4.37
 
 Log out of `node1` with the command `exit` so that you are back on the control host and verify the installed package with an Ansible playbook labeled `package.yml`
 
-{% raw %}
 ```yaml
 ---
 - name: Check packages
@@ -221,12 +167,17 @@ Log out of `node1` with the command `exit` so that you are back on the control h
       when: "package in ansible_facts.packages"
 
 ```
-{% endraw %}
 
+=== "Ansible"
+    ```bash
+    [student<X>@ansible-1 ~]$ ansible-playbook package.yml
+    ```
+=== "Navigator"
+    ```bash
+    [student<X>@ansible-1 ~]$ ansible-navigator run package.yml -m stdout
+    ```
 
-```bash
-[student<X>@ansible-1 ~]$ ansible-navigator run package.yml -m stdout
-```
+The output should look like this:
 
 ```bash
 
@@ -247,7 +198,7 @@ PLAY RECAP *********************************************************************
 ansible                    : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 ```
 
-Run the the `ansible-navigator run apache.yml` playbook for a second time, and compare the output. The output "CHANGED" now shows `0` instead of `1` and the color changed from yellow to green. This makes it easier to spot when changes have occured when running the Ansible playbook.
+Execute the command `ansible-playbook apache.yml` for a second time, and compare the output.
 
 ### Step 4 - Extend your Playbook: Start & Enable Apache
 
@@ -261,15 +212,15 @@ On the control host, as your student user, edit the file `~/ansible-files/apache
   hosts: node1
   become: yes
   tasks:
-  - name: latest Apache version installed
-    yum:
-      name: httpd
-      state: latest
-  - name: Apache enabled and running
-    service:
-      name: httpd
-      enabled: true
-      state: started
+    - name: latest Apache version installed
+      yum:
+        name: httpd
+        state: latest
+    - name: Apache enabled and running
+      service:
+        name: httpd
+        enabled: true
+        state: started
 ```
 
 What exactly did we do?
@@ -278,21 +229,24 @@ What exactly did we do?
 * a module is specified (`service`)
 * The module `service` takes the name of the service (`httpd`), if it should be permanently set (`enabled`), and its current state (`started`)
 
-
 Thus with the second task we make sure the Apache server is indeed running on the target machine. Run your extended Playbook:
 
-```bash
-[student<X>@ansible-1 ~]$ ansible-navigator run apache.yml
-```
+=== "Ansible"
+    ```bash
+    [student<X>@ansible-1 ~]$ ansible-playbook apache.yml
+    ```
+=== "Navigator"
+    ```bash
+    [student<X>@ansible-1 ~]$ ansible-navigator run apache.yml
+    ```
 
 Notice in the output, we see the play had `1` "CHANGED" shown in yellow and if we press `0` to enter the play output, you can see that task 2, "Apache enabled and running", was the task that incorporated the latest change by the "CHANGED" value being set to True and highlighted in yellow.
 
 
-* Run the playbook a second time using `ansible-navigator` to get used to the change in the output.
+* Run the playbook a second time  to get used to the change in the output.
 
-* Use an Ansible playbook labeled service_state.yml to make sure the Apache (httpd) service is running on `node1`, e.g. with: `systemctl status httpd`.
+* Use an Ansible playbook labeled `service_state.yml` to make sure the Apache (httpd) service is running on `node1`.
 
-{% raw %}
 ```yaml
 ---
 - name: Check Status
@@ -310,17 +264,21 @@ Notice in the output, we see the play had `1` "CHANGED" shown in yellow and if w
         var: service_state.ansible_facts.services["{{ package }}.service"].state
 ```
 
-```bash
-{% endraw %}
+=== "Ansible"
+    ```bash
+    [student<X>@ansible-1 ~]$ ansible-playbook service_state.yml
+    ```
+=== "Navigator"
+    ```bash
+    [student<X>@ansible-1 ~]$ ansible-navigator run service_state.yml
+    ```
 
-[student<X>@ansible-1 ~]$ ansible-navigator run service_state.yml
-```
+Checking the service state manually on `node1` with: `systemctl status httpd`.
 
 ### Step 5 - Extend your Playbook: Create an web.html
 
-Check that the tasks were executed correctly and Apache is accepting connections: Make an HTTP request using Ansible’s `uri` module in a playbook named check_httpd.yml from the control node to `node1`.
+Check that the tasks were executed correctly and Apache is accepting connections: Make an HTTP request using Ansible’s `uri` module in a playbook named `check_httpd.yml` from the control node to `node1`.
 
-{% raw %}
 ```yaml
 ---
 - name: Check URL
@@ -334,14 +292,18 @@ Check that the tasks were executed correctly and Apache is accepting connections
         url: "http://{{ node }}"
 
 ```
-{% endraw %}
 
 !!! warning
     **Expect a lot of red lines and a 403 status\!**
 
-```bash
-[student<X>@ansible-1 ~]$ ansible-navigator run check_httpd.yml -m stdout
-```
+=== "Ansible"
+    ```bash
+    [student<X>@ansible-1 ~]$ ansible-playbook check_httpd.yml
+    ```
+=== "Navigator"
+    ```bash
+    [student<X>@ansible-1 ~]$ ansible-navigator run check_httpd.yml -m stdout
+    ```
 
 There are a lot of red lines and an error: As long as there is not at least an `web.html` file to be served by Apache, it will throw an ugly "HTTP Error 403: Forbidden" status and Ansible will report an error.
 
@@ -369,32 +331,37 @@ On the control node as your student user edit the file `~/ansible-files/apache.y
   hosts: node1
   become: yes
   tasks:
-  - name: latest Apache version installed
-    yum:
-      name: httpd
-      state: latest
-  - name: Apache enabled and running
-    service:
-      name: httpd
-      enabled: true
-      state: started
-  - name: copy web.html
-    copy:
-      src: web.html
-      dest: /var/www/html/index.html
+    - name: latest Apache version installed
+      yum:
+        name: httpd
+        state: latest
+    - name: Apache enabled and running
+      service:
+        name: httpd
+        enabled: true
+        state: started
+    - name: copy web.html
+      copy:
+        src: web.html
+        dest: /var/www/html/index.html
 ```
 
 What does this new copy task do? The new task uses the `copy` module and defines the source and destination options for the copy operation as parameters.
 
 Run your extended Playbook:
 
-```bash
-[student<X>@ansible-1 ansible-files]$ ansible-navigator run apache.yml -m stdout
-```
+=== "Ansible"
+    ```bash
+    [student<X>@ansible-1 ansible-files]$ ansible-playbook apache.yml
+    ```
+=== "Navigator"
+    ```bash
+    [student<X>@ansible-1 ansible-files]$ ansible-navigator run apache.yml -m stdout
+    ```
 
 * Have a good look at the output, notice the changes of "CHANGED" and the tasks associated with that change.
 
-* Run the Ansible playbook check_httpd.yml using the "uri" module from above again to test Apache. The command should now return a friendly green "status: 200" line, amongst other information.
+* Run the Ansible playbook `check_httpd.yml` using the "uri" module from above again to test Apache. The command should now return a friendly green "status: 200" line, amongst other information.
 
 ### Step 6 - Practice: Apply to Multiple Host
 
@@ -439,8 +406,13 @@ Change the playbook `hosts` parameter to point to `web` instead of `node1`:
 
 Now run the playbook:
 
-```bash
-[student<X>@ansible-1 ansible-files]$ ansible-navigator run apache.yml -m stdout
-```
+=== "Ansible"
+    ```bash
+    [student<X>@ansible-1 ansible-files]$ ansible-playbook apache.yml
+    ```
+=== "Navigator"
+    ```bash
+    [student<X>@ansible-1 ansible-files]$ ansible-navigator run apache.yml -m stdout
+    ```
 
 Verify if Apache is now running on all web servers (node1, node2, node3). All output should be green.

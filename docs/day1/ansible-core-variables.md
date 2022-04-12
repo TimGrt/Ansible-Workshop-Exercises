@@ -1,6 +1,5 @@
 # 1.4 - Using Variables
 
-
 ## Objective
 
 Ansible supports variables to store values that can be used in Ansible playbooks. Variables can be defined in a variety of places and have a clear precedence. Ansible substitutes the variable with its value when a task is executed.
@@ -18,13 +17,9 @@ This exercise covers variables, specifically
 
 Variables are referenced in Ansible Playbooks by placing the variable name in double curly braces:
 
-<!-- {% raw %} -->
-
 ```yaml
 Here comes a variable {{ variable1 }}
 ```
-
-<!-- {% endraw %} -->
 
 Variables and their values can be defined in various places: the inventory, additional files, on the command line, etc.
 
@@ -96,27 +91,28 @@ Create a new Playbook called `deploy_index_html.yml` in the `~/ansible-files/` d
 !!! tip
     Note how the variable "stage" is used in the name of the file to copy.
 
-<!-- {% raw %} -->
-
 ```yaml
 ---
 - name: Copy web.html
   hosts: web
   become: true
   tasks:
-  - name: copy web.html
-    copy:
-      src: "{{ stage }}_web.html"
-      dest: /var/www/html/index.html
+    - name: copy web.html
+      copy:
+        src: "{{ stage }}_web.html"
+        dest: /var/www/html/index.html
 ```
-
-<!-- {% endraw %} -->
 
 * Run the Playbook:
 
-```bash
-[student<X>@ansible-1 ansible-files]$ ansible-navigator run deploy_index_html.yml
-```
+=== "Ansible"
+    ```bash
+    [student<X>@ansible-1 ansible-files]$ ansible-playbook deploy_index_html.yml
+    ```
+=== "Navigator"
+    ```bash
+    [student<X>@ansible-1 ansible-files]$ ansible-navigator run deploy_index_html.yml
+    ```
 
 ### Step 4 - Test the Result
 
@@ -162,13 +158,11 @@ To get an idea what facts Ansible collects by default, on your control node as y
 ---
 - name: Capture Setup
   hosts: node1
-
   tasks:
-
     - name: Collect only facts returned by facter
       ansible.builtin.setup:
         gather_subset:
-        - 'all'
+          - 'all'
       register: setup
 
     - debug:
@@ -186,23 +180,27 @@ This might be a bit too much, you can use filters to limit the output to certain
 ---
 - name: Capture Setup
   hosts: node1
-
   tasks:
-
     - name: Collect only specific facts
       ansible.builtin.setup:
         filter:
-        - 'ansible_eth0'
-        - 'ansible_*_mb'
+          - 'ansible_eth0'
+          - 'ansible_*_mb'
       register: setup
 
     - debug:
         var: setup
 ```
+Run the playbook:
 
-```bash
-[student<X>@ansible-1 ansible-files]$ ansible-navigator run setup_filter.yml -m stdout
-```
+=== "Ansible"
+    ```bash
+    [student<X>@ansible-1 ansible-files]$ ansible-playbook setup_filter.yml
+    ```
+=== "Navigator"
+    ```bash
+    [student<X>@ansible-1 ansible-files]$ ansible-navigator run setup_filter.yml -m stdout
+    ```
 
 ### Step 6 - Challenge Lab: Facts
 
@@ -219,13 +217,11 @@ This might be a bit too much, you can use filters to limit the output to certain
 ---
 - name: Capture Setup
   hosts: node1
-
   tasks:
-
     - name: Collect only specific facts
       ansible.builtin.setup:
         filter:
-        - '*distribution'
+          - '*distribution'
       register: setup
 
     - debug:
@@ -264,6 +260,12 @@ filter:
 - 'ansible_distribution'
 ```
 
+Run the playbook:
+```bash
+[student<X>@ansible-1 ansible-files]$ ansible-playbook setup_filter.yml
+```
+
+Optionally, run the playbook with the *ansible-navigator*:
 ```bash
 [student<X>@ansible-1 ansible-files]$ ansible-navigator run setup_filter.yml -m stdout
 ```
@@ -275,31 +277,31 @@ filter:
 
 Facts can be used in a Playbook like variables, using the proper naming, of course. Create this Playbook as `facts.yml` in the `~/ansible-files/` directory:
 
-<!-- {% raw %} -->
-
 ```yaml
 ---
 - name: Output facts within a playbook
   hosts: all
   tasks:
-  - name: Prints Ansible facts
-    debug:
-      msg: The default IPv4 address of {{ ansible_fqdn }} is {{ ansible_default_ipv4.address }}
+    - name: Prints Ansible facts
+      debug:
+        msg: The default IPv4 address of {{ ansible_fqdn }} is {{ ansible_default_ipv4.address }}
 ```
-
-<!-- {% endraw %} -->
 
 !!! tip
     The "debug" module is handy for e.g. debugging variables or expressions.
 
 Execute it to see how the facts are printed:
 
-```bash
-[student<X>@ansible-1 ansible-files]$ ansible-navigator run facts.yml
-```
+=== "Ansible"
+    ```bash
+    [student<X>@ansible-1 ansible-files]$ ansible-playbook facts.yml
+    ```
+=== "Navigator"
+    ```bash
+    [student<X>@ansible-1 ansible-files]$ ansible-navigator run facts.yml
+    ```
 
-Within the text user interface (TUI) window, type `:st` to capture the following output:
-
+Examine the output:
 ```bash
 PLAY [Output facts within a playbook] ******************************************
 

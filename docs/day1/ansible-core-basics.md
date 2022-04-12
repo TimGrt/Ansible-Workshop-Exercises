@@ -156,13 +156,13 @@ We can clearly see that nodes: `node1`, `node2`, `node3` are part of the `web` g
 
 An inventory file can contain a lot more information, it can organize your hosts in groups or define variables. In our example, the current inventory has the groups `web` and `control`.
 
-Using the `ansible-navigator` command, we can also run commands that provide information only for one host or group. For example, give the following commands a try to see their output.
+Using the `ansible-inventory` command, we can also run commands that provide information only for one host or group. For example, give the following commands a try to see their output.
 
 === "Ansible"
     ```bash
-    [student<X>@ansible-1 ~]$ ansible-navigator inventory --graph web -m stdout
-    [student<X>@ansible-1 ~]$ ansible-navigator inventory --graph control -m stdout
-    [student<X>@ansible-1 ~]$ ansible-navigator inventory --host node1 -m stdout
+    [student<X>@ansible-1 ~]$ ansible-inventory --graph web
+    [student<X>@ansible-1 ~]$ ansible-inventory --graph control
+    [student<X>@ansible-1 ~]$ ansible-inventory --host node1
     ```
 
 === "Navigator"

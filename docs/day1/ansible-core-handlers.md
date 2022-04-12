@@ -150,14 +150,11 @@ Loops enable us to repeat the same task over and over again. For example, lets s
 
 To show the loops feature we will generate three new users on `node1`. For that, create the file `loop_users.yml` in `~/ansible-files` on your control node as your student user. We will use the `user` module to generate the user accounts.
 
-<!-- {% raw %} -->
-
 ```yaml
 ---
 - name: Ensure users
   hosts: node1
   become: true
-
   tasks:
     - name: Ensure three users are present
       user:
@@ -169,17 +166,11 @@ To show the loops feature we will generate three new users on `node1`. For that,
          - prod_user
 ```
 
-<!-- {% endraw %} -->
-
 Understand the playbook and the output:
-
-<!-- {% raw %} -->
 
 * The names are not provided to the user module directly. Instead, there is only a variable called `{{ item }}` for the parameter `name`.
 * The `loop` keyword lists the actual user names. Those replace the `{{ item }}` during the actual execution of the playbook.
 * During execution the task is only listed once, but there are three changes listed underneath it.
-
-<!-- {% endraw %} -->
 
 ### Step 4 - Loops over hashes
 
@@ -198,14 +189,11 @@ The `user` module has the optional parameter `groups` to list additional users. 
 
 Let's rewrite the playbook to create the users with additional user rights:
 
-<!-- {% raw %} -->
-
 ```yaml
 ---
 - name: Ensure users
   hosts: node1
   become: true
-
   tasks:
     - name: Ensure three users are present
       user:
@@ -219,15 +207,12 @@ Let's rewrite the playbook to create the users with additional user rights:
 
 ```
 
-<!-- {% endraw %} -->
-
 Check the output:
 
 * Again the task is listed once, but three changes are listed. Each loop with its content is shown.
 
 Verify that the user `dev_user` was indeed created on `node1` using the following playbook:
 
-{% raw %}
 ```yaml
 ---
 - name: Get user ID
@@ -243,10 +228,9 @@ Verify that the user `dev_user` was indeed created on `node1` using the followin
         msg:
           - "{{ myuser }} uid: {{ getent_passwd['dev_user'].1 }}"
 ```
-{% endraw %}
 
 ```bash
-$ ansible-navigator run user_id.yml -m stdout
+$ ansible-playbook user_id.yml
 
 PLAY [Get user ID] *************************************************************
 

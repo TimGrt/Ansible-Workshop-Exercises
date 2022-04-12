@@ -111,7 +111,7 @@ The `main.yml` file in the tasks subdirectory of the role should do the followin
 * Install the template provided to configure the vhost
 
 !!! note
-    **The `main.yml` (and other files possibly included by main.yml) can only contain tasks, *not* complete playbooks!**
+    The `main.yml` (and other files possibly included by main.yml) can **only contain tasks**, **not** complete playbooks!
 
 Edit the `roles/apache_vhost/tasks/main.yml` file:
 
@@ -138,8 +138,6 @@ The tasks added so far do:
 
 Next we add two more tasks to ensure a vhost directory structure and copy html content:
 
-<!-- {% raw %} -->
-
 ```yaml
 - name: ensure vhost directory is present
   file:
@@ -151,8 +149,6 @@ Next we add two more tasks to ensure a vhost directory structure and copy html c
     src: web.html
     dest: "/var/www/vhosts/{{ ansible_hostname }}/index.html"
 ```
-
-<!-- {% endraw %} -->
 
 Note that the vhost directory is created/ensured using the `file` module.
 
@@ -173,8 +169,6 @@ The last task we add uses the template module to create the vhost configuration 
 Note it is using a handler to restart httpd after an configuration update.
 
 The full `tasks/main.yml` file is:
-
-<!-- {% raw %} -->
 
 ```yaml
 ---
@@ -210,8 +204,6 @@ The full `tasks/main.yml` file is:
     - restart_httpd
 ```
 
-<!-- {% endraw %} -->
-
 ### Step 4 - Create the handler
 
 Create the handler in the file `roles/apache_vhost/handlers/main.yml` to restart httpd when notified by the template task:
@@ -229,7 +221,7 @@ Create the handler in the file `roles/apache_vhost/handlers/main.yml` to restart
 
 Create the HTML content that will be served by the webserver.
 
-* Create an web.html file in the "src" directory of the role, `files`:
+* Create an `web.html` file in the "src" directory of the role, the `files` folder. Add a simple string to the file, e.g.:
 
 ```bash
 #> echo 'simple vhost index' > ~/ansible-files/roles/apache_vhost/files/web.html
@@ -238,8 +230,6 @@ Create the HTML content that will be served by the webserver.
 * Create the `vhost.conf.j2` template file in the role's `templates` subdirectory.
 
 The contents of the `vhost.conf.j2` template file are found below.
-
-<!-- {% raw %} -->
 
 ```text
 # {{ ansible_managed }}
@@ -258,8 +248,6 @@ The contents of the `vhost.conf.j2` template file are found below.
     </Directory>
 </VirtualHost>
 ```
-
-<!-- {% endraw %} -->
 
 ### Step 6 - Test the role
 
@@ -287,9 +275,14 @@ Note the `pre_tasks` and `post_tasks` keywords. Normally, the tasks of roles exe
 
 Now you are ready to run your playbook:
 
-```bash
-[student<X>@ansible-1 ansible-files]$ ansible-navigator run test_apache_role.yml
-```
+=== "Ansible"
+    ```bash
+    [student<X>@ansible-1 ansible-files]$ ansible-playbook test_apache_role.yml
+    ```
+=== "Navigator"
+    ```bash
+    [student<X>@ansible-1 ansible-files]$ ansible-navigator run test_apache_role.yml
+    ```
 
 Run a curl command against `node2` to confirm that the role worked:
 
@@ -308,10 +301,16 @@ Did the final curl work?  You can see what ports the web server is running by us
 #> sudo netstat -tulpn
 ```
 
+If *netstat* is not present, install it with this command:
+
+```bash
+#> sudo yum install -y net-tools
+```
+
 There should be a line like this:
 
 ```bash
 tcp6       0      0 :::8080                 :::*                    LISTEN      25237/httpd
 ```
 
-If it is not working make sure that `/etc/httpd/conf/httpd.conf` has `Listen 8080` in it.  This should have been changed by [Exercise 1.5](../1.5-handlers)
+If it is not working make sure that `/etc/httpd/conf/httpd.conf` has `Listen 8080` in it.  This should have been changed by [Exercise 1.5](ansible-core-handlers.md)
