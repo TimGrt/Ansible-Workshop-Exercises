@@ -27,3 +27,8 @@ Automation operators are typically the primary individuals who interact directly
 
 ### Who will use automation content navigator?
 The automation content navigator is mainly geared towards developers of automation. This can mean people creating automated tasks with available modules, those migrating roles into Collections or those who are developing modules from the ground up. Content navigator runs as a textual user interface and looks great within a terminal session, even while running inside popular code editors with included terminal panes.
+
+### Automation mesh
+![Automation mesh](mesh_logical.png)
+
+Automation mesh is an overlay network intended to ease the distribution of work across a large and dispersed collection of workers. Mesh nodes establish peer-to-peer connections with each other across your existing networks bringing automation closer to the endpoints that need it.
