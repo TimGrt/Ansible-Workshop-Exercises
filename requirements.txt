@@ -2,4 +2,3 @@ mkdocs
 mkdocs-material==7.3.6
 mkdocs-autolinks-plugin
 mkdocs-awesome-pages-plugin
-mkdocs-mermaid2-plugin

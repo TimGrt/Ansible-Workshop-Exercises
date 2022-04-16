@@ -31,7 +31,7 @@ theme:
         icon: material/toggle-switch-off-outline 
         name: Switch to dark mode
     - scheme: slate
-      primary: red
+      primary: grey
       toggle:
         icon: material/toggle-switch
         name: Switch to light mode
@@ -41,13 +41,7 @@ plugins:
       separator: '[\s]'
   - awesome-pages
   - autolinks
-  - mermaid2:
-      arguments:
-        theme: |
-          ^(JSON.parse(__md_get("__palette").index == 1)) ? 'dark' : 'light'
-        securityLevel: 'loose'
 extra_javascript:
-  - https://unpkg.com/mermaid/dist/mermaid.min.js
   - extra/refresh-on-toggle-dark-light.js
   - https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js
   - extra/tablesort.js
@@ -64,14 +58,11 @@ markdown_extensions:
       anchor_linenums: true
   - pymdownx.inlinehilite
   - pymdownx.snippets
-  - pymdownx.superfences:
-      custom_fences:
-        - name: mermaid
-          class: mermaid
-          format: !!python/name:mermaid2.fence_mermaid
   - pymdownx.tabbed:
       alternate_style: true 
   - tables
+  - pymdownx.tasklist:
+      custom_checkbox: true
 repo_url: https://github.com/TimGrt/Ansible-Workshop-Exercises
 repo_name: timgrt/ansible-workshop-exercises
 # Navigation definition
@@ -81,22 +72,25 @@ nav:
     - demo-environment/editor-alternatives.md
   - "Day 1":
     - day1/day1-overview.md
-    - day1/ansible-core-intro.md
-    - day1/ansible-core-basics.md
-    - day1/ansible-core-playbook.md
-    - day1/ansible-core-variables.md
-    - day1/ansible-core-handlers.md
-    - day1/ansible-core-templates.md
-    - day1/ansible-core-roles.md
-    - day1/ansible-core-supplemental.md
+    - day1/ansible-core/ansible-core-intro.md
+    - day1/ansible-core/ansible-core-basics.md
+    - day1/ansible-core/ansible-core-playbook.md
+    - day1/ansible-core/ansible-core-variables.md
+    - day1/ansible-core/ansible-core-handlers.md
+    - day1/ansible-core/ansible-core-templates.md
+    - day1/ansible-core/ansible-core-roles.md
+    - day1/ansible-core/ansible-core-supplemental.md
   - "Day 2":
     - day2/day2-overview.md
-    - day2/automation-platform-intro.md
-    - day2/automation-platform-credentials.md
-    - day2/automation-platform-projects.md
-    - day2/automation-platform-surveys.md
-    - day2/automation-platform-rbac.md
-    - day2/automation-platform-workflows.md
-    - day2/automation-platform-wrapup.md
+    - day2/automation-platform/automation-platform-intro.md
+    - day2/automation-platform/automation-platform-credentials.md
+    - day2/automation-platform/automation-platform-projects.md
+    - day2/automation-platform/automation-platform-surveys.md
+    - day2/automation-platform/automation-platform-rbac.md
+    - day2/automation-platform/automation-platform-workflows.md
+    - day2/automation-platform/automation-platform-wrapup.md
+    - day2/linux-automation-project/grafana-project.md
   - "Day 3":
     - day3/day3-overview.md
+    - day3/ansible-navigator/ansible-navigator.md
+    - day3/network-automation-project/apic-project.md

@@ -103,7 +103,7 @@ To reference all the inventory hosts, you supply a pattern to the `ansible-navig
         "_meta": {
             "hostvars": {
                 "ansible-1": {
-                    "ansible_host": "3.236.186.92"            },
+                    "ansible_host": "3.236.186.92"},
                 "node1": {
                     "ansible_host": "3.239.234.187"
                 },
@@ -145,7 +145,7 @@ To reference all the inventory hosts, you supply a pattern to the `ansible-navig
         "_meta": {
             "hostvars": {
                 "ansible-1": {
-                    "ansible_host": "3.236.186.92"            },
+                    "ansible_host": "3.236.186.92"},
                 "node1": {
                     "ansible_host": "3.239.234.187"
                 },
