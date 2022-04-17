@@ -1,5 +1,5 @@
 ---
-name: Docker Build and Publish
+name: Deploy MkDocs to Github pages
 on:
   push:
     branches:
