@@ -1,6 +1,7 @@
 # Editor Alternatives
 
-If you don’t like **Vim** as an editor feel free to use **Nano** or **Midnight Commander** (**mc**) in the SSH terminal. Here is a quick introduction to both. And no, I’ll refuse to talk about Emacs…​ ;-)
+It is recommended to use the **VS Code Editor** for your exercises, if you don't like it, you may use **vi** or **vim** in the terminal directly.  
+If you don’t like these as an editor as well, feel free to use **Nano** or **Midnight Commander** (**mc**) in the SSH terminal. Here is a quick introduction to both. And no, I’ll refuse to talk about Emacs…​ ;-)
 
 ## Midnight Commander (mc)
 
@@ -75,7 +76,7 @@ If you don’t like **Vim** and you feel too young for **Midnight Commander** us
 ### Basic Commands
 
 !!! tip
-    **Ctrl-\<n\>** or **Alt-\<n\>** means press and hold the Control or Alt key and then press the character after the dash.
+    **Ctrl-&lt;Button&gt;** or **Alt-&lt;Button&gt;** means press and hold the Control or Alt key and then press the character after the dash.
 
 To create a new file or open an existing file:
 

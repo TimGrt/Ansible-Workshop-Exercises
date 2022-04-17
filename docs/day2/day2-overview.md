@@ -1,6 +1,6 @@
 # Overview
 
-Day 2 of the Ansible Workshop is all about the Ansible Automation Platform and usage of the Ansible Automation Controller.
+Day 2 of the Ansible Workshop is all about the Ansible Automation Platform and usage of the Ansible Automation Controller. 
 
 ![Ansible Automation Platform Logo](rh-ansible-automation-platform.png)
 
@@ -24,3 +24,8 @@ All automation team members interact with or rely on automation controller, eith
 These roles are not necessarily dedicated to a person or team. Many organizations assign multiple roles to people or outsource specific automation tasks based on their needs.
 
 Automation operators are typically the primary individuals who interact directly with the automation controller, based on their responsibilities.
+
+### Automation mesh
+![Automation mesh](mesh_logical.png)
+
+Automation mesh is an overlay network intended to ease the distribution of work across a large and dispersed collection of workers. Mesh nodes establish peer-to-peer connections with each other across your existing networks bringing automation closer to the endpoints that need it.
