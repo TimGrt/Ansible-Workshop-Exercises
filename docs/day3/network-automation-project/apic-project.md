@@ -17,8 +17,7 @@ Unlike most Ansible modules, network modules do not run on the managed nodes. Fr
 
 ## Guide
 
-You will execute some automation task against Cisco ACI. The Cisco Application Centric Infrastructure (ACI) allows application requirements to define the network. This architecture simplifies, optimizes, and accelerates the entire application deployment life cycle.  
- (APIC)
+You will execute some automation tasks against Cisco ACI. The Cisco Application Centric Infrastructure (ACI) allows application requirements to define the network. This architecture simplifies, optimizes, and accelerates the entire application deployment life cycle.  
 The Application Policy Infrastructure Controller (APIC) manages the scalable ACI multi-tenant fabric. The APIC provides a unified point of automation and management, policy programming, application deployment, and health monitoring for the fabric. The APIC, which is implemented as a replicated synchronized clustered controller, optimizes performance, supports any application anywhere, and provides unified operation of the physical and virtual infrastructure.
 
 The APIC enables network administrators to easily define the optimal network for applications. Data center operators can clearly see how applications consume network resources, easily isolate and troubleshoot application and infrastructure problems, and monitor and profile resource usage patterns.
@@ -58,7 +57,7 @@ Password:
 
 Within your newly created project folder, create an inventory file and a playbook file.
 
-The goal is the create a new tenant within the APIC controller with Ansible. The tenant should have a recognizable name e.g. `demo-tenant-<initials>`.
+The goal is to create a new tenant within the APIC controller with Ansible. The tenant should have a recognizable name e.g. `demo-tenant-<initials>`.
 
 ![Demo Tenant in APIC UI](apic-demo-tenant.png)
 
@@ -69,7 +68,7 @@ If you use the Ansible navigator (which utilizes an execution environment), the 
     You have to instruct Ansible to communicate with the APIC API, per default Ansible would try to communicate via SSH. This will not work.  
     Use the same credentials for API communication as for the login to the APIC UI.
 
-The API endpoint (*host*) for the ACI modules can use the URL, you won't need the prefix *https://*. An overview of all available ACI modules can found in the [Ansible documentation](https://docs.ansible.com/ansible/latest/collections/cisco/aci/index.html#plugins-in-cisco-aci). The documentation also provides an [extensive Guide](https://docs.ansible.com/ansible/latest/scenario_guides/guide_aci.html) for ACI automation.
+The API endpoint (*host*) for the ACI modules can use the URL of the sandbox, you won't need the prefix *https://*. An overview of all available ACI modules can be found in the [Ansible documentation](https://docs.ansible.com/ansible/latest/collections/cisco/aci/index.html#plugins-in-cisco-aci). The documentation also provides an [extensive Guide](https://docs.ansible.com/ansible/latest/scenario_guides/guide_aci.html) for ACI automation.
 
 Achieve the following tasks:
 
@@ -85,7 +84,7 @@ You may encounter the following error messages:
     Connection failed for https://sandboxapicdc.cisco.com/api/aaaLogin.json. Request failed: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1131)>
     ```
 
-If you see an error message like above you can disable certificate validation for your task:
+If you see an error message like above, you can disable certificate validation for your task:
 ```yaml
 validate_certs: false
 ```
@@ -260,9 +259,6 @@ The highlighted lines show the **list** of contracts and the name of the contrac
 Oberserving the above outout, you can see that multiple list objects are within the complete JSON object. The value of the *key* `current` is a list, every list item of this key is a tenant (with multiple *key-value* pairs which can also be dictionaries or lists). 
 If you filter for a single tenant (by provding the tenant name) when using the module, the list `current` only has one element. Lists (in Python, which Ansible is based on) start at element *0*, the second list element is *1* and so on.
 
-!!! tip
-    There are multiple ways to achieve the desired solution, try around!
-
 The resulting output in your playbook-run should look something like this (considering that the *common* tenant only has one contract):
 
 ```bash
@@ -272,8 +268,11 @@ ok: [demo-aci-host] => {
         "default"
     ]
 }
-
 ```
+
+!!! tip
+    There are multiple ways to achieve the desired solution, try around!
+
 Achieve the following tasks:
 
 - [X] New role for contract handling created

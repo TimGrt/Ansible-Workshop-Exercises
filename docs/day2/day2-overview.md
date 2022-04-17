@@ -1,6 +1,6 @@
 # Overview
 
-Day 2 of the Ansible Workshop is all about the Ansible Automation Platform and usage of the Ansible Automation Controller. We will also take a look at the Ansible Navigator, a command line utility and text-based user interface (TUI) for running and developing Ansible automation content.
+Day 2 of the Ansible Workshop is all about the Ansible Automation Platform and usage of the Ansible Automation Controller. 
 
 ![Ansible Automation Platform Logo](rh-ansible-automation-platform.png)
 
@@ -24,9 +24,6 @@ All automation team members interact with or rely on automation controller, eith
 These roles are not necessarily dedicated to a person or team. Many organizations assign multiple roles to people or outsource specific automation tasks based on their needs.
 
 Automation operators are typically the primary individuals who interact directly with the automation controller, based on their responsibilities.
-
-### Who will use automation content navigator?
-The automation content navigator is mainly geared towards developers of automation. This can mean people creating automated tasks with available modules, those migrating roles into Collections or those who are developing modules from the ground up. Content navigator runs as a textual user interface and looks great within a terminal session, even while running inside popular code editors with included terminal panes.
 
 ### Automation mesh
 ![Automation mesh](mesh_logical.png)

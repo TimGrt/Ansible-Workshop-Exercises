@@ -1,9 +1,12 @@
 # Ansible Workshop - Ansible for Red Hat Enterprise Linux
 
-If you’re new to Ansible Automation, this workshop consists of two parts:
+Welcome to the Ansible Workshop!
+
+On the next three days you will learn all about Ansible:
 
 1. starting with the basics of understanding foundational command line activities 
 2. applying what you’ve learned to implement Ansible automation controller to your enterprise use cases. 
+3. learn about the Ansible future and network automation
 
 You’ll start off by writing your first Ansible playbook, work on Jinja templates, and implement higher-level Ansible roles. Next you’ll get started on automation controller, understand inventory and credential management, projects, job templates, surveys, workflows and more.
 
@@ -11,7 +14,7 @@ After finishing this lab you are ready to start using Ansible for your automatio
 
 ## Time planning
 
-The time required to do the workshops strongly depends on multiple factors: the number of participants, how familiar those are with Linux in general and how much discussions are done in between.
+The time required to do the workshops strongly depends on multiple factors: the number of participants, how familiar you are with Linux in general and how much discussions are done in between.
 
 Having said that, the exercises themselves should take roughly 4-5 hours. The first section is slightly longer than the second one. The accompanying presentation itself adds another hour.
 

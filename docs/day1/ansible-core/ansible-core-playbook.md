@@ -44,7 +44,7 @@ A Playbook should be **idempotent**, so if a Playbook is run once to put the hos
 !!! tip
     Most Ansible modules are idempotent, so it is relatively easy to ensure this is true.
 
-### Step 2 - Creating a Directory Structure and File for your Playbook
+### Step 2 - Directory Structure and files for your Playbook
 
 Enough theory, it’s time to create your first Ansible playbook. In this lab you create a playbook to set up an Apache web server in three steps:
 
@@ -200,7 +200,7 @@ ansible                    : ok=3    changed=0    unreachable=0    failed=0    s
 
 Execute the command `ansible-playbook apache.yml` for a second time, and compare the output.
 
-### Step 4 - Extend your Playbook: Start & Enable Apache
+### Step 4 - Add one more task
 
 The next part of the Ansible playbook makes sure the Apache application is enabled and started on `node1`.
 
@@ -275,7 +275,7 @@ Notice in the output, we see the play had `1` "CHANGED" shown in yellow and if w
 
 Checking the service state manually on `node1` with: `systemctl status httpd`.
 
-### Step 5 - Extend your Playbook: Create an web.html
+### Step 5 - Extend your Playbook
 
 Check that the tasks were executed correctly and Apache is accepting connections: Make an HTTP request using Ansible’s `uri` module in a playbook named `check_httpd.yml` from the control node to `node1`.
 

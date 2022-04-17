@@ -106,6 +106,8 @@ Navigate to the `rhel-workshop` directory on the Ansible control node terminal (
 * `cd` - Linux command to change directory
 * `pwd` - Linux command for print working directory.  This will show the full path to the current working directory.
 
+
+
 ### Step 3 - Challenge Labs
 
 You will soon discover that many chapters in this lab guide come with a "Challenge Lab" section. These labs are meant to give you a small task to solve using what you have learned so far. The solution of the task is shown underneath a warning sign.
