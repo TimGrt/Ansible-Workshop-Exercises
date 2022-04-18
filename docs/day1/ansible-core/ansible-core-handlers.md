@@ -53,7 +53,7 @@ Next create the file `ftpserver.yml` on your control host in the `~/ansible-file
   become: true
   tasks:
     - name: Install FTP server when host in ftpserver group
-      yum:
+      ansible.builtin.yum:
         name: vsftpd
         state: latest
       when: inventory_hostname in groups["ftpserver"]
@@ -99,14 +99,14 @@ Next, create the Playbook `httpd_conf.yml`. Make sure that you are in the direct
   become: true
   tasks:
   - name: Copy Apache configuration file
-    copy:
+    ansible.builtin.copy:
       src: httpd.conf
       dest: /etc/httpd/conf/
     notify:
       - restart_apache
   handlers:
     - name: restart_apache
-      service:
+      ansible.builtin.service:
         name: httpd
         state: restarted
 ```
@@ -157,7 +157,7 @@ To show the loops feature we will generate three new users on `node1`. For that,
   become: true
   tasks:
     - name: Ensure three users are present
-      user:
+      ansible.builtin.user:
         name: "{{ item }}"
         state: present
       loop:
@@ -196,14 +196,17 @@ Let's rewrite the playbook to create the users with additional user rights:
   become: true
   tasks:
     - name: Ensure three users are present
-      user:
+      ansible.builtin.user:
         name: "{{ item.username }}"
         state: present
         groups: "{{ item.groups }}"
       loop:
-        - { username: 'dev_user', groups: 'ftp' }
-        - { username: 'qa_user', groups: 'ftp' }
-        - { username: 'prod_user', groups: 'apache' }
+        - username: 'dev_user'
+          groups: 'ftp'
+        - username: 'qa_user'
+          groups: 'ftp'
+        - username: 'prod_user'
+          groups: 'apache'
 
 ```
 
@@ -211,7 +214,7 @@ Check the output:
 
 * Again the task is listed once, but three changes are listed. Each loop with its content is shown.
 
-Verify that the user `dev_user` was indeed created on `node1` using the following playbook:
+Verify that the user `dev_user` was indeed created on `node1` using the following playbook, name it `user_id.yml`:
 
 ```yaml
 ---
@@ -221,10 +224,11 @@ Verify that the user `dev_user` was indeed created on `node1` using the followin
     myuser: "dev_user"
   tasks:
     - name: Get {{ myuser }} info
-      getent:
+      ansible.builtin.getent:
         database: passwd
         key: "{{ myuser }}"
-    - debug:
+    - name: Output {{ myuser }} info
+      ansible.builtin.debug:
         msg:
           - "{{ myuser }} uid: {{ getent_passwd['dev_user'].1 }}"
 ```
@@ -240,7 +244,7 @@ ok: [node1]
 TASK [Get dev_user info] *******************************************************
 ok: [node1]
 
-TASK [debug] *******************************************************************
+TASK [Output dev_user info] *******************************************************************
 ok: [node1] => {
     "msg": [
         "dev_user uid: 1002"

@@ -21,17 +21,17 @@ If you intend to automate hosts that can't be reached with the default method, e
 
 Ansible uses SSH to communicate with Linux nodes, let's break the initially working (password-less) SSH-connection in the lab environment and establish a new one with the service user `ansible`.
 
-Download a script using the next commands, copy the command by clicking the *copy* button on the right of the code block:
+Download a script using the next command. Copy the command by clicking the *copy* button on the right of the code block:
 
 ```bash
-wget -q https://raw.githubusercontent.com/TimGrt/prepare-redhat-demo-system/master/prepare-attendee.sh
+wget -q https://raw.githubusercontent.com/TimGrt/prepare-redhat-demo-system/master/break-ssh.sh
 ```
 
 After downloading the script to your home directory, execute it:
 
 ```bash
-[student1@ansible-1 ~]$ wget -q https://raw.githubusercontent.com/TimGrt/prepare-redhat-demo-system/master/prepare-attendee.sh
-[student1@ansible-1 ~]$ sh prepare-attendee.sh
+[student1@ansible-1 ~]$ wget -q https://raw.githubusercontent.com/TimGrt/prepare-redhat-demo-system/master/break-ssh.sh
+[student1@ansible-1 ~]$ sh break-ssh.sh
 [student1@ansible-1 ~]$ 
 ```
 
@@ -469,4 +469,4 @@ node1 | SUCCESS => {
 ...
 ```
 
-You will get loads of useful informations and you can use every bit as variables in your playbooks later on!
+You will get loads of useful informations and you can use every bit as variables in your playbooks later on! We will use facts in a later exercise again.

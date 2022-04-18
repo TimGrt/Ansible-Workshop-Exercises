@@ -54,7 +54,8 @@ Enough theory, it’s time to create your first Ansible playbook. In this lab yo
 
 This Playbook makes sure the package containing the Apache web server is installed on `node1`.
 
-There is a [best practice](https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html) on the preferred directory structures for playbooks.  We strongly encourage you to read and understand these practices as you develop your Ansible ninja skills.  That said, our playbook today is very basic and creating a complex structure will just confuse things.
+There is a [best practice Guide](https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html) on the preferred directory structures for playbooks.  We strongly encourage you to read and understand these practices as you develop your Ansible skills.  
+That said, our playbook today is very basic and creating a complex structure will just confuse things.
 
 Instead, we are going to create a very simple directory structure for our playbook, and add just a couple of files to it.
 
@@ -92,7 +93,7 @@ Now that we've defined the play, let's add a task to get something done. We will
   become: yes
   tasks:
     - name: latest Apache version installed
-      yum:
+      ansible.builtin.yum:
         name: httpd
         state: latest
 ```
@@ -213,11 +214,11 @@ On the control host, as your student user, edit the file `~/ansible-files/apache
   become: yes
   tasks:
     - name: latest Apache version installed
-      yum:
+      ansible.builtin.yum:
         name: httpd
         state: latest
     - name: Apache enabled and running
-      service:
+      ansible.builtin.service:
         name: httpd
         enabled: true
         state: started
@@ -257,10 +258,10 @@ Notice in the output, we see the play had `1` "CHANGED" shown in yellow and if w
 
   tasks:
     - name: Check status of {{ package }} service
-      service_facts:
+      ansible.builtin.service_facts:
       register: service_state
 
-    - debug:
+    - ansible.builtin.debug:
         var: service_state.ansible_facts.services["{{ package }}.service"].state
 ```
 
@@ -273,7 +274,7 @@ Notice in the output, we see the play had `1` "CHANGED" shown in yellow and if w
     [student<X>@ansible-1 ~]$ ansible-navigator run service_state.yml
     ```
 
-Checking the service state manually on `node1` with: `systemctl status httpd`.
+This would be the same as checking the service state manually on `node1` with: `systemctl status httpd`.
 
 ### Step 5 - Extend your Playbook
 
@@ -288,7 +289,7 @@ Check that the tasks were executed correctly and Apache is accepting connections
 
   tasks:
     - name: Check that you can connect (GET) to a page and it returns a status 200
-      uri:
+      ansible.builtin.uri:
         url: "http://{{ node }}"
 
 ```
@@ -332,16 +333,16 @@ On the control node as your student user edit the file `~/ansible-files/apache.y
   become: yes
   tasks:
     - name: latest Apache version installed
-      yum:
+      ansible.builtin.yum:
         name: httpd
         state: latest
     - name: Apache enabled and running
-      service:
+      ansible.builtin.service:
         name: httpd
         enabled: true
         state: started
     - name: copy web.html
-      copy:
+      ansible.builtin.copy:
         src: web.html
         dest: /var/www/html/index.html
 ```
@@ -390,16 +391,16 @@ Change the playbook `hosts` parameter to point to `web` instead of `node1`:
   become: yes
   tasks:
   - name: latest Apache version installed
-    yum:
+    ansible.builtin.yum:
       name: httpd
       state: latest
   - name: Apache enabled and running
-    service:
+    ansible.builtin.service:
       name: httpd
       enabled: true
       state: started
   - name: copy web.html
-    copy:
+    ansible.builtin.copy:
       src: web.html
       dest: /var/www/html/index.html
 ```
