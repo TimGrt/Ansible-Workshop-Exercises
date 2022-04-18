@@ -98,14 +98,14 @@ Create a playbook called `apache_config_tpl.yml`:
   become: yes
   tasks:
   - name: Create Apache configuration file from template
-    template:
+    ansible.builtin.template:
       src: httpd.conf.j2
       dest: /etc/httpd/conf/httpd.conf
     notify:
         - restart apache
   handlers:
     - name: restart apache
-      service:
+      ansible.builtin.service:
         name: httpd
         state: restarted
 ```

@@ -36,7 +36,8 @@ Next we need a playbook to use this template. In the `~/ansible-files/` director
   hosts: node1
   become: true
   tasks:
-    - template:
+    - name: Deploy message of the day file
+      ansible.builtin.template:
         src: motd-facts.j2
         dest: /etc/motd
         owner: root
@@ -87,7 +88,8 @@ Find the fact:
           - '*kernel'
       register: setup
 
-    - debug:
+    - name: Output variable content
+      ansible.builtin.debug:
         var: setup
 ```
 

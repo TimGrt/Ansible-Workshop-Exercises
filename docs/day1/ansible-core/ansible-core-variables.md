@@ -98,7 +98,7 @@ Create a new Playbook called `deploy_index_html.yml` in the `~/ansible-files/` d
   become: true
   tasks:
     - name: copy web.html
-      copy:
+      ansible.builtin.copy:
         src: "{{ stage }}_web.html"
         dest: /var/www/html/index.html
 ```
@@ -150,9 +150,10 @@ For node3:
 
 ### Step 5 - Ansible Facts
 
-Ansible facts are variables that are automatically discovered by Ansible from a managed host. Remember the "Gathering Facts" task listed in the output of each `ansible-navigator` execution? At that moment the facts are gathered for each managed nodes. Facts can also be pulled by the `setup` module. They contain useful information stored into variables that administrators can reuse.
+Ansible facts are variables that are automatically discovered by Ansible from a managed host. Remember the "Gathering Facts" task with the *setup* module we used with the Ansible ad hoc command?  
+The facts contain useful information stored into variables that administrators can reuse.
 
-To get an idea what facts Ansible collects by default, on your control node as your student user run the following playbook to get the setup details of `node1`:
+To get an idea what facts Ansible collects by default, on your control node as your student user create the playbook `setup.yml` and run it to get the setup details of `node1`:
 
 ```yaml
 ---
@@ -165,14 +166,19 @@ To get an idea what facts Ansible collects by default, on your control node as y
           - 'all'
       register: setup
 
-    - debug:
+    - name: Output variable content
+      ansible.builtin.debug:
         var: setup
 ```
 
-```bash
-[student<X>@ansible-1 ansible-files]$ cd ~
-[student<X>@ansible-1 ~]$ ansible-navigator run setup.yml -m stdout
-```
+=== "Ansible"
+    ```bash
+    [student<X>@ansible-1 ansible-files]$ ansible-playbook setup.yml
+    ```
+=== "Navigator"
+    ```bash
+    [student<X>@ansible-1 ansible-files]$ ansible-navigator run setup.yml -m stdout
+    ```
 
 This might be a bit too much, you can use filters to limit the output to certain facts, the expression is shell-style wildcard within your playbook. Create a playbook labeled `setup_filter.yml` as shown below. In this example, we filter to get the `eth0` facts as well as memory details of `node1`.
 
@@ -188,7 +194,8 @@ This might be a bit too much, you can use filters to limit the output to certain
           - 'ansible_*_mb'
       register: setup
 
-    - debug:
+    - name: Output variable content 
+      ansible.builtin.debug:
         var: setup
 ```
 Run the playbook:
@@ -224,7 +231,8 @@ Run the playbook:
           - '*distribution'
       register: setup
 
-    - debug:
+    - name: Output variable content
+      ansible.builtin.debug:
         var: setup
 ```
 
@@ -232,7 +240,7 @@ With the wildcard in place, the output shows:
 
 ```bash
 
-TASK [debug] *******************************************************************
+TASK [Output variable content] *******************************************************************
 ok: [ansible] => {
     "setup": {
         "ansible_facts": {
@@ -250,14 +258,14 @@ Then we can update the playbook to be explicit in its findings and change the fo
 
 ```yaml
 filter:
-- '*distribution'
+  - '*distribution'
 ```
 
 to:
 
 ```yaml
 filter:
-- 'ansible_distribution'
+  - 'ansible_distribution'
 ```
 
 Run the playbook:

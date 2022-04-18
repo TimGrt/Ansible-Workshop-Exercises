@@ -4,6 +4,18 @@ Day 2 of the Ansible Workshop is all about the Ansible Automation Platform and u
 
 ![Ansible Automation Platform Logo](rh-ansible-automation-platform.png)
 
+You will complete the following exercises today:
+
+* [Exercise 2.1 - Introduction](automation-platform-intro.md)
+* [Exercise 2.2 - Inventories, credentials and ad hoc commands](automation-platform-credentials.md)
+* [Exercise 2.3 - Projects & Job Templates](automation-platform-projects.md)
+* [Exercise 2.4 - Surveys](automation-platform-surveys.md)
+* [Exercise 2.5 - Role-based access control](automation-platform-rbac.md)
+* [Exercise 2.6 - Workflows](automation-platform-workflows.md)
+* [Exercise 2.7 - AAP Wrap up](automation-platform-wrapup.md)
+
+You will further enhance your Ansible skills with Linux automation by completing a small project.
+
 ## What's New in Ansible automation controller 4.0
 
 Ansible Automation Platform 2 is the next evolution in automation from Red Hat’s trusted enterprise technology experts. The Ansible Automation Platform 2 release includes automation controller 4.0, the improved and renamed Ansible Tower.
