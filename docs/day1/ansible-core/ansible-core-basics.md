@@ -97,7 +97,7 @@ Copy the following line which enables the `ansible` user to use password-less su
 ansible ALL=(ALL) NOPASSWD:ALL
 ```
 
-We can check if the `ansible` as the required permissions:
+We can check if the `ansible` user has the required permissions:
 
 ```bash
 [root@node1 ~]# sudo -l -U ansible

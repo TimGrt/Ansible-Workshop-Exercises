@@ -147,7 +147,7 @@ Version     : 2.4.37
 [...]
 ```
 
-Log out of `node1` with the command `exit` so that you are back on the control host and verify the installed package with an Ansible playbook labeled `package.yml`
+Log out of `node1` with the command `exit` so that you are back on the control host and verify the installed package with an Ansible playbook labeled `package.yml`. Create the file and paste in the following content: 
 
 ```yaml
 ---
@@ -168,6 +168,9 @@ Log out of `node1` with the command `exit` so that you are back on the control h
       when: "package in ansible_facts.packages"
 
 ```
+
+The playbook has two tasks, the first one uses the `package_facts` module, it does what it says, it gatheres informations about packages. These facts are not gathered by default with the "Gather facts" tasks (which uses the `setup` module) and must be collected separately.  
+The second task uses the `debug` module. The variable *ansible_facts* is extended with the *packages* key, which contains a dictionary with **all** packages installed on the managed node. The *httpd* package could be installed in multiple versions, therefor every *package* key, in our case *httpd*, is a list. We have installed only one version of *httpd* (thus, we have a list with only one element), we get the version of *httpd* with `[0].version`.  
 
 === "Ansible"
     ```bash
