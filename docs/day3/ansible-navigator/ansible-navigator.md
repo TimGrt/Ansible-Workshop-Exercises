@@ -327,6 +327,20 @@ For a full listing of every configurable knob checkout the [documentation](https
 
 ### Step 3 - Running the Playbook
 
+Create a simple playbook:
+
+```bash
+---
+- name: Apache server installed
+  hosts: node1
+  become: yes
+  tasks:
+    - name: latest Apache version installed
+      ansible.builtin.yum:
+        name: httpd
+        state: latest
+```
+
 To run your playbook, use the `ansible-navigator run <playbook>` command as follows:
 
 ```bash
