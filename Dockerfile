@@ -16,5 +16,7 @@ COPY mkdocs.yml .
 # Build new documentation
 RUN mkdocs build
 
+EXPOSE 80
+
 # Run webserver
-CMD python -m http.server -d site/
+CMD python -m http.server 80 -d site/
