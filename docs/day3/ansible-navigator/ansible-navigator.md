@@ -60,7 +60,7 @@ ansible-navigator:
     save-as: ~/ansible-files/artifacts/{playbook_name}-artifact-{ts_utc}.json
 # Set user interface mode, either 'stdout' or 'interactive'
 # Mode 'stdout' ensures same output method as with ansible-playbook command
-  mode: stdout
+  mode: interactive
 
 # Enable or disable the use of an execution environment and specify different options
   execution-environment:
