@@ -1,4 +1,4 @@
-# Ansible Workshop - Ansible for Red Hat Enterprise Linux
+# Ansible Workshop
 
 Welcome to the Ansible Workshop!
 
