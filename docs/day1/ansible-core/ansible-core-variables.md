@@ -216,70 +216,65 @@ Run the playbook:
 !!! tip 
     Use the wildcard to find the fact within your filter, then apply a filter to only print this fact.
 
-<p>
-<details>
-<summary><b>Solution</b></summary>
+??? success "Solution"
 
-```yaml
----
-- name: Capture Setup
-  hosts: node1
-  tasks:
-    - name: Collect only specific facts
-      ansible.builtin.setup:
-        filter:
-          - '*distribution'
-      register: setup
+    ```yaml
+    ---
+    - name: Capture Setup
+      hosts: node1
+      tasks:
+        - name: Collect only specific facts
+          ansible.builtin.setup:
+            filter:
+              - '*distribution'
+          register: setup
 
-    - name: Output variable content
-      ansible.builtin.debug:
-        var: setup
-```
+        - name: Output variable content
+          ansible.builtin.debug:
+            var: setup
+    ```
 
-With the wildcard in place, the output shows:
+    With the wildcard in place, the output shows:
 
-```bash
+    ```bash
 
-TASK [Output variable content] *******************************************************************
-ok: [ansible] => {
-    "setup": {
-        "ansible_facts": {
-            "ansible_distribution": "RedHat"
-        },
-        "changed": false,
-        "failed": false
+    TASK [Output variable content] *******************************************************************
+    ok: [ansible] => {
+        "setup": {
+            "ansible_facts": {
+                "ansible_distribution": "RedHat"
+            },
+            "changed": false,
+            "failed": false
+        }
     }
-}
-```
+    ```
 
-With this we can conclude the variable we are looking for is labeled `ansible_distribution`.
+    With this we can conclude the variable we are looking for is labeled `ansible_distribution`.
 
-Then we can update the playbook to be explicit in its findings and change the following line:
+    Then we can update the playbook to be explicit in its findings and change the following line:
 
-```yaml
-filter:
-  - '*distribution'
-```
+    ```yaml
+    filter:
+      - '*distribution'
+    ```
 
-to:
+    to:
 
-```yaml
-filter:
-  - 'ansible_distribution'
-```
+    ```yaml
+    filter:
+      - 'ansible_distribution'
+    ```
 
-Run the playbook:
-```bash
-[student<X>@ansible-1 ansible-files]$ ansible-playbook setup_filter.yml
-```
+    Run the playbook:
+    ```bash
+    [student<X>@ansible-1 ansible-files]$ ansible-playbook setup_filter.yml
+    ```
 
-Optionally, run the playbook with the *ansible-navigator*:
-```bash
-[student<X>@ansible-1 ansible-files]$ ansible-navigator run setup_filter.yml -m stdout
-```
-
-</details>
-</p>
+    Optionally, run the playbook with the *ansible-navigator*:
+    ```bash
+    [student<X>@ansible-1 ansible-files]$ ansible-navigator run setup_filter.yml -m stdout
+    ```
 
 ### Step 7 - Using Facts in Playbooks
 

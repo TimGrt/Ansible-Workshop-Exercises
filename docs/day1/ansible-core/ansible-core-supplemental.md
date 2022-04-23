@@ -17,24 +17,20 @@ Create a new user "testuser" on `node1` and `node3` with a comment using an ad h
 !!! tip
     Remember privilege escalation…​
 
-<p>
-<details>
-<summary><b>Solution</b></summary>
+??? success "Solution"
 
-Your commands could look like these:
+    Your commands could look like these:
 
-```bash
-[student<X>@ansible-1 ansible-files]$ ansible-doc -l | grep -i user
-[student<X>@ansible-1 ansible-files]$ ansible-doc user
-[student<X>@ansible-1 ansible-files]$ ansible node1,node3 -m user -a "name=testuser comment='Test D User'" -b
-[student<X>@ansible-1 ansible-files]$ ansible node1,node3 -m command -a " id testuser" -b
-[student<X>@ansible-1 ansible-files]$ ansible node2 -m command -a " id testuser" -b
-[student<X>@ansible-1 ansible-files]$ ansible node1,node3 -m user -a "name=testuser state=absent remove=yes" -b
-[student<X>@ansible-1 ansible-files]$ ansible web -m command -a " id testuser" -b
-```
+    ```bash
+    [student<X>@ansible-1 ansible-files]$ ansible-doc -l | grep -i user
+    [student<X>@ansible-1 ansible-files]$ ansible-doc user
+    [student<X>@ansible-1 ansible-files]$ ansible node1,node3 -m user -a "name=testuser comment='Test D User'" -b
+    [student<X>@ansible-1 ansible-files]$ ansible node1,node3 -m command -a " id testuser" -b
+    [student<X>@ansible-1 ansible-files]$ ansible node2 -m command -a " id testuser" -b
+    [student<X>@ansible-1 ansible-files]$ ansible node1,node3 -m user -a "name=testuser state=absent remove=yes" -b
+    [student<X>@ansible-1 ansible-files]$ ansible web -m command -a " id testuser" -b
+    ```
 
-</details>
-</p>
 
 
 ## Step 2 - Bonus Lab: Templates and Variables
@@ -54,78 +50,65 @@ Instead of editing and copying `httpd.conf` why don’t you just define a variab
 !!! tip
 Remember the `group_vars` and `host_vars` directories? If not, refer to the chapter "Ansible Variables".
 
-
-<p>
-<details>
-<summary><b>Solution</b></summary>
-
-### Define the variables:
+??? success "Solution"
 
 
-Add this line to `group_vars/web`:
+    Define the variable.  Add this line to `group_vars/web`:
 
-```ini
-listen_port: 8080
-```
+    ```ini
+    listen_port: 8080
+    ```
 
-Add this line to `host_vars/node2`:
+    Add this line to `host_vars/node2`:
 
-```ini
-listen_port: 80
-```
-### Prepare the template:
+    ```ini
+    listen_port: 80
+    ```
+    
+    Prepare the template:
 
-  - Copy `httpd.conf` to `httpd.conf.j2`
+      - Copy `httpd.conf` to `httpd.conf.j2`
 
-  - Edit the "Listen" directive in `httpd.conf.j2` to make it look like this:
+      - Edit the "Listen" directive in `httpd.conf.j2` to make it look like this:
 
-<!-- {% raw %} -->
-```ini
-[...]
-Listen {{ listen_port }}
-[...]
-```
-<!-- {% endraw %} -->
+    ```ini
+    [...]
+    Listen {{ listen_port }}
+    [...]
+    ```
 
-### Create the Playbook
+    Create a playbook called `apache_config_tpl.yml`:
 
-Create a playbook called `apache_config_tpl.yml`:
+    ```yaml
+    ---
+    - name: Apache httpd.conf
+      hosts: web
+      become: yes
+      tasks:
+      - name: Create Apache configuration file from template
+        ansible.builtin.template:
+          src: httpd.conf.j2
+          dest: /etc/httpd/conf/httpd.conf
+        notify:
+            - restart apache
+      handlers:
+        - name: restart apache
+          ansible.builtin.service:
+            name: httpd
+            state: restarted
+    ```
 
-```yaml
----
-- name: Apache httpd.conf
-  hosts: web
-  become: yes
-  tasks:
-  - name: Create Apache configuration file from template
-    ansible.builtin.template:
-      src: httpd.conf.j2
-      dest: /etc/httpd/conf/httpd.conf
-    notify:
-        - restart apache
-  handlers:
-    - name: restart apache
-      ansible.builtin.service:
-        name: httpd
-        state: restarted
-```
+    First run the playbook itself, then run curl against `node1` with port `8080` and `node2` with port `80`.
 
-### Run and test
-
-First run the playbook itself, then run curl against `node1` with port `8080` and `node2` with port `80`.
-
-```bash
-[student<X>@ansible-1 ansible-files]$ ansible-playbook apache_config_tpl.yml
-[...]
-[student<X>@ansible-1 ansible-files]$ curl http://18.195.235.231:8080
-<body>
-<h1>This is a development webserver, have fun!</h1>
-</body>
-[student<X>@ansible-1 ansible-files]$ curl http://35.156.28.209:80
-<body>
-<h1>This is a production webserver, take care!</h1>
-</body>
-```
-
-</details>
-</p>
+    ```bash
+    [student<X>@ansible-1 ansible-files]$ ansible-playbook apache_config_tpl.yml
+    [...]
+    [student<X>@ansible-1 ansible-files]$ curl http://18.195.235.231:8080
+    <body>
+    <h1>This is a development webserver, have fun!</h1>
+    </body>
+    [student<X>@ansible-1 ansible-files]$ curl http://35.156.28.209:80
+    <body>
+    <h1>This is a production webserver, take care!</h1>
+    </body>
+    ```

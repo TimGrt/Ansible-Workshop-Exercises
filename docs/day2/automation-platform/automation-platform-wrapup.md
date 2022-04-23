@@ -27,11 +27,9 @@ Your operations team and your application development team likes what they see i
 
 All code is already in place - this is a automation controller lab after all. Check out the **Workshop Project** git repository at [https://github.com/ansible/workshop-examples](https://github.com/ansible/workshop-examples). There you will find the playbook `webcontent.yml`, which calls the role `role_webcontent`.
 
-Compared to the previous Apache installation role there is a major difference: there are now two versions of an `index.html` template, and a task deploying the template file which has a variable as part of the source file name:
+Compared to the previous Apache installation role there is a major difference: there are now two versions of an `index.html` template, and a task deploying the template file which has a variable as part of the source file name.
 
-`dev_index.html.j2`
-
-<!-- {% raw %} -->
+For the development servers the file is named `dev_index.html.j2` with the following content:
 
 ```html
 <body>
@@ -40,11 +38,7 @@ Compared to the previous Apache installation role there is a major difference: t
 </body>
 ```
 
-<!-- {% endraw %} -->
-
-`prod_index.html.j2`
-
-<!-- {% raw %} -->
+For the development servers the file is named `prod_index.html.j2` with the following content:
 
 ```html
 <body>
@@ -53,11 +47,7 @@ Compared to the previous Apache installation role there is a major difference: t
 </body>
 ```
 
-<!-- {% endraw %} -->
-
-`main.yml`
-
-<!-- {% raw %} -->
+The playbook `main.yml` deploys the template:
 
 ```yaml
 [...]
@@ -67,8 +57,6 @@ Compared to the previous Apache installation role there is a major difference: t
     dest: /var/www/html/index.html
   notify: apache-restart
 ```
-
-<!-- {% endraw %} -->
 
 ### Prepare Inventory
 
@@ -98,6 +86,7 @@ Within the **Variables** textbox define a variable labeled `stage` with the valu
 ansible_host: <IP_of_node2>
 stage: prod
 ```
+
 !!! tip
     Make sure to keep the three dashes that mark the YAML start and the `ansible_host` line in place\!
 
@@ -105,63 +94,29 @@ stage: prod
 
 Within **Resources** -> **Templates**, select the **Add** button and **Add job template** as follows:
 
-  <table>
-    <tr>
-      <th>Parameter</th>
-      <th>Value</th>
-    </tr>
-    <tr>
-      <td>Name</td>
-      <td>Create Web Content</td>
-    </tr>
-    <tr>
-      <td>Job Type</td>
-      <td>Run</td>
-    </tr>
-    <tr>
-      <td>Inventory</td>
-      <td>Workshop Inventory</td>
-    </tr>
-    <tr>
-      <td>Project</td>
-      <td>Workshop Project</td>
-    </tr>
-    <tr>
-      <td>Execution Environment</td>
-      <td>Default execution environment</td>
-    </tr>
-    <tr>
-      <td>Playbook</td>
-      <td>rhel/apache/webcontent.yml</td>
-    </tr>
-    <tr>
-      <td>Credentials</td>
-      <td>Workshop Credential</td>
-    </tr>
-    <tr>
-      <td>Variables</td>
-      <td>dev_content: "default dev content", prod_content: "default prod content"</td>
-    </tr>
-    <tr>
-      <td>Options</td>
-      <td>Privilege Escalation</td>
-    </tr>
-  </table>
+| Parameter             | Value                                                                      |
+| --------------------- | -------------------------------------------------------------------------- |
+| Name                  | `Create Web Content`                                                       |
+| Job Type              | `Run`                                                                      |
+| Inventory             | `Workshop Inventory`                                                       |
+| Project               | `Workshop Project`                                                         |
+| Execution Environment | `Default execution environment`                                            |
+| Playbook              | `rhel/apache/webcontent.yml`                                               |
+| Credentials           | `Workshop Credential`                                                      |
+| Limit                 | `web`                                                                      |
+| Variables             | `dev_content: "default dev content", prod_content: "default prod content"` |
+| Options               | :material-checkbox-outline: Privilege Escalation                           |
 
 Click **Save**.
 
 Run the template by clicking the **Launch** button.
 
-
 ### Check the Results
 
 This time we use the power of Ansible to check the results: execute uri to get the web content from each node, orchestrated by an Ansible playbook labeled `check_url.yml`
 
-> **Tip**
->
-> We are using the `ansible_host` variable in the URL to access every node in the inventory group.
-
-<!-- {% raw %} -->
+!!! tip
+    We are using the `ansible_host` variable in the URL to access every node in the inventory group.
 
 ```yaml
 ---
@@ -178,6 +133,8 @@ This time we use the power of Ansible to check the results: execute uri to get t
     - debug:
        var: content.content
 ```
+
+Execute the playbook:
 
 ```bash
 [student<X>@ansible-1 ~]$ ansible-navigator run check_url.yml -m stdout
@@ -198,56 +155,28 @@ ok: [node3] => {
 }
 ```
 
-<!-- {% endraw %} -->
-
 ### Add Survey
 
 * Add a Survey to the template to allow changing the variables `dev_content` and `prod_content`.
-** In the Template, click the **Survey** tab and click the **Add** button.
-** Fill out the following information:
+* In the Template, click the **Survey** tab and click the **Add** button.
+* Fill out the following information:
 
-<table>
-  <tr>
-    <th>Parameter</th>
-    <th>Value</th>
-  </tr>
-  <tr>
-    <td>Question</td>
-    <td>What should the value of dev_content be?</td>
-  </tr>
-  <tr>
-    <td>Answer Variable Name</td>
-    <td>dev_content</td>
-  </tr>
-  <tr>
-    <td>Answer Type</td>
-    <td>Text</td>
-  </tr>
-</table>
+| Parameter            | Value                                      |
+| -------------------- | ------------------------------------------ |
+| Question             | `What should the value of dev_content be?` |
+| Answer Variable Name | `dev_content`                              |
+| Answer Type          | `Text`                                     |
 
 * Click **Save**
 * Click the **Add** button
 
 In the same fashion add a second **Survey Question**
 
-<table>
-  <tr>
-    <th>Parameter</th>
-    <th>Value</th>
-  </tr>
-  <tr>
-    <td>Question</td>
-    <td>What should the value of prod_content be?</td>
-  </tr>
-  <tr>
-    <td>Answer Variable Name</td>
-    <td>prod_content</td>
-  </tr>
-  <tr>
-    <td>Answer Type</td>
-    <td>Text</td>
-  </tr>
-</table>
+| Parameter            | Value                                      |
+| -------------------- | ------------------------------------------ |
+| Question             | `What should the value of prod_content be?` |
+| Answer Variable Name | `prod_content`                              |
+| Answer Type          | `Text`                                     |
 
 * Click **Save**
 * Click the toggle to turn the Survey questions to **On**
@@ -259,20 +188,17 @@ In the same fashion add a second **Survey Question**
   * **Select a Resource Type** -> click **Users**, click **Next**.
   * **Select Items from List** -> select the checkbox `wweb`, click **Next**.
   * **Select Roles to Apply** -> select the checkbox **Execute** and click **Save**.
+
 * Run the survey as user `wweb`
   * Logout of the user `admin` of your Ansible automation controller.
   * Login as `wweb` and go to **Resources** -> **Templates** and run the **Create Web Content** template.
 
 Check the results again from your automation controller host. We will use the dedicated `uri` module within an Ansible playbook. As arguments it needs the actual URL and a flag to output the body in the results.
 
-<!-- {% raw %} -->
-
 
 ```bash
 [student<X>@ansible-1 ~]$ ansible-navigator run check_url.yml -m stdout
 ```
-
-<!-- {% endraw %} -->
 
 ### Solution
 
@@ -280,7 +206,3 @@ Check the results again from your automation controller host. We will use the de
     **Solution Not Below**
 
 You have done all the required configuration steps in the lab already. If unsure, just refer back to the respective chapters.
-
-## The End
-
-Congratulations, you finished your labs\! We hope you enjoyed your first encounter with Ansible automation controller as much as we enjoyed creating the labs.

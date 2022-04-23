@@ -44,48 +44,17 @@ Now you create a new Template that includes a survey.
 
 * Fill out the following information:
 
-<table>
-  <tr>
-    <th>Parameter</th>
-    <th>Value</th>
-  </tr>
-  <tr>
-    <td>Name</td>
-    <td>Create index.html</td>
-  </tr>
-  <tr>
-    <td>Job Type</td>
-    <td>Run</td>
-  </tr>
-  <tr>
-    <td>Inventory</td>
-    <td>Workshop Inventory</td>
-  </tr>
-  <tr>
-    <td>Project</td>
-    <td>Workshop Project</td>
-  </tr>
-  <tr>
-    <td>Eecution Environment</td>
-    <td>Default execution environment</td>
-  </tr>
-  <tr>
-    <td>Playbook</td>
-    <td><code>rhel/apache/apache_role_install.yml</code></td>
-  </tr>
-  <tr>
-    <td>Credentials</td>
-    <td>Workshop Credential</td>
-  </tr>
-  <tr>
-    <td>Limit</td>
-    <td>web</td>
-  </tr>
-  <tr>
-    <td>Options</td>
-    <td>Privilege Escalation</td>
-  </tr>
-</table>
+| Parameter             | Value                                            |
+| --------------------- | ------------------------------------------------ |
+| Name                  | `Create index.html`                              |
+| Job Type              | `Run`                                            |
+| Inventory             | `Workshop Inventory`                             |
+| Project               | `Workshop Project`                               |
+| Execution Environment | `Default execution environment`                  |
+| Playbook              | `rhel/apache/apache_role_install.yml`            |
+| Credentials           | `Workshop Credential`                            |
+| Limit                 | `web`                                            |
+| Options               | :material-checkbox-outline: Privilege Escalation |
 
 * Click **Save**
 
@@ -98,48 +67,22 @@ Now you create a new Template that includes a survey.
 
 * Fill out the following information:
 
-<table>
-  <tr>
-    <th>Parameter</th>
-    <th>Value</th>
-  </tr>
-  <tr>
-    <td>Question</td>
-    <td>First Line</td>
-  </tr>
-  <tr>
-    <td>Answer Variable Name</td>
-    <td>first_line</td>
-  </tr>
-  <tr>
-    <td>Answer Type</td>
-    <td>Text</td>
-  </tr>
-</table>
+| Parameter            | Value        |
+| -------------------- | ------------ |
+| Question             | `First Line` |
+| Answer Variable Name | `first_line` |
+| Answer Type          | `Text`       |
 
 * Click **Save**
 * Click the **Add** button
 
 In the same fashion add a second **Survey Question**
 
-<table>
-  <tr>
-    <th>Parameter</th>
-    <th>Value</th>
-  </tr>
-  <tr>
-    <td>Question</td>
-    <td>Second Line</td>
-  </tr>
-  <tr>
-    <td>Answer Variable Name</td>
-    <td>second_line</td>
-  </tr>
-  <tr>
-    <td>Answer Type</td>
-    <td>Text</td>
-  </tr>
-</table>
+| Parameter            | Value         |
+| -------------------- | ------------- |
+| Question             | `Second Line` |
+| Answer Variable Name | `second_line` |
+| Answer Type          | `Text`        |
 
 * Click **Save**
 * Click the toggle to turn the Survey questions to **On**
@@ -155,7 +98,7 @@ Before the actual launch the survey will ask for **First Line** and **Second Lin
 After the job has completed, check the Apache homepage. In the SSH console on the control host, execute `curl` against `node1`:
 
 ```bash
-$ curl http://node1
+[student1@ansible-1 ~]$ curl http://node1
 <body>
 <h1>Apache is running fine</h1>
 <h1>This is survey field "First Line": line one</h1>
