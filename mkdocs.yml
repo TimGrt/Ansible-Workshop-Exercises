@@ -23,6 +23,7 @@ theme:
   language: de
   favicon: assets/ansible-logo-black.png
   features:
+    - navigation.indexes
     - navigation.instant
     - navigation.sections
     - navigation.tabs
@@ -71,7 +72,8 @@ repo_url: https://github.com/TimGrt/Ansible-Workshop-Exercises
 repo_name: timgrt/ansible-workshop-exercises
 # Navigation definition
 nav:
-  - "Demo Environment":
+  - "Workshop Overview":
+    - index.md
     - demo-environment/demo-environment.md
     - demo-environment/editor-alternatives.md
   - "Day 1":
