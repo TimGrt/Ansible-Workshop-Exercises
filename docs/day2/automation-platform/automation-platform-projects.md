@@ -65,45 +65,19 @@ To configure and use this repository as a **Source Control Management (SCM)** sy
 
 * Go to **Resources → Projects** click the **Add** button. Fill in the form:
 
- <table>
-   <tr>
-     <th>Parameter</th>
-     <th>Value</th>
-   </tr>
-   <tr>
-     <td>Name</td>
-     <td>Workshop Project</td>
-   </tr>
-   <tr>
-     <td>Organization</td>
-     <td>Default</td>
-   </tr>
-   <tr>
-     <td>Default Execution Environment</td>
-     <td>Default execution environment</td>
-   </tr>
-   <tr>
-     <td>Source Control Credential Type</td>
-     <td>Git</td>
-   </tr>
- </table>
+| Parameter                      | Value                           |
+| ------------------------------ | ------------------------------- |
+| Name                           | `Workshop Project`              |
+| Organization                   | `Default`                       |
+| Default Execution Environment  | `Default Execution Environment` |
+| Source Control Credential Type | `Git`                           |
 
  Enter the URL into the Project configuration:
 
- <table>
-   <tr>
-     <th>Parameter</th>
-     <th>Value</th>
-   </tr>
-   <tr>
-     <td>Source Control URL</td>
-     <td><code>https://github.com/ansible/workshop-examples.git</code></td>
-   </tr>
-   <tr>
-     <td>Options</td>
-     <td>Select Clean, Delete, Update Revision on Launch to request a fresh copy of the repository and to update the repository when launching a job.</td>
-   </tr>
- </table>
+| Parameter          | Value                                                                                                                                                       |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Source Control URL | `https://github.com/ansible/workshop-examples.git`                                                                                                          |
+| Options            | Select **Clean**, **Delete** and **Update Revision on Launch** to request a fresh copy of the repository and to update the repository when launching a job. |
 
 * Click **SAVE**
 
@@ -127,50 +101,19 @@ A job template is a definition and set of parameters for running an Ansible job.
 Okay, let’s just do that: Go to the **Resources -> Templates** view, click the **Add** button and choose **Add job template**.
 
 !!! tip
-    Remember that you can often click on magnfying glasses to get an overview of options to pick to fill in fields.
+    Remember that you can often click on magnifying glasses to get an overview of options to pick to fill in fields.
 
- <table>
-   <tr>
-     <th>Parameter</th>
-     <th>Value</th>
-   </tr>
-   <tr>
-     <td>Name</td>
-     <td>Install Apache</td>
-   </tr>
-   <tr>
-     <td>Job Type</td>
-     <td>Run</td>
-   </tr>
-   <tr>
-     <td>Inventory</td>
-     <td>Workshop Inventory</td>
-   </tr>
-   <tr>
-     <td>Project</td>
-     <td>Workshop Project</td>
-   </tr>
-   <tr>
-     <td>Execution Environment</td>
-     <td>Default execution environment</td>
-   </tr>
-   <tr>
-     <td>Playbook</td>
-     <td><code>rhel/apache/apache_install.yml</code></td>
-   </tr>
-   <tr>
-     <td>Credentials</td>
-     <td>Workshop Credential</td>
-   </tr>
-   <tr>
-     <td>Limit</td>
-     <td>web</td>
-   </tr>
-   <tr>
-     <td>Options</td>
-     <td>tasks need to run as root so check **Privilege Escalation**</td>
-   </tr>
- </table>
+| Parameter             | Value                                            |
+| --------------------- | ------------------------------------------------ |
+| Name                  | `Install Apache`                                 |
+| Job Type              | `Run`                                            |
+| Inventory             | `Workshop Inventory`                             |
+| Project               | `Workshop Project`                               |
+| Execution Environment | `Default execution environment`                  |
+| Playbook              | `rhel/apache/apache_install.yml`                 |
+| Credentials           | `Workshop Credential`                            |
+| Limit                 | `web`                                            |
+| Options               | :material-checkbox-outline: Privilege Escalation |
 
 * Click **Save**
 
@@ -205,23 +148,13 @@ You have already been through all the steps needed, so try this for yourself.
 !!! tip
     What about `systemctl status httpd`?
 
-<p>
-<details>
-<summary><b>Solution</b></summary>
+??? success "Solution"
 
-* Go to **Resources →  Inventories** → **Workshop Inventory**
+    * Go to **Resources →  Inventories** → **Workshop Inventory**
+    * In the **Hosts** view select `node1`, `node2`, `node3` and click **Run Command**
+    * Within the **Details** window, select **Module** `command`, in **Arguments** type `systemctl status httpd` and click **Next**.
+    * Within the **Execution Environment** window, select **Default execution environment** and click **Next**.
+    * Within the **Machine Credential** window, select **Workshop Credential** and click **Launch**.
 
-* In the **Hosts** view select `node1`, `node2`, `node3` and click **Run Command**
-
-Within the **Details** window, select **Module** `command`, in **Arguments** type `systemctl status httpd` and click **Next**.
-
-Within the **Execution Environment** window, select **Default execution environment** and click **Next**.
-
-Within the **Machine Credential** window, select **Workshop Credential** and click **Launch**.
-
-> **Tip**
->
-> The output of the results is displayed once the command has completed.
-
-</details>
-</p>
+    !!! info
+        The output of the results is displayed once the command has completed.

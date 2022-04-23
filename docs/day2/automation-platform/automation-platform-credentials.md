@@ -23,8 +23,7 @@ There will be one inventory, the **Workshop Inventory**. Click the **Workshop In
 
 The inventory information at `~/lab_inventory/hosts` was pre-loaded into the Ansible Automation controller Inventory as part of the provisioning process.
 
-```bash
-$ cat ~/lab_inventory/hosts
+```ini
 [web]
 node1 ansible_host=22.33.44.55
 node2 ansible_host=33.44.55.66
@@ -45,24 +44,11 @@ In the **Resources** menu choose **Credentials**. Now click on the **Workshop Cr
 
 Note the following information:
 
-<table>
-  <tr>
-    <th>Parameter</th>
-    <th>Value</th>
-  </tr>
-  <tr>
-    <td>Credential Type</td>
-    <td><code>Machine</code>- Machine credentials define ssh and user-level privilege escalation access for playbooks. They are used when submitting jobs to run playbooks on a remote host.</td>
-  </tr>
-  <tr>
-    <td>Username</td>
-    <td><code>ec2-user</code> which matches our command-line Ansible inventory username for the other Linux nodes</td>
-  </tr>
-  <tr>
-    <td>SSH Private Key</td>
-    <td><code>Encrypted</code> - take note that you can't actually examine the SSH private key once someone hands it over to Ansible Automation controller</td>
-  </tr>
-</table>
+| Parameter                    | Value       | Description                                                                                                                                                    |
+| ---------------------------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| <nobr>Credential Type</nobr> | `Machine`   | Machine credentials define ssh and user-level privilege escalation access for playbooks. They are used when submitting jobs to run playbooks on a remote host. |
+| <nobr>Username</nobr>        | `ec2-user`  | The user which matches our command-line Ansible inventory username for the other Linux nodes                                                                   |
+| <nobr>SSH Private Key</nobr> | `Encrypted` | Note that you can't actually examine the SSH private key once someone hands it over to Ansible Automation controller                                           |
 
 ### Run Ad Hoc commands
 
@@ -83,8 +69,6 @@ Within the **Machine Credential** window, select **Workshop Credentials** and cl
 !!! tip
     The output of the results is displayed once the command has completed.
 
-<hr>
-
 The simple **ping** module doesn’t need options. For other modules you need to supply the command to run as an argument. Try the **command** module to find the userid of the executing user using an ad hoc command.
 
 * In the web UI go to **Resources → Inventories → Workshop Inventory**
@@ -103,9 +87,8 @@ Within the **Machine Credential** window, select **Workshop Credentials** and cl
 !!! tip
     After choosing the module to run, Ansible Automation Controller will provide a link to the docs page for the module when clicking the question mark next to "Arguments". This is handy, give it a try.
 
-<hr>
 
-How about trying to get some secret information from the system? Try to print out */etc/shadow*.
+How about trying to get some secret information from the system? Try to print out `/etc/shadow`.
 
 * In the web UI go to **Resources → Inventories → Workshop Inventory**
 
@@ -130,26 +113,16 @@ As you see, this time it worked. For tasks that have to run as `root` you need t
 
 ### Challenge Lab: Ad Hoc Commands
 
-Okay, a small challenge: Run an ad hoc to make sure the package "tmux" is installed on all hosts. If unsure, consult the documentation either via the web UI as shown above or by running `[ansible@controller ~]$ ansible-doc yum` on your Automation controller control host.
+Okay, a small challenge: Run an ad hoc to make sure the package "tmux" is installed on all hosts. If unsure, consult the documentation either via the web UI as shown above or by running `ansible-doc yum` on your Automation controller control host.
 
-<p>
-<details>
-<summary><b>Solution</b></summary>
+??? success "Solution"
 
-* In the web UI go to **Resources → Inventories → Workshop Inventory**
+    * In the Web UI go to **Resources → Inventories → Workshop Inventory**.  
+    * Click the **Hosts** tab to change into the hosts view and select the three hosts by ticking the boxes to the left of the host entries.
+    * Click **Run Command** button. In the next screen you have to specify the ad hoc command.
+    * Within the **Details** window, select **Module** `yum`, in **Arguments** type `name=tmux`, check **Enable privilege escalation** and click **Next**.
+    * Within the **Execution Environment** window, select **Default execution environment** and click **Next**.
+    * Within the **Machine Credential** window, select **Workshop Credentials** and click **Launch**.
 
-* Click the **Hosts** tab to change into the hosts view and select the three hosts by ticking the boxes to the left of the host entries.
-
-* Click **Run Command** button. In the next screen you have to specify the ad hoc command.
-
-Within the **Details** window, select **Module** `yum`, in **Arguments** type `name=tmux`, check **Enable privilege escalation** and click **Next**.
-
-Within the **Execution Environment** window, select **Default execution environment** and click **Next**.
-
-Within the **Machine Credential** window, select **Workshop Credentials** and click **Launch**.
-
-!!! tip
-    Notice how the package was instaled via the "CHANGED" output. If you run the ad hoc command a second time, the output will mention "SUCCESS" and inform you via the message parameter that there is nothing to do.
-
-</details>
-</p>
+!!! info
+    Notice how the package was installed via the "CHANGED" output. If you run the ad hoc command a second time, the output will mention "SUCCESS" and inform you via the message parameter that there is nothing to do.

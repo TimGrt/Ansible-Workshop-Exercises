@@ -71,71 +71,66 @@ Run the newly created playbook to find the fact name.
 
 * Check motd by logging in to node1
 
-<p>
-<details>
-<summary><b>Solution</b></summary>
+??? success "Solution"
+    
+    Find the fact:
 
-Find the fact:
+    ```yaml
+    ---
+    - name: Capture Kernel Version
+      hosts: node1
+      tasks:
+        - name: Collect only kernel facts
+          ansible.builtin.setup:
+            filter:
+              - '*kernel'
+          register: setup
 
-```yaml
----
-- name: Capture Kernel Version
-  hosts: node1
-  tasks:
-    - name: Collect only kernel facts
-      ansible.builtin.setup:
-        filter:
-          - '*kernel'
-      register: setup
+        - name: Output variable content
+          ansible.builtin.debug:
+            var: setup
+    ```
 
-    - name: Output variable content
-      ansible.builtin.debug:
-        var: setup
-```
+    With the wildcard in place, the output shows:
 
-With the wildcard in place, the output shows:
+    ```bash
 
-```bash
+    TASK [debug] *******************************************************************
+    ok: [node1] => {
+        "setup": {
+            "ansible_facts": {
+                "ansible_kernel": "4.18.0-305.12.1.el8_4.x86_64"
+            },
+            "changed": false,
+            "failed": false
+        }
+    } 
+    ```
 
-TASK [debug] *******************************************************************
-ok: [node1] => {
-    "setup": {
-        "ansible_facts": {
-            "ansible_kernel": "4.18.0-305.12.1.el8_4.x86_64"
-        },
-        "changed": false,
-        "failed": false
-    }
-} 
-```
+    With this we can conclude the variable we are looking for is labeled `ansible_kernel`.
+    Then we can update the motd-facts.j2 template to include `ansible_kernel` as part of its message.
 
-With this we can conclude the variable we are looking for is labeled `ansible_kernel`.
-Then we can update the motd-facts.j2 template to include `ansible_kernel` as part of its message.
+    Modify the template `motd-facts.j2`:
 
-Modify the template `motd-facts.j2`:
+    ```html+jinja
+    Welcome to {{ ansible_hostname }}.
+    {{ ansible_distribution }} {{ ansible_distribution_version}}
+    deployed on {{ ansible_architecture }} architecture
+    running kernel {{ ansible_kernel }}.
+    ```
 
-```html+jinja
-Welcome to {{ ansible_hostname }}.
-{{ ansible_distribution }} {{ ansible_distribution_version}}
-deployed on {{ ansible_architecture }} architecture
-running kernel {{ ansible_kernel }}.
-```
+    Run the playbook.
 
-Run the playbook.
+    ```bash
+    [student<X>@ansible-1 ~]$ ansible-playbooks motd-facts.yml
+    ```
 
-```bash
-[student<X>@ansible-1 ~]$ ansible-playbooks motd-facts.yml
-```
+    Verify the new message via SSH login to `node1`.
 
-Verify the new message via SSH login to `node1`.
-
-```bash
-[student<X>@ansible-1 ~]$ ssh node1
-Welcome to node1.
-RedHat 8.1
-deployed on x86_64 architecture
-running kernel 4.18.0-305.12.1.el8_4.x86_64.
-```
-
-</details>
-</p>
+    ```bash
+    [student<X>@ansible-1 ~]$ ssh node1
+    Welcome to node1.
+    RedHat 8.1
+    deployed on x86_64 architecture
+    running kernel 4.18.0-305.12.1.el8_4.x86_64.
+    ```

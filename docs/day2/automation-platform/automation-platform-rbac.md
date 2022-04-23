@@ -24,44 +24,16 @@ Let’s create a user:
 
 * Fill in the values for the new user:
 
-<table>
-  <tr>
-    <th>Parameter</th>
-    <th>Value</th>
-  </tr>
-  <tr>
-    <td>Username</td>
-    <td>wweb</td>
-  </tr>
-  <tr>
-    <td>Email</td>
-    <td>wweb@example.com</td>
-  </tr>
-  <tr>
-    <td>Password</td>
-    <td>ansible</td>
-  </tr>
-  <tr>
-    <td>Confirm Password</td>
-    <td>ansible</td>
-  </tr>
-  <tr>
-    <td>First Name</td>
-    <td>Werner</td>
-  </tr>
-  <tr>
-    <td>Last Name</td>
-    <td>Web</td>
-  </tr>
-  <tr>
-    <td>Organization</td>
-    <td>Default</td>
-  </tr>
-  <tr>
-    <td>User Type</td>
-    <td>Normal User</td>
-  </tr>
-</table>
+| Parameter        | Value              |
+| ---------------- | ------------------ |
+| Username         | `wweb`             |
+| Email            | `wweb@example.com` |
+| Password         | `ansible`          |
+| Confirm Password | `ansible`          |
+| First Name       | `Werner`           |
+| Last Name        | `Web`              |
+| Organization     | `Default`          |
+| User Type        | `Normal User`      |
 
 * Click **Save**
 
@@ -123,7 +95,7 @@ Now log out of automation controller’s web UI and in again as the **wweb** use
 Check the result: execute `curl` again on the control host to pull the content of the webserver on `node1` (you could of course check `node2` and `node3`, too):
 
 ```bash
-#> curl http://node1
+[student<X>@ansible-1 ~]$ curl http://node1
 ```
 
 Just recall what you have just done: You enabled a restricted user to run an Ansible playbook

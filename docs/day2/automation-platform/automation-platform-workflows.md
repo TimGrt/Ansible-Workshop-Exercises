@@ -50,80 +50,29 @@ First you have to set up the Git repo as a Project like you normally would.
 
 Within **Resources** -> **Projects**, click the **Add** button to create a project for the web operations team. Fill out the form as follows:
 
-<table>
-  <tr>
-    <th>Parameter</th>
-    <th>Value</th>
-  </tr>
-  <tr>
-    <td>Name</td>
-    <td>Webops Git Repo</td>
-  </tr>
-  <tr>
-    <td>Organization</td>
-    <td>Default</td>
-  </tr>
-  <tr>
-    <td>Default Execution Environment</td>
-    <td>Default execution environment</td>
-  </tr>
-  <tr>
-    <td>Source Control Credential Type</td>
-    <td>Git</td>
-  </tr>
-  <tr>
-    <td>Source Control URL</td>
-    <td><code>https://github.com/ansible/workshop-examples.git</code></td>
-  </tr>
-  <tr>
-    <td>Source Control Branch/Tag/Commit</td>
-    <td><code>webops</code></td>
-  </tr>
-  <tr>
-    <td>Options</td>
-    <td><ul><li>✓ Clean</li><li>✓ Delete</li><li>✓ Update Revision on Launch</li></ul></td>
-  </tr>
-</table>
+| Parameter                        | Value                                                                           |
+| -------------------------------- | ------------------------------------------------------------------------------- |
+| Name                             | `Webops Git Repo`                                                               |
+| Organization                     | `Default`                                                                       |
+| Default Execution Environment    | `Default Execution Environment`                                                 |
+| Source Control Credential Type   | `Git`                                                                           |
+| Source Control URL               | `https://github.com/ansible/workshop-examples.git`                              |
+| Source Control Branch/Tag/Commit | `webops`                                                                        |
+| Options                          | <ul><li>:material-checkbox-outline: Clean</li><li>:material-checkbox-outline: Delete</li><li>:material-checkbox-outline: Update Revision on Launch</li></ul> |
 
 Click **Save**
 
----
 Within **Resources** -> **Projects**, click the **Add** button to create a project for the web developers team. Fill out the form as follows:
 
-<table>
-  <tr>
-    <th>Parameter</th>
-    <th>Value</th>
-  </tr>
-  <tr>
-    <td>Name</td>
-    <td>Webdev Git Repo</td>
-  </tr>
-  <tr>
-    <td>Organization</td>
-    <td>Default</td>
-  </tr>
-  <tr>
-    <td>Default Execution Environment</td>
-    <td>Default execution environment</td>
-  </tr>
-  <tr>
-    <td>Source Control Credential Type</td>
-    <td>Git</td>
-  </tr>
-  <tr>
-    <td>Source Control URL</td>
-    <td><code>https://github.com/ansible/workshop-examples.git</code></td>
-  </tr>
-  <tr>
-    <td>Source Control Branch/Tag/Commit</td>
-    <td><code>webdev</code></td>
-  </tr>
-  <tr>
-    <td>Options</td>
-    <td><ul><li>✓ Clean</li><li>✓ Delete</li><li>✓ Update Revision on Launch</li></ul></td>
-  </tr>
-</table>
+| Parameter                        | Value                                                                           |
+| -------------------------------- | ------------------------------------------------------------------------------- |
+| Name                             | `Webdev Git Repo`                                                               |
+| Organization                     | `Default`                                                                       |
+| Default Execution Environment    | `Default Execution Environment`                                                 |
+| Source Control Credential Type   | `Git`                                                                           |
+| Source Control URL               | `https://github.com/ansible/workshop-examples.git`                              |
+| Source Control Branch/Tag/Commit | `webdev`                                                                        |
+| Options                          | <ul><li>:material-checkbox-outline: Clean</li><li>:material-checkbox-outline: Delete</li><li>:material-checkbox-outline: Update Revision on Launch</li></ul> |
 
 Click **Save**
 
@@ -133,48 +82,17 @@ Now you have to create two Job Templates like you would for "normal" Jobs.
 
 Within **Resources** -> **Templates**, click the **Add** button and choose **Add job template**:
 
-  <table>
-    <tr>
-      <th>Parameter</th>
-      <th>Value</th>
-    </tr>
-    <tr>
-      <td>Name</td>
-      <td>Web App Deploy</td>
-    </tr>
-    <tr>
-      <td>Job Type</td>
-      <td>Run</td>
-    </tr>
-    <tr>
-      <td>Inventory</td>
-      <td>Workshop Inventory</td>
-    </tr>
-    <tr>
-      <td>Project</td>
-      <td>Webops Git Repo</td>
-    </tr>
-    <tr>
-      <td>Execution Environment</td>
-      <td>Default execution environment</td>
-    </tr>
-    <tr>
-      <td>Playbook</td>
-      <td><code>rhel/webops/web_infrastructure.yml</code></td>
-    </tr>
-    <tr>
-      <td>Credentials</td>
-      <td>Workshop Credential</td>
-    </tr>
-    <tr>
-      <td>Limit</td>
-      <td>web</td>
-    </tr>
-    <tr>
-      <td>Options</td>
-      <td>✓ Privilege Escalation</td>
-    </tr>
-  </table>
+| Parameter             | Value                                            |
+| --------------------- | ------------------------------------------------ |
+| Name                  | `Web App Deploy`                                 |
+| Job Type              | `Run`                                            |
+| Inventory             | `Workshop Inventory`                             |
+| Project               | `Webops Git Repo`                                |
+| Execution Environment | `Default execution environment`                  |
+| Playbook              | `rhel/webops/web_infrastructure.yml`             |
+| Credentials           | `Workshop Credential`                            |
+| Limit                 | `web`                                            |
+| Options               | :material-checkbox-outline: Privilege Escalation |
 
 Click **Save**
 
@@ -182,48 +100,17 @@ Click **Save**
 
 Within **Resources** -> **Templates**, click the **Add** button and choose **Add job template**:
 
-  <table>
-    <tr>
-      <th>Parameter</th>
-      <th>Value</th>
-    </tr>
-    <tr>
-      <td>Name</td>
-      <td>Node.js Deploy</td>
-    </tr>
-    <tr>
-      <td>Job Type</td>
-      <td>Run</td>
-    </tr>
-    <tr>
-      <td>Inventory</td>
-      <td>Workshop Inventory</td>
-    </tr>
-    <tr>
-      <td>Project</td>
-      <td>Webdev Git Repo</td>
-    </tr>
-    <tr>
-      <td>Execution Environment</td>
-      <td>Default execution environment</td>
-    </tr>
-    <tr>
-      <td>Playbook</td>
-      <td><code>rhel/webdev/install_node_app.yml</code></td>
-    </tr>
-    <tr>
-      <td>Credentials</td>
-      <td>Workshop Credential</td>
-    </tr>
-    <tr>
-      <td>Limit</td>
-      <td>web</td>
-    </tr>
-    <tr>
-      <td>Options</td>
-      <td>✓ Privilege Escalation</td>
-    </tr>
-  </table>
+| Parameter             | Value                                            |
+| --------------------- | ------------------------------------------------ |
+| Name                  | `Node.js Deploy`                                 |
+| Job Type              | `Run`                                            |
+| Inventory             | `Workshop Inventory`                             |
+| Project               | `Webdev Git Repo`                                |
+| Execution Environment | `Default execution environment`                  |
+| Playbook              | `rhel/webdev/install_node_app.yml`               |
+| Credentials           | `Workshop Credential`                            |
+| Limit                 | `web`                                            |
+| Options               | :material-checkbox-outline: Privilege Escalation |
 
 Click **Save**
 
@@ -236,16 +123,10 @@ Workflows are configured in the **Templates** view, you might have noticed you c
 
 Within **Resources** -> **Templates**, click the **Add** button and choose **Add workflow template**:
 
-  <table>
-    <tr>
-      <td><b>Name</b></td>
-      <td>Deploy Webapp Server</td>
-    </tr>
-    <tr>
-      <td><b>Organization</b></td>
-      <td>Default</td>
-    </tr>
-  </table>
+| Parameter    | Value                  |
+| ------------ | ---------------------- |
+| Name         | `Deploy Webapp Server` |
+| Organization | `Default`              |
 
 Click **Save**
 
@@ -287,7 +168,8 @@ From within the **Deploy Webapp Server** Details page, **Launch** the workflow.
 
 Note how the workflow run is shown in the Jobs > Deploy Webapp Server Output. In contrast to a normal job template job execution, there is no playbook output when the job completes but the time to complete the job is displayed. If you want to look at the actual playbook run, hover over the node you wish to see the details on and click it. Within the Details view of the job, select the **Output** menu to see the playbook output. If you want to get back the **Output** view of the **Deploy WebappServer** workflow, under Views -> Jobs -> **XX - Deploy Webapp Server** will take you back to the Output overview. 
 
-NOTE: Where `XX` is the number of the job run. 
+!!! note
+    `XX` is the number of the job run. 
 
 ![jobs view of workflow](images/job_workflow.png)
 
@@ -298,4 +180,5 @@ After the job was finished, check if everything worked fine: from your control h
 Hello World
 ```
 
-NOTE: `X` should be replaced with the appropriate number of the node you are checking.
+!!! note
+    `X` should be replaced with the appropriate number of the node you are checking.
