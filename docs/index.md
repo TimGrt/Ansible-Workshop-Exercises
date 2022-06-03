@@ -1,4 +1,4 @@
-# Ansible Workshop - Kickoff Edition
+# Ansible Workshop
 
 Welcome to the Ansible Workshop!
 
