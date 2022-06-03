@@ -4,6 +4,8 @@ This repository contains all exercise descriptions for my Ansible Workshop, util
 The exercises are build with MkDocs and published to [Github pages](https://timgrt.github.io/Ansible-Workshop-Exercises).  
 A Dockerfile is included to build a container image which publishes the exercises as a Webserver.
 
+[![Deploy MkDocs to Github pages](https://github.com/TimGrt/Ansible-Workshop-Exercises/actions/workflows/ci.yml/badge.svg)](https://github.com/TimGrt/Ansible-Workshop-Exercises/actions/workflows/ci.yml)
+
 ## Podman
 
 During a Workshop, the page published to Github pages was not accessible by the attendees because it was blocked by firewall policies. In that case, deploy the container with the exercises on a host in the lab environment. Use *node2*, as this one is accessible from the internet on Port 8080.
