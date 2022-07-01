@@ -1,6 +1,12 @@
 # Overview
 
 The first workshop day is all about getting to know Ansible and learning to write your first Ansible Playbooks.  
+
+<figure markdown>
+  ![Ansible Logo](ansible-logo-black.png){ width="300", loading=lazy }
+  <figcaption></figcaption>
+</figure>
+
 You will complete the following exercises today:
 
 * [Exercise 1.1 - Check the Prerequisites](ansible-core-intro.md)
