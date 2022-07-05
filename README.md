@@ -52,7 +52,7 @@ docker run -d -p 8080:80/tcp --name workshop ansible-workshop-exercises
 Create a Python virtual environment:
 
 ```bash
-pip3 -m venv mkdocs-venv
+python3 -m venv mkdocs-venv
 ```
 
 Activate VE:
