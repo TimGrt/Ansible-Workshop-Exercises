@@ -22,12 +22,12 @@ git clone https://github.com/TimGrt/Ansible-Workshop-Exercises.git
 
 Change into the cloned directory and build the container image:
 ```bash
-docker build -t ansible-workshop-exercises .
+podman build -t ansible-workshop-exercises .
 ```
 
 Run a container from the previously build image, the webserver is available at Port 8080:
 ```bash
-docker run -d -p 8080:80/tcp --name workshop ansible-workshop-exercises
+podman run -d -p 8080:80/tcp --name workshop ansible-workshop-exercises
 ```
 
 Get the **public** IP address of *node2* from the lab inventory, suffix with Port 8080 and open the exercises in the browser.
@@ -52,7 +52,7 @@ docker run -d -p 8080:80/tcp --name workshop ansible-workshop-exercises
 Create a Python virtual environment:
 
 ```bash
-pip3 -m venv mkdocs-venv
+python3 -m venv mkdocs-venv
 ```
 
 Activate VE:
