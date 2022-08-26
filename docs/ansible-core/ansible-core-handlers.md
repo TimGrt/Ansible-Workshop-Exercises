@@ -98,12 +98,12 @@ Next, create the Playbook `httpd_conf.yml`. Make sure that you are in the direct
   hosts: web
   become: true
   tasks:
-  - name: Copy Apache configuration file
-    ansible.builtin.copy:
-      src: httpd.conf
-      dest: /etc/httpd/conf/
-    notify:
-      - restart_apache
+    - name: Copy Apache configuration file
+      ansible.builtin.copy:
+        src: httpd.conf
+        dest: /etc/httpd/conf/
+      notify:
+        - restart_apache
   handlers:
     - name: restart_apache
       ansible.builtin.service:
@@ -227,10 +227,10 @@ Verify that the user `dev_user` was indeed created on `node1` using the followin
       ansible.builtin.getent:
         database: passwd
         key: "{{ myuser }}"
+        
     - name: Output {{ myuser }} info
       ansible.builtin.debug:
-        msg:
-          - "{{ myuser }} uid: {{ getent_passwd['dev_user'].1 }}"
+        msg: "{{ myuser }} uid: {{ getent_passwd['dev_user'].1 }}"
 ```
 
 ```bash

@@ -406,10 +406,11 @@ Log out of `node1` with the command `exit` so that you are back on the control h
     - name: Gather the package facts
       ansible.builtin.package_facts:
         manager: auto
+    
     - name: Check whether a {{ package }}  is installed
       ansible.builtin.debug:
         msg: "{{ package }} {{ ansible_facts.packages[ package ][0].version }} is installed!"
-      when: "package in ansible_facts.packages"
+      when: package in ansible_facts.packages
 ```
 
 ```bash
@@ -483,11 +484,13 @@ On the control node as your student user edit the file `~/ansible-files/apache.y
     yum:
       name: httpd
       state: latest
+
   - name: Apache enabled and running
     service:
       name: httpd
       enabled: true
       state: started
+
   - name: copy web.html
     copy:
       src: web.html
@@ -535,11 +538,13 @@ Change the playbook `hosts` parameter to point to `web` instead of `node1`:
     yum:
       name: httpd
       state: latest
+
   - name: Apache enabled and running
     service:
       name: httpd
       enabled: true
       state: started
+      
   - name: copy web.html
     copy:
       src: web.html

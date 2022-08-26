@@ -84,11 +84,11 @@ Run the newly created playbook to find the fact name.
           ansible.builtin.setup:
             filter:
               - '*kernel'
-          register: setup
+          register: setup_output
 
-        - name: Output variable content
+        - name: Output variable content 
           ansible.builtin.debug:
-            var: setup
+            msg: "{{ setup_output }}"
     ```
 
     With the wildcard in place, the output shows:

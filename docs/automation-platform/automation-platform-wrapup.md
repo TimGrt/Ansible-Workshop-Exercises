@@ -128,10 +128,10 @@ This time we use the power of Ansible to check the results: execute uri to get t
       uri:
         url: "http://{{ ansible_host }}"
         return_content: yes
-      register: content
+      register: uri_output
 
     - debug:
-       var: content.content
+       msg: "{{ uri_output.content }}"
 ```
 
 Execute the playbook:
@@ -145,13 +145,13 @@ Snippet of output:
 ```bash
 TASK [debug] *******************************************************************
 ok: [node1] => {
-    "content.content": "<body>\n<h1>This is a development webserver, have fun!</h1>\ndev wweb</body>\n"
+    "uri_output.content": "<body>\n<h1>This is a development webserver, have fun!</h1>\ndev wweb</body>\n"
 }
 ok: [node2] => {
-    "content.content": "<body>\n<h1>This is a production webserver, take care!</h1>\nprod wweb</body>\n"
+    "uri_output.content": "<body>\n<h1>This is a production webserver, take care!</h1>\nprod wweb</body>\n"
 }
 ok: [node3] => {
-    "content.content": "<body>\n<h1>This is a development webserver, have fun!</h1>\ndev wweb</body>\n"
+    "uri_output.content": "<body>\n<h1>This is a development webserver, have fun!</h1>\ndev wweb</body>\n"
 }
 ```
 
