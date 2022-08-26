@@ -71,7 +71,7 @@ Okay, lets start to build a role. We'll build a role that installs and configure
 
 ```bash
 [student<X>@ansible-1 ansible-files]$ mkdir roles
-[student<X>@ansible-1 ansible-files]$ ansible-galaxy init --offline roles/apache_vhost
+[student<X>@ansible-1 ansible-files]$ ansible-galaxy init --offline roles/apache-webserver
 ```
 
 Have a look at the role directories and their content:
@@ -82,7 +82,7 @@ Have a look at the role directories and their content:
 
 ```text
 roles/
-└── apache_vhost
+└── apache-webserver
     ├── defaults
     │   └── main.yml
     ├── files
@@ -113,7 +113,7 @@ The `main.yml` file in the tasks subdirectory of the role should do the followin
 !!! note
     The `main.yml` (and other files possibly included by main.yml) can **only contain tasks**, **not** complete playbooks!
 
-Edit the `roles/apache_vhost/tasks/main.yml` file:
+Edit the `roles/apache-webserver/tasks/main.yml` file:
 
 ```yaml
 ---
@@ -136,7 +136,7 @@ The tasks added so far do:
 * Install the httpd package using the yum module
 * Use the service module to enable and start httpd
 
-Next we add two more tasks to ensure a vhost directory structure and copy html content:
+Next we add two more tasks to ensure a *vhost* directory structure on the managed nodes and copy HTML content:
 
 ```yaml
 - name: ensure vhost directory is present
@@ -150,7 +150,10 @@ Next we add two more tasks to ensure a vhost directory structure and copy html c
     dest: "/var/www/vhosts/{{ ansible_hostname }}/index.html"
 ```
 
-Note that the vhost directory is created/ensured using the `file` module.
+Note that the *vhost* directory is created/ensured using the `file` module.
+
+!!! info
+    The term *Virtual Host* refers to the practice of running more than one web site (such as *company1.example.com* and *company2.example.com*) on a single machine. The fact that they are running on the same physical server is not apparent to the end user.
 
 The last task we add uses the template module to create the vhost configuration file from a j2-template:
 
@@ -206,11 +209,11 @@ The full `tasks/main.yml` file is:
 
 ### Step 4 - Create the handler
 
-Create the handler in the file `roles/apache_vhost/handlers/main.yml` to restart httpd when notified by the template task:
+Create the handler in the file `roles/apache-webserver/handlers/main.yml` to restart httpd when notified by the template task:
 
 ```yaml
 ---
-# handlers file for roles/apache_vhost
+# handlers file for roles/apache-webserver
 - name: restart_httpd
   ansible.builtin.service:
     name: httpd
@@ -221,10 +224,12 @@ Create the handler in the file `roles/apache_vhost/handlers/main.yml` to restart
 
 Create the HTML content that will be served by the webserver.
 
-* Create an `web.html` file in the "src" directory of the role, the `files` folder. Add a simple string to the file, e.g. with this command (copy it completely):
+* Create an `web.html` file in the "src" directory of the role, the `files` folder. Add a simple HTML content to the file:
 
-```bash
-echo 'simple vhost index' > ~/ansible-files/roles/apache_vhost/files/web.html
+```html
+<body>
+<h1>The virtual host configuration works!</h1>
+</body>
 ```
 
 * Create the `vhost.conf.j2` template file in the role's `templates` subdirectory.
@@ -255,23 +260,26 @@ You are ready to test the role against `node2`. But since a role cannot be assig
 
 ```yaml
 ---
-- name: use apache_vhost role playbook
+- name: Use apache-webserver role
   hosts: node2
   become: true
 
   pre_tasks:
     - ansible.builtin.debug:
-        msg: 'Beginning web server configuration.'
+        msg: "Beginning web server configuration."
 
   roles:
-    - apache_vhost
+    - apache-webserver
 
   post_tasks:
     - ansible.builtin.debug:
-        msg: 'Web server has been configured.'
+        msg: "Web server has been configured."
 ```
 
-Note the `pre_tasks` and `post_tasks` keywords. Normally, the tasks of roles execute before the tasks of a playbook. To control order of execution `pre_tasks` are performed before any roles are applied. The `post_tasks` are performed after all the roles have completed. Here we just use them to better highlight when the actual role is executed.
+Note the `pre_tasks` and `post_tasks` keywords. Normally, the tasks of *roles* execute before the *tasks* of a playbook. To control order of execution `pre_tasks` are performed before any roles are applied. The `post_tasks` are performed after all the roles have completed. Here we just use them to better highlight when the actual role is executed.
+
+!!! info
+    In most use cases, you should not mix/use *roles* and *tasks* in your play together. If you need to have single tasks in your play, why not create another role and include the tasks there?!
 
 Now you are ready to run your playbook:
 
@@ -284,18 +292,21 @@ Now you are ready to run your playbook:
     [student<X>@ansible-1 ansible-files]$ ansible-navigator run test_apache_role.yml
     ```
 
-Run a curl command against `node2` to confirm that the role worked:
+Run a curl command against `node2` to confirm that the role worked or use the `check_httpd.yml` playbook (you may need to adjust the variable in it to `node2:8080`):
 
 ```bash
 [student<X>@ansible-1 ansible-files]$ curl -s http://node2:8080
-simple vhost index
+<body>
+<h1>The virtual host configuration works!</h1>
+</body>
 ```
 
 Congratulations! You have successfully completed this exercise!
 
 ## Troubleshooting problems
 
-Did the final curl work?  You can see what ports the web server is running by using the netstat command:
+Did the final curl work?  
+You can see what ports the web server is running on by using the netstat command, connect to the managed node via SSH:
 
 ```bash
 #> sudo netstat -tulpn
