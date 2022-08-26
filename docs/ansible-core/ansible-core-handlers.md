@@ -233,7 +233,7 @@ Verify that the user `dev_user` was indeed created on `node1` using the followin
     - name: Output {{ myuser }} info
       ansible.builtin.debug:
         msg:
-          - "{{ myuser }} uid: {{ getent_passwd['dev_user'].1 }}"
+          - "{{ myuser }} uid: {{ getent_passwd[myuser][1] }}"
 ```
 
 ```bash
@@ -257,3 +257,13 @@ ok: [node1] => {
 PLAY RECAP *********************************************************************
 node1                      : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 ```
+
+!!! hint
+    It is possible to insert a *string* directly into the dictionary structure like this (although it makes the task less flexible):
+    ```yaml
+    - name: Output info for user '
+      ansible.builtin.debug:
+        msg:
+          - "{{ myuser }} uid: {{ getent_passwd['dev_user'][1] }}"
+    ```
+    As you can see the *value* of the variable `myuser` is used directly. It must be enclosed in single quotes. You can't use normal quotation marks, as these are used outside of the whole variable.
