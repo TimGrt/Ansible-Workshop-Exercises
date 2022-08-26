@@ -58,7 +58,7 @@ python3 -m venv mkdocs-venv
 Activate VE:
 
 ```bash
-source mkdocs-venv/bin/activcate
+source mkdocs-venv/bin/activate
 ```
 
 Install requirements from project directory:

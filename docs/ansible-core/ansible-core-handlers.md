@@ -44,6 +44,9 @@ node2 ansible_host=22.33.44.55
 ansible-1 ansible_host=44.55.66.77
 ```
 
+!!! warning
+    Do not copy the inventory above with placeholder IPs, use your own inventory file!
+
 Next create the file `ftpserver.yml` on your control host in the `~/ansible-files/` directory:
 
 ```yaml
@@ -230,7 +233,8 @@ Verify that the user `dev_user` was indeed created on `node1` using the followin
         
     - name: Output {{ myuser }} info
       ansible.builtin.debug:
-        msg: "{{ myuser }} uid: {{ getent_passwd['dev_user'].1 }}"
+        msg: "{{ myuser }} uid: {{ getent_passwd[myuser][1] }}"
+
 ```
 
 ```bash
@@ -254,3 +258,13 @@ ok: [node1] => {
 PLAY RECAP *********************************************************************
 node1                      : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 ```
+
+!!! hint
+    It is possible to insert a *string* directly into the dictionary structure like this (although it makes the task less flexible):
+    ```yaml
+    - name: Output info for user '
+      ansible.builtin.debug:
+        msg:
+          - "{{ myuser }} uid: {{ getent_passwd['dev_user'][1] }}"
+    ```
+    As you can see the *value* of the variable `myuser` is used directly. It must be enclosed in single quotes. You can't use normal quotation marks, as these are used outside of the whole variable.
