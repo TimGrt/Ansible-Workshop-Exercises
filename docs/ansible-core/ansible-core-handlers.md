@@ -44,6 +44,9 @@ node2 ansible_host=22.33.44.55
 ansible-1 ansible_host=44.55.66.77
 ```
 
+!!! warning
+    Do not copy the inventory above with placeholder IPs, use your own inventory file!
+
 Next create the file `ftpserver.yml` on your control host in the `~/ansible-files/` directory:
 
 ```yaml
