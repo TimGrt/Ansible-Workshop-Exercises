@@ -72,7 +72,7 @@ Add a file called `apache.yml` with the following content. As discussed in the p
 ---
 - name: Apache server installed
   hosts: node1
-  become: yes
+  become: true
 ```
 
 This shows one of Ansible’s strengths: The Playbook syntax is easy to read and understand. In this Playbook:
@@ -82,7 +82,7 @@ This shows one of Ansible’s strengths: The Playbook syntax is easy to read and
 * We enable user privilege escalation with `become:`.
 
 !!! tip
-    You obviously need to use privilege escalation to install a package or run any other task that requires root permissions. This is done in the Playbook by `become: yes`.
+    You obviously need to use privilege escalation to install a package or run any other task that requires root permissions. This is done in the Playbook by `become: true`.
 
 Now that we've defined the play, let's add a task to get something done. We will add a task in which yum will ensure that the Apache package is installed in the latest version. Modify the file so that it looks like the following listing:
 
@@ -90,7 +90,7 @@ Now that we've defined the play, let's add a task to get something done. We will
 ---
 - name: Apache server installed
   hosts: node1
-  become: yes
+  become: true
   tasks:
     - name: latest Apache version installed
       ansible.builtin.yum:
@@ -165,7 +165,7 @@ Log out of `node1` with the command `exit` so that you are back on the control h
     - name: Check whether a {{ package }}  is installed
       ansible.builtin.debug:
         msg: "{{ package }} {{ ansible_facts.packages[ package ][0].version }} is installed!"
-      when: "package in ansible_facts.packages"
+      when: package in ansible_facts.packages
 
 ```
 
@@ -214,12 +214,13 @@ On the control host, as your student user, edit the file `~/ansible-files/apache
 ---
 - name: Apache server installed
   hosts: node1
-  become: yes
+  become: true
   tasks:
     - name: latest Apache version installed
       ansible.builtin.yum:
         name: httpd
         state: latest
+
     - name: Apache enabled and running
       ansible.builtin.service:
         name: httpd
@@ -253,19 +254,20 @@ Notice in the output, we see the play had `1` "CHANGED" shown in yellow and if w
 
 ```yaml
 ---
+---
 - name: Check Status
   hosts: node1
   become: true
   vars:
     package: "httpd"
-
   tasks:
-    - name: Check status of {{ package }} service
+    - name: Get state of all service
       ansible.builtin.service_facts:
       register: service_state
 
-    - ansible.builtin.debug:
-        var: service_state.ansible_facts.services["{{ package }}.service"].state
+    - name: Output service state of {{ package }}
+      ansible.builtin.debug:
+        msg: "{{ service_state['ansible_facts']['services'][package]['state'] }}"
 ```
 
 === "Ansible"
@@ -333,17 +335,19 @@ On the control node as your student user edit the file `~/ansible-files/apache.y
 ---
 - name: Apache server installed
   hosts: node1
-  become: yes
+  become: true
   tasks:
     - name: latest Apache version installed
       ansible.builtin.yum:
         name: httpd
         state: latest
+
     - name: Apache enabled and running
       ansible.builtin.service:
         name: httpd
         enabled: true
         state: started
+
     - name: copy web.html
       ansible.builtin.copy:
         src: web.html
@@ -391,21 +395,23 @@ Change the playbook `hosts` parameter to point to `web` instead of `node1`:
 ---
 - name: Apache server installed
   hosts: web
-  become: yes
+  become: true
   tasks:
-  - name: latest Apache version installed
-    ansible.builtin.yum:
-      name: httpd
-      state: latest
-  - name: Apache enabled and running
-    ansible.builtin.service:
-      name: httpd
-      enabled: true
-      state: started
-  - name: copy web.html
-    ansible.builtin.copy:
-      src: web.html
-      dest: /var/www/html/index.html
+    - name: latest Apache version installed
+      ansible.builtin.yum:
+        name: httpd
+        state: latest
+
+    - name: Apache enabled and running
+      ansible.builtin.service:
+        name: httpd
+        enabled: true
+        state: started
+
+    - name: copy web.html
+      ansible.builtin.copy:
+        src: web.html
+        dest: /var/www/html/index.html
 ```
 
 Now run the playbook:

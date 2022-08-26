@@ -15,9 +15,9 @@ These first few lab exercises will be exploring the command-line utilities of th
 
 If you need more information on new Ansible Automation Platform components bookmark this landing page [https://red.ht/AAP-20](https://red.ht/AAP-20)
 
-We will be using especially the *ansible-core* executable and the CLI tools it provides, as currently (Q1/2022) it is the main interface to interact with Ansible. 
+We will be using especially the *ansible-core* executable and the CLI tools it provides, as currently (Q3/2022) it is the main interface to interact with Ansible. 
 
-In the (near) future this will be replaced/supplemented by the *Ansible Navigator*, which on the one hand brings more useful additional features and in the end serves a much greater purpose than just be a drop in replacement or alias to the currently used Ansible utilities. It requires a broader introduction and explanation regarding the use of containers and collections, which we will discuss on workshop day 2.  
+In the (near) future this will be replaced/supplemented by the *Ansible Navigator*, which on the one hand brings more useful additional features and in the end serves a much greater purpose than just be a drop in replacement or alias to the currently used Ansible utilities. It requires a broader introduction and explanation regarding the use of containers and collections, which we will discuss on workshop day 3.  
 Still, although we will be using the *ansible-core* executable in all exercises, it is shown how to also achieve everything using the `ansible-navigator` utility in a separate tab.
 
 === "Ansible"
@@ -85,7 +85,7 @@ Every host is reachable via SSH.
 
   ![login vs code](images/vscode_login.png)
 
-- Clicking on `File` &#8594; `Open Folder...` in the menu bar and open the `rhel-workshop` directory in Visual Studio Code (this will reload your browser window).
+- Clicking on `File` &#8594; `Open Folder...` in the menu bar and open your *home directory* in Visual Studio Code (this folder should already be shown in the *Open Folder* pop-up and called `/home/student<X>`, with *<X\>* being your student ID. This will reload your browser window.
 
 ### Step 2 - Using the Terminal
 
@@ -93,20 +93,22 @@ Every host is reachable via SSH.
 
   ![picture of new terminal](images/vscode-new-terminal.png)
 
-Navigate to the `rhel-workshop` directory on the Ansible control node terminal (if not already in it).
+Navigate to the `lab_inventory` directory on the Ansible control node terminal.
 
 ```bash
-[student<X>@ansible-1 ~]$ cd ~/rhel-workshop/
-[student<X>@ansible-1 rhel-workshop]$ pwd
-/home/student<X>/rhel-workshop
-[student<X>@ansible-1 rhel-workshop]$
+[student<X>@ansible-1 ~]$ cd lab_inventory
+[student<X>@ansible-1 lab_inventory]$ pwd
+/home/student<X>/lab_inventory
+[student<X>@ansible-1 lab_inventory]$ ls
+[student<X>@ansible-1 lab_inventory]$
+hosts
+[student<X>@ansible-1 lab_inventory]$ cd ..
+[student<X>@ansible-1 ~]$
 ```
 
 * `~` - the tilde in this context is a shortcut for the home directory, i.e. `/home/student<X>`
 * `cd` - Linux command to change directory
 * `pwd` - Linux command for print working directory.  This will show the full path to the current working directory.
-
-
 
 ### Step 3 - Challenge Labs
 

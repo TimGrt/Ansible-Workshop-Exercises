@@ -164,11 +164,11 @@ To get an idea what facts Ansible collects by default, on your control node as y
       ansible.builtin.setup:
         gather_subset:
           - 'all'
-      register: setup
+      register: setup_output
 
     - name: Output variable content
       ansible.builtin.debug:
-        var: setup
+        msg: "{{ setup_output }}"
 ```
 
 === "Ansible"
@@ -192,11 +192,11 @@ This might be a bit too much, you can use filters to limit the output to certain
         filter:
           - 'ansible_eth0'
           - 'ansible_*_mb'
-      register: setup
+      register: setup_output
 
     - name: Output variable content 
       ansible.builtin.debug:
-        var: setup
+        msg: "{{ setup_output }}"
 ```
 Run the playbook:
 
@@ -227,11 +227,11 @@ Run the playbook:
           ansible.builtin.setup:
             filter:
               - '*distribution'
-          register: setup
+          register: setup_output
 
-        - name: Output variable content
+        - name: Output variable content 
           ansible.builtin.debug:
-            var: setup
+            msg: "{{ setup_output }}"
     ```
 
     With the wildcard in place, the output shows:
