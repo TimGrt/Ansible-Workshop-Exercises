@@ -97,8 +97,8 @@ nav:
     - automation-platform/automation-platform-wrapup.md
   - "Projects":
     - projects-overview.md
-    - network-automation-project/apic-project.md
     - linux-automation-project/grafana-project.md
+    - network-automation-project/apic-project.md
   - "Ansible Future":
     - ansible-future-overview.md
     - ansible-navigator/ansible-navigator.md
