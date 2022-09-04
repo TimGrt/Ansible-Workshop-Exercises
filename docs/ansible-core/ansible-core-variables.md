@@ -1,4 +1,4 @@
-# 1.4 - Using Variables
+# 4 - Using Variables
 
 ## Objective
 
@@ -18,12 +18,12 @@ This exercise covers variables, specifically
 Variables are referenced in Ansible Playbooks by placing the variable name in double curly braces:
 
 ```yaml
-Here comes a variable {{ variable1 }}
+This string contains a {{ variable }}
 ```
 
 Variables and their values can be defined in various places: the inventory, additional files, on the command line, etc.
 
-The recommended practice to provide variables in the inventory is to define them in files located in two directories named `host_vars` and `group_vars`:
+The recommended practice to provide variables in the inventory, is to define them in files located in two directories: `host_vars` and `group_vars`.
 
 * To define variables for a group "servers", a YAML file named `group_vars/servers.yml` with the variable definitions is created.
 * To define variables specifically for a host `node1`, the file `host_vars/node1.yml` with the variable definitions is created.

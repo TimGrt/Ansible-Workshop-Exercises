@@ -1,4 +1,4 @@
-# 1.1 - Check the Prerequisites
+# 1 - Check the Prerequisites
 
 ## Objective
 

@@ -1,4 +1,4 @@
-# 1.3 - Writing Your First Playbook
+# 3 - Writing your first Playbook
 
 ## Objective
 

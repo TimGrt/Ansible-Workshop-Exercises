@@ -1,4 +1,4 @@
-# 1.2 - The Ansible Basics
+# 2 - The Ansible Basics
 
 ## Objective
 
