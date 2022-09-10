@@ -13,8 +13,6 @@ This exercise covers variables, specifically
 
 ## Guide
 
-### Intro to Variables
-
 Variables are referenced in Ansible Playbooks by placing the variable name in double curly braces:
 
 ```yaml
