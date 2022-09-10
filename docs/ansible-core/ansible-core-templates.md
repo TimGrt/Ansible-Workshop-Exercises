@@ -1,4 +1,4 @@
-# 1.6 - Templates
+# 8 - Templating with Jinja2
 
 ## Objective
 
@@ -113,10 +113,10 @@ Run the newly created playbook to find the fact name.
     Modify the template `motd-facts.j2`:
 
     ```html+jinja
-    Welcome to {{ ansible_hostname }}.
-    {{ ansible_distribution }} {{ ansible_distribution_version}}
-    deployed on {{ ansible_architecture }} architecture
-    running kernel {{ ansible_kernel }}.
+    Welcome to {{ ansible_hostname }}!
+    Host runs {{ ansible_distribution }} {{ ansible_distribution_version}}
+    Deployed on {{ ansible_architecture }} architecture
+    The kernel version is {{ ansible_kernel }}
     ```
 
     Run the playbook.
@@ -130,7 +130,7 @@ Run the newly created playbook to find the fact name.
     ```bash
     [student<X>@ansible-1 ~]$ ssh node1
     Welcome to node1.
-    RedHat 8.1
-    deployed on x86_64 architecture
-    running kernel 4.18.0-305.12.1.el8_4.x86_64.
+    Host runs RedHat 8.1
+    Deployed on x86_64 architecture
+    The kernel version is 4.18.0-305.12.1.el8_4.x86_64.
     ```

@@ -82,6 +82,8 @@ nav:
     - ansible-core/ansible-core-basics.md
     - ansible-core/ansible-core-playbook.md
     - ansible-core/ansible-core-variables.md
+    - ansible-core/ansible-core-conditionals.md
+    - ansible-core/ansible-core-loops.md
     - ansible-core/ansible-core-handlers.md
     - ansible-core/ansible-core-templates.md
     - ansible-core/ansible-core-roles.md

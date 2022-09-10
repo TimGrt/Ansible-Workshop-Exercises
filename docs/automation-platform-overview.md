@@ -3,19 +3,19 @@
 Day 2 of the Ansible Workshop is all about the Ansible Automation Platform and usage of the Ansible Automation Controller. 
 
 <figure markdown>
-  ![Ansible Automation Platform Logo](rh-ansible-automation-platform.png){ loading=lazy }
+  [![Ansible Automation Platform Logo](rh-ansible-automation-platform.png){ loading=lazy }](http://github.com/ansible/logos)
   <figcaption></figcaption>
 </figure>
 
 You will complete the following exercises today:
 
-* [Exercise 2.1 - Introduction](automation-platform-intro.md)
-* [Exercise 2.2 - Inventories, credentials and ad hoc commands](automation-platform-credentials.md)
-* [Exercise 2.3 - Projects & Job Templates](automation-platform-projects.md)
-* [Exercise 2.4 - Surveys](automation-platform-surveys.md)
-* [Exercise 2.5 - Role-based access control](automation-platform-rbac.md)
-* [Exercise 2.6 - Workflows](automation-platform-workflows.md)
-* [Exercise 2.7 - AAP Wrap up](automation-platform-wrapup.md)
+* [Exercise 1 - Introduction](automation-platform-intro.md)
+* [Exercise 2 - Inventories, credentials and ad hoc commands](automation-platform-credentials.md)
+* [Exercise 3 - Projects & Job Templates](automation-platform-projects.md)
+* [Exercise 4 - Surveys](automation-platform-surveys.md)
+* [Exercise 5 - Role-based access control](automation-platform-rbac.md)
+* [Exercise 6 - Workflows](automation-platform-workflows.md)
+* [Exercise 7 - AAP Wrap up](automation-platform-wrapup.md)
 
 Here are some additional information of the the Ansible Automation Platform:
 
