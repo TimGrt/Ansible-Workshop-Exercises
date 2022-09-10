@@ -1,13 +1,13 @@
 # Ansible Workshop
 
-**Welcome to the Ansible Workshop!**
-
-Ansible is a radically simple IT automation system. It handles configuration management, application deployment, cloud provisioning, ad-hoc task execution, network automation, and multi-node orchestration. 
+**Welcome to the Computacenter Ansible Workshop!**
 
 <figure markdown>
-  ![Ansible Logo](ansible-birthday-bull.png){ width="400", loading=lazy }
+  [![CC Logo](computacenter.png){ width="400", loading=lazy }](https://www.computacenter.com/de-de)
   <figcaption></figcaption>
 </figure>
+
+Ansible is a radically simple IT automation system. It handles configuration management, application deployment, cloud provisioning, ad-hoc task execution, network automation, and multi-node orchestration. 
 
 You will learn all about Ansible:
 

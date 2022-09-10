@@ -6,6 +6,11 @@ This section shows tools in the Ansible world which will become more and more re
 * Execution Environments
 * Ansible Builder
 
+<figure markdown>
+  [![Ansible Logo](ansible-birthday-bull.png){ width="300", loading=lazy }](http://github.com/ansible/logos)
+  <figcaption></figcaption>
+</figure>
+
 ## Who will use the Ansible navigator?
 
 The automation content navigator (or "Ansible Navigator") is mainly geared towards developers of automation. This can mean people creating automated tasks with available modules, those migrating roles into Collections or those who are developing modules from the ground up. Content navigator runs as a textual user interface and looks great within a terminal session, even while running inside popular code editors with included terminal panes.
