@@ -137,3 +137,34 @@ node1                      : ok=3    changed=0    unreachable=0    failed=0    s
           - "{{ myuser }} uid: {{ getent_passwd['dev_user'][1] }}"
     ```
     As you can see the *value* of the variable `myuser` is used directly. It must be enclosed in single quotes. You can't use normal quotation marks, as these are used outside of the whole variable.
+
+### Step 3 - Loops with *list*-variable
+
+Up to now, we always provided the list to loop in the *loop* keyword directly, most of the times you will provide the list with a variable.
+
+```yaml
+---
+- name: Use Ansible magic variables
+  hosts: web
+  tasks:
+    - name: Show all the hosts in the inventory
+      ansible.builtin.debug:
+        msg: "{{ item }}"
+      loop: "{{ groups['all'] }}"
+
+    - name: Show all the hosts in the current play
+      ansible.builtin.debug:
+        msg: "{{ item }}"
+      loop: "{{ ansible_play_hosts }}"
+```
+
+This playbook uses two *[magic variables](https://docs.ansible.com/ansible/latest/reference_appendices/special_variables.html)*, these variables cannot be set directly by the user and are always defined.  
+The second task for example, uses the special variable `ansible_play_hosts`, which contains a **list** of hosts in the current play run, failed or unreachable hosts are excluded from this list. The first task uses the special variable `groups`, this contains a **dictionary** with all the groups in the inventory and each group has the **list** of hosts that belong to it.  
+Copy the contents to a file `special-variables.yml` and run the playbook.  
+We can use the playbook to display that the *loop* keyword needs *list*-input, if you provide otherwise, Ansible will display an error message.
+
+```bash
+fatal: [node1]: FAILED! => {"msg": "Invalid data passed to 'loop', it requires a list, got this instead: {'all': ['node1', 'node2', 'node3'], 'ungrouped': [], 'web': ['node1', 'node2', 'node3']}. Hint: If you passed a list/dict of just one element, try adding wantlist=True to your lookup invocation or use q/query instead of lookup."}
+```
+
+You can provoke this, if you change line 8 to `loop: "{{ groups }}"`. With that change you would try to loop a dictionary, this obviously fails.
