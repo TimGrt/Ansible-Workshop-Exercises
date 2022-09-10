@@ -1,4 +1,4 @@
-# 2.2 - Inventories, credentials and ad hoc commands
+# 2 - Inventory & Ad-hoc commands
 
 ## Objective
 

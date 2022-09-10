@@ -1,4 +1,4 @@
-# 2.6 - Workflows
+# 6 - Workflows
 
 ## Objective
 

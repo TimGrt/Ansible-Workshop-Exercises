@@ -1,4 +1,4 @@
-# 2.7 - AAP Wrap up
+# 7 - AAP Wrap up
 
 ## Objective
 
