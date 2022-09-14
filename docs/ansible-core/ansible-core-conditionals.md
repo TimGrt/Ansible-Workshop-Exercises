@@ -139,7 +139,7 @@ The service is removed by the playbook, therefor the result of the *package_fact
 Add a task to the playbook which outputs a message if important security patches are included in the installed *vsftpd* package.
 
 * Make sure that the *vsftd* package is installed (again).
-* Output the message *"The version of vsftp includes important security patches!"* 
+* Output the message *"The version of vsftp includes important security patches!"* if the version of *vsftp* is **greater than 3.0**
 
 !!! tip
     The Ansible documention is helpful, a *test* to [compare versions](https://docs.ansible.com/ansible/latest/user_guide/playbooks_tests.html#comparing-versions) is available.
