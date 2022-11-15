@@ -1,4 +1,4 @@
 mkdocs
-mkdocs-material==7.3.6
+mkdocs-material
 mkdocs-autolinks-plugin
 mkdocs-awesome-pages-plugin
