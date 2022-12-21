@@ -223,7 +223,7 @@ On the control host, as your student user, edit the file `~/ansible-files/apache
 
     - name: Apache enabled and running
       ansible.builtin.service:
-        name: httpd
+        name: httpd.service
         enabled: true
         state: started
 ```
@@ -253,7 +253,6 @@ Notice in the output, we see the play had `1` "CHANGED" shown in yellow and if w
 * Use an Ansible playbook labeled `service_state.yml` to make sure the Apache (httpd) service is running on `node1`.
 
 ```yaml
----
 ---
 - name: Check Status
   hosts: node1
@@ -344,7 +343,7 @@ On the control node as your student user edit the file `~/ansible-files/apache.y
 
     - name: Apache enabled and running
       ansible.builtin.service:
-        name: httpd
+        name: httpd.service
         enabled: true
         state: started
 
@@ -404,7 +403,7 @@ Change the playbook `hosts` parameter to point to `web` instead of `node1`:
 
     - name: Apache enabled and running
       ansible.builtin.service:
-        name: httpd
+        name: httpd.service
         enabled: true
         state: started
 
