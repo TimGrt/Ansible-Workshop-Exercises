@@ -42,18 +42,18 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCFeZ0j9HODBeDzP5aV5mkrsIGY1mvHTLjbCZIeHNpl
     ssh-keygen
     ```
 
-Next, SSH to *node1*, you will be asked for a password. This is the same password you used to login to the workshop!
+Next, SSH to the *ec2-user* on *node1*, you will be asked for a password. This is the same password you used to login to the workshop!
 
 ```bash
-[student@ansible-1 ~]$ ssh node1
-student@node1's password:
-[student@node1 ~]$
+[student@ansible-1 ~]$ ssh ec2-user@node1
+ec2-user@node1's password:
+[ec2-user@node1 ~]$
 ```
 
 Your are now on *node1*. Switch to the *root* user and create a new user `ansible` (with a home directory). After creating the user, switch to the `ansible` user:
 
 ```bash
-[student@node1 ~]$ sudo su - root
+[ec2-user@node1 ~]$ sudo su - root
 Last login: Sun Apr 17 08:36:53 UTC 2022 on pts/0
 [root@node1 ~]# useradd ansible
 [root@node1 ~]# su - ansible
