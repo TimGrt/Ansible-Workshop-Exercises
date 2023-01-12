@@ -169,9 +169,14 @@ Run the newly created playbook to find the fact name.
 
     Run the playbook.
 
-    ```bash
-    [student@ansible-1 ~]$ ansible-playbook motd-facts.yml
-    ```
+    === "Ansible"
+        ```bash
+        [student@ansible-1 ~]$ ansible-playbook motd-facts.yml
+        ```
+    === "Navigator"
+        ```bash
+        [student@ansible-1 ~]$ ansible-navigator run motd-facts.yml -m stdout
+        ```
 
     Verify the new message via SSH login to `node1`.
 

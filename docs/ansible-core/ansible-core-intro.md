@@ -15,7 +15,7 @@ These first few lab exercises will be exploring the command-line utilities of th
 
 If you need more information on new Ansible Automation Platform components bookmark this landing page [https://red.ht/AAP-20](https://red.ht/AAP-20)
 
-We will be using especially the *ansible-core* executable and the CLI tools it provides, as currently (Q3/2022) it is the main interface to interact with Ansible. 
+We will be using especially the *ansible-core* executable and the CLI tools it provides, as currently (Q1/2023) it is still the main interface to interact with Ansible. 
 
 In the (near) future this will be replaced/supplemented by the *Ansible Navigator*, which on the one hand brings more useful additional features and in the end serves a much greater purpose than just be a drop in replacement or alias to the currently used Ansible utilities. It requires a broader introduction and explanation regarding the use of containers and collections, which we will discuss on workshop day 3.  
 Still, although we will be using the *ansible-core* executable in all exercises, it is shown how to also achieve everything using the `ansible-navigator` utility in a separate tab.
@@ -43,6 +43,9 @@ Still, although we will be using the *ansible-core* executable in all exercises,
 
 === "Navigator"
 
+    !!! note
+        By default, the *ansible-navigator* will start in the *interactive* mode. This will launch the avigator in the *Text-based User Interface* (TUI) mode.  
+        If you want to use the tool the same way as with the normal *ansible-playbook* command, provide the parameter `-m stdout` which forces the output to the command-line (though, this prevents you from experiencing the cool features of the navigator).
     ```bash
     [student@ansible-1 ~]$ ansible-navigator --help
     usage: ansible-navigator [-h] [--version] [--rad ANSIBLE_RUNNER_ARTIFACT_DIR] [--rac ANSIBLE_RUNNER_ROTATE_ARTIFACTS_COUNT] [--rt ANSIBLE_RUNNER_TIMEOUT]

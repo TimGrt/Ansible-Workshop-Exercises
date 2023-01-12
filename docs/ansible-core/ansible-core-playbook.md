@@ -124,7 +124,7 @@ To run your playbook, use the `ansible-playbook <playbook>` command as follows:
     ```
 === "Navigator"
     ```bash
-    [student@ansible-1 ansible-files]$ ansible-navigator run apache.yml
+    [student@ansible-1 ansible-files]$ ansible-navigator run apache.yml -m stdout
     ```
 
 !!! tip
@@ -245,7 +245,7 @@ Thus with the second task we make sure the Apache server is indeed running on th
     ```
 === "Navigator"
     ```bash
-    [student@ansible-1 ~]$ ansible-navigator run apache.yml
+    [student@ansible-1 ~]$ ansible-navigator run apache.yml -m stdout
     ```
 
 Notice in the output, we see the play had `1` "CHANGED" shown in yellow and if we press `0` to enter the play output, you can see that task 2, "Apache enabled and running", was the task that incorporated the latest change by the "CHANGED" value being set to True and highlighted in yellow.
@@ -277,7 +277,7 @@ Notice in the output, we see the play had `1` "CHANGED" shown in yellow and if w
     ```
 === "Navigator"
     ```bash
-    [student@ansible-1 ~]$ ansible-navigator run service_state.yml
+    [student@ansible-1 ~]$ ansible-navigator run service_state.yml -m stdout
     ```
 
 This would be the same as checking the service state manually on `node1` with: `systemctl status httpd`.

@@ -289,7 +289,7 @@ Now you are ready to run your playbook:
     ```
 === "Navigator"
     ```bash
-    [student@ansible-1 ansible-files]$ ansible-navigator run test_apache_role.yml
+    [student@ansible-1 ansible-files]$ ansible-navigator run test_apache_role.yml -m stdout
     ```
 
 Run a curl command against `node2` to confirm that the role worked or use the `check_httpd.yml` playbook (you may need to adjust the variable in it to `node2:8080`):
@@ -300,6 +300,8 @@ Run a curl command against `node2` to confirm that the role worked or use the `c
 <h1>The virtual host configuration works!</h1>
 </body>
 ```
+
+You can also use the IP address of node2 (copy it from your inventory) and paste it into the browser (as well as adding `:8080`).
 
 Congratulations! You have successfully completed this exercise!
 
