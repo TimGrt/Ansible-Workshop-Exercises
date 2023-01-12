@@ -299,7 +299,7 @@ Execute it to see how the facts are printed:
     ```
 === "Navigator"
     ```bash
-    [student@ansible-1 ansible-files]$ ansible-navigator run facts.yml
+    [student@ansible-1 ansible-files]$ ansible-navigator run facts.yml -m stdout
     ```
 
 Examine the output:

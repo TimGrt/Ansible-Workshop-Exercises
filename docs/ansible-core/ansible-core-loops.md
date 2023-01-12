@@ -106,27 +106,51 @@ Verify that the user `dev_user` was indeed created on `node1` using the followin
 
 ```
 
-```bash
-$ ansible-playbook user_id.yml
+=== "Ansible"
+    ```bash
+    $ ansible-playbook user_id.yml
 
-PLAY [Get user ID] *************************************************************
+    PLAY [Get user ID] *************************************************************
 
-TASK [Gathering Facts] *********************************************************
-ok: [node1]
+    TASK [Gathering Facts] *********************************************************
+    ok: [node1]
 
-TASK [Get dev_user info] *******************************************************
-ok: [node1]
+    TASK [Get dev_user info] *******************************************************
+    ok: [node1]
 
-TASK [Output dev_user info] *******************************************************************
-ok: [node1] => {
-    "msg": [
-        "dev_user uid: 1002"
-    ]
-}
+    TASK [Output dev_user info] *******************************************************************
+    ok: [node1] => {
+        "msg": [
+            "dev_user uid: 1002"
+        ]
+    }
 
-PLAY RECAP *********************************************************************
-node1                      : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
-```
+    PLAY RECAP *********************************************************************
+    node1                      : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+    ```
+
+=== "Navigator"
+    ```bash
+    $ ansible-navigator run user_id.yml -m stdout
+
+    PLAY [Get user ID] *************************************************************
+
+    TASK [Gathering Facts] *********************************************************
+    ok: [node1]
+
+    TASK [Get dev_user info] *******************************************************
+    ok: [node1]
+
+    TASK [Output dev_user info] *******************************************************************
+    ok: [node1] => {
+        "msg": [
+            "dev_user uid: 1002"
+        ]
+    }
+
+    PLAY RECAP *********************************************************************
+    node1                      : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+    ```
 
 !!! hint
     It is possible to insert a *string* directly into the dictionary structure like this (although it makes the task less flexible):
@@ -145,7 +169,7 @@ Up to now, we always provided the list to loop in the *loop* keyword directly, m
 ```yaml
 ---
 - name: Use Ansible magic variables
-  hosts: web
+  hosts: control
   tasks:
     - name: Show all the hosts in the inventory
       ansible.builtin.debug:
