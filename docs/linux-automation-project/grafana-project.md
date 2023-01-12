@@ -15,7 +15,7 @@ Create an Ansible project *from scratch* and automate some basic linux configura
 Create a new project folder in your home directory:
 
 ```bash
-[student<X>@ansible-1 ~]$ mkdir grafana-deployment
+[student@ansible-1 ~]$ mkdir grafana-deployment
 ```
 
 Create an inventory file with a *grafana* group definition. You will deploy Grafana to one of the nodes in the lab environment. Copy the *node2* configuration from the default inventory file to your *grafana* group.
@@ -47,7 +47,7 @@ Achieve the following tasks:
 Ensure that Grafana is running with an ad hoc command:
 
 ```bash
-[student1@ansible-1 grafana-deployment]$ ansible grafana -a "systemctl status grafana-server"
+[student@ansible-1 grafana-deployment]$ ansible grafana -a "systemctl status grafana-server"
 node2 | CHANGED | rc=0 >>
 ● grafana-server.service - Grafana instance
    Loaded: loaded (/usr/lib/systemd/system/grafana-server.service; enabled; vendor preset: disabled)

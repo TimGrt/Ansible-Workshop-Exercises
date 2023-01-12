@@ -29,7 +29,7 @@ The Cisco Application Policy Infrastructure Controller (APIC) API enables applic
 Create a new project folder in your home directory:
 
 ```bash
-[student<X>@ansible-1 ~]$ mkdir aci-automation
+[student@ansible-1 ~]$ mkdir aci-automation
 ```
 
 We will be using a Cisco ACI Sandbox available online.
@@ -56,7 +56,7 @@ Password:
 Today, you might need additional Ansible modules. Yesterday, we only used a handful of modules which are all included in the `ansible-core` binary. With *ansible-core* only 69 of the most used modules are included:
 
 ```bash
-[student1@ansible-1 ~]$ ansible-doc -l 
+[student@ansible-1 ~]$ ansible-doc -l 
 add_host               Add a host (and alternatively a group) to the ansible-playbook in-memory inventory                        
 apt                    Manages apt-packages                                                                                      
 apt_key                Add or remove an apt key                                                                                  
@@ -77,12 +77,12 @@ Additional modules are installed through *collections*, search the [Collection I
 If, for example, you want to create an EC2 instance in AWS, you will need the module `amazon.aws.ec2_instance`. To get the module, you'll need the collection `aws` of the provider `amazon`. Download the collection with the `ansible-galaxy` utility:
 
 ```bash
-[student1@ansible-1 ~]$ ansible-galaxy collection install amazon.aws
+[student@ansible-1 ~]$ ansible-galaxy collection install amazon.aws
 Starting galaxy collection install process
 Process install dependency map
 Starting collection install process
-Downloading https://galaxy.ansible.com/download/amazon-aws-3.2.0.tar.gz to /home/student1/.ansible/tmp/ansible-local-55382m3kkt4we/tmp7b2kxag4/amazon-aws-3.2.0-3itpmahr
-Installing 'amazon.aws:3.2.0' to '/home/student1/.ansible/collections/ansible_collections/amazon/aws'
+Downloading https://galaxy.ansible.com/download/amazon-aws-3.2.0.tar.gz to /home/student/.ansible/tmp/ansible-local-55382m3kkt4we/tmp7b2kxag4/amazon-aws-3.2.0-3itpmahr
+Installing 'amazon.aws:3.2.0' to '/home/student/.ansible/collections/ansible_collections/amazon/aws'
 amazon.aws:3.2.0 was installed successfully
 ```
 
@@ -96,8 +96,8 @@ Achieve the following tasks:
 You can view the installed collections with this command:
 
 ```bash
-[student1@ansible-1 aci-automation]$ ansible-galaxy collection list 
-# /home/student1/.ansible/collections/ansible_collections
+[student@ansible-1 aci-automation]$ ansible-galaxy collection list 
+# /home/student/.ansible/collections/ansible_collections
 Collection        Version
 ----------------- -------
 ansible.posix     1.4.0  

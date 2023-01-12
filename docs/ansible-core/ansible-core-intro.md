@@ -22,7 +22,7 @@ Still, although we will be using the *ansible-core* executable in all exercises,
 
 === "Ansible"
     ```bash
-    [student<X>@ansible-1 ~]$ ansible-playbook --help
+    [student@ansible-1 ~]$ ansible-playbook --help
     usage: ansible-playbook [-h] [--version] [-v] [--private-key PRIVATE_KEY_FILE] [-u REMOTE_USER] [-c CONNECTION] [-T TIMEOUT] [--ssh-common-args SSH_COMMON_ARGS]
                             [--sftp-extra-args SFTP_EXTRA_ARGS] [--scp-extra-args SCP_EXTRA_ARGS] [--ssh-extra-args SSH_EXTRA_ARGS]
                             [-k | --connection-password-file CONNECTION_PASSWORD_FILE] [--force-handlers] [--flush-cache] [-b] [--become-method BECOME_METHOD] [--become-user BECOME_USER]
@@ -44,7 +44,7 @@ Still, although we will be using the *ansible-core* executable in all exercises,
 === "Navigator"
 
     ```bash
-    [student<X>@ansible-1 ~]$ ansible-navigator --help
+    [student@ansible-1 ~]$ ansible-navigator --help
     usage: ansible-navigator [-h] [--version] [--rad ANSIBLE_RUNNER_ARTIFACT_DIR] [--rac ANSIBLE_RUNNER_ROTATE_ARTIFACTS_COUNT] [--rt ANSIBLE_RUNNER_TIMEOUT]
                             [--cdcp COLLECTION_DOC_CACHE_PATH] [--ce CONTAINER_ENGINE] [--co CONTAINER_OPTIONS [CONTAINER_OPTIONS ...]] [--dc DISPLAY_COLOR] [--ecmd EDITOR_COMMAND]
                             [--econ EDITOR_CONSOLE] [--ee EXECUTION_ENVIRONMENT] [--eei EXECUTION_ENVIRONMENT_IMAGE]
@@ -85,7 +85,7 @@ Every host is reachable via SSH.
 
   ![login vs code](images/vscode_login.png)
 
-- Clicking on `File` &#8594; `Open Folder...` in the menu bar and open your *home directory* in Visual Studio Code (this folder should already be shown in the *Open Folder* pop-up and called `/home/student<X>`, with *<X\>* being your student ID. This will reload your browser window.
+- Clicking on `File` &#8594; `Open Folder...` in the menu bar and open your *home directory* in Visual Studio Code (this folder should already be shown in the *Open Folder* pop-up and called `/home/student`. This will reload your browser window.
 
 ### Step 2 - Using the Terminal
 
@@ -96,17 +96,17 @@ Every host is reachable via SSH.
 Navigate to the `lab_inventory` directory on the Ansible control node terminal.
 
 ```bash
-[student<X>@ansible-1 ~]$ cd lab_inventory
-[student<X>@ansible-1 lab_inventory]$ pwd
-/home/student<X>/lab_inventory
-[student<X>@ansible-1 lab_inventory]$ ls
-[student<X>@ansible-1 lab_inventory]$
+[student@ansible-1 ~]$ cd lab_inventory
+[student@ansible-1 lab_inventory]$ pwd
+/home/student/lab_inventory
+[student@ansible-1 lab_inventory]$ ls
+[student@ansible-1 lab_inventory]$
 hosts
-[student<X>@ansible-1 lab_inventory]$ cd ..
-[student<X>@ansible-1 ~]$
+[student@ansible-1 lab_inventory]$ cd ..
+[student@ansible-1 ~]$
 ```
 
-* `~` - the tilde in this context is a shortcut for the home directory, i.e. `/home/student<X>`
+* `~` - the tilde in this context is a shortcut for the home directory, i.e. `/home/student`
 * `cd` - Linux command to change directory
 * `pwd` - Linux command for print working directory.  This will show the full path to the current working directory.
 
