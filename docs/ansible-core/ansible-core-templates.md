@@ -170,7 +170,7 @@ Run the newly created playbook to find the fact name.
     Run the playbook.
 
     ```bash
-    [student<X>@ansible-1 ~]$ ansible-playbooks motd-facts.yml
+    [student<X>@ansible-1 ~]$ ansible-playbook motd-facts.yml
     ```
 
     Verify the new message via SSH login to `node1`.

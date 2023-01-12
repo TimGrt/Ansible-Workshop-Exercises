@@ -226,7 +226,7 @@ On the control host, as your student user, edit the file `~/ansible-files/apache
 
     - name: Apache enabled and running
       ansible.builtin.service:
-        name: httpd
+        name: httpd.service
         enabled: true
         state: started
 ```
@@ -345,7 +345,7 @@ On the control node as your student user edit the file `~/ansible-files/apache.y
 
     - name: Apache enabled and running
       ansible.builtin.service:
-        name: httpd
+        name: httpd.service
         enabled: true
         state: started
 
@@ -405,7 +405,7 @@ Change the playbook `hosts` parameter to point to `web` instead of `node1`:
 
     - name: Apache enabled and running
       ansible.builtin.service:
-        name: httpd
+        name: httpd.service
         enabled: true
         state: started
 
