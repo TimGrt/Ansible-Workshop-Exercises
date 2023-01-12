@@ -138,7 +138,7 @@ The service is removed by the playbook, therefor the result of the *package_fact
 
 Add a task to the playbook which outputs a message if important security patches are included in the installed *vsftpd* package.
 
-* Make sure that the *vsftd* package is installed (again).
+* Make sure that the *vsftpd* package is installed (again).
 * Output the message *"The version of vsftpd includes important security patches!"* if the version of *vsftpd* is **greater than 3.0**
 
 !!! tip
