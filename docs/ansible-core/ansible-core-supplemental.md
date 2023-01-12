@@ -18,20 +18,20 @@ wget -q https://raw.githubusercontent.com/TimGrt/prepare-redhat-demo-system/mast
 After downloading the script to your home directory, execute it:
 
 ```bash
-[student1@ansible-1 ~]$ wget -q https://raw.githubusercontent.com/TimGrt/prepare-redhat-demo-system/master/break-ssh.sh
-[student1@ansible-1 ~]$ sh break-ssh.sh
-[student1@ansible-1 ~]$ 
+[student@ansible-1 ~]$ wget -q https://raw.githubusercontent.com/TimGrt/prepare-redhat-demo-system/master/break-ssh.sh
+[student@ansible-1 ~]$ sh break-ssh.sh
+[student@ansible-1 ~]$ 
 ```
 
 *No output is good output.* Now we can configure the SSH connection the way it want.
 
 !!! success
-    The goal is to be able to communicate from *ansible-1* as `student<X>` to the `ansible` user on all 3 managed nodes.
+    The goal is to be able to communicate from *ansible-1* as `student` to the `ansible` user on all 3 managed nodes.
 
-We will need the (already present) SSH **public key** of user `student<X>` on *ansible-1* (use your own, not this one!):
+We will need the (already present) SSH **public key** of user `student` on *ansible-1* (use your own, not this one!):
 
 ```bash
-[student<X>@ansible-1 ~]$ cat .ssh/id_rsa.pub
+[student@ansible-1 ~]$ cat .ssh/id_rsa.pub
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCFeZ0j9HODBeDzP5aV5mkrsIGY1mvHTLjbCZIeHNpldIGETKflG6W0/
 ...
 ```
@@ -42,25 +42,25 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCFeZ0j9HODBeDzP5aV5mkrsIGY1mvHTLjbCZIeHNpl
     ssh-keygen
     ```
 
-Next, SSH to *node1*, you will be asked for a password. This is the same password you used to login to the workshop!
+Next, SSH to the *ec2-user* on *node1*, you will be asked for a password. This is the same password you used to login to the workshop!
 
 ```bash
-[student<X>@ansible-1 ~]$ ssh node1
-student1@node1's password:
-[student1@node1 ~]$
+[student@ansible-1 ~]$ ssh ec2-user@node1
+ec2-user@node1's password:
+[ec2-user@node1 ~]$
 ```
 
 Your are now on *node1*. Switch to the *root* user and create a new user `ansible` (with a home directory). After creating the user, switch to the `ansible` user:
 
 ```bash
-[student1@node1 ~]$ sudo su - root
+[ec2-user@node1 ~]$ sudo su - root
 Last login: Sun Apr 17 08:36:53 UTC 2022 on pts/0
 [root@node1 ~]# useradd ansible
 [root@node1 ~]# su - ansible
 [ansible@node1 ~]$ 
 ```
 
-Ensure that you are the *ansible* user, we need to create the (hidden) `.ssh` directory and the `authorized_keys` file in it. The `authorized_keys` file houses the **public** key of user *student<X>* on the *ansible-1* host, copy the key to the file (press *i* in *vi* to enter the *insert mode*):
+Ensure that you are the *ansible* user, we need to create the (hidden) `.ssh` directory and the `authorized_keys` file in it. The `authorized_keys` file houses the **public** key of user *student* on the *ansible-1* host, copy the key to the file (press *i* in *vi* to enter the *insert mode*):
 
 ```bash
 [ansible@node1 ~]$ mkdir .ssh
@@ -106,7 +106,7 @@ User ansible may run the following commands on node1:
 Log out of *node1* (ensure that you are back on your ansible master node *ansible-1*, run `exit` twice) and try to log in to *node1* with the *ansible* user:
 
 ```bash
-[student<X>@ansible-1 ~]$ ssh ansible@node1
+[student@ansible-1 ~]$ ssh ansible@node1
 [ansible@node1 ~]$ 
 ```
 
@@ -119,11 +119,11 @@ Log out of *node1* (ensure that you are back on your ansible master node *ansibl
 Once you can reach all managed nodes password-less (and sudo-permissions are set, you will need this later), we can start to do some Ansible stuff like executing this Ad-hoc command:
 
 ```bash
-[student1@ansible-1 ~]$ ansible web -m ping
+[student@ansible-1 ~]$ ansible web -m ping
 ```
 
 We got an error, all three nodes aren't reachable?! But manually, we can reach all nodes via SSH!  
-Observing the error message we can see what the problem is, Ansible tries to us reach all hosts as the *student<X>* user. We established the service user *ansible* for that, we must instruct Ansible to use that user. By default, Ansible will use the user that is executing the *ansible* commands.
+Observing the error message we can see what the problem is, Ansible tries to us reach all hosts as the *student* user. We established the service user *ansible* for that, we must instruct Ansible to use that user. By default, Ansible will use the user that is executing the *ansible* commands.
 
 Open the Ansible inventory file, either by clicking the *lab_inventory* folder and the *hosts* file in the VScode explorer or on the terminal.  
 Create a new variable section (with *:vars*) for the *web* group and set the *ansible_user=ansible* variable:
@@ -144,7 +144,7 @@ ansible-1 ansible_host=44.55.66.77
 All hosts in the *web* group will now use the *ansible* user for the SSH connection. Try with the ad hoc command again:
 
 ```bash
-[student1@ansible-1 ~]$ ansible web -m ping
+[student@ansible-1 ~]$ ansible web -m ping
 node2 | SUCCESS => {
     "ansible_facts": {
         "discovered_interpreter_python": "/usr/libexec/platform-python"
@@ -173,7 +173,7 @@ Success! All three nodes are reachable, we get a *pong* back, we proved that we 
 Try to run the same ad hoc command against the *control* group.  
 
 ```bash
-[student1@ansible-1 ~]$ ansible control -m ping
+[student@ansible-1 ~]$ ansible control -m ping
 ```
 
 An error again?? Although being on the same host, Ansible tries to open an SSH connection. Adjust the inventory file again and set the `ansible_connection` variable for the *ansible-1* host:
@@ -194,7 +194,7 @@ ansible-1 ansible_host=44.55.66.77 ansible_connection=local
 With `ansible_connection=local` (on host-level) Ansible uses the **local** Python interpreter, which is fine for our Ansible master node. Now the ad hoc command succeeds:
 
 ```bash
-[student1@ansible-1 ~]$ ansible control -m ping
+[student@ansible-1 ~]$ ansible control -m ping
 ansible-1 | SUCCESS => {
     "ansible_facts": {
         "discovered_interpreter_python": "/usr/libexec/platform-python"
@@ -224,13 +224,13 @@ Create a new user "testuser" on `node1` and `node3` with a comment using an ad h
     Your commands could look like these:
 
     ```bash
-    [student<X>@ansible-1 ansible-files]$ ansible-doc -l | grep -i user
-    [student<X>@ansible-1 ansible-files]$ ansible-doc user
-    [student<X>@ansible-1 ansible-files]$ ansible node1,node3 -m user -a "name=testuser comment='Test D User'" -b
-    [student<X>@ansible-1 ansible-files]$ ansible node1,node3 -m command -a " id testuser" -b
-    [student<X>@ansible-1 ansible-files]$ ansible node2 -m command -a " id testuser" -b
-    [student<X>@ansible-1 ansible-files]$ ansible node1,node3 -m user -a "name=testuser state=absent remove=yes" -b
-    [student<X>@ansible-1 ansible-files]$ ansible web -m command -a " id testuser" -b
+    [student@ansible-1 ansible-files]$ ansible-doc -l | grep -i user
+    [student@ansible-1 ansible-files]$ ansible-doc user
+    [student@ansible-1 ansible-files]$ ansible node1,node3 -m user -a "name=testuser comment='Test D User'" -b
+    [student@ansible-1 ansible-files]$ ansible node1,node3 -m command -a " id testuser" -b
+    [student@ansible-1 ansible-files]$ ansible node2 -m command -a " id testuser" -b
+    [student@ansible-1 ansible-files]$ ansible node1,node3 -m user -a "name=testuser state=absent remove=yes" -b
+    [student@ansible-1 ansible-files]$ ansible web -m command -a " id testuser" -b
     ```
 
 
@@ -303,13 +303,13 @@ Remember the `group_vars` and `host_vars` directories? If not, refer to the chap
     First run the playbook itself, then run curl against `node1` with port `8080` and `node2` with port `80`.
 
     ```bash
-    [student<X>@ansible-1 ansible-files]$ ansible-playbook apache_config_tpl.yml
+    [student@ansible-1 ansible-files]$ ansible-playbook apache_config_tpl.yml
     [...]
-    [student<X>@ansible-1 ansible-files]$ curl http://18.195.235.231:8080
+    [student@ansible-1 ansible-files]$ curl http://18.195.235.231:8080
     <body>
     <h1>This is a development webserver, have fun!</h1>
     </body>
-    [student<X>@ansible-1 ansible-files]$ curl http://35.156.28.209:80
+    [student@ansible-1 ansible-files]$ curl http://35.156.28.209:80
     <body>
     <h1>This is a production webserver, take care!</h1>
     </body>

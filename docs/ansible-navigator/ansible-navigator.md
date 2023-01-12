@@ -35,8 +35,8 @@ The prerequisites and best practices for using `ansible-navigator` have been don
 These include:
 
 * Installing the `ansible-navigator` package
-* Creating a default settings `/home/student<X>/.ansible-navigator.yml` for all your projects (optional)
-* All execution environment (EE) logs are stored within `/home/student<X>/.ansible-navigator/logs/ansible-navigator.log`
+* Creating a default settings `/home/student/.ansible-navigator.yml` for all your projects (optional)
+* All execution environment (EE) logs are stored within `/home/student/.ansible-navigator/logs/ansible-navigator.log`
 * Playbook artifacts are saved under `/tmp/artifact.json`
 
 Follow the next link for more information on the [Ansible navigator settings](https://github.com/ansible/ansible-navigator/blob/main/docs/settings.rst).
@@ -44,7 +44,7 @@ Follow the next link for more information on the [Ansible navigator settings](ht
 !!! tip
     The parameters for ansible-navigator maybe modified for your specific environment. The current settings use a default `ansible-navigator.yml` for all projects, but a specific `ansible-navigator.yml` can be created for each project and is the recommended practice.
 
-A useful *ansible-navigator*-configuration for the workshop environment is the following, create a new file in your project directory `/home/student<X>/ansible-files/ansible-navigator.yml` and paste in this configuration:
+A useful *ansible-navigator*-configuration for the workshop environment is the following, create a new file in your project directory `/home/student/ansible-files/ansible-navigator.yml` and paste in this configuration:
 
 ```yaml
 ---
@@ -52,7 +52,7 @@ ansible-navigator:
   ansible:
 # Specify an inventory file path or comma separated host list
     inventories:
-      - /home/student1/lab_inventory/hosts
+      - /home/student/lab_inventory/hosts
 # Sets configuration for  the creation of artifacts for completed playbooks.
 # Can be enabled or disabled and specify filename and location
   playbook-artifact:
@@ -98,7 +98,7 @@ To reference all the inventory hosts, you supply a pattern to the `ansible-navig
 === "Navigator"
 
     ```bash
-    [student<X>@ansible-1 ~]$ ansible-navigator inventory --list -m stdout
+    [student@ansible-1 ~]$ ansible-navigator inventory --list -m stdout
     {
         "_meta": {
             "hostvars": {
@@ -140,7 +140,7 @@ To reference all the inventory hosts, you supply a pattern to the `ansible-navig
 === "Ansible"
 
     ```bash
-    [student<X>@ansible-1 ~]$ ansible-inventory --list
+    [student@ansible-1 ~]$ ansible-inventory --list
     {
         "_meta": {
             "hostvars": {
@@ -187,7 +187,7 @@ If the `--list` is too verbose, the option of `--graph` can be used to provide a
 
 === "Navigator"
     ```bash
-    [student1@ansible-1 ~]$ ansible-navigator inventory --graph -m stdout
+    [student@ansible-1 ~]$ ansible-navigator inventory --graph -m stdout
     @all:
     |--@control:
     |  |--ansible-1
@@ -200,7 +200,7 @@ If the `--list` is too verbose, the option of `--graph` can be used to provide a
     ```
 === "Ansible"
     ```bash
-    [student1@ansible-1 ~]$ ansible-inventory --graph
+    [student@ansible-1 ~]$ ansible-inventory --graph
     @all:
     |--@control:
     |  |--ansible-1
@@ -220,9 +220,9 @@ An inventory file can contain a lot more information, it can organize your hosts
 Using the `ansible-navigator inventory` command, we can also run commands that provide information only for one host or group. For example, give the following commands a try to see their output.
 
 ```bash
-[student<X>@ansible-1 ~]$ ansible-navigator inventory --graph web -m stdout
-[student<X>@ansible-1 ~]$ ansible-navigator inventory --graph control -m stdout
-[student<X>@ansible-1 ~]$ ansible-navigator inventory --host node1 -m stdout
+[student@ansible-1 ~]$ ansible-navigator inventory --graph web -m stdout
+[student@ansible-1 ~]$ ansible-navigator inventory --graph control -m stdout
+[student@ansible-1 ~]$ ansible-navigator inventory --host node1 -m stdout
 ```
 
 !!! tip
@@ -306,7 +306,7 @@ $ cat ~/.ansible-navigator.yml
 ansible-navigator:
   ansible:
     inventories:
-    - /home/student<X>/lab_inventory/hosts
+    - /home/student/lab_inventory/hosts
 
   execution-environment:
     image: registry.redhat.io/ansible-automation-platform-20-early-access/ee-supported-rhel8:2.0.0
@@ -344,11 +344,11 @@ Create a simple playbook:
 To run your playbook, use the `ansible-navigator run <playbook>` command as follows:
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ ansible-navigator run apache.yml
+[student@ansible-1 ansible-files]$ ansible-navigator run apache.yml
 ```
 
 !!! tip
-    The existing `ansible-navigator.yml` file provides the location of your inventory file. If this was not set within your `ansible-navigator.yml` file, the command to run the playbook would be: `ansible-navigator run apache.yml -i /home/student<X>/lab_inventory/hosts`
+    The existing `ansible-navigator.yml` file provides the location of your inventory file. If this was not set within your `ansible-navigator.yml` file, the command to run the playbook would be: `ansible-navigator run apache.yml -i /home/student/lab_inventory/hosts`
 
 When running the playbook, you'll be displayed a text user interface (TUI) that displays the play name among other information about the playbook that is currently run.
 
@@ -379,7 +379,7 @@ Once you've completed, reviewing your Ansible playbook, you can exit out of the 
 Once the playbook has completed, connect to `node1` via SSH to make sure Apache has been installed. You may also skip this, as you did this yesterday.
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ ssh node1
+[student@ansible-1 ansible-files]$ ssh node1
 Last login: Wed May 15 14:03:45 2019 from 44.55.66.77
 Managed by Ansible
 ```
@@ -414,7 +414,7 @@ Log out of `node1` with the command `exit` so that you are back on the control h
 ```
 
 ```bash
-[student<X>@ansible-1 ~]$ ansible-navigator run package.yml -m stdout
+[student@ansible-1 ~]$ ansible-navigator run package.yml -m stdout
 ```
 
 ```bash
@@ -451,15 +451,15 @@ Check that the tasks were executed correctly and Apache is accepting connections
     **Expect a lot of red lines and a 403 status\!**
 
 ```bash
-[student<X>@ansible-1 ~]$ ansible-navigator run check_httpd.yml -m stdout
+[student@ansible-1 ~]$ ansible-navigator run check_httpd.yml -m stdout
 ```
 
 There are a lot of red lines and an error: As long as there is not at least an `web.html` file to be served by Apache, it will throw an ugly "HTTP Error 403: Forbidden" status and Ansible will report an error.
 
-So why not use Ansible to deploy a simple `web.html` file? On the ansible control host, as the `student<X>` user, create the directory `files` to hold file resources in `~/ansible-files/`:
+So why not use Ansible to deploy a simple `web.html` file? On the ansible control host, as the `student` user, create the directory `files` to hold file resources in `~/ansible-files/`:
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ mkdir files
+[student@ansible-1 ansible-files]$ mkdir files
 ```
 
 Then create the file `~/ansible-files/files/web.html` on the control node:
@@ -502,7 +502,7 @@ What does this new copy task do? The new task uses the `copy` module and defines
 Run your extended Playbook:
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ ansible-navigator run apache.yml -m stdout
+[student@ansible-1 ansible-files]$ ansible-navigator run apache.yml -m stdout
 ```
 
 * Have a good look at the output, notice the changes of "CHANGED" and the tasks associated with that change.
@@ -554,7 +554,7 @@ Change the playbook `hosts` parameter to point to `web` instead of `node1`:
 Now run the playbook:
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ ansible-navigator run apache.yml -m stdout
+[student@ansible-1 ansible-files]$ ansible-navigator run apache.yml -m stdout
 ```
 
 Verify if Apache is now running on all web servers (node1, node2, node3). All output should be green.

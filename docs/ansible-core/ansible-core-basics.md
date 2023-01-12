@@ -61,7 +61,7 @@ To reference all the inventory hosts, you supply a pattern to the `ansible-inven
 === "Ansible"
 
     ```bash
-    [student<X>@ansible-1 ~]$ ansible-inventory --list
+    [student@ansible-1 ~]$ ansible-inventory --list
     {
         "_meta": {
             "hostvars": {
@@ -105,7 +105,7 @@ To reference all the inventory hosts, you supply a pattern to the `ansible-inven
 === "Navigator"
 
     ```bash
-    [student<X>@ansible-1 ~]$ ansible-navigator inventory --list -m stdout
+    [student@ansible-1 ~]$ ansible-navigator inventory --list -m stdout
     {
         "_meta": {
             "hostvars": {
@@ -183,16 +183,16 @@ Using the `ansible-inventory` command, we can also run commands that provide inf
 
 === "Ansible"
     ```bash
-    [student<X>@ansible-1 ~]$ ansible-inventory --graph web
-    [student<X>@ansible-1 ~]$ ansible-inventory --graph control
-    [student<X>@ansible-1 ~]$ ansible-inventory --host node1
+    [student@ansible-1 ~]$ ansible-inventory --graph web
+    [student@ansible-1 ~]$ ansible-inventory --graph control
+    [student@ansible-1 ~]$ ansible-inventory --host node1
     ```
 
 === "Navigator"
     ```bash
-    [student<X>@ansible-1 ~]$ ansible-navigator inventory --graph web -m stdout
-    [student<X>@ansible-1 ~]$ ansible-navigator inventory --graph control -m stdout
-    [student<X>@ansible-1 ~]$ ansible-navigator inventory --host node1 -m stdout
+    [student@ansible-1 ~]$ ansible-navigator inventory --graph web -m stdout
+    [student@ansible-1 ~]$ ansible-navigator inventory --graph control -m stdout
+    [student@ansible-1 ~]$ ansible-navigator inventory --host node1 -m stdout
     ```
 
 !!! tip
@@ -211,7 +211,7 @@ $ ansible [pattern] -m [module] -a "[module options]"
 Ad hoc commands can be used perfectly to check if all hosts in your inventory are reachable. Ansible offers the *ping* module for that (this is not a real ICMP ping, though). Let's try to reach all hosts of the *web* group:
 
 ```bash
-[student1@ansible-1 ~]$ ansible web -m ping
+[student@ansible-1 ~]$ ansible web -m ping
 node2 | SUCCESS => {
     "ansible_facts": {
         "discovered_interpreter_python": "/usr/libexec/platform-python"
@@ -240,7 +240,7 @@ Success! All three nodes are reachable, we get a *pong* back, we proved that we 
 Try to run the same ad hoc command against the *control* group.  
 
 ```bash
-[student1@ansible-1 ~]$ ansible control -m ping
+[student@ansible-1 ~]$ ansible control -m ping
 ansible-1 | SUCCESS => {
     "ansible_facts": {
         "discovered_interpreter_python": "/usr/libexec/platform-python"
@@ -253,7 +253,7 @@ ansible-1 | SUCCESS => {
 Let's play around with ad hoc commands a bit more. You can use every *module* that Ansible provides with ad hoc commands, we will learn more about *modules* later today. By default, Ansible will use the *command* module, you can send every linux command you want to all managed nodes, the arguments are provided with the `-a` parameter:
 
 ```bash
-[student1@ansible-1 ~]$ ansible web -m command -a "cat /etc/os-release"
+[student@ansible-1 ~]$ ansible web -m command -a "cat /etc/os-release"
 node2 | CHANGED | rc=0 >>
 NAME="Red Hat Enterprise Linux"
 VERSION="8.5 (Ootpa)"
@@ -313,7 +313,7 @@ REDHAT_SUPPORT_PRODUCT_VERSION="8.5"
 You can shorten the command and leave out `-m command` as this module is used by default:
 
 ```bash
-[student1@ansible-1 ~]$ ansible control -a "uname -a"
+[student@ansible-1 ~]$ ansible control -a "uname -a"
 ansible-1 | CHANGED | rc=0 >>
 Linux ansible-1.example.com 4.18.0-348.12.2.el8_5.x86_64 #1 SMP Mon Jan 17 07:06:06 EST 2022 x86_64 x86_64 x86_64 GNU/Linux
 ```
@@ -321,7 +321,7 @@ Linux ansible-1.example.com 4.18.0-348.12.2.el8_5.x86_64 #1 SMP Mon Jan 17 07:06
 Ad hoc command are very useful to gather informations about your managed nodes, the *setup* module is used. Try that against one host alone (so you won't get overwhelmed with output):
 
 ```bash
-[student1@ansible-1 ~]$ ansible node1 -m setup
+[student@ansible-1 ~]$ ansible node1 -m setup
 node1 | SUCCESS => {
     "ansible_facts": {
         "ansible_all_ipv4_addresses": [
