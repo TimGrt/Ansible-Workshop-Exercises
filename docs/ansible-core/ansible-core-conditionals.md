@@ -98,8 +98,8 @@ Lets add two more tasks to our playbook, one to gather informations about all in
     
     - name: Debug exact version of installed vsFTP package
       ansible.builtin.debug:
-        msg: "vsFTP is installed in Version {{ ansible_facts.packages.vsftp.0.version }}"
-      when: ansible_facts.packages.vsftp is defined  
+        msg: "vsFTP is installed in Version {{ ansible_facts.packages.vsftpd.0.version }}"
+      when: ansible_facts.packages.vsftpd is defined  
 ```
 
 As you can see, the simplest conditional statement applies to a single task. Create the task, then add a `when` statement that applies a test. The `when` clause is a *raw* Jinja2 expression, you can use variables here, but you **don't** have to use double curly braces to enclose the variable.
@@ -128,7 +128,7 @@ Let's change the title and the *state* to `absent` and run the playbook again.
     
     - name: Debug exact version of installed vsFTP package
       ansible.builtin.debug:
-        msg: "vsFTP is installed in Version  {{ ansible_facts.packages.vsftp.0.version }}"
+        msg: "vsFTP is installed in Version  {{ ansible_facts.packages.vsftpd.0.version }}"
       when: ansible_facts.packages.vsftpd is defined  
 ```
 
@@ -139,7 +139,7 @@ The service is removed by the playbook, therefor the result of the *package_fact
 Add a task to the playbook which outputs a message if important security patches are included in the installed *vsftpd* package.
 
 * Make sure that the *vsftd* package is installed (again).
-* Output the message *"The version of vsftp includes important security patches!"* if the version of *vsftp* is **greater than 3.0**
+* Output the message *"The version of vsftpd includes important security patches!"* if the version of *vsftpd* is **greater than 3.0**
 
 !!! tip
     The Ansible documention is helpful, a *test* to [compare versions](https://docs.ansible.com/ansible/latest/user_guide/playbooks_tests.html#comparing-versions) is available.
@@ -168,13 +168,13 @@ Run the extended playbook.
         
         - name: Debug exact version of installed vsFTP package
           ansible.builtin.debug:
-            msg: "{{ ansible_facts.packages.vsftp.0.version }}"
-          when: ansible_facts.packages.vsftp is defined
+            msg: "{{ ansible_facts.packages.vsftpd.0.version }}"
+          when: ansible_facts.packages.vsftpd is defined
         
-        - name: Output message when vsftp version is greater than 3.0
+        - name: Output message when vsftpd version is greater than 3.0
           debug:
             msg: "The version of vsftp includes important security patches!"
-          when: ansible_facts.packages.vsftp.0.version is version('3.0', '>')
+          when: ansible_facts.packages.vsftpd.0.version is version('3.0', '>')
     ```
 
     Running the playbook outputs the following:
@@ -182,7 +182,7 @@ Run the extended playbook.
     ...
     TASK [Output message when vsftp version is greater than 3.0] *******************************************************************
     ok: [node1] => {
-        "msg": "The version of vsftp includes important security patches!"
+        "msg": "The version of vsftpd includes important security patches!"
     } 
     ...
     ```
