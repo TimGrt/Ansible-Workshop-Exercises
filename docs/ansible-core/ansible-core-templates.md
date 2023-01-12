@@ -45,14 +45,62 @@ Next we need a playbook to use this template. In the `~/ansible-files/` director
         mode: 0644
 ```
 
+As we just learned what *handlers* do, let's add one to this playbook. Add the handlers block with a simple task, which just outputs a message:
+
+```yaml
+---
+- name: Fill motd file with host data
+  hosts: node1
+  become: true
+  handlers:
+    - name: motd_changed
+      debug:
+        msg: "The Message of the Day was updated! SSH to node1 and check the content."
+  tasks:
+    - name: Deploy message of the day file
+      ansible.builtin.template:
+        src: motd-facts.j2
+        dest: /etc/motd
+        owner: root
+        group: root
+        mode: 0644
+```
+
+Before we do a bigger challenge lab, let's see if you remember how handlers are triggered. Currently, the handler is not triggered, add the missing keyword to the task, which deploys the template.
+
+??? success "Solution"
+
+    Add the *notify* keyword and the name of the handler:
+
+    ```yaml hl_lines="17"
+    ---
+    - name: Fill motd file with host data
+      hosts: node1
+      become: true
+      handlers:
+        - name: motd_changed
+          debug:
+            msg: "The Message of the Day was updated! SSH to node1 and check the content."
+      tasks:
+        - name: Deploy message of the day file
+          ansible.builtin.template:
+            src: motd-facts.j2
+            dest: /etc/motd
+            owner: root
+            group: root
+            mode: 0644
+          notify: motd_changed
+    ```
+
 You have done this a couple of times by now:
 
 * Understand what the Playbook does.
 * Execute the Playbook `motd-facts.yml`.
+* Observe if the handler was triggered. Re-Run the playbook multiple times.
 * Login to node1 via SSH and check the message of the day content.
 * Log out of node1.
 
-You should see how Ansible replaces the variables with the facts it discovered from the system.
+You should see how Ansible replaces the variables with the facts it discovered from the system. The handler was only triggered when the task reported a *changed* state.
 
 ### Step 2 - Challenge Lab
 

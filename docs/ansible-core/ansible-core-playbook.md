@@ -62,8 +62,8 @@ Instead, we are going to create a very simple directory structure for our playbo
 On your control host **ansible-1**, create a directory called `ansible-files` in your home directory and change directories into it:
 
 ```bash
-[student<X>@ansible-1 ~]$ mkdir ansible-files
-[student<X>@ansible-1 ~]$ cd ansible-files/
+[student@ansible-1 ~]$ mkdir ansible-files
+[student@ansible-1 ~]$ cd ansible-files/
 ```
 
 Add a file called `apache.yml` with the following content. As discussed in the previous exercises, use `vi`/`vim` or, if you are new to editors on the command line, check out the [editor alternatives](editor-alternatives.md) again.
@@ -120,20 +120,20 @@ To run your playbook, use the `ansible-playbook <playbook>` command as follows:
 
 === "Ansible"
     ```bash
-    [student<X>@ansible-1 ansible-files]$ ansible-playbook apache.yml
+    [student@ansible-1 ansible-files]$ ansible-playbook apache.yml
     ```
 === "Navigator"
     ```bash
-    [student<X>@ansible-1 ansible-files]$ ansible-navigator run apache.yml
+    [student@ansible-1 ansible-files]$ ansible-navigator run apache.yml
     ```
 
 !!! tip
-    The existing `/home/student<X>/.ansible.cfg` file provides the location of your inventory file. If this was not set within your `ansible.cfg` file, the command to run the playbook would be: `ansible-playbook -i /home/student<X>/lab_inventory/hosts apache.yml`
+    The existing `/home/student/.ansible.cfg` file provides the location of your inventory file. If this was not set within your `ansible.cfg` file, the command to run the playbook would be: `ansible-playbook -i /home/student/lab_inventory/hosts apache.yml`
 
 Once the playbook has completed, connect to `node1` via SSH to make sure Apache has been installed:
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ ssh node1
+[student@ansible-1 ansible-files]$ ssh node1
 Last login: Wed May 15 14:03:45 2019 from 44.55.66.77
 Managed by Ansible
 ```
@@ -169,16 +169,19 @@ Log out of `node1` with the command `exit` so that you are back on the control h
 
 ```
 
+!!! note
+    The playbook (and some of the following playbooks) make use of *variables*, you will learn about them in the next chapter.
+
 The playbook has two tasks, the first one uses the `package_facts` module, it does what it says, it gatheres informations about packages. These facts are not gathered by default with the "Gather facts" tasks (which uses the `setup` module) and must be collected separately.  
 The second task uses the `debug` module. The variable *ansible_facts* is extended with the *packages* key, which contains a dictionary with **all** packages installed on the managed node. The *httpd* package could be installed in multiple versions, therefor every *package* key, in our case *httpd*, is a list. We have installed only one version of *httpd* (thus, we have a list with only one element), we get the version of *httpd* with `[0].version`.  
 
 === "Ansible"
     ```bash
-    [student<X>@ansible-1 ~]$ ansible-playbook package.yml
+    [student@ansible-1 ~]$ ansible-playbook package.yml
     ```
 === "Navigator"
     ```bash
-    [student<X>@ansible-1 ~]$ ansible-navigator run package.yml -m stdout
+    [student@ansible-1 ~]$ ansible-navigator run package.yml -m stdout
     ```
 
 The output should look like this:
@@ -238,11 +241,11 @@ Thus with the second task we make sure the Apache server is indeed running on th
 
 === "Ansible"
     ```bash
-    [student<X>@ansible-1 ~]$ ansible-playbook apache.yml
+    [student@ansible-1 ~]$ ansible-playbook apache.yml
     ```
 === "Navigator"
     ```bash
-    [student<X>@ansible-1 ~]$ ansible-navigator run apache.yml
+    [student@ansible-1 ~]$ ansible-navigator run apache.yml
     ```
 
 Notice in the output, we see the play had `1` "CHANGED" shown in yellow and if we press `0` to enter the play output, you can see that task 2, "Apache enabled and running", was the task that incorporated the latest change by the "CHANGED" value being set to True and highlighted in yellow.
@@ -254,28 +257,27 @@ Notice in the output, we see the play had `1` "CHANGED" shown in yellow and if w
 
 ```yaml
 ---
-- name: Check Status
+- name: Check Service status
   hosts: node1
   become: true
   vars:
-    package: "httpd"
+    service: "httpd.service"
   tasks:
     - name: Get state of all service
       ansible.builtin.service_facts:
-      register: service_state
 
-    - name: Output service state of {{ package }}
+    - name: Output service state of {{ service }}
       ansible.builtin.debug:
-        msg: "{{ service_state['ansible_facts']['services'][package]['state'] }}"
+        msg: "{{ ansible_facts['services'][service]['state'] }}"
 ```
 
 === "Ansible"
     ```bash
-    [student<X>@ansible-1 ~]$ ansible-playbook service_state.yml
+    [student@ansible-1 ~]$ ansible-playbook service_state.yml
     ```
 === "Navigator"
     ```bash
-    [student<X>@ansible-1 ~]$ ansible-navigator run service_state.yml
+    [student@ansible-1 ~]$ ansible-navigator run service_state.yml
     ```
 
 This would be the same as checking the service state manually on `node1` with: `systemctl status httpd`.
@@ -303,19 +305,19 @@ Check that the tasks were executed correctly and Apache is accepting connections
 
 === "Ansible"
     ```bash
-    [student<X>@ansible-1 ~]$ ansible-playbook check_httpd.yml
+    [student@ansible-1 ~]$ ansible-playbook check_httpd.yml
     ```
 === "Navigator"
     ```bash
-    [student<X>@ansible-1 ~]$ ansible-navigator run check_httpd.yml -m stdout
+    [student@ansible-1 ~]$ ansible-navigator run check_httpd.yml -m stdout
     ```
 
 There are a lot of red lines and an error: As long as there is not at least an `web.html` file to be served by Apache, it will throw an ugly "HTTP Error 403: Forbidden" status and Ansible will report an error.
 
-So why not use Ansible to deploy a simple `web.html` file? On the ansible control host, as the `student<X>` user, create the directory `files` to hold file resources in `~/ansible-files/`:
+So why not use Ansible to deploy a simple `web.html` file? On the ansible control host, as the `student` user, create the directory `files` to hold file resources in `~/ansible-files/`:
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ mkdir files
+[student@ansible-1 ansible-files]$ mkdir files
 ```
 
 Then create the file `~/ansible-files/files/web.html` on the control node:
@@ -359,11 +361,11 @@ Run your extended Playbook:
 
 === "Ansible"
     ```bash
-    [student<X>@ansible-1 ansible-files]$ ansible-playbook apache.yml
+    [student@ansible-1 ansible-files]$ ansible-playbook apache.yml
     ```
 === "Navigator"
     ```bash
-    [student<X>@ansible-1 ansible-files]$ ansible-navigator run apache.yml -m stdout
+    [student@ansible-1 ansible-files]$ ansible-navigator run apache.yml -m stdout
     ```
 
 * Have a good look at the output, notice the changes of "CHANGED" and the tasks associated with that change.
@@ -417,11 +419,11 @@ Now run the playbook:
 
 === "Ansible"
     ```bash
-    [student<X>@ansible-1 ansible-files]$ ansible-playbook apache.yml
+    [student@ansible-1 ansible-files]$ ansible-playbook apache.yml
     ```
 === "Navigator"
     ```bash
-    [student<X>@ansible-1 ansible-files]$ ansible-navigator run apache.yml -m stdout
+    [student@ansible-1 ansible-files]$ ansible-navigator run apache.yml -m stdout
     ```
 
 Verify if Apache is now running on all web servers (node1, node2, node3). All output should be green.
