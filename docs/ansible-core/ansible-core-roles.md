@@ -70,14 +70,14 @@ Ansible looks for roles in a subdirectory called `roles` in the project director
 Okay, lets start to build a role. We'll build a role that installs and configures Apache to serve a virtual host. Run these commands in your `~/ansible-files` directory:
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ mkdir roles
-[student<X>@ansible-1 ansible-files]$ ansible-galaxy init --offline roles/apache-webserver
+[student@ansible-1 ansible-files]$ mkdir roles
+[student@ansible-1 ansible-files]$ ansible-galaxy init --offline roles/apache-webserver
 ```
 
 Have a look at the role directories and their content:
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ tree roles
+[student@ansible-1 ansible-files]$ tree roles
 ```
 
 ```text
@@ -285,17 +285,17 @@ Now you are ready to run your playbook:
 
 === "Ansible"
     ```bash
-    [student<X>@ansible-1 ansible-files]$ ansible-playbook test_apache_role.yml
+    [student@ansible-1 ansible-files]$ ansible-playbook test_apache_role.yml
     ```
 === "Navigator"
     ```bash
-    [student<X>@ansible-1 ansible-files]$ ansible-navigator run test_apache_role.yml
+    [student@ansible-1 ansible-files]$ ansible-navigator run test_apache_role.yml
     ```
 
 Run a curl command against `node2` to confirm that the role worked or use the `check_httpd.yml` playbook (you may need to adjust the variable in it to `node2:8080`):
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ curl -s http://node2:8080
+[student@ansible-1 ansible-files]$ curl -s http://node2:8080
 <body>
 <h1>The virtual host configuration works!</h1>
 </body>

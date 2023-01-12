@@ -15,7 +15,7 @@ As an example of using templates you will change the motd file to contain host-s
 First create the directory `templates` to hold template resources in `~/ansible-files/`:
 
 ```bash
-[student<X>@ansible-1 ansible-files]$ mkdir templates
+[student@ansible-1 ansible-files]$ mkdir templates
 ```
 
 Then in the `~/ansible-files/templates/` directory create the template file `motd-facts.j2`:
@@ -170,13 +170,13 @@ Run the newly created playbook to find the fact name.
     Run the playbook.
 
     ```bash
-    [student<X>@ansible-1 ~]$ ansible-playbook motd-facts.yml
+    [student@ansible-1 ~]$ ansible-playbook motd-facts.yml
     ```
 
     Verify the new message via SSH login to `node1`.
 
     ```bash
-    [student<X>@ansible-1 ~]$ ssh node1
+    [student@ansible-1 ~]$ ssh node1
     Welcome to node1.
     Host runs RedHat 8.1
     Deployed on x86_64 architecture
