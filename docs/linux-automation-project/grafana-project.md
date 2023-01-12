@@ -60,16 +60,16 @@ node2 | CHANGED | rc=0 >>
            └─20887 /usr/sbin/grafana-server --config=/etc/grafana/grafana.ini --pidfile=/var/run/grafana/grafana-server.pid --packaging=rpm cfg:default.paths.logs=/var/log/grafana cfg:default.paths.data=/var/lib/grafana cfg:default.paths.plugins=/var/lib/grafana/plugins cfg:default.paths.provisioning=/etc/grafana/provisioning
 ```
 
-Accessing the Grafana UI from the browser currently fails with a timeout, use the IP address of your *node2* and port 3000. We will fix this in the next step.
+Accessing the Grafana UI from the browser currently fails with a timeout, use the **public** IP address of your *node2* (the one from your inventory) and port 3000 (this is the default port for Grafana). We will fix this in the next step.
 
 ### Step 3 - Configure Grafana
 
-Currently, you are not able to access the Grafana UI, using the IP address of your *node2* and the Grafana default port of 3000, you will get a timeout.  
+Currently, you are not able to access the Grafana UI, using the **public** IP address of your *node2* and the Grafana default port of 3000, you will get a timeout.  
 The lab environment only allows access to Port 80 and 8080, yesterday you started an Apache webserver on these ports with Ansible. You'll have to configure Grafana to start on Port 8080 to able to access the UI.
 
 !!! warning
     There should be no running Apache webserver on *node2*, if otherwise, you'll need to stop *httpd* on *node2*! If the port is occupied, Grafana can not be started!  
-    You could ensure a stopped Apache easily with an Ansible task...
+    You could (and should!) ensure a stopped Apache easily with an Ansible task...
 
 By default, Grafana uses a black background. You will adjust the Grafana configuration with Ansible to show the Grafana UI with white background. You will change the look from this...
 
@@ -85,7 +85,7 @@ Naturally, you should achieve this with Ansible! Find an appropriate module (the
 !!! tip
     Configuration changes require a service restart!
 
-Now that we adjusted the configuration, try to access the Grafana UI again. Use the IP address of your *node2* and use Port 8080 this time.  
+Now that we adjusted the configuration, try to access the Grafana UI again. Use the public IP address of your *node2* and use Port 8080 this time.  
 
 !!! success
     It works! The default login credentials are *admin:admin*, you can skip the password change request.
