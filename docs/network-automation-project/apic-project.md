@@ -36,10 +36,10 @@ We will be using a Cisco ACI Sandbox available online.
 
 ![Cisco APIC overview](apic-quickstart.png)
 
-Open a new browser tab and go to [https://sandboxapicdc.cisco.com/#](https://sandboxapicdc.cisco.com/#)
+Open a new browser tab and go to [https://sandboxapicdc.cisco.com/#](https://sandboxapicdc.cisco.com/#){:target="_blank"}
 
 !!! tip
-    The credentials for accessing the [Cisco Sandbox](https://sandboxapicdc.cisco.com/#) are shown below, you can copy the content by using the symbol on the right of the code block. 
+    The credentials for accessing the [Cisco Sandbox](https://sandboxapicdc.cisco.com/#){:target="_blank"} are shown below, you can copy the content by using the symbol on the right of the code block. 
 
 Username:
 
@@ -53,7 +53,7 @@ Password:
 !v3G@!4@Y
 ```
 
-Today, you might need additional Ansible modules. Yesterday, we only used a handful of modules which are all included in the `ansible-core` binary. With *ansible-core* only 69 of the most used modules are included:
+Today, you might need additional Ansible modules. In the first part of the workshop, we only used a handful of modules which are all included in the `ansible-core` binary. With *ansible-core* only 69 of the most used modules are included:
 
 ```bash
 [student@ansible-1 ~]$ ansible-doc -l 
@@ -70,7 +70,7 @@ copy                   Copy files to remote locations
 ...
 ```
 
-Additional modules are installed through *collections*, search the [Collection Index](https://docs.ansible.com/ansible/latest/collections/index.html) in the Ansible documentation for a module or use the search field.
+Additional modules are installed through *collections*, search the [Collection Index](https://docs.ansible.com/ansible/latest/collections/index.html){:target="_blank"} in the Ansible documentation for a module or use the search field.
 
 ![Ansible documentation](ansible-docs.png)
 
@@ -86,7 +86,8 @@ Installing 'amazon.aws:3.2.0' to '/home/student/.ansible/collections/ansible_col
 amazon.aws:3.2.0 was installed successfully
 ```
 
-Well, you won't need the AWS collection, but automating the ACI with Ansible also requires additional modules, these are not included in the `ansible-core` binary and need to be installed with Ansible Galaxy. 
+!!! tip
+    Well, you won't need the AWS collection, but automating the ACI with Ansible also requires additional modules, these are not included in the `ansible-core` binary and need to be installed with Ansible Galaxy. 
 
 Achieve the following tasks:
 
@@ -112,21 +113,22 @@ community.general 5.3.0
 
 Within your newly created project folder, create an inventory file and a playbook file.
 
-The goal is to create a new tenant within the APIC controller with Ansible. The tenant should have a recognizable name e.g. `demo-tenant-<initials>`.
-
-![Demo Tenant in APIC UI](apic-demo-tenant.png)
-
 !!! tip
     You have to instruct Ansible to communicate with the APIC API, per default Ansible would try to communicate via SSH. This will not work.  
     Use the same credentials for API communication as for the login to the APIC UI.
 
-The API endpoint (*host*) for the ACI modules can use the URL of the sandbox, you won't need the prefix *https://*. An overview of all available ACI modules can be found in the [Ansible documentation](https://docs.ansible.com/ansible/latest/collections/cisco/aci/index.html#plugins-in-cisco-aci). The documentation also provides an [extensive Guide](https://docs.ansible.com/ansible/latest/scenario_guides/guide_aci.html) for ACI automation.
+The API endpoint (*host*) for the ACI modules can use the URL of the sandbox, you won't need the prefix *https://*. An overview of all available ACI modules can be found in the [Ansible documentation](https://docs.ansible.com/ansible/latest/collections/cisco/aci/index.html#plugins-in-cisco-aci){:target="_blank"}. The documentation also provides an [extensive Guide](https://docs.ansible.com/ansible/latest/scenario_guides/guide_aci.html){:target="_blank"} for ACI automation.
+
+Testing the successful communication with the API could be done by querying ACI system information with the `aci_system` module. Create your playbook and add a task, utilizing this module. Fill all necessary parameter.  
+Run your playbook, if it returns a green *ok* status, communication is established.
+
+For now, the gathered system information about the ACI system is not relevant for us, still, you could store the output in a variable and output it with an appropriate module, if you are curious.
 
 Achieve the following tasks:
 
 - [X] Inventory and playbook created
-- [X] Use variables where possible (useful)
-- [X] Tenant created in ACI controller via Ansible
+- [X] Use variables where possible (and useful)
+- [X] Successful communication with APIC established
 
 You may encounter the following error messages:
 
@@ -155,12 +157,63 @@ For a production environment this is obviously **not recommended**!
 
 In case of an unavailable APIC sandbox, re-run your playbook when it comes back online.  
 
-### Step 3 - Roles and encryption
+### Step 3 - Create a new tenant
+
+The APIC manages the scalable ACI multi-tenant fabric. A *multi-tenant* environment or *multi-tenancy* data centres handle segregation of traffic between multiple tenants and ensure privacy and security between tenant data.
+
+The goal is to create a new tenant within the APIC controller with Ansible. The tenant should have a recognizable name e.g. `demo-tenant-<initials>`. Add the tenant description `Workshop tenant`.
+
+![Demo Tenant in APIC UI](apic-demo-tenant.png)
+
+Observe the tenant and it's annotation in the APIC UI.
+
+Achieve the following tasks:
+
+- [X] Tenant created
+- [X] Inspected tenant in the UI
+
+### Step 4 - AP creation and EPGs
+
+Now, that we have our own custom tenant, lets fill it with content. Create an Application profile and add multiple end point groups.
+Application profiles (APs) are containers for the grouping of endpoint groups (EPGs). For example, an AP could group a web server with the backend database, with storage, and so on.
+
+Create an *Application profile* with the following attributes:
+
+| Parameter           | Value         |
+| ------------------- | ------------- |
+| *AP name*           | `workshop`    |
+| *AP description*    | `Workshop AP` |
+| *Monitoring Policy* | `default`     |
+
+Ensure that your AP is created for your own tenant!
+
+Let's create three EPGs for our Application profile, use a single task by creating them in a loop.
+The *EPGs* should have the following attributes:
+
+| Loop item | *EPG name* | *EPG description* |
+|:---------:| :---------- | :---------------- |
+|     1     | `web`      | `Web EPG`        |
+|     2     | `app`      | `APP EPG`        |
+|     3     | `db`       | `DB EPG`         |
+
+Setting the required attributes requires looping over a [list of hashes](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_loops.html#iterating-over-a-list-of-hashes){:target="_blank"}. All EPGs should have the `default` monitoring policy attached.
+
+Observe the tenant in the APIC UI.
+
+Achieve the following tasks:
+
+- [X] Application profile created
+- [X] EPGs created
+
+!!! note
+    No communication between the different EPGs is established yet, this would be achieved with *contracts*. By now, you are experienced enough with creating objects in ACI with Ansible, let's skip the contracts creation.
+
+### Step 5 - Roles and encryption
 
 Now that you can execute automated tasks against the ACI, let's re-format the project and use some Ansible best-practices.  
 All Ansible projects should use the role structure, if your project does not already uses it, now is the time to rearrange your content. Create a `roles` folder and an appropriately named sub-folder for the tenant creation with all ncessary folder and files.  
 
-Your tasks using the Ansible ACI module(s) require username and password, at least the password should be encrypted. Ansible Vault encrypts variables and files so you can protect sensitive content rather than leaving it visible as plaintext in playbooks or roles, take a look at the [Ansible Vault documentation](https://docs.ansible.com/ansible/latest/user_guide/vault.html#vault) for further informations.
+Your tasks using the Ansible ACI module(s) require username and password, at least the password should be encrypted. Ansible Vault encrypts variables and files so you can protect sensitive content rather than leaving it visible as plaintext in playbooks or roles, take a look at the [Ansible Vault documentation](https://docs.ansible.com/ansible/latest/user_guide/vault.html#vault){:target="_blank"} for further informations.
 Encrypt the APIC credentials and re-run your playbook.
 
 !!! tip
@@ -170,19 +223,19 @@ Achieve the following tasks:
 
 - [X] Project uses Ansible role structure
 - [X] APIC credentials are vault-encrypted
-- [X] Playbook is still runable
+- [X] Playbook references role, tasks are executed
     
-### Step 4 - Use filters to manipulate data
+### Step 6 - Use filters to manipulate data
 
-Filters let you transform JSON data into YAML data, split a URL to extract the hostname, get the SHA1 hash of a string, add or multiply integers, and much more. You can use the Ansible-specific filters documented [here](https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html) to manipulate your data, or use any of the standard filters shipped with [Jinja2](https://jinja.palletsprojects.com/en/3.0.x/templates/#builtin-filters).
+Filters let you transform JSON data into YAML data, split a URL to extract the hostname, get the SHA1 hash of a string, add or multiply integers, and much more. You can use the Ansible-specific filters documented [here](https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html){:target="_blank"} to manipulate your data, or use any of the standard filters shipped with [Jinja2](https://jinja.palletsprojects.com/en/3.0.x/templates/#builtin-filters){:target="_blank"}.
 
-Create a new role which utilizes an [Ansible ACI module](https://docs.ansible.com/ansible/latest/collections/cisco/aci/index.html) that can manage contract resources (*vz:BrCP*). Get all contracts of the **common** tenant and output a list with only the contract names.
+Create a new role which utilizes an [Ansible ACI module](https://docs.ansible.com/ansible/latest/collections/cisco/aci/index.html){:target="_blank"} that can manage contract resources (*vz:BrCP*). Get all contracts of the **common** tenant and output a list with only the contract names.
 
 ![Contracts of common tenant](apic-common-contracts.png)
 
 The *common* tenant has at least one contract (*default*).
 
-Dealing with network devices often means dealing with large JSON objects and you have to *filter* the output to your needs. Browse the [Ansible filter documentation](https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html) for a suitable filter.
+Dealing with network devices often means dealing with large JSON objects and you have to *filter* the output to your needs. Browse the [Ansible filter documentation](https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html){:target="_blank"} for a suitable filter.
 
 The Ansible module you will be using returns a JSON output like the following:
 

@@ -16,7 +16,7 @@ This exercise covers:
 
 For this demonstration we will use playbooks stored in a Git repository:
 
-[https://github.com/ansible/workshop-examples](https://github.com/ansible/workshop-examples)
+[https://github.com/ansible/workshop-examples](https://github.com/ansible/workshop-examples){:target="_blank"}
 
 A playbook to install the Apache web server has already been committed to the directory **rhel/apache**, `apache_install.yml`:
 

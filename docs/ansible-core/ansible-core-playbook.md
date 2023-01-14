@@ -6,10 +6,10 @@ This exercise covers using Ansible to build two Apache web servers on Red Hat En
 
 * Understanding Ansible module parameters
 * Understanding and using the following modules
-    * [yum module](https://docs.ansible.com/ansible/latest/modules/yum_module.html)
-    * [service module](https://docs.ansible.com/ansible/latest/modules/service_module.html)
-    * [copy module](https://docs.ansible.com/ansible/latest/modules/copy_module.html)
-* Understanding [Idempotence](https://en.wikipedia.org/wiki/Idempotence) and how Ansible modules can be idempotent
+    * [yum module](https://docs.ansible.com/ansible/latest/modules/yum_module.html){:target="_blank"}
+    * [service module](https://docs.ansible.com/ansible/latest/modules/service_module.html){:target="_blank"}
+    * [copy module](https://docs.ansible.com/ansible/latest/modules/copy_module.html){:target="_blank"}
+* Understanding [Idempotence](https://en.wikipedia.org/wiki/Idempotence){:target="_blank"} and how Ansible modules can be idempotent
 
 ## Guide
 
@@ -54,7 +54,7 @@ Enough theory, it’s time to create your first Ansible playbook. In this lab yo
 
 This Playbook makes sure the package containing the Apache web server is installed on `node1`.
 
-There is a [best practice Guide](https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html) on the preferred directory structures for playbooks.  We strongly encourage you to read and understand these practices as you develop your Ansible skills.  
+There is a [best practice Guide](https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html){:target="_blank"} on the preferred directory structures for playbooks.  We strongly encourage you to read and understand these practices as you develop your Ansible skills.  
 That said, our playbook today is very basic and creating a complex structure will just confuse things.
 
 Instead, we are going to create a very simple directory structure for our playbook, and add just a couple of files to it.
@@ -99,7 +99,7 @@ Now that we've defined the play, let's add a task to get something done. We will
 ```
 
 !!! tip
-    Since playbooks are written in YAML, alignment of the lines and keywords is crucial. Make sure to vertically align the *t* in `task` with the *b* in `become`. Once you are more familiar with Ansible, make sure to take some time and study a bit the [YAML Syntax](https://docs.ansible.com/ansible/latest/reference_appendices/YAMLSyntax.html).
+    Since playbooks are written in YAML, alignment of the lines and keywords is crucial. Make sure to vertically align the *t* in `task` with the *b* in `become`. Once you are more familiar with Ansible, make sure to take some time and study a bit the [YAML Syntax](https://docs.ansible.com/ansible/latest/reference_appendices/YAMLSyntax.html){:target="_blank"}.
 
 In the added lines:
 

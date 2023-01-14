@@ -2,7 +2,7 @@
 
 ## Objective
 
-In a playbook, you may want to execute different tasks, or have different goals, depending on the value of a fact (data about the remote system), a variable, or the result of a previous task. You may want the value of some variables to depend on the value of other variables. Or you may want to create additional groups of hosts based on whether the hosts match other criteria. You can do all of these things with [conditionals](https://docs.ansible.com/ansible/latest/user_guide/playbooks_conditionals.html).
+In a playbook, you may want to execute different tasks, or have different goals, depending on the value of a fact (data about the remote system), a variable, or the result of a previous task. You may want the value of some variables to depend on the value of other variables. Or you may want to create additional groups of hosts based on whether the hosts match other criteria. You can do all of these things with [conditionals](https://docs.ansible.com/ansible/latest/user_guide/playbooks_conditionals.html){:target="_blank"}.
 
 ## Guide
 
@@ -19,9 +19,9 @@ To implement a conditional, the `when` statement must be used, followed by the c
 | \<   | true if the left hand side is lower than the right hand side.          |
 | \<=  | true if the left hand side is lower or equal to the right hand side.   |
 
-Ansible uses Jinja2 [tests](https://docs.ansible.com/ansible/latest/user_guide/playbooks_tests.html#playbooks-tests) and [filters](https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html#playbooks-filters) in conditionals. Ansible supports all the standard tests and filters, and adds some unique ones as well. 
+Ansible uses Jinja2 [tests](https://docs.ansible.com/ansible/latest/user_guide/playbooks_tests.html#playbooks-tests){:target="_blank"} and [filters](https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html#playbooks-filters){:target="_blank"} in conditionals. Ansible supports all the standard tests and filters, and adds some unique ones as well. 
  
-For more on this, please refer to the documentation: <https://jinja.palletsprojects.com/en/latest/templates/>
+For more on this, please refer to the documentation: [https://jinja.palletsprojects.com/en/latest/templates/](https://jinja.palletsprojects.com/en/latest/templates/){:target="_blank"}
 
 ### Step 1 - Install service conditionally
 
@@ -142,7 +142,7 @@ Add a task to the playbook which outputs a message if important security patches
 * Output the message *"The version of vsftpd includes important security patches!"* if the version of *vsftpd* is **greater than 3.0**
 
 !!! tip
-    The Ansible documention is helpful, a *test* to [compare versions](https://docs.ansible.com/ansible/latest/user_guide/playbooks_tests.html#comparing-versions) is available.
+    The Ansible documention is helpful, a *test* to [compare versions](https://docs.ansible.com/ansible/latest/user_guide/playbooks_tests.html#comparing-versions){:target="_blank"} is available.
 
 Run the extended playbook. 
 

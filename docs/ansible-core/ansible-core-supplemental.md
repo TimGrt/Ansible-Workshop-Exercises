@@ -42,11 +42,10 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCFeZ0j9HODBeDzP5aV5mkrsIGY1mvHTLjbCZIeHNpl
     ssh-keygen
     ```
 
-Next, SSH to the *ec2-user* on *node1*, you will be asked for a password. This is the same password you used to login to the workshop!
+Next, SSH to the *ec2-user* on *node1*.
 
 ```bash
 [student@ansible-1 ~]$ ssh ec2-user@node1
-ec2-user@node1's password:
 [ec2-user@node1 ~]$
 ```
 

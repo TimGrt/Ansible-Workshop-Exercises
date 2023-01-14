@@ -79,7 +79,7 @@ By default, Grafana uses a black background. You will adjust the Grafana configu
 
 ![Grafana with white background](grafana-light-background.png)
 
-The configuration for Grafana is stored in `/etc/grafana/grafana.ini`. You need to adjust the theme configuration in the *users* section, as well as the *http_port* in the *server* section. Take a look at the [Grafana documentation](https://grafana.com/docs/grafana/latest/administration/configuration/) on how to change the parameters.  
+The configuration for Grafana is stored in `/etc/grafana/grafana.ini`. You need to adjust the theme configuration in the *users* section, as well as the *http_port* in the *server* section. Take a look at the [Grafana documentation](https://grafana.com/docs/grafana/latest/administration/configuration/){:target="_blank"} on how to change the parameters.  
 Naturally, you should achieve this with Ansible! Find an appropriate module (there is more than one way to achieve the solution...) and adjust the Grafana configuration file.
 
 !!! tip
