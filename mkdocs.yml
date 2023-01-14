@@ -23,6 +23,8 @@ theme:
   language: de
   favicon: assets/ansible-logo-black.png
   features:
+    - content.code.annotate
+    - content.code.copy
     - navigation.indexes
     - navigation.instant
     - navigation.sections
