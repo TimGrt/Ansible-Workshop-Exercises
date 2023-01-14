@@ -6,8 +6,8 @@ Explore and understand the lab environment.  This exercise will cover
 
 * Locating and understanding:
 
-  * Ansible Automation Controller [**Inventory**](https://docs.ansible.com/automation-controller/latest/html/userguide/inventories.html)
-  * Ansible Automation Controller [**Credentials**](https://docs.ansible.com/automation-controller/latest/html/userguide/credentials.html)
+  * Ansible Automation Controller [**Inventory**](https://docs.ansible.com/automation-controller/latest/html/userguide/inventories.html){:target="_blank"}
+  * Ansible Automation Controller [**Credentials**](https://docs.ansible.com/automation-controller/latest/html/userguide/credentials.html){:target="_blank"}
 
 * Running ad hoc commands via the Ansible Automation Controller web UI
 

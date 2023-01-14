@@ -39,7 +39,7 @@ These include:
 * All execution environment (EE) logs are stored within `/home/student/.ansible-navigator/logs/ansible-navigator.log`
 * Playbook artifacts are saved under `/tmp/artifact.json`
 
-Follow the next link for more information on the [Ansible navigator settings](https://github.com/ansible/ansible-navigator/blob/main/docs/settings.rst).
+Follow the next link for more information on the [Ansible navigator settings](https://github.com/ansible/ansible-navigator/blob/main/docs/settings.rst){:target="_blank"}.
 
 !!! tip
     The parameters for ansible-navigator maybe modified for your specific environment. The current settings use a default `ansible-navigator.yml` for all projects, but a specific `ansible-navigator.yml` can be created for each project and is the recommended practice.
@@ -323,7 +323,7 @@ Note the following parameters within the `ansible-navigator.yml` file:
 * `inventories`: shows the location of the ansible inventory being used
 * `execution-environment`: where the default execution environment is set
 
-For a full listing of every configurable knob checkout the [documentation](https://ansible-navigator.readthedocs.io/en/latest/settings/).
+For a full listing of every configurable knob checkout the [documentation](https://ansible-navigator.readthedocs.io/en/latest/settings/){:target="_blank"}.
 
 ### Step 3 - Running the Playbook
 

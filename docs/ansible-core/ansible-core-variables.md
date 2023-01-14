@@ -27,7 +27,7 @@ The recommended practice to provide variables in the inventory, is to define the
 * To define variables specifically for a host `node1`, the file `host_vars/node1.yml` with the variable definitions is created.
 
 !!! tip
-    Host variables take precedence over group variables (more about precedence can be found in the [docs](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable)).
+    Host variables take precedence over group variables (more about precedence can be found in the [docs](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable){:target="_blank"}).
 
 ### Step 1 - Create Variable Files
 
