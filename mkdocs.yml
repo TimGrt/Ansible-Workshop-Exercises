@@ -103,6 +103,7 @@ nav:
     - projects-overview.md
     - linux-automation-project/grafana-project.md
     - network-automation-project/apic-project.md
+    - cloud-automation-project/aws-project.md
   - "Ansible Future":
     - ansible-future-overview.md
     - ansible-navigator/ansible-navigator.md
