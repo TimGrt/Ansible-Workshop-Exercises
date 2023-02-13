@@ -417,19 +417,19 @@ ec2-3-70-238-39.eu-central-1.compute.amazonaws.com : ok=2    changed=0    unreac
     aws_profile: workshop
 
     regions:
-    - eu-central-1
+      - eu-central-1
 
     groups:
-    test_stage: "'Testing' in tags.Environment"
-    prod_stage: "'Production' in tags.Environment"
+      test_stage: "'Testing' in tags.Environment"
+      prod_stage: "'Production' in tags.Environment"
 
     filters:
-    instance-state-name: running
+      instance-state-name: running
 
     compose:
-    ansible_host: public_dns_name
-    ansible_ssh_private_key_file: ~/.ssh/workshop
-    ansible_user: ec2-user
+      ansible_host: public_dns_name
+      ansible_ssh_private_key_file: ~/.ssh/workshop
+      ansible_user: ec2-user
     ```
 
 
