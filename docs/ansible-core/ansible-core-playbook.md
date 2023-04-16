@@ -61,7 +61,7 @@ Instead, we are going to create a very simple directory structure for our playbo
 
 On your control host **ansible-1**, create a directory called `ansible-files` in your home directory and change directories into it:
 
-```bash
+``` { .bash .no-copy }
 [student@ansible-1 ~]$ mkdir ansible-files
 [student@ansible-1 ~]$ cd ansible-files/
 ```
@@ -119,11 +119,11 @@ Save your playbook and exit your editor.
 To run your playbook, use the `ansible-playbook <playbook>` command as follows:
 
 === "Ansible"
-    ```bash
+    ``` { .bash .no-copy }
     [student@ansible-1 ansible-files]$ ansible-playbook apache.yml
     ```
 === "Navigator"
-    ```bash
+    ``` { .bash .no-copy }
     [student@ansible-1 ansible-files]$ ansible-navigator run apache.yml -m stdout
     ```
 
@@ -132,7 +132,7 @@ To run your playbook, use the `ansible-playbook <playbook>` command as follows:
 
 Once the playbook has completed, connect to `node1` via SSH to make sure Apache has been installed:
 
-```bash
+``` { .bash .no-copy }
 [student@ansible-1 ansible-files]$ ssh node1
 Last login: Wed May 15 14:03:45 2019 from 44.55.66.77
 Managed by Ansible
@@ -140,14 +140,14 @@ Managed by Ansible
 
 Use the command `rpm -qi httpd` to verify httpd is installed:
 
-```bash
+``` { .bash .no-copy }
 [ec2-user@node1 ~]$ rpm -qi httpd
 Name        : httpd
 Version     : 2.4.37
 [...]
 ```
 
-Log out of `node1` with the command `exit` so that you are back on the control host and verify the installed package with an Ansible playbook labeled `package.yml`. Create the file and paste in the following content: 
+Log out of `node1` with the command `exit` so that you are back on the control host and verify the installed package with an Ansible playbook labeled `package.yml`. Create the file and paste in the following content:
 
 ```yaml
 ---
@@ -176,17 +176,17 @@ The playbook has two tasks, the first one uses the `package_facts` module, it do
 The second task uses the `debug` module. The variable *ansible_facts* is extended with the *packages* key, which contains a dictionary with **all** packages installed on the managed node. The *httpd* package could be installed in multiple versions, therefor every *package* key, in our case *httpd*, is a list. We have installed only one version of *httpd* (thus, we have a list with only one element), we get the version of *httpd* with `[0].version`.  
 
 === "Ansible"
-    ```bash
+    ``` { .bash .no-copy }
     [student@ansible-1 ~]$ ansible-playbook package.yml
     ```
 === "Navigator"
-    ```bash
+    ``` { .bash .no-copy }
     [student@ansible-1 ~]$ ansible-navigator run package.yml -m stdout
     ```
 
 The output should look like this:
 
-```bash
+``` { .bash .no-copy }
 
 PLAY [Check packages] **********************************************************
 
@@ -240,16 +240,15 @@ What exactly did we do?
 Thus with the second task we make sure the Apache server is indeed running on the target machine. Run your extended Playbook:
 
 === "Ansible"
-    ```bash
+    ``` { .bash .no-copy }
     [student@ansible-1 ~]$ ansible-playbook apache.yml
     ```
 === "Navigator"
-    ```bash
+    ``` { .bash .no-copy }
     [student@ansible-1 ~]$ ansible-navigator run apache.yml -m stdout
     ```
 
 Notice in the output, we see the play had `1` "CHANGED" shown in yellow and if we press `0` to enter the play output, you can see that task 2, "Apache enabled and running", was the task that incorporated the latest change by the "CHANGED" value being set to True and highlighted in yellow.
-
 
 * Run the playbook a second time  to get used to the change in the output.
 
@@ -272,11 +271,11 @@ Notice in the output, we see the play had `1` "CHANGED" shown in yellow and if w
 ```
 
 === "Ansible"
-    ```bash
+    ``` { .bash .no-copy }
     [student@ansible-1 ~]$ ansible-playbook service_state.yml
     ```
 === "Navigator"
-    ```bash
+    ``` { .bash .no-copy }
     [student@ansible-1 ~]$ ansible-navigator run service_state.yml -m stdout
     ```
 
@@ -304,11 +303,11 @@ Check that the tasks were executed correctly and Apache is accepting connections
     **Expect a lot of red lines and a 403 status\!**
 
 === "Ansible"
-    ```bash
+    ``` { .bash .no-copy }
     [student@ansible-1 ~]$ ansible-playbook check_httpd.yml
     ```
 === "Navigator"
-    ```bash
+    ``` { .bash .no-copy }
     [student@ansible-1 ~]$ ansible-navigator run check_httpd.yml -m stdout
     ```
 
@@ -316,7 +315,7 @@ There are a lot of red lines and an error: As long as there is not at least an `
 
 So why not use Ansible to deploy a simple `web.html` file? On the ansible control host, as the `student` user, create the directory `files` to hold file resources in `~/ansible-files/`:
 
-```bash
+``` { .bash .no-copy }
 [student@ansible-1 ansible-files]$ mkdir files
 ```
 
@@ -360,11 +359,11 @@ What does this new copy task do? The new task uses the `copy` module and defines
 Run your extended Playbook:
 
 === "Ansible"
-    ```bash
+    ``` { .bash .no-copy }
     [student@ansible-1 ansible-files]$ ansible-playbook apache.yml
     ```
 === "Navigator"
-    ```bash
+    ``` { .bash .no-copy }
     [student@ansible-1 ansible-files]$ ansible-navigator run apache.yml -m stdout
     ```
 
@@ -380,7 +379,7 @@ While the above, shows the simplicity of applying changes to a particular host. 
 
 As you might remember, the inventory lists all nodes as members of the group `web`:
 
-```ini
+``` { .ini .no-copy }
 [web]
 node1 ansible_host=11.22.33.44
 node2 ansible_host=22.33.44.55
@@ -418,11 +417,11 @@ Change the playbook `hosts` parameter to point to `web` instead of `node1`:
 Now run the playbook:
 
 === "Ansible"
-    ```bash
+    ``` { .bash .no-copy }
     [student@ansible-1 ansible-files]$ ansible-playbook apache.yml
     ```
 === "Navigator"
-    ```bash
+    ``` { .bash .no-copy }
     [student@ansible-1 ansible-files]$ ansible-navigator run apache.yml -m stdout
     ```
 

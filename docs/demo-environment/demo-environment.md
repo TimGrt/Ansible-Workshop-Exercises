@@ -1,10 +1,10 @@
 # RedHat Demo Environment
 
-Every Workshop attendant has his own demo environment. 
+Every Workshop attendant has his own demo environment.
 
 ## Lab Diagram
 
-The Lab environment consist of an *Ansible control node* (called `ansible-1`) and three *Managed nodes* (called `node1`, `node2` and `node3`). All managed nodes are RHEL 8 hosts and are reachable password-less with SSH. 
+The Lab environment consist of an *Ansible control node* (called `ansible-1`) and three *Managed nodes* (called `node1`, `node2` and `node3`). All managed nodes are RHEL 8 hosts and are reachable password-less with SSH.
 
 ![ansible rhel lab diagram](rhel_lab_diagram.png)
 

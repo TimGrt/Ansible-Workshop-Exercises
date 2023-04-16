@@ -7,12 +7,12 @@
   <figcaption></figcaption>
 </figure>
 
-Ansible is a radically simple IT automation system. It handles configuration management, application deployment, cloud provisioning, ad-hoc task execution, network automation, and multi-node orchestration. 
+Ansible is a radically simple IT automation system. It handles configuration management, application deployment, cloud provisioning, ad-hoc task execution, network automation, and multi-node orchestration.
 
 You will learn all about Ansible:
 
-1. starting with the basics of understanding foundational command line activities 
-2. applying what you’ve learned to implement Ansible automation controller to your enterprise use cases. 
+1. starting with the basics of understanding foundational command line activities
+2. applying what you’ve learned to implement Ansible automation controller to your enterprise use cases.
 3. learn about the Ansible future and network automation
 
 You’ll start off by writing your first Ansible playbook, work on Jinja templates, and implement higher-level Ansible roles. Next you’ll get started on automation controller, understand inventory and credential management, projects, job templates, surveys, workflows and more.
@@ -31,4 +31,3 @@ Having said that, the exercises themselves should take roughly 4-5 hours, not co
   ![ansible rhel lab diagram](rhel_lab_diagram.png){ loading=lazy }
   <figcaption></figcaption>
 </figure>
-

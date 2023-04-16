@@ -95,7 +95,7 @@ Before the actual launch the survey will ask for **First Line** and **Second Lin
 
 After the job has completed, check the Apache homepage. In the SSH console on the control host, execute `curl` against `node1`:
 
-```bash
+``` { .bash .no-copy }
 [student1@ansible-1 ~]$ curl http://node1
 <body>
 <h1>Apache is running fine</h1>

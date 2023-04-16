@@ -12,8 +12,6 @@ Here Ansible’s handlers come into play. Handlers can be seen as inactive tasks
 
 ### Step 1 - Handlers
 
-
-
 As a an example, let’s write a playbook that:
 
 * manages Apache’s configuration file `/etc/httpd/conf/httpd.conf` on all hosts in the `web` group
@@ -22,8 +20,7 @@ As a an example, let’s write a playbook that:
 First we need the file Ansible will deploy, let’s just take the one from node1.
 
 ```bash
-[student@ansible-1 ansible-files]$ scp node1:/etc/httpd/conf/httpd.conf ~/ansible-files/files/.
-httpd.conf
+scp node1:/etc/httpd/conf/httpd.conf ~/ansible-files/files/.
 ```
 
 We now have the configuration file for our webserver, we will adjust the file later and copy it back to all webserver hosts later.  
@@ -71,7 +68,7 @@ Listen 8080
   
 Apache should now listen on port 8080. Easy enough to verify:
 
-```bash
+``` { .bash .no-copy }
 [student@ansible-1 ansible-files]$ curl http://node1
 curl: (7) Failed to connect to node1 port 80: Connection refused
 [student@ansible-1 ansible-files]$ curl http://node1:8080

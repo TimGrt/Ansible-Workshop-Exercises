@@ -14,7 +14,7 @@ As an example of using templates you will change the motd file to contain host-s
 
 First create the directory `templates` to hold template resources in `~/ansible-files/`:
 
-```bash
+``` { .bash .no-copy }
 [student@ansible-1 ansible-files]$ mkdir templates
 ```
 
@@ -111,7 +111,7 @@ Add a line to the template to list the current kernel of the managed node.
 !!! tip
     Filter for *kernel*.
 
-Run the newly created playbook to find the fact name. 
+Run the newly created playbook to find the fact name.
 
 * Change the template to use the fact you found.
 
@@ -120,7 +120,7 @@ Run the newly created playbook to find the fact name.
 * Check motd by logging in to node1
 
 ??? success "Solution"
-    
+
     Find the fact:
 
     ```yaml
@@ -141,7 +141,7 @@ Run the newly created playbook to find the fact name.
 
     With the wildcard in place, the output shows:
 
-    ```bash
+    ``` { .bash .no-copy }
 
     TASK [debug] *******************************************************************
     ok: [node1] => {
@@ -170,17 +170,17 @@ Run the newly created playbook to find the fact name.
     Run the playbook.
 
     === "Ansible"
-        ```bash
+        ``` { .bash .no-copy }
         [student@ansible-1 ~]$ ansible-playbook motd-facts.yml
         ```
     === "Navigator"
-        ```bash
+        ``` { .bash .no-copy }
         [student@ansible-1 ~]$ ansible-navigator run motd-facts.yml -m stdout
         ```
 
     Verify the new message via SSH login to `node1`.
 
-    ```bash
+    ``` { .bash .no-copy }
     [student@ansible-1 ~]$ ssh node1
     Welcome to node1.
     Host runs RedHat 8.1

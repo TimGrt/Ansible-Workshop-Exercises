@@ -1,6 +1,6 @@
 # MkDocs configuration file
 site_name: Ansible Workshop
-copyright: Copyright &copy; Computacenter 2022
+copyright: Copyright &copy; Computacenter 2023
 extra:
   social:
     - icon: fontawesome/brands/gitlab
@@ -10,8 +10,8 @@ extra:
       link: https://gitlab.ccloud.ninja/tgruetzmacher/ansible-workshop-exercises/-/blob/main/dockerfiles/slim/Dockerfile
       name: Container Definition
 extra_css:
-  - stylesheets/tables.css
-  - stylesheets/extra.css
+  - assets/stylesheets/tables.css
+  - assets/stylesheets/extra.css
 edit_uri: ""
 theme:
   name: material
@@ -47,9 +47,9 @@ plugins:
   - awesome-pages
   - autolinks
 extra_javascript:
-  - extra/refresh-on-toggle-dark-light.js
+  - assets/extra/refresh-on-toggle-dark-light.js
   - https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js
-  - extra/tablesort.js
+  - assets/extra/tablesort.js
 markdown_extensions:
   - admonition
   - attr_list
@@ -58,6 +58,7 @@ markdown_extensions:
   - pymdownx.emoji:
       emoji_index: !!python/name:materialx.emoji.twemoji
       emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.keys
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.highlight:

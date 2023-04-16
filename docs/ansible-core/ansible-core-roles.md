@@ -21,7 +21,7 @@ Roles follow a defined directory structure; a role is named by the top level dir
 
 An example project structure could look like this, the name of the role would be "apache":
 
-```text
+``` { .text .no-copy }
 apache/
 ├── defaults
 │   └── main.yml
@@ -69,18 +69,18 @@ Ansible looks for roles in a subdirectory called `roles` in the project director
 
 Okay, lets start to build a role. We'll build a role that installs and configures Apache to serve a virtual host. Run these commands in your `~/ansible-files` directory:
 
-```bash
+``` { .bash .no-copy }
 [student@ansible-1 ansible-files]$ mkdir roles
 [student@ansible-1 ansible-files]$ ansible-galaxy init --offline roles/apache-webserver
 ```
 
 Have a look at the role directories and their content:
 
-```bash
+``` { .bash .no-copy }
 [student@ansible-1 ansible-files]$ tree roles
 ```
 
-```text
+``` { .text .no-copy }
 roles/
 └── apache-webserver
     ├── defaults
@@ -236,7 +236,7 @@ Create the HTML content that will be served by the webserver.
 
 The contents of the `vhost.conf.j2` template file are found below.
 
-```text
+```apache
 # {{ ansible_managed }}
 
 <VirtualHost *:8080>
@@ -284,17 +284,17 @@ Note the `pre_tasks` and `post_tasks` keywords. Normally, the tasks of *roles* e
 Now you are ready to run your playbook:
 
 === "Ansible"
-    ```bash
+    ``` { .bash .no-copy }
     [student@ansible-1 ansible-files]$ ansible-playbook test_apache_role.yml
     ```
 === "Navigator"
-    ```bash
+    ``` { .bash .no-copy }
     [student@ansible-1 ansible-files]$ ansible-navigator run test_apache_role.yml -m stdout
     ```
 
 Run a curl command against `node2` to confirm that the role worked or use the `check_httpd.yml` playbook (you may need to adjust the variable in it to `node2:8080`):
 
-```bash
+``` { .bash .no-copy }
 [student@ansible-1 ansible-files]$ curl -s http://node2:8080
 <body>
 <h1>The virtual host configuration works!</h1>
@@ -310,19 +310,19 @@ Congratulations! You have successfully completed this exercise!
 Did the final curl work?  
 You can see what ports the web server is running on by using the netstat command, connect to the managed node via SSH:
 
-```bash
+``` { .bash .no-copy }
 #> sudo netstat -tulpn
 ```
 
 If *netstat* is not present, install it with this command:
 
-```bash
+``` { .bash .no-copy }
 #> sudo yum install -y net-tools
 ```
 
 There should be a line like this:
 
-```bash
+``` { .bash .no-copy }
 tcp6       0      0 :::8080                 :::*                    LISTEN      25237/httpd
 ```
 
