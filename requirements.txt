@@ -1,4 +1,4 @@
 mkdocs
-mkdocs-material
 mkdocs-autolinks-plugin
 mkdocs-awesome-pages-plugin
+mkdocs-material
