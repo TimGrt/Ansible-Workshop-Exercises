@@ -1,10 +1,10 @@
 # Ansible Workshop Exercises
 
-This repository contains all exercise descriptions for my Ansible Workshop, utilizing the Red Hat demo environment. The Workshop is inspired by the [Red Hat Training course for Ansible](https://github.com/ansible/workshops), but adds additional exercises and more descriptions for a multi-day workshop.  
-The exercises are build with MkDocs and published to [Github pages](https://timgrt.github.io/Ansible-Workshop-Exercises).  
+This repository contains all exercise descriptions for my Ansible Workshop, utilizing the Red Hat demo environment. The Workshop is inspired by the [Red Hat Training course for Ansible](https://github.com/ansible/workshops), but adds additional exercises and more descriptions for a multi-day workshop.
+The exercises are build with MkDocs and published to [Github pages](https://timgrt.github.io/Ansible-Workshop-Exercises).
 A Dockerfile is included to build a container image which publishes the exercises as a Webserver.
 
-[![Deploy MkDocs to Github pages](https://github.com/TimGrt/Ansible-Workshop-Exercises/actions/workflows/ci.yml/badge.svg)](https://github.com/TimGrt/Ansible-Workshop-Exercises/actions/workflows/ci.yml)
+[![Markdown Lint](https://github.com/TimGrt/Ansible-Best-Practices/actions/workflows/ci.yml/badge.svg)](https://github.com/TimGrt/Ansible-Best-Practices/actions/workflows/ci.yml) [![Deploy MkDocs to Github pages](https://github.com/TimGrt/Ansible-Workshop-Exercises/actions/workflows/ci.yml/badge.svg)](https://github.com/TimGrt/Ansible-Workshop-Exercises/actions/workflows/cd.yml)
 
 ## Podman
 
@@ -40,7 +40,7 @@ Get the **public** IP address of *node2* from the lab inventory, suffix with Por
 
 ## Docker
 
-For the sake of completion, here is how to build and run everything with Docker.  
+For the sake of completion, here is how to build and run everything with Docker.
 Build the container image:
 
 ```bash
