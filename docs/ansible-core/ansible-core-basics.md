@@ -23,14 +23,14 @@ You can reach all your *managed nodes* (the hosts that you want to automate) wit
 
 Try it out, SSH to `node1`:
 
-```bash
+``` { .bash .no-copy }
 [student1@ansible-1 ~]$ ssh node1
 [ec2-user@node1 ~]$
 ```
 
 As you can see, you are now the user `ec2-user` on `node1`. Exit `node1` again:
 
-```bash
+``` { .bash .no-copy }
 [ec-user@node1 ~]$ exit
 [student1@ansible-1 ~]$
 ```
@@ -44,7 +44,7 @@ An inventory file is a text file that specifies the nodes that will be managed b
 To use the `ansible-inventory` command for host management, you need to provide an inventory file which defines a list of hosts to be managed from the control node.  
 In this lab, the inventory is provided by your instructor. The inventory file is an `ini` formatted file listing your hosts, sorted in groups, additionally providing some variables. It looks like:
 
-```bash
+``` { .bash .no-copy }
 [web]
 node1 ansible_host=<X.X.X.X>
 node2 ansible_host=<Y.Y.Y.Y>
@@ -60,7 +60,7 @@ To reference all the inventory hosts, you supply a pattern to the `ansible-inven
 
 === "Ansible"
 
-    ```bash
+    ``` { .bash .no-copy }
     [student@ansible-1 ~]$ ansible-inventory --list
     {
         "_meta": {
@@ -104,7 +104,7 @@ To reference all the inventory hosts, you supply a pattern to the `ansible-inven
 
 === "Navigator"
 
-    ```bash
+    ``` { .bash .no-copy }
     [student@ansible-1 ~]$ ansible-navigator inventory --list -m stdout
     {
         "_meta": {
@@ -149,7 +149,7 @@ To reference all the inventory hosts, you supply a pattern to the `ansible-inven
 If `--list` is too verbose, the option of `--graph` can be used to provide a more condensed version of `--list`.
 
 === "Ansible"
-    ```bash
+    ``` { .bash .no-copy }
     [student1@ansible-1 ~]$ ansible-inventory --graph
     @all:
     |--@control:
@@ -162,7 +162,7 @@ If `--list` is too verbose, the option of `--graph` can be used to provide a mor
 
     ```
 === "Navigator"
-    ```bash
+    ``` { .bash .no-copy }
     [student1@ansible-1 ~]$ ansible-navigator inventory --graph -m stdout
     @all:
     |--@control:
@@ -182,14 +182,14 @@ An inventory file can contain a lot more information, it can organize your hosts
 Using the `ansible-inventory` command, we can also run commands that provide information only for one host or group. For example, give the following commands a try to see their output.
 
 === "Ansible"
-    ```bash
+    ``` { .bash .no-copy }
     [student@ansible-1 ~]$ ansible-inventory --graph web
     [student@ansible-1 ~]$ ansible-inventory --graph control
     [student@ansible-1 ~]$ ansible-inventory --host node1
     ```
 
 === "Navigator"
-    ```bash
+    ``` { .bash .no-copy }
     [student@ansible-1 ~]$ ansible-navigator inventory --graph web -m stdout
     [student@ansible-1 ~]$ ansible-navigator inventory --graph control -m stdout
     [student@ansible-1 ~]$ ansible-navigator inventory --host node1 -m stdout
@@ -204,13 +204,13 @@ An Ansible ad hoc command uses the `ansible` command-line tool to automate a sin
 
 Ad hoc commands are great for tasks you repeat rarely. For example, if you want to power off all the machines in your lab for Christmas vacation, you could execute a quick one-liner in Ansible without writing a playbook. An ad hoc command looks like this:
 
-```bash
-$ ansible [pattern] -m [module] -a "[module options]"
+``` { .bash .no-copy }
+ansible [pattern] -m [module] -a "[module options]"
 ```
 
 Ad hoc commands can be used perfectly to check if all hosts in your inventory are reachable. Ansible offers the *ping* module for that (this is not a real ICMP ping, though). Let's try to reach all hosts of the *web* group:
 
-```bash
+```{ .bash .no-copy }
 [student@ansible-1 ~]$ ansible web -m ping
 node2 | SUCCESS => {
     "ansible_facts": {
@@ -239,7 +239,7 @@ Success! All three nodes are reachable, we get a *pong* back, we proved that we 
 
 Try to run the same ad hoc command against the *control* group.  
 
-```bash
+``` { .bash .no-copy }
 [student@ansible-1 ~]$ ansible control -m ping
 ansible-1 | SUCCESS => {
     "ansible_facts": {
@@ -252,7 +252,7 @@ ansible-1 | SUCCESS => {
 
 Let's play around with ad hoc commands a bit more. You can use every *module* that Ansible provides with ad hoc commands, we will learn more about *modules* later today. By default, Ansible will use the *command* module, you can send every linux command you want to all managed nodes, the arguments are provided with the `-a` parameter:
 
-```bash
+``` { .bash .no-copy }
 [student@ansible-1 ~]$ ansible web -m command -a "cat /etc/os-release"
 node2 | CHANGED | rc=0 >>
 NAME="Red Hat Enterprise Linux"
@@ -312,7 +312,7 @@ REDHAT_SUPPORT_PRODUCT_VERSION="8.5"
 
 You can shorten the command and leave out `-m command` as this module is used by default:
 
-```bash
+``` { .bash .no-copy }
 [student@ansible-1 ~]$ ansible control -a "uname -a"
 ansible-1 | CHANGED | rc=0 >>
 Linux ansible-1.example.com 4.18.0-348.12.2.el8_5.x86_64 #1 SMP Mon Jan 17 07:06:06 EST 2022 x86_64 x86_64 x86_64 GNU/Linux
@@ -320,7 +320,7 @@ Linux ansible-1.example.com 4.18.0-348.12.2.el8_5.x86_64 #1 SMP Mon Jan 17 07:06
 
 Ad hoc command are very useful to gather informations about your managed nodes, the *setup* module is used. Try that against one host alone (so you won't get overwhelmed with output):
 
-```bash
+``` { .bash .no-copy }
 [student@ansible-1 ~]$ ansible node1 -m setup
 node1 | SUCCESS => {
     "ansible_facts": {

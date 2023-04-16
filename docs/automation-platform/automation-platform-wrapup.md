@@ -14,12 +14,12 @@ Your operations team and your application development team likes what they see i
 
 * As the webservers can be used for development purposes or in production, there has to be a way to flag them accordingly as "stage dev" or "stage prod".
 
-  * Currently `node1` and `node3` are used as a development system and `node2` is in production.
+    * Currently `node1` and `node3` are used as a development system and `node2` is in production.
 
 * Of course the content of the world famous application "index.html" will be different between dev and prod stages.
 
-  * There should be a title on the page stating the environment
-  * There should be a content field
+    * There should be a title on the page stating the environment
+    * There should be a content field
 
 * The content writer `wweb` should have access to a survey to change the content for dev and prod servers.
 
@@ -75,9 +75,7 @@ stage: dev
 
 Within the **Details** tab of the `Webserver` inventory, click the **Hosts** tab, click the **Add** button and **Add existing host**. Select `node1`, `node2`, `node3` as the hosts to be part of the `Webserver` inventory.
 
-
 Within **Resources** -> **Inventories**, select the `Workshop` Inventory. Click on the `Hosts` tab and click on `node2`.  Click on `Edit` and add the `stage: prod` variable in the **Variables** window. This overrides the inventory variable due to order of operations of how the variables are accessed during playbook execution.
-
 
 Within the **Variables** textbox define a variable labeled `stage` with the value of `prod` and click **Save**.
 
@@ -136,13 +134,13 @@ This time we use the power of Ansible to check the results: execute uri to get t
 
 Execute the playbook:
 
-```bash
+``` { .bash .no-copy }
 [student<X>@ansible-1 ~]$ ansible-navigator run check_url.yml -m stdout
 ```
 
 Snippet of output:
 
-```bash
+``` { .bash .no-copy }
 TASK [debug] *******************************************************************
 ok: [node1] => {
     "uri_output.content": "<body>\n<h1>This is a development webserver, have fun!</h1>\ndev wweb</body>\n"
@@ -185,18 +183,17 @@ In the same fashion add a second **Survey Question**
 
 * Add permissions to the team `Web Content` so the template **Create Web Content** can be executed by `wweb`.
 * Within the **Resources** -> **Templates**, click **Create Web Content** and add **Access** to the user `wweb` the ability to execute the template.
-  * **Select a Resource Type** -> click **Users**, click **Next**.
-  * **Select Items from List** -> select the checkbox `wweb`, click **Next**.
-  * **Select Roles to Apply** -> select the checkbox **Execute** and click **Save**.
+    * **Select a Resource Type** -> click **Users**, click **Next**.
+    * **Select Items from List** -> select the checkbox `wweb`, click **Next**.
+    * **Select Roles to Apply** -> select the checkbox **Execute** and click **Save**.
 
 * Run the survey as user `wweb`
-  * Logout of the user `admin` of your Ansible automation controller.
-  * Login as `wweb` and go to **Resources** -> **Templates** and run the **Create Web Content** template.
+    * Logout of the user `admin` of your Ansible automation controller.
+    * Login as `wweb` and go to **Resources** -> **Templates** and run the **Create Web Content** template.
 
 Check the results again from your automation controller host. We will use the dedicated `uri` module within an Ansible playbook. As arguments it needs the actual URL and a flag to output the body in the results.
 
-
-```bash
+``` { .bash .no-copy }
 [student<X>@ansible-1 ~]$ ansible-navigator run check_url.yml -m stdout
 ```
 

@@ -58,7 +58,7 @@ Within **Resources** -> **Projects**, click the **Add** button to create a proje
 | Source Control Credential Type   | `Git`                                                                           |
 | Source Control URL               | `https://github.com/ansible/workshop-examples.git`                              |
 | Source Control Branch/Tag/Commit | `webops`                                                                        |
-| Options                          | <ul><li>:material-checkbox-outline: Clean</li><li>:material-checkbox-outline: Delete</li><li>:material-checkbox-outline: Update Revision on Launch</li></ul> |
+| Options                          | :material-checkbox-outline: Clean<br>:material-checkbox-outline: Delete<br>:material-checkbox-outline: Update Revision on Launch |
 
 Click **Save**
 
@@ -72,7 +72,7 @@ Within **Resources** -> **Projects**, click the **Add** button to create a proje
 | Source Control Credential Type   | `Git`                                                                           |
 | Source Control URL               | `https://github.com/ansible/workshop-examples.git`                              |
 | Source Control Branch/Tag/Commit | `webdev`                                                                        |
-| Options                          | <ul><li>:material-checkbox-outline: Clean</li><li>:material-checkbox-outline: Delete</li><li>:material-checkbox-outline: Update Revision on Launch</li></ul> |
+| Options                          | :material-checkbox-outline: Clean<br>:material-checkbox-outline: Delete<br>:material-checkbox-outline: Update Revision on Launch |
 
 Click **Save**
 
@@ -145,6 +145,7 @@ A new node is shown, connected to the **START** button with the name of the job 
   ![workflow node](images/workflow_node.png)
 
 Hover over the node and click the (+) sign to add a new node.
+
 * For the **Run Type** select **On Success** (default) and click **Next**.
 
 !!! tip
@@ -166,16 +167,16 @@ From within the **Deploy Webapp Server** Details page, **Launch** the workflow.
 
   ![launch](images/launch.png)
 
-Note how the workflow run is shown in the Jobs > Deploy Webapp Server Output. In contrast to a normal job template job execution, there is no playbook output when the job completes but the time to complete the job is displayed. If you want to look at the actual playbook run, hover over the node you wish to see the details on and click it. Within the Details view of the job, select the **Output** menu to see the playbook output. If you want to get back the **Output** view of the **Deploy WebappServer** workflow, under Views -> Jobs -> **XX - Deploy Webapp Server** will take you back to the Output overview. 
+Note how the workflow run is shown in the Jobs > Deploy Webapp Server Output. In contrast to a normal job template job execution, there is no playbook output when the job completes but the time to complete the job is displayed. If you want to look at the actual playbook run, hover over the node you wish to see the details on and click it. Within the Details view of the job, select the **Output** menu to see the playbook output. If you want to get back the **Output** view of the **Deploy WebappServer** workflow, under Views -> Jobs -> **XX - Deploy Webapp Server** will take you back to the Output overview.
 
 !!! note
-    `XX` is the number of the job run. 
+    `XX` is the number of the job run.
 
 ![jobs view of workflow](images/job_workflow.png)
 
 After the job was finished, check if everything worked fine: from your control host run the following curl command against `node1`, `node2` and `node3`. The output of each curl command should be `Hello World`.
 
-```bash
+``` { .bash .no-copy }
 [student<X>@ansible-1 ansible-files]$ curl http://nodeX/nodejs
 Hello World
 ```

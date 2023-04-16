@@ -5,9 +5,8 @@
 Explore and understand the lab environment.  This exercise will cover
 
 * Locating and understanding:
-
-  * Ansible Automation Controller [**Inventory**](https://docs.ansible.com/automation-controller/latest/html/userguide/inventories.html){:target="_blank"}
-  * Ansible Automation Controller [**Credentials**](https://docs.ansible.com/automation-controller/latest/html/userguide/credentials.html){:target="_blank"}
+    * Ansible Automation Controller [**Inventory**](https://docs.ansible.com/automation-controller/latest/html/userguide/inventories.html){:target="_blank"}
+    * Ansible Automation Controller [**Credentials**](https://docs.ansible.com/automation-controller/latest/html/userguide/credentials.html){:target="_blank"}
 
 * Running ad hoc commands via the Ansible Automation Controller web UI
 
@@ -23,7 +22,7 @@ There will be one inventory, the **Workshop Inventory**. Click the **Workshop In
 
 The inventory information at `~/lab_inventory/hosts` was pre-loaded into the Ansible Automation controller Inventory as part of the provisioning process.
 
-```ini
+``` { .ini .no-copy }
 [web]
 node1 ansible_host=22.33.44.55
 node2 ansible_host=33.44.55.66
@@ -34,7 +33,7 @@ ansible ansible_host=11.22.33.44
 ```
 
 !!! warning
-    In your inventory the IP addresses will be different.
+    In your inventory the IP addresses will be different, do not copy the values above!
 
 ### Examine Machine Credentials
 
@@ -48,7 +47,7 @@ Note the following information:
 | ---------------------------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | <nobr>Credential Type</nobr> | `Machine`   | Machine credentials define ssh and user-level privilege escalation access for playbooks. They are used when submitting jobs to run playbooks on a remote host. |
 | <nobr>Username</nobr>        | `ec2-user`  | The user which matches our command-line Ansible inventory username for the other Linux nodes                                                                   |
-| <nobr>SSH Private Key</nobr> | `Encrypted` | Note that you can't actually examine the SSH private key once someone hands it over to Ansible Automation controller                                           |
+| <nobr>SSH Private Key</nobr> | `Encrypted` | Note that you can't actually examine the SSH private key once someone hands it over to Ansible Automation controller |
 
 ### Run Ad Hoc commands
 
@@ -83,10 +82,8 @@ Within the **Execution Environment** window, select **Default execution environm
 
 Within the **Machine Credential** window, select **Workshop Credentials** and click **Launch**.
 
-
 !!! tip
     After choosing the module to run, Ansible Automation Controller will provide a link to the docs page for the module when clicking the question mark next to "Arguments". This is handy, give it a try.
-
 
 How about trying to get some secret information from the system? Try to print out `/etc/shadow`.
 

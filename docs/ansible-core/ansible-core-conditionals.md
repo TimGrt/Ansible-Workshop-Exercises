@@ -19,8 +19,8 @@ To implement a conditional, the `when` statement must be used, followed by the c
 | \<   | true if the left hand side is lower than the right hand side.          |
 | \<=  | true if the left hand side is lower or equal to the right hand side.   |
 
-Ansible uses Jinja2 [tests](https://docs.ansible.com/ansible/latest/user_guide/playbooks_tests.html#playbooks-tests){:target="_blank"} and [filters](https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html#playbooks-filters){:target="_blank"} in conditionals. Ansible supports all the standard tests and filters, and adds some unique ones as well. 
- 
+Ansible uses Jinja2 [tests](https://docs.ansible.com/ansible/latest/user_guide/playbooks_tests.html#playbooks-tests){:target="_blank"} and [filters](https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html#playbooks-filters){:target="_blank"} in conditionals. Ansible supports all the standard tests and filters, and adds some unique ones as well.
+
 For more on this, please refer to the documentation: [https://jinja.palletsprojects.com/en/latest/templates/](https://jinja.palletsprojects.com/en/latest/templates/){:target="_blank"}
 
 ### Step 1 - Install service conditionally
@@ -29,7 +29,7 @@ As an example we would like to install an FTP server, but only on hosts that are
 
 To do that, first edit the inventory to add another group, and place `node2` in it. Make sure that that IP address of `node2` is always the same when `node2` is listed. Edit the inventory `~/lab_inventory/hosts` to look like the following listing:
 
-```ini
+``` { .ini .no-copy }
 [web]
 node1 ansible_host=11.22.33.44
 node2 ansible_host=22.33.44.55
@@ -65,7 +65,7 @@ Next create the file `ftpserver.yml` on your control host in the `~/ansible-file
 
 Run it and examine the output. The expected outcome: The task is skipped on node1, node3 and the ansible host (your control host) because they are not in the ftpserver group in your inventory file.
 
-```bash
+``` { .bash .no-copy }
 TASK [Install FTP server when host in ftpserver group] *******************************************
 skipping: [ansible-1]
 skipping: [node1]
@@ -77,7 +77,8 @@ In your condition the *magic variable* `inventory_hostname` is used, a variable 
 
 ### Step 2 - Find out exact version of installed service
 
-We installed the *vsftpd* package, we would now be able to start the *vsftp*-Service (Very Secure FTP Daemon). But what version of the package is installed?   
+We installed the *vsftpd* package, we would now be able to start the *vsftp*-Service (Very Secure FTP Daemon). But what version of the package is installed?  
+
 Lets add two more tasks to our playbook, one to gather informations about all installed packages on the target host with the module *package_facts*. This module adds the gathered informations to the `ansible_facts`, from there you can use the information as an Ansible variable. The last tasks outputs the exact version number to *stdout*, but only if the package is installed (the variable in the *packages* dictionary is defined).
 
 ```yaml
@@ -144,10 +145,10 @@ Add a task to the playbook which outputs a message if important security patches
 !!! tip
     The Ansible documention is helpful, a *test* to [compare versions](https://docs.ansible.com/ansible/latest/user_guide/playbooks_tests.html#comparing-versions){:target="_blank"} is available.
 
-Run the extended playbook. 
+Run the extended playbook.
 
 ??? success "Solution"
-    
+
     The updated playbook:
 
     ```yaml
@@ -178,7 +179,8 @@ Run the extended playbook.
     ```
 
     Running the playbook outputs the following:
-    ```bash
+    
+    ``` { .bash .no-copy }
     ...
     TASK [Output message when vsftp version is greater than 3.0] *******************************************************************
     ok: [node1] => {

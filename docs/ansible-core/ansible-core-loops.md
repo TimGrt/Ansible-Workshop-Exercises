@@ -12,7 +12,6 @@ The `until` keyword is used to retry a task until a certain condition is met. Fo
 
 Loops enable us to repeat the same task over and over again. For example, lets say you want to create multiple users. By using an Ansible loop, you can do that in a single task. Loops can also iterate over more than just basic lists. For example, if you have a list of users with their coresponding group, loop can iterate over them as well.  
 
-
 Find out more about loops in the [Ansible Loops](https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html){:target="_blank"} documentation.
 
 ### Step 1 - Simple Loops

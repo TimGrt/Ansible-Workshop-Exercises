@@ -28,7 +28,7 @@ The Cisco Application Policy Infrastructure Controller (APIC) API enables applic
 
 Create a new project folder in your home directory:
 
-```bash
+``` { .bash .no-copy }
 [student@ansible-1 ~]$ mkdir aci-automation
 ```
 
@@ -39,23 +39,23 @@ We will be using a Cisco ACI Sandbox available online.
 Open a new browser tab and go to [https://sandboxapicdc.cisco.com/#](https://sandboxapicdc.cisco.com/#){:target="_blank"}
 
 !!! tip
-    The credentials for accessing the [Cisco Sandbox](https://sandboxapicdc.cisco.com/#){:target="_blank"} are shown below, you can copy the content by using the symbol on the right of the code block. 
+    The credentials for accessing the [Cisco Sandbox](https://sandboxapicdc.cisco.com/#){:target="_blank"} are shown below, you can copy the content by using the symbol on the right of the code block.
 
 Username:
 
-```bash
+```text
 admin
 ```
 
 Password:
 
-```bash
+```text
 !v3G@!4@Y
 ```
 
 Today, you might need additional Ansible modules. In the first part of the workshop, we only used a handful of modules which are all included in the `ansible-core` binary. With *ansible-core* only 69 of the most used modules are included:
 
-```bash
+``` { .bash .no-copy }
 [student@ansible-1 ~]$ ansible-doc -l 
 add_host               Add a host (and alternatively a group) to the ansible-playbook in-memory inventory                        
 apt                    Manages apt-packages                                                                                      
@@ -76,7 +76,7 @@ Additional modules are installed through *collections*, search the [Collection I
 
 If, for example, you want to create an EC2 instance in AWS, you will need the module `amazon.aws.ec2_instance`. To get the module, you'll need the collection `aws` of the provider `amazon`. Download the collection with the `ansible-galaxy` utility:
 
-```bash
+``` { .bash .no-copy }
 [student@ansible-1 ~]$ ansible-galaxy collection install amazon.aws
 Starting galaxy collection install process
 Process install dependency map
@@ -87,16 +87,16 @@ amazon.aws:3.2.0 was installed successfully
 ```
 
 !!! tip
-    Well, you won't need the AWS collection, but automating the ACI with Ansible also requires additional modules, these are not included in the `ansible-core` binary and need to be installed with Ansible Galaxy. 
+    Well, you won't need the AWS collection, but automating the ACI with Ansible also requires additional modules, these are not included in the `ansible-core` binary and need to be installed with Ansible Galaxy.
 
 Achieve the following tasks:
 
-- [X] Find appropriate collection for Cisco ACI automation in the documentation
-- [X] Collection installed
+* [X] Find appropriate collection for Cisco ACI automation in the documentation
+* [X] Collection installed
 
 You can view the installed collections with this command:
 
-```bash
+``` { .bash .no-copy }
 [student@ansible-1 aci-automation]$ ansible-galaxy collection list 
 # /home/student/.ansible/collections/ansible_collections
 Collection        Version
@@ -117,7 +117,7 @@ Within your newly created project folder, create an inventory file and a playboo
     You have to instruct Ansible to communicate with the APIC API, per default Ansible would try to communicate via SSH. This will not work.  
     Use the same credentials for API communication as for the login to the APIC UI.
 
-The API endpoint (*host*) for the ACI modules can use the URL of the sandbox, you won't need the prefix *https://*. An overview of all available ACI modules can be found in the [Ansible documentation](https://docs.ansible.com/ansible/latest/collections/cisco/aci/index.html#plugins-in-cisco-aci){:target="_blank"}. The documentation also provides an [extensive Guide](https://docs.ansible.com/ansible/latest/scenario_guides/guide_aci.html){:target="_blank"} for ACI automation.
+The API endpoint (*host*) for the ACI modules can use the URL of the sandbox, you won't need the prefix `https://`. An overview of all available ACI modules can be found in the [Ansible documentation](https://docs.ansible.com/ansible/latest/collections/cisco/aci/index.html#plugins-in-cisco-aci){:target="_blank"}. The documentation also provides an [extensive Guide](https://docs.ansible.com/ansible/latest/scenario_guides/guide_aci.html){:target="_blank"} for ACI automation.
 
 Testing the successful communication with the API could be done by querying ACI system information with the `aci_system` module. Create your playbook and add a task, utilizing this module. Fill all necessary parameter.  
 Run your playbook, if it returns a green *ok* status, communication is established.
@@ -126,9 +126,9 @@ For now, the gathered system information about the ACI system is not relevant fo
 
 Achieve the following tasks:
 
-- [X] Inventory and playbook created
-- [X] Use variables where possible (and useful)
-- [X] Successful communication with APIC established
+* [X] Inventory and playbook created
+* [X] Use variables where possible (and useful)
+* [X] Successful communication with APIC established
 
 You may encounter the following error messages:
 
@@ -139,6 +139,7 @@ You may encounter the following error messages:
     ```
 
 If you see an error message like above, you can disable certificate validation for your task:
+
 ```yaml
 validate_certs: false
 ```
@@ -169,8 +170,8 @@ Observe the tenant and it's annotation in the APIC UI.
 
 Achieve the following tasks:
 
-- [X] Tenant created
-- [X] Inspected tenant in the UI
+* [X] Tenant created
+* [X] Inspected tenant in the UI
 
 ### Step 4 - AP creation and EPGs
 
@@ -202,8 +203,8 @@ Observe the tenant in the APIC UI.
 
 Achieve the following tasks:
 
-- [X] Application profile created
-- [X] EPGs created
+* [X] Application profile created
+* [X] EPGs created
 
 !!! note
     No communication between the different EPGs is established yet, this would be achieved with *contracts*. By now, you are experienced enough with creating objects in ACI with Ansible, let's skip the contracts creation.
@@ -221,10 +222,10 @@ Encrypt the APIC credentials and re-run your playbook.
 
 Achieve the following tasks:
 
-- [X] Project uses Ansible role structure
-- [X] APIC credentials are vault-encrypted
-- [X] Playbook references role, tasks are executed
-    
+* [X] Project uses Ansible role structure
+* [X] APIC credentials are vault-encrypted
+* [X] Playbook references role, tasks are executed
+
 ### Step 6 - Use filters to manipulate data
 
 Filters let you transform JSON data into YAML data, split a URL to extract the hostname, get the SHA1 hash of a string, add or multiply integers, and much more. You can use the Ansible-specific filters documented [here](https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html){:target="_blank"} to manipulate your data, or use any of the standard filters shipped with [Jinja2](https://jinja.palletsprojects.com/en/3.0.x/templates/#builtin-filters){:target="_blank"}.
@@ -361,12 +362,14 @@ The Ansible module you will be using returns a JSON output like the following:
 ```
 
 The highlighted lines show the **list** of contracts and the name of the contract-**element**. You need to traverse the JSON object until you reach the key you want to get. In JSON, *list*-objects are encapsulated with square brackets (start with *[* and end with *]*), dictionary objects with curly brackets (start with *{* and end with *}*).  
-Oberserving the above outout, you can see that multiple list objects are within the complete JSON object. The value of the *key* `current` is a list, every list item of this key is a tenant (with multiple *key-value* pairs which can also be dictionaries or lists). 
+
+Oberserving the above outout, you can see that multiple list objects are within the complete JSON object. The value of the *key* `current` is a list, every list item of this key is a tenant (with multiple *key-value* pairs which can also be dictionaries or lists).
+
 If you filter for a single tenant (by provding the tenant name) when using the module, the list `current` only has one element. Lists (in Python, which Ansible is based on) start at element *0*, the second list element is *1* and so on.
 
 The resulting output in your playbook-run should look something like this (considering that the *common* tenant only has one contract):
 
-```bash
+``` { .bash .no-copy }
 TASK [aci-contract : Output list of contract names of Tenant 'common'] ********
 ok: [demo-aci-host] => {
     "msg": [
@@ -380,24 +383,17 @@ ok: [demo-aci-host] => {
 
 Achieve the following tasks:
 
-- [X] New role for contract handling created
-- [X] Playbook runs both roles
-- [X] Playbook outputs list of all contracts for *common* tenant
+* [X] New role for contract handling created
+* [X] Playbook runs both roles
+* [X] Playbook outputs list of all contracts for *common* tenant
 
-<p>
-<details>
-<summary><b>If you struggle to find a solution, here are some hints. (Try without them first!)</b></summary>
+??? tip "If you struggle to find a solution, here are some hints. (Try without them first!)"
 
-The following tipps may help you to develop a solution:
+    The following tipps may help you to develop a solution:
 
-```
-  * Use the `cisco.aci.aci_contract` module.  
-  * Use `state: query` for listing all contract objects.  
-  * Store the module output in a variable (register).
-  * Use the `json_query` filter. The filter is part of the `community.general` collection.  
-  * Traversing the JSON object can be achieved by `current[0].fvTenant.children...`  
-  * Output to stdout can be achieved the debug module.
-```
-
-</details>
-</p>
+    * Use the `cisco.aci.aci_contract` module.  
+    * Use `state: query` for listing all contract objects.  
+    * Store the module output in a variable (register).
+    * Use the `json_query` filter. The filter is part of the `community.general` collection.  
+    * Traversing the JSON object can be achieved by `current[0].fvTenant.children...`  
+    * Output to stdout can be achieved the debug module.

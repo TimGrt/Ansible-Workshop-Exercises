@@ -11,21 +11,25 @@ A Dockerfile is included to build a container image which publishes the exercise
 During a Workshop, the page published to Github pages was not accessible by the attendees because it was blocked by firewall policies. In that case, deploy the container with the exercises on a host in the lab environment. Use *node2*, as this one is accessible from the internet on Port 8080.
 
 SSH to *node2*, install *git* and *podman*:
+
 ```bash
 sudo dnf install -y @container-tools git
 ```
 
 Clone the repository:
+
 ```bash
 git clone https://github.com/TimGrt/Ansible-Workshop-Exercises.git
 ```
 
 Change into the cloned directory and build the container image:
+
 ```bash
 podman build -t ansible-workshop-exercises .
 ```
 
 Run a container from the previously build image, the webserver is available at Port 8080:
+
 ```bash
 podman run -d -p 8080:80/tcp --name workshop ansible-workshop-exercises
 ```
@@ -38,11 +42,13 @@ Get the **public** IP address of *node2* from the lab inventory, suffix with Por
 
 For the sake of completion, here is how to build and run everything with Docker.  
 Build the container image:
+
 ```bash
 docker build -t ansible-workshop-exercises .
 ```
 
 Run a container from the previously build image, the webserver is available at Port 8080:
+
 ```bash
 docker run -d -p 8080:80/tcp --name workshop ansible-workshop-exercises
 ```
@@ -72,6 +78,7 @@ Get IP address:
 ```bash
 hostname -I
 ```
+
 Start MkDocs built-in dev-server for live-preview:
 
 ```bash

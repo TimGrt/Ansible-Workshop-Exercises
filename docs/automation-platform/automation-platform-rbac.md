@@ -69,7 +69,7 @@ To allow users or teams to actually do something, you have to set permissions. T
 
 Add the permission to use the `Create index.html` template:
 
-* Within **Resources** -> **Templates**, select `Create index.html`. 
+* Within **Resources** -> **Templates**, select `Create index.html`.
 
 * Select **Access** tab from the menu and click **Add**.
 
@@ -94,7 +94,7 @@ Now log out of automation controller’s web UI and in again as the **wweb** use
 
 Check the result: execute `curl` again on the control host to pull the content of the webserver on `node1` (you could of course check `node2` and `node3`, too):
 
-```bash
+``` { .bash .no-copy }
 [student<X>@ansible-1 ~]$ curl http://node1
 ```
 

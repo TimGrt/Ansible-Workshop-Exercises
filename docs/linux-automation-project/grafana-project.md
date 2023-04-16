@@ -14,7 +14,7 @@ Create an Ansible project *from scratch* and automate some basic linux configura
 
 Create a new project folder in your home directory:
 
-```bash
+``` { .bash .no-copy }
 [student@ansible-1 ~]$ mkdir grafana-deployment
 ```
 
@@ -22,7 +22,7 @@ Create an inventory file with a *grafana* group definition. You will deploy Graf
 
 ### Step 2 - Install Grafana
 
-The Grafana package comes from a dedicated repository, you'll need to enable it for the *yum* package manager on *node2*. 
+The Grafana package comes from a dedicated repository, you'll need to enable it for the *yum* package manager on *node2*.
 Use the following file and copy it to `/etc/yum.repos.d/grafana.repo` with an Ansible task:
 
 ```ini
@@ -46,7 +46,7 @@ Achieve the following tasks:
 
 Ensure that Grafana is running with an ad hoc command:
 
-```bash
+``` { .bash .no-copy }
 [student@ansible-1 grafana-deployment]$ ansible grafana -a "systemctl status grafana-server"
 node2 | CHANGED | rc=0 >>
 ● grafana-server.service - Grafana instance
@@ -126,4 +126,3 @@ Create a new project in your personal Github account and commit your Ansible pro
 ### Step 6 - Bonus: Run your project within AAP
 
 Create a new project in AAP, reference your Grafana project from Github as the code source. Create a template and run your playbook.
-
