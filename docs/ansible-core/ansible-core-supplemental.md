@@ -20,7 +20,7 @@ After downloading the script to your home directory, execute it:
 ``` { .bash .no-copy }
 [student@ansible-1 ~]$ wget -q https://raw.githubusercontent.com/TimGrt/prepare-redhat-demo-system/master/break-ssh.sh
 [student@ansible-1 ~]$ sh break-ssh.sh
-[student@ansible-1 ~]$ 
+[student@ansible-1 ~]$
 ```
 
 *No output is good output.* Now we can configure the SSH connection the way it want.
@@ -56,7 +56,7 @@ Your are now on *node1*. Switch to the *root* user and create a new user `ansibl
 Last login: Sun Apr 17 08:36:53 UTC 2022 on pts/0
 [root@node1 ~]# useradd ansible
 [root@node1 ~]# su - ansible
-[ansible@node1 ~]$ 
+[ansible@node1 ~]$
 ```
 
 Ensure that you are the *ansible* user, we need to create the (hidden) `.ssh` directory and the `authorized_keys` file in it. The `authorized_keys` file houses the **public** key of user *student* on the *ansible-1* host, copy the key to the file (press *i* in *vi* to enter the *insert mode*):
@@ -106,7 +106,7 @@ Log out of *node1* (ensure that you are back on your ansible master node *ansibl
 
 ``` { .bash .no-copy }
 [student@ansible-1 ~]$ ssh ansible@node1
-[ansible@node1 ~]$ 
+[ansible@node1 ~]$
 ```
 
 !!! failure
@@ -262,7 +262,7 @@ Instead of editing and copying `httpd.conf` why don’t you just define a variab
     ```ini
     listen_port: 80
     ```
-    
+
     Prepare the template:
 
     * Copy `httpd.conf` to `httpd.conf.j2`
@@ -279,18 +279,19 @@ Instead of editing and copying `httpd.conf` why don’t you just define a variab
 
     ```yaml
     ---
-    - name: Apache httpd.conf
+    - name: Apache httpd.conf deployment
       hosts: web
-      become: yes
+      become: true
       tasks:
         - name: Create Apache configuration file from template
           ansible.builtin.template:
             src: httpd.conf.j2
             dest: /etc/httpd/conf/httpd.conf
+            mode: "0644"
           notify:
-              - restart apache
+              - Restart_apache
       handlers:
-          - name: restart apache
+          - name: Restart_apache
             ansible.builtin.service:
               name: httpd
               state: restarted

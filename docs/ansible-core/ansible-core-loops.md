@@ -20,18 +20,18 @@ To show the loops feature we will generate three new users on `node1`. For that,
 
 ```yaml
 ---
-- name: Ensure users
+- name: Demo playbook for loops
   hosts: node1
   become: true
   tasks:
-    - name: Ensure three users are present
+    - name: Ensure multiple users are present
       ansible.builtin.user:
         name: "{{ item }}"
         state: present
       loop:
-         - dev_user
-         - qa_user
-         - prod_user
+        - dev_user
+        - qa_user
+        - prod_user
 ```
 
 Understand the playbook and the output:
@@ -62,22 +62,22 @@ Let's rewrite the playbook to create the users with additional user rights:
 
 ```yaml
 ---
-- name: Ensure users
+- name: Demo playbook for loops
   hosts: node1
   become: true
   tasks:
-    - name: Ensure three users are present
+    - name: Ensure multiple users are present
       ansible.builtin.user:
         name: "{{ item.username }}"
         state: present
         groups: "{{ item.groups }}"
       loop:
-        - username: 'dev_user'
-          groups: 'ftp'
-        - username: 'qa_user'
-          groups: 'ftp'
-        - username: 'prod_user'
-          groups: 'apache'
+        - username: dev_user
+          groups: ftp
+        - username: qa_user
+          groups: ftp
+        - username: prod_user
+          groups: apache
 
 ```
 
@@ -89,75 +89,73 @@ Verify that the user `dev_user` was indeed created on `node1` using the followin
 
 ```yaml
 ---
-- name: Get user ID
+- name: Get user ID play
   hosts: node1
   vars:
     myuser: "dev_user"
   tasks:
-    - name: Get {{ myuser }} info
+    - name: Get info for {{ myuser }}
       ansible.builtin.getent:
         database: passwd
         key: "{{ myuser }}"
-        
-    - name: Output {{ myuser }} info
+
+    - name: Output info for {{ myuser }}
       ansible.builtin.debug:
         msg: "{{ myuser }} uid: {{ getent_passwd[myuser][1] }}"
-
 ```
 
 === "Ansible"
     ```bash
     $ ansible-playbook user_id.yml
 
-    PLAY [Get user ID] *************************************************************
+    PLAY [Get user ID play] ******************************************************************************************
 
-    TASK [Gathering Facts] *********************************************************
+    TASK [Gathering Facts] *******************************************************************************************
     ok: [node1]
 
-    TASK [Get dev_user info] *******************************************************
+    TASK [Get info for dev_user] *****************************************************************************************
     ok: [node1]
 
-    TASK [Output dev_user info] *******************************************************************
+    TASK [Output info for dev_user] **************************************************************************************
     ok: [node1] => {
         "msg": [
             "dev_user uid: 1002"
         ]
     }
 
-    PLAY RECAP *********************************************************************
-    node1                      : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+    PLAY RECAP *******************************************************************************************************
+    node1                      : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0  
     ```
 
 === "Navigator"
     ```bash
     $ ansible-navigator run user_id.yml -m stdout
 
-    PLAY [Get user ID] *************************************************************
+    PLAY [Get user ID play] ******************************************************************************************
 
-    TASK [Gathering Facts] *********************************************************
+    TASK [Gathering Facts] *******************************************************************************************
     ok: [node1]
 
-    TASK [Get dev_user info] *******************************************************
+    TASK [Get info for dev_user] *****************************************************************************************
     ok: [node1]
 
-    TASK [Output dev_user info] *******************************************************************
+    TASK [Output info for dev_user] **************************************************************************************
     ok: [node1] => {
         "msg": [
             "dev_user uid: 1002"
         ]
     }
 
-    PLAY RECAP *********************************************************************
-    node1                      : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+    PLAY RECAP *******************************************************************************************************
+    node1                      : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0  
     ```
 
 !!! hint
     It is possible to insert a *string* directly into the dictionary structure like this (although it makes the task less flexible):
     ```yaml
-    - name: Output info for user '
+    - name: Output info for user
       ansible.builtin.debug:
-        msg:
-          - "{{ myuser }} uid: {{ getent_passwd['dev_user'][1] }}"
+        msg: "{{ myuser }} uid: {{ getent_passwd['dev_user'][1] }}"
     ```
     As you can see the *value* of the variable `myuser` is used directly. It must be enclosed in single quotes. You can't use normal quotation marks, as these are used outside of the whole variable.
 

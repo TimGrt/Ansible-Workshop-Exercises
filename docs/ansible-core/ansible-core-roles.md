@@ -50,7 +50,7 @@ Using roles in a Playbook is straight forward:
 
 ```yaml
 ---
-- name: launch roles
+- name: Launch roles
   hosts: web
   roles:
     - role1
@@ -117,12 +117,12 @@ Edit the `roles/apache-webserver/tasks/main.yml` file:
 
 ```yaml
 ---
-- name: install httpd
+- name: Install httpd package
   ansible.builtin.yum:
     name: httpd
     state: latest
 
-- name: start and enable httpd service
+- name: Start and enable httpd service
   ansible.builtin.service:
     name: httpd
     state: started
@@ -139,12 +139,12 @@ The tasks added so far do:
 Next we add two more tasks to ensure a *vhost* directory structure on the managed nodes and copy HTML content:
 
 ```yaml
-- name: ensure vhost directory is present
+- name: Ensure vhost directory is present
   ansible.builtin.file:
     path: "/var/www/vhosts/{{ ansible_hostname }}"
     state: directory
 
-- name: deliver html content
+- name: Deliver html content
   ansible.builtin.copy:
     src: web.html
     dest: "/var/www/vhosts/{{ ansible_hostname }}/index.html"
@@ -158,15 +158,15 @@ Note that the *vhost* directory is created/ensured using the `file` module.
 The last task we add uses the template module to create the vhost configuration file from a j2-template:
 
 ```yaml
-- name: template vhost file
+- name: Deploy vhost template
   ansible.builtin.template:
     src: vhost.conf.j2
     dest: /etc/httpd/conf.d/vhost.conf
     owner: root
     group: root
-    mode: 0644
+    mode: "0644"
   notify:
-    - restart_httpd
+    - Restart_httpd
 ```
 
 Note it is using a handler to restart httpd after an configuration update.
@@ -175,36 +175,38 @@ The full `tasks/main.yml` file is:
 
 ```yaml
 ---
-- name: install httpd
+- name: Install httpd package
   ansible.builtin.yum:
     name: httpd
-    state: latest
+    state: present
 
-- name: start and enable httpd service
+- name: Start and enable httpd service
   ansible.builtin.service:
     name: httpd
     state: started
     enabled: true
 
-- name: ensure vhost directory is present
+- name: Ensure vhost directory is present
   ansible.builtin.file:
     path: "/var/www/vhosts/{{ ansible_hostname }}"
     state: directory
+    mode: "0755"
 
-- name: deliver html content
+- name: Deliver html content
   ansible.builtin.copy:
     src: web.html
     dest: "/var/www/vhosts/{{ ansible_hostname }}/index.html"
+    mode: "0644"
 
-- name: template vhost file
+- name: Deploy vhost template
   ansible.builtin.template:
     src: vhost.conf.j2
     dest: /etc/httpd/conf.d/vhost.conf
     owner: root
     group: root
-    mode: 0644
+    mode: "0644"
   notify:
-    - restart_httpd
+    - Restart_httpd
 ```
 
 ### Step 4 - Create the handler
@@ -214,7 +216,7 @@ Create the handler in the file `roles/apache-webserver/handlers/main.yml` to res
 ```yaml
 ---
 # handlers file for roles/apache-webserver
-- name: restart_httpd
+- name: Restart_httpd
   ansible.builtin.service:
     name: httpd
     state: restarted
@@ -228,7 +230,7 @@ Create the HTML content that will be served by the webserver.
 
 ```html
 <body>
-<h1>The virtual host configuration works!</h1>
+    <h1>The virtual host configuration works!</h1>
 </body>
 ```
 
@@ -263,16 +265,18 @@ You are ready to test the role against `node2`. But since a role cannot be assig
 - name: Use apache-webserver role
   hosts: node2
   become: true
-
   pre_tasks:
-    - ansible.builtin.debug:
+
+    - name: Output info before any role execution
+      ansible.builtin.debug:
         msg: "Beginning web server configuration."
 
   roles:
     - apache-webserver
 
   post_tasks:
-    - ansible.builtin.debug:
+    - name: Output info before all roles are executed
+      ansible.builtin.debug:
         msg: "Web server has been configured."
 ```
 
