@@ -33,12 +33,12 @@ theme:
   palette:
     - scheme: computacenter
       toggle:
-        icon: material/toggle-switch-off-outline
+        icon: material/weather-night
         name: Switch to dark mode
     - scheme: slate
       primary: grey
       toggle:
-        icon: material/toggle-switch
+        icon: material/weather-sunny
         name: Switch to light mode
 plugins:
   - search:
@@ -104,6 +104,7 @@ nav:
     - projects-overview.md
     - linux-automation-project/grafana-project.md
     - network-automation-project/apic-project.md
+    - cloud-automation-project/aws-project.md
   - "Ansible Future":
     - ansible-future-overview.md
     - ansible-navigator/ansible-navigator.md
