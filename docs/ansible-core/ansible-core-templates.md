@@ -42,7 +42,7 @@ Next we need a playbook to use this template. In the `~/ansible-files/` director
         dest: /etc/motd
         owner: root
         group: root
-        mode: 0644
+        mode: "0644"
 ```
 
 As we just learned what *handlers* do, let's add one to this playbook. Add the handlers block with a simple task, which just outputs a message:
@@ -53,8 +53,8 @@ As we just learned what *handlers* do, let's add one to this playbook. Add the h
   hosts: node1
   become: true
   handlers:
-    - name: motd_changed
-      debug:
+    - name: Motd_changed
+      ansible.builtin.debug:
         msg: "The Message of the Day was updated! SSH to node1 and check the content."
   tasks:
     - name: Deploy message of the day file
@@ -63,7 +63,7 @@ As we just learned what *handlers* do, let's add one to this playbook. Add the h
         dest: /etc/motd
         owner: root
         group: root
-        mode: 0644
+        mode: "0644"
 ```
 
 Before we do a bigger challenge lab, let's see if you remember how handlers are triggered. Currently, the handler is not triggered, add the missing keyword to the task, which deploys the template.
@@ -78,8 +78,8 @@ Before we do a bigger challenge lab, let's see if you remember how handlers are 
       hosts: node1
       become: true
       handlers:
-        - name: motd_changed
-          debug:
+        - name: Motd_changed
+          ansible.builtin.debug:
             msg: "The Message of the Day was updated! SSH to node1 and check the content."
       tasks:
         - name: Deploy message of the day file
@@ -88,8 +88,8 @@ Before we do a bigger challenge lab, let's see if you remember how handlers are 
             dest: /etc/motd
             owner: root
             group: root
-            mode: 0644
-          notify: motd_changed
+            mode: "0644"
+          notify: Motd_changed
     ```
 
 You have done this a couple of times by now:
@@ -134,7 +134,7 @@ Run the newly created playbook to find the fact name.
               - '*kernel'
           register: setup_output
 
-        - name: Output variable content 
+        - name: Output variable content
           ansible.builtin.debug:
             msg: "{{ setup_output }}"
     ```
@@ -152,7 +152,7 @@ Run the newly created playbook to find the fact name.
             "changed": false,
             "failed": false
         }
-    } 
+    }
     ```
 
     With this we can conclude the variable we are looking for is labeled `ansible_kernel`.

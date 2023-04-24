@@ -92,10 +92,10 @@ Now that we've defined the play, let's add a task to get something done. We will
   hosts: node1
   become: true
   tasks:
-    - name: latest Apache version installed
+    - name: Install Apache package
       ansible.builtin.yum:
         name: httpd
-        state: latest
+        state: present
 ```
 
 !!! tip
@@ -122,13 +122,31 @@ To run your playbook, use the `ansible-playbook <playbook>` command as follows:
     ``` { .bash .no-copy }
     [student@ansible-1 ansible-files]$ ansible-playbook apache.yml
     ```
+
+    ??? failure "What does `Invalid callback for stdout specified` mean?"
+
+        If you see this error, this is not your fault, but a missing *plugin*.  
+        In the demo environment, only the `ansible-core` package is installed. The missing plugin (a *callback* plugin formats the output Ansible is producing) is not part of the `ansible.builtin` collection, you need to install it.
+
+        ```bash
+        ansible-galaxy collection install community.general
+        ```
+
+        If you want to know where this configuration is stored, take a look at the following tip.
+
 === "Navigator"
     ``` { .bash .no-copy }
     [student@ansible-1 ansible-files]$ ansible-navigator run apache.yml -m stdout
     ```
 
 !!! tip
-    The existing `/home/student/.ansible.cfg` file provides the location of your inventory file. If this was not set within your `ansible.cfg` file, the command to run the playbook would be: `ansible-playbook -i /home/student/lab_inventory/hosts apache.yml`
+    The existing `/etc/ansible/ansible.cfg` file provides the location of your inventory file. If this was not set within your `ansible.cfg` file, the command to run the playbook would be:
+
+    ```bash
+    ansible-playbook -i /home/student/lab_inventory/hosts apache.yml
+    ```
+
+    The configuration file does set some more parameters, take a look. If you want to know which config file is used and where it is stored, run `ansible --version`. The output shows the currently used config file.
 
 Once the playbook has completed, connect to `node1` via SSH to make sure Apache has been installed:
 
@@ -147,7 +165,7 @@ Version     : 2.4.37
 [...]
 ```
 
-Log out of `node1` with the command `exit` so that you are back on the control host and verify the installed package with an Ansible playbook labeled `package.yml`. Create the file and paste in the following content:
+Log out of `node1` with the command `exit` so that you are back on the control host and verify the installed package with an Ansible playbook named `package.yml`. Create the file and paste in the following content:
 
 ```yaml
 ---
@@ -156,17 +174,14 @@ Log out of `node1` with the command `exit` so that you are back on the control h
   become: true
   vars:
     package: "httpd"
-
   tasks:
     - name: Gather the package facts
       ansible.builtin.package_facts:
         manager: auto
 
-    - name: Check whether a {{ package }}  is installed
+    - name: Output message if package is installed
       ansible.builtin.debug:
-        msg: "{{ package }} {{ ansible_facts.packages[ package ][0].version }} is installed!"
-      when: package in ansible_facts.packages
-
+        msg: "{{ package }} in Version {{ ansible_facts.packages[package][0].version }} is installed!"
 ```
 
 !!! note
@@ -202,7 +217,7 @@ ok: [ansible] => {
 }
 
 PLAY RECAP *********************************************************************
-ansible                    : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+ansible                    : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0  
 ```
 
 Execute the command `ansible-playbook apache.yml` for a second time, and compare the output.
@@ -215,16 +230,16 @@ On the control host, as your student user, edit the file `~/ansible-files/apache
 
 ```yaml
 ---
-- name: Apache server installed
+- name: Apache server installation
   hosts: node1
   become: true
   tasks:
-    - name: latest Apache version installed
+    - name: Install Apache package
       ansible.builtin.yum:
         name: httpd
-        state: latest
+        state: present
 
-    - name: Apache enabled and running
+    - name: Ensure Apache is enabled and running
       ansible.builtin.service:
         name: httpd.service
         enabled: true
@@ -291,7 +306,6 @@ Check that the tasks were executed correctly and Apache is accepting connections
   hosts: control
   vars:
     node: "node1"
-
   tasks:
     - name: Check that you can connect (GET) to a page and it returns a status 200
       ansible.builtin.uri:
@@ -311,9 +325,9 @@ Check that the tasks were executed correctly and Apache is accepting connections
     [student@ansible-1 ~]$ ansible-navigator run check_httpd.yml -m stdout
     ```
 
-There are a lot of red lines and an error: As long as there is not at least an `web.html` file to be served by Apache, it will throw an ugly "HTTP Error 403: Forbidden" status and Ansible will report an error.
+There are a lot of red lines and an error: As long as there is not at least an `index.html` file to be served by Apache, it will throw an ugly "HTTP Error 403: Forbidden" status and Ansible will report an error.
 
-So why not use Ansible to deploy a simple `web.html` file? On the ansible control host, as the `student` user, create the directory `files` to hold file resources in `~/ansible-files/`:
+So why not use Ansible to deploy a simple `index.html` file? On the ansible control host, as the `student` user, create the directory `files` to hold file resources in `~/ansible-files/`:
 
 ``` { .bash .no-copy }
 [student@ansible-1 ansible-files]$ mkdir files
@@ -333,25 +347,26 @@ On the control node as your student user edit the file `~/ansible-files/apache.y
 
 ```yaml
 ---
-- name: Apache server installed
+- name: Apache server installation
   hosts: node1
   become: true
   tasks:
-    - name: latest Apache version installed
+    - name: Install Apache package
       ansible.builtin.yum:
         name: httpd
-        state: latest
+        state: present
 
-    - name: Apache enabled and running
+    - name: Ensure Apache is enabled and running
       ansible.builtin.service:
         name: httpd.service
         enabled: true
         state: started
 
-    - name: copy web.html
+    - name: Copy file for webserver index
       ansible.builtin.copy:
         src: web.html
         dest: /var/www/html/index.html
+        mode: "0644"
 ```
 
 What does this new copy task do? The new task uses the `copy` module and defines the source and destination options for the copy operation as parameters.
@@ -393,25 +408,26 @@ Change the playbook `hosts` parameter to point to `web` instead of `node1`:
 
 ```yaml
 ---
-- name: Apache server installed
+- name: Apache server installation
   hosts: web
   become: true
   tasks:
-    - name: latest Apache version installed
+    - name: Install Apache package
       ansible.builtin.yum:
         name: httpd
-        state: latest
+        state: present
 
-    - name: Apache enabled and running
+    - name: Ensure Apache is enabled and running
       ansible.builtin.service:
         name: httpd.service
         enabled: true
         state: started
 
-    - name: copy web.html
+    - name: Copy file for webserver index
       ansible.builtin.copy:
         src: web.html
         dest: /var/www/html/index.html
+        mode: "0644"
 ```
 
 Now run the playbook:

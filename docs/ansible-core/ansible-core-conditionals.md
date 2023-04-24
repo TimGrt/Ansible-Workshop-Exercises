@@ -56,7 +56,7 @@ Next create the file `ftpserver.yml` on your control host in the `~/ansible-file
     - name: Install FTP server when host in ftpserver group
       ansible.builtin.yum:
         name: vsftpd
-        state: latest
+        state: present
       when: inventory_hostname in groups["ftpserver"]
 ```
 
@@ -90,17 +90,17 @@ Lets add two more tasks to our playbook, one to gather informations about all in
     - name: Install FTP server when host in ftpserver group
       ansible.builtin.yum:
         name: vsftpd
-        state: latest
+        state: present
       when: inventory_hostname in groups["ftpserver"]
-    
+
     - name: Get informations about installed packages
       ansible.builtin.package_facts:
         manager: auto
-    
+
     - name: Debug exact version of installed vsFTP package
       ansible.builtin.debug:
         msg: "vsFTP is installed in Version {{ ansible_facts.packages.vsftpd.0.version }}"
-      when: ansible_facts.packages.vsftpd is defined  
+      when: ansible_facts.packages.vsftpd is defined
 ```
 
 As you can see, the simplest conditional statement applies to a single task. Create the task, then add a `when` statement that applies a test. The `when` clause is a *raw* Jinja2 expression, you can use variables here, but you **don't** have to use double curly braces to enclose the variable.
@@ -108,10 +108,10 @@ As you can see, the simplest conditional statement applies to a single task. Cre
 Looking back at the playbook, why did we add the condition to the last task?  
 We know that we installed the package, therefor the condition is always true (the variable is definitly defined) and we could live without the condition.
 
-You should always strive towards making your playbooks as robust as possible, what would happen if we would change the first task to *deinstall* the service?  
-Let's change the title and the *state* to `absent` and run the playbook again.
+You should always strive towards making your playbooks as robust as possible, what would happen if we would change the first task to *deinstall* the service and not use the condition?  
+Let's change the title and the *state* to `absent`, remove (or comment) the condition and run the playbook again.
 
-```yaml hl_lines="6 9"
+```yaml hl_lines="6 9 19"
 ---
 - name: Install vsftpd on ftpservers
   hosts: all
@@ -122,15 +122,15 @@ Let's change the title and the *state* to `absent` and run the playbook again.
         name: vsftpd
         state: absent
       when: inventory_hostname in groups["ftpserver"]
-    
+
     - name: Get informations about installed packages
       ansible.builtin.package_facts:
         manager: auto
-    
+
     - name: Debug exact version of installed vsFTP package
       ansible.builtin.debug:
-        msg: "vsFTP is installed in Version  {{ ansible_facts.packages.vsftpd.0.version }}"
-      when: ansible_facts.packages.vsftpd is defined  
+        msg: "vsFTP is installed in Version {{ ansible_facts.packages.vsftpd.0.version }}"
+    #  when: ansible_facts.packages.vsftpd is defined
 ```
 
 The service is removed by the playbook, therefor the result of the *package_facts* module does not include the *vsftpd* package anymore and your playbooks ends with an error message!
@@ -160,32 +160,32 @@ Run the extended playbook.
         - name: Install FTP server when host in ftpserver group
           ansible.builtin.yum:
             name: vsftpd
-            state: latest
+            state: present
           when: inventory_hostname in groups["ftpserver"]
-        
+
         - name: Get informations about installed packages
           ansible.builtin.package_facts:
             manager: auto
-        
+
         - name: Debug exact version of installed vsFTP package
           ansible.builtin.debug:
             msg: "{{ ansible_facts.packages.vsftpd.0.version }}"
           when: ansible_facts.packages.vsftpd is defined
-        
+
         - name: Output message when vsftpd version is greater than 3.0
-          debug:
+          ansible.builtin.debug:
             msg: "The version of vsftp includes important security patches!"
           when: ansible_facts.packages.vsftpd.0.version is version('3.0', '>')
     ```
 
     Running the playbook outputs the following:
-    
+
     ``` { .bash .no-copy }
     ...
     TASK [Output message when vsftp version is greater than 3.0] *******************************************************************
     ok: [node1] => {
         "msg": "The version of vsftpd includes important security patches!"
-    } 
+    }
     ...
     ```
 

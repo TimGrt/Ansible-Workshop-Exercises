@@ -28,18 +28,19 @@ Next, create the Playbook `httpd_conf.yml`. Make sure that you are in the direct
 
 ```yaml
 ---
-- name: manage httpd.conf
+- name: Manage httpd.conf
   hosts: web
   become: true
   tasks:
     - name: Copy Apache configuration file
       ansible.builtin.copy:
         src: httpd.conf
-        dest: /etc/httpd/conf/
+        dest: /etc/httpd/conf/httpd.conf
+        mode: "0644"
       notify:
-        - restart_apache
+        - Restart_apache
   handlers:
-    - name: restart_apache
+    - name: Restart_apache
       ansible.builtin.service:
         name: httpd
         state: restarted
@@ -65,7 +66,7 @@ Listen 8080
 
 !!! note
     By default, handlers run after all the tasks in a particular play have been completed.
-  
+
 Apache should now listen on port 8080. Easy enough to verify:
 
 ``` { .bash .no-copy }

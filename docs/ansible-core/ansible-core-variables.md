@@ -91,14 +91,15 @@ Create a new Playbook called `deploy_index_html.yml` in the `~/ansible-files/` d
 
 ```yaml
 ---
-- name: Copy web.html
+- name: Webserver configuration
   hosts: web
   become: true
   tasks:
-    - name: copy web.html
+    - name: Copy web.html
       ansible.builtin.copy:
         src: "{{ stage }}_web.html"
         dest: /var/www/html/index.html
+        mode: "0644"
 ```
 
 * Run the Playbook:
@@ -155,8 +156,9 @@ To get an idea what facts Ansible collects by default, on your control node as y
 
 ```yaml
 ---
-- name: Capture Setup
+- name: Capture and output facts
   hosts: node1
+  gather_facts: false
   tasks:
     - name: Collect only facts returned by facter
       ansible.builtin.setup:
@@ -182,8 +184,9 @@ This might be a bit too much, you can use filters to limit the output to certain
 
 ```yaml
 ---
-- name: Capture Setup
+- name: Capture and output facts
   hosts: node1
+  gather_facts: false
   tasks:
     - name: Collect only specific facts
       ansible.builtin.setup:
@@ -192,7 +195,7 @@ This might be a bit too much, you can use filters to limit the output to certain
           - 'ansible_*_mb'
       register: setup_output
 
-    - name: Output variable content 
+    - name: Output variable content
       ansible.builtin.debug:
         msg: "{{ setup_output }}"
 ```
@@ -219,8 +222,9 @@ Run the playbook:
 
     ```yaml
     ---
-    - name: Capture Setup
+    - name: Capture and output facts
       hosts: node1
+      gather_facts: false
       tasks:
         - name: Collect only specific facts
           ansible.builtin.setup:
@@ -228,7 +232,7 @@ Run the playbook:
               - '*distribution'
           register: setup_output
 
-        - name: Output variable content 
+        - name: Output variable content
           ansible.builtin.debug:
             msg: "{{ setup_output }}"
     ```
@@ -285,7 +289,7 @@ Facts can be used in a Playbook like variables, using the proper naming, of cour
   hosts: all
   tasks:
     - name: Prints Ansible facts
-      debug:
+      ansible.builtin.debug:
         msg: The default IPv4 address of {{ ansible_fqdn }} is {{ ansible_default_ipv4.address }}
 ```
 

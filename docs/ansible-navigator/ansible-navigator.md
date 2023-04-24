@@ -327,14 +327,14 @@ Create a simple playbook:
 
 ```yaml
 ---
-- name: Apache server installed
+- name: Apache server installation
   hosts: node1
-  become: yes
+  become: true
   tasks:
-    - name: latest Apache version installed
+    - name: Ensure Apache package is installed
       ansible.builtin.yum:
         name: httpd
-        state: latest
+        state: present
 ```
 
 To run your playbook, use the `ansible-navigator run <playbook>` command as follows:
@@ -402,11 +402,10 @@ Log out of `node1` with the command `exit` so that you are back on the control h
     - name: Gather the package facts
       ansible.builtin.package_facts:
         manager: auto
-    
-    - name: Check whether a {{ package }}  is installed
+
+    - name: Output message if package is installed
       ansible.builtin.debug:
-        msg: "{{ package }} {{ ansible_facts.packages[ package ][0].version }} is installed!"
-      when: package in ansible_facts.packages
+        msg: "{{ package }} in Version {{ ansible_facts.packages[package][0].version }} is installed!"
 ```
 
 ``` { .bash .no-copy }
@@ -424,7 +423,7 @@ ok: [ansible] => {
     "msg": "httpd 2.4.37 is installed!"
 }
 PLAY RECAP *********************************************************************
-ansible                    : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+ansible                    : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0  
 ```
 
 ### Step 5 - Extend your Playbook: Create an web.html
@@ -439,7 +438,7 @@ Check that the tasks were executed correctly and Apache is accepting connections
     node: "node1"
   tasks:
     - name: Check that you can connect (GET) to a page and it returns a status 200
-      uri:
+      ansible.builtin.uri:
         url: "http://{{ node }}"
 ```
 
@@ -472,25 +471,26 @@ On the control node as your student user edit the file `~/ansible-files/apache.y
 
 ```yaml
 ---
-- name: Apache server installed
+- name: Apache server installation
   hosts: node1
-  become: yes
+  become: true
   tasks:
-  - name: latest Apache version installed
-    yum:
-      name: httpd
-      state: latest
+    - name: Install Apache package
+      ansible.builtin.yum:
+        name: httpd
+        state: present
 
-  - name: Apache enabled and running
-    service:
-      name: httpd
-      enabled: true
-      state: started
+    - name: Ensure Apache is enabled and running
+      ansible.builtin.service:
+        name: httpd.service
+        enabled: true
+        state: started
 
-  - name: copy web.html
-    copy:
-      src: web.html
-      dest: /var/www/html/index.html
+    - name: Copy file for webserver index
+      ansible.builtin.copy:
+        src: web.html
+        dest: /var/www/html/index.html
+        mode: "0644"
 ```
 
 What does this new copy task do? The new task uses the `copy` module and defines the source and destination options for the copy operation as parameters.
@@ -526,25 +526,26 @@ Change the playbook `hosts` parameter to point to `web` instead of `node1`:
 
 ```yaml
 ---
-- name: Apache server installed
+- name: Apache server installation
   hosts: web
-  become: yes
+  become: true
   tasks:
-  - name: latest Apache version installed
-    yum:
-      name: httpd
-      state: latest
+    - name: Install Apache package
+      ansible.builtin.yum:
+        name: httpd
+        state: present
 
-  - name: Apache enabled and running
-    service:
-      name: httpd
-      enabled: true
-      state: started
-      
-  - name: copy web.html
-    copy:
-      src: web.html
-      dest: /var/www/html/index.html
+    - name: Ensure Apache is enabled and running
+      ansible.builtin.service:
+        name: httpd.service
+        enabled: true
+        state: started
+
+    - name: Copy file for webserver index
+      ansible.builtin.copy:
+        src: web.html
+        dest: /var/www/html/index.html
+        mode: "0644"
 ```
 
 Now run the playbook:

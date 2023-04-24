@@ -56,16 +56,16 @@ Password:
 Today, you might need additional Ansible modules. In the first part of the workshop, we only used a handful of modules which are all included in the `ansible-core` binary. With *ansible-core* only 69 of the most used modules are included:
 
 ``` { .bash .no-copy }
-[student@ansible-1 ~]$ ansible-doc -l 
-add_host               Add a host (and alternatively a group) to the ansible-playbook in-memory inventory                        
-apt                    Manages apt-packages                                                                                      
-apt_key                Add or remove an apt key                                                                                  
-apt_repository         Add and remove APT repositories                                                                           
-assemble               Assemble configuration files from fragments                                                               
-assert                 Asserts given expressions are true                                                                        
-async_status           Obtain status of asynchronous task                                                                        
-blockinfile            Insert/update/remove a text block surrounded by marker lines                                              
-command                Execute commands on targets                                                                               
+[student@ansible-1 ~]$ ansible-doc -l
+add_host               Add a host (and alternatively a group) to the ansible-playbook in-memory inventory  
+apt                    Manages apt-packages  
+apt_key                Add or remove an apt key  
+apt_repository         Add and remove APT repositories  
+assemble               Assemble configuration files from fragments  
+assert                 Asserts given expressions are true  
+async_status           Obtain status of asynchronous task  
+blockinfile            Insert/update/remove a text block surrounded by marker lines  
+command                Execute commands on targets  
 copy                   Copy files to remote locations
 ...
 ```
@@ -97,7 +97,7 @@ Achieve the following tasks:
 You can view the installed collections with this command:
 
 ``` { .bash .no-copy }
-[student@ansible-1 aci-automation]$ ansible-galaxy collection list 
+[student@ansible-1 aci-automation]$ ansible-galaxy collection list
 # /home/student/.ansible/collections/ansible_collections
 Collection        Version
 ----------------- -------
