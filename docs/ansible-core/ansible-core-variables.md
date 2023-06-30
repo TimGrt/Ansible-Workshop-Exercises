@@ -35,7 +35,7 @@ For understanding and practice letâ€™s do a lab. Following up on the theme "Letâ
 
 On the ansible control host, as the `student` user, create the directories to hold the variable definitions in `~/ansible-files/`:
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 [student@ansible-1 ansible-files]$ mkdir host_vars group_vars
 ```
 
@@ -105,11 +105,14 @@ Create a new Playbook called `deploy_index_html.yml` in the `~/ansible-files/` d
 * Run the Playbook:
 
 === "Ansible"
-    ``` { .bash .no-copy }
+
+    ``` { .console .no-copy }
     [student@ansible-1 ansible-files]$ ansible-playbook deploy_index_html.yml
     ```
+
 === "Navigator"
-    ``` { .bash .no-copy }
+
+    ``` { .console .no-copy }
     [student@ansible-1 ansible-files]$ ansible-navigator run deploy_index_html.yml
     ```
 
@@ -119,7 +122,7 @@ The Ansible Playbook copies different files as index.html to the hosts, use `cur
 
 For node1:
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 [student@ansible-1 ansible-files]$ curl http://node1
 <body>
 <h1>This is a development webserver, have fun!</h1>
@@ -128,7 +131,7 @@ For node1:
 
 For node2:
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 [student@ansible-1 ansible-files]$ curl http://node2
 <body>
 <h1>This is a production webserver, take care!</h1>
@@ -137,7 +140,7 @@ For node2:
 
 For node3:
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 [student@ansible-1 ansible-files]$ curl http://node3
 <body>
 <h1>This is a development webserver, have fun!</h1>
@@ -172,11 +175,14 @@ To get an idea what facts Ansible collects by default, on your control node as y
 ```
 
 === "Ansible"
-    ``` { .bash .no-copy }
+
+    ``` { .console .no-copy }
     [student@ansible-1 ansible-files]$ ansible-playbook setup.yml
     ```
+
 === "Navigator"
-    ``` { .bash .no-copy }
+
+    ``` { .console .no-copy }
     [student@ansible-1 ansible-files]$ ansible-navigator run setup.yml -m stdout
     ```
 
@@ -203,11 +209,14 @@ This might be a bit too much, you can use filters to limit the output to certain
 Run the playbook:
 
 === "Ansible"
-    ``` { .bash .no-copy }
+
+    ``` { .console .no-copy }
     [student@ansible-1 ansible-files]$ ansible-playbook setup_filter.yml
     ```
+
 === "Navigator"
-    ``` { .bash .no-copy }
+
+    ``` { .console .no-copy }
     [student@ansible-1 ansible-files]$ ansible-navigator run setup_filter.yml -m stdout
     ```
 
@@ -239,7 +248,7 @@ Run the playbook:
 
     With the wildcard in place, the output shows:
 
-    ``` { .bash .no-copy }
+    ``` { .console .no-copy }
 
     TASK [Output variable content] *******************************************************************
     ok: [ansible] => {
@@ -270,12 +279,14 @@ Run the playbook:
     ```
 
     Run the playbook:
-    ``` { .bash .no-copy }
+
+    ``` { .console .no-copy }
     [student@ansible-1 ansible-files]$ ansible-playbook setup_filter.yml
     ```
 
     Optionally, run the playbook with the *ansible-navigator*:
-    ``` { .bash .no-copy }
+
+    ``` { .console .no-copy }
     [student@ansible-1 ansible-files]$ ansible-navigator run setup_filter.yml -m stdout
     ```
 
@@ -299,17 +310,19 @@ Facts can be used in a Playbook like variables, using the proper naming, of cour
 Execute it to see how the facts are printed:
 
 === "Ansible"
-    ``` { .bash .no-copy }
+
+    ``` { .console .no-copy }
     [student@ansible-1 ansible-files]$ ansible-playbook facts.yml
     ```
 === "Navigator"
-    ``` { .bash .no-copy }
+
+    ``` { .console .no-copy }
     [student@ansible-1 ansible-files]$ ansible-navigator run facts.yml -m stdout
     ```
 
 Examine the output:
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 PLAY [Output facts within a playbook] ******************************************
 
 TASK [Gathering Facts] *********************************************************

@@ -9,7 +9,7 @@ This exercise covers using Ansible to build two Apache web servers on Red Hat En
     * [yum module](https://docs.ansible.com/ansible/latest/modules/yum_module.html){:target="_blank"}
     * [service module](https://docs.ansible.com/ansible/latest/modules/service_module.html){:target="_blank"}
     * [copy module](https://docs.ansible.com/ansible/latest/modules/copy_module.html){:target="_blank"}
-* Understanding [Idempotence](https://en.wikipedia.org/wiki/Idempotence){:target="_blank"} and how Ansible modules can be idempotent
+* Understanding [Idempotence](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_intro.html#desired-state-and-idempotency){:target="_blank"} and how Ansible modules can be idempotent
 
 ## Guide
 
@@ -61,7 +61,7 @@ Instead, we are going to create a very simple directory structure for our playbo
 
 On your control host **ansible-1**, create a directory called `ansible-files` in your home directory and change directories into it:
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 [student@ansible-1 ~]$ mkdir ansible-files
 [student@ansible-1 ~]$ cd ansible-files/
 ```
@@ -119,7 +119,8 @@ Save your playbook and exit your editor.
 To run your playbook, use the `ansible-playbook <playbook>` command as follows:
 
 === "Ansible"
-    ``` { .bash .no-copy }
+
+    ``` { .console .no-copy }
     [student@ansible-1 ansible-files]$ ansible-playbook apache.yml
     ```
 
@@ -135,7 +136,8 @@ To run your playbook, use the `ansible-playbook <playbook>` command as follows:
         If you want to know where this configuration is stored, take a look at the following tip.
 
 === "Navigator"
-    ``` { .bash .no-copy }
+
+    ``` { .console .no-copy }
     [student@ansible-1 ansible-files]$ ansible-navigator run apache.yml -m stdout
     ```
 
@@ -150,7 +152,7 @@ To run your playbook, use the `ansible-playbook <playbook>` command as follows:
 
 Once the playbook has completed, connect to `node1` via SSH to make sure Apache has been installed:
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 [student@ansible-1 ansible-files]$ ssh node1
 Last login: Wed May 15 14:03:45 2019 from 44.55.66.77
 Managed by Ansible
@@ -158,7 +160,7 @@ Managed by Ansible
 
 Use the command `rpm -qi httpd` to verify httpd is installed:
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 [ec2-user@node1 ~]$ rpm -qi httpd
 Name        : httpd
 Version     : 2.4.37
@@ -187,21 +189,24 @@ Log out of `node1` with the command `exit` so that you are back on the control h
 !!! note
     The playbook (and some of the following playbooks) make use of *variables*, you will learn about them in the next chapter.
 
-The playbook has two tasks, the first one uses the `package_facts` module, it does what it says, it gatheres informations about packages. These facts are not gathered by default with the "Gather facts" tasks (which uses the `setup` module) and must be collected separately.  
-The second task uses the `debug` module. The variable *ansible_facts* is extended with the *packages* key, which contains a dictionary with **all** packages installed on the managed node. The *httpd* package could be installed in multiple versions, therefor every *package* key, in our case *httpd*, is a list. We have installed only one version of *httpd* (thus, we have a list with only one element), we get the version of *httpd* with `[0].version`.  
+The playbook has two tasks, the first one uses the `package_facts` module, it does what it says, it gathers information about packages. These facts are not gathered by default with the "Gather facts" tasks (which uses the `setup` module) and must be collected separately.  
+The second task uses the `debug` module. The variable *ansible_facts* is extended with the *packages* key, which contains a dictionary with **all** packages installed on the managed node. The *httpd* package could be installed in multiple versions, therefore every *package* key, in our case *httpd*, is a list. We have installed only one version of *httpd* (thus, we have a list with only one element), we get the version of *httpd* with `[0].version`.  
 
 === "Ansible"
-    ``` { .bash .no-copy }
+
+    ``` { .console .no-copy }
     [student@ansible-1 ~]$ ansible-playbook package.yml
     ```
+
 === "Navigator"
-    ``` { .bash .no-copy }
+
+    ``` { .console .no-copy }
     [student@ansible-1 ~]$ ansible-navigator run package.yml -m stdout
     ```
 
 The output should look like this:
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 
 PLAY [Check packages] **********************************************************
 
@@ -255,11 +260,14 @@ What exactly did we do?
 Thus with the second task we make sure the Apache server is indeed running on the target machine. Run your extended Playbook:
 
 === "Ansible"
-    ``` { .bash .no-copy }
+
+    ``` { .console .no-copy }
     [student@ansible-1 ~]$ ansible-playbook apache.yml
     ```
+
 === "Navigator"
-    ``` { .bash .no-copy }
+
+    ``` { .console .no-copy }
     [student@ansible-1 ~]$ ansible-navigator run apache.yml -m stdout
     ```
 
@@ -286,11 +294,14 @@ Notice in the output, we see the play had `1` "CHANGED" shown in yellow and if w
 ```
 
 === "Ansible"
-    ``` { .bash .no-copy }
+
+    ``` { .console .no-copy }
     [student@ansible-1 ~]$ ansible-playbook service_state.yml
     ```
+
 === "Navigator"
-    ``` { .bash .no-copy }
+
+    ``` { .console .no-copy }
     [student@ansible-1 ~]$ ansible-navigator run service_state.yml -m stdout
     ```
 
@@ -317,11 +328,14 @@ Check that the tasks were executed correctly and Apache is accepting connections
     **Expect a lot of red lines and a 403 status\!**
 
 === "Ansible"
-    ``` { .bash .no-copy }
+
+    ``` { .console .no-copy }
     [student@ansible-1 ~]$ ansible-playbook check_httpd.yml
     ```
+
 === "Navigator"
-    ``` { .bash .no-copy }
+
+    ``` { .console .no-copy }
     [student@ansible-1 ~]$ ansible-navigator run check_httpd.yml -m stdout
     ```
 
@@ -329,7 +343,7 @@ There are a lot of red lines and an error: As long as there is not at least an `
 
 So why not use Ansible to deploy a simple `index.html` file? On the ansible control host, as the `student` user, create the directory `files` to hold file resources in `~/ansible-files/`:
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 [student@ansible-1 ansible-files]$ mkdir files
 ```
 
@@ -374,11 +388,14 @@ What does this new copy task do? The new task uses the `copy` module and defines
 Run your extended Playbook:
 
 === "Ansible"
-    ``` { .bash .no-copy }
+
+    ``` { .console .no-copy }
     [student@ansible-1 ansible-files]$ ansible-playbook apache.yml
     ```
+
 === "Navigator"
-    ``` { .bash .no-copy }
+
+    ``` { .console .no-copy }
     [student@ansible-1 ansible-files]$ ansible-navigator run apache.yml -m stdout
     ```
 
@@ -433,11 +450,13 @@ Change the playbook `hosts` parameter to point to `web` instead of `node1`:
 Now run the playbook:
 
 === "Ansible"
-    ``` { .bash .no-copy }
+
+    ``` { .console .no-copy }
     [student@ansible-1 ansible-files]$ ansible-playbook apache.yml
     ```
 === "Navigator"
-    ``` { .bash .no-copy }
+
+    ``` { .console .no-copy }
     [student@ansible-1 ansible-files]$ ansible-navigator run apache.yml -m stdout
     ```
 

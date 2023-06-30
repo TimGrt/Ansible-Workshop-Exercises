@@ -2,13 +2,13 @@
 
 ## Objective
 
-Get to know [Handlers](https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html#handlers-running-operations-on-change){:target="_blank"}, a special task which is defined in its own *play* parameter. A handler is often used to restart services, but it can be used with every module Ansible offers.  
+Get to know *Handler*, a special task which is defined in its own *play* parameter. A handler is often used to restart services, but it can be used with every module Ansible offers.  
 
 ## Guide
 
 Sometimes when a task does make a change to the system, an additional task or tasks may need to be run. For example, a change to a service’s configuration file may then require that the service be restarted so that the changed configuration takes effect.
 
-Here Ansible’s handlers come into play. Handlers can be seen as inactive tasks that only get triggered when explicitly invoked using the "notify" statement. Read more about them in the [Ansible Handlers](http://docs.ansible.com/ansible/latest/playbooks_intro.html#handlers-running-operations-on-change){:target="_blank"} documentation.
+Here Ansible’s handlers come into play. Handlers can be seen as inactive tasks that only get triggered when explicitly invoked using the "notify" statement. Read more about them in the [Ansible Handlers](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_handlers.html){:target="_blank"} documentation.
 
 ### Step 1 - Handlers
 
@@ -69,7 +69,7 @@ Listen 8080
 
 Apache should now listen on port 8080. Easy enough to verify:
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 [student@ansible-1 ansible-files]$ curl http://node1
 curl: (7) Failed to connect to node1 port 80: Connection refused
 [student@ansible-1 ansible-files]$ curl http://node1:8080

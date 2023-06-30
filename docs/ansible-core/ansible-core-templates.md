@@ -2,7 +2,7 @@
 
 ## Objective
 
-This exercise will cover Jinja2 templating. Ansible uses Jinja2 templating to modify files before they are distributed to managed hosts. Jinja2 is one of the most used template engines for Python (<http://jinja.pocoo.org/>).
+This exercise will cover Jinja2 templating. Ansible uses Jinja2 templating to modify files before they are distributed to managed hosts. Jinja2 is one of the most used template engines for Python, take a look at the [documentation](https://jinja.palletsprojects.com/){:target="_blank"} for additional information.
 
 ## Guide
 
@@ -14,7 +14,7 @@ As an example of using templates you will change the motd file to contain host-s
 
 First create the directory `templates` to hold template resources in `~/ansible-files/`:
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 [student@ansible-1 ansible-files]$ mkdir templates
 ```
 
@@ -141,7 +141,7 @@ Run the newly created playbook to find the fact name.
 
     With the wildcard in place, the output shows:
 
-    ``` { .bash .no-copy }
+    ``` { .console .no-copy }
 
     TASK [debug] *******************************************************************
     ok: [node1] => {
@@ -170,17 +170,20 @@ Run the newly created playbook to find the fact name.
     Run the playbook.
 
     === "Ansible"
-        ``` { .bash .no-copy }
+
+        ``` { .console .no-copy }
         [student@ansible-1 ~]$ ansible-playbook motd-facts.yml
         ```
+
     === "Navigator"
-        ``` { .bash .no-copy }
+
+        ``` { .console .no-copy }
         [student@ansible-1 ~]$ ansible-navigator run motd-facts.yml -m stdout
         ```
 
     Verify the new message via SSH login to `node1`.
 
-    ``` { .bash .no-copy }
+    ``` { .console .no-copy }
     [student@ansible-1 ~]$ ssh node1
     Welcome to node1.
     Host runs RedHat 8.1

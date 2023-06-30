@@ -2,7 +2,10 @@
 
 To further enhance your Ansible skills, let's deploy the monitoring tool *Grafana* to one of the nodes in the demo environment.
 
-![Grafana Logo](grafana-logo.png)
+<figure markdown>
+  ![Grafana Logo](grafana-logo.png)
+  <figcaption></figcaption>
+</figure>
 
 ## Objective
 
@@ -14,7 +17,7 @@ Create an Ansible project *from scratch* and automate some basic linux configura
 
 Create a new project folder in your home directory:
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 [student@ansible-1 ~]$ mkdir grafana-deployment
 ```
 
@@ -46,7 +49,7 @@ Achieve the following tasks:
 
 Ensure that Grafana is running with an ad hoc command:
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 [student@ansible-1 grafana-deployment]$ ansible grafana -a "systemctl status grafana-server"
 node2 | CHANGED | rc=0 >>
 ● grafana-server.service - Grafana instance
@@ -92,13 +95,13 @@ Now that we adjusted the configuration, try to access the Grafana UI again. Use 
 
 Achieve the following tasks:
 
-- [X] Accessable Grafana UI on port 8080
+- [X] Accessible Grafana UI on port 8080
 - [X] Grafana UI in `light` theme
 - [ ] Bonus: Can you manage to control the look of Grafana by just switching a variable?
 
 ### Step 4 - Re-format project to role structure
 
-All Ansible projects should use the role structure, if your project does not already uses it, now is the time to rearrange your content. Create a `roles` folder and an appropriately named sub-folder for the grafana deployment with all ncessary folder and files.  
+All Ansible projects should use the role structure, if your project does not already uses it, now is the time to rearrange your content. Create a `roles` folder and an appropriately named sub-folder for the grafana deployment with all necessary folder and files.  
 Change your playbook to use your role, e.g.:
 
 ```yaml

@@ -5,6 +5,6 @@ Depending on the length or the focus of the workshop, you will do one or more of
 
 * [Linux Automation - Grafana Deployment](grafana-project.md)
 * [Network Automation - CISCO ACI Automation](apic-project.md)
-* [Cloud Automation - AWS](aws-project.md) 
+* [Cloud Automation - AWS](aws-project.md)
 
 All of the projects are done in or with the Lab environment.

@@ -4,7 +4,7 @@ Although the (historical) focus of Ansible was Linux automation, it is very stro
 Ansible collections support a wide range of vendors, device types, and actions, so you can manage your entire network with a single automation tool. With Ansible, you can:
 
 * Automate repetitive tasks to speed routine network changes and free up your time for more strategic work
-* Leverage the same simple, powerful, and agentless automation tool for network tasks that operations and development use
+* Leverage the same simple, powerful, and agent-less automation tool for network tasks that operations and development use
 * Separate the data model (in a playbook or role) from the execution layer (via Ansible modules) to manage heterogeneous network devices
 * Benefit from community and vendor-generated sample playbooks and roles to help accelerate network automation projects
 * Communicate securely with network hardware over SSH or HTTPS
@@ -28,7 +28,7 @@ The Cisco Application Policy Infrastructure Controller (APIC) API enables applic
 
 Create a new project folder in your home directory:
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 [student@ansible-1 ~]$ mkdir aci-automation
 ```
 
@@ -55,7 +55,7 @@ Password:
 
 Today, you might need additional Ansible modules. In the first part of the workshop, we only used a handful of modules which are all included in the `ansible-core` binary. With *ansible-core* only 69 of the most used modules are included:
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 [student@ansible-1 ~]$ ansible-doc -l
 add_host               Add a host (and alternatively a group) to the ansible-playbook in-memory inventory  
 apt                    Manages apt-packages  
@@ -76,7 +76,7 @@ Additional modules are installed through *collections*, search the [Collection I
 
 If, for example, you want to create an EC2 instance in AWS, you will need the module `amazon.aws.ec2_instance`. To get the module, you'll need the collection `aws` of the provider `amazon`. Download the collection with the `ansible-galaxy` utility:
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 [student@ansible-1 ~]$ ansible-galaxy collection install amazon.aws
 Starting galaxy collection install process
 Process install dependency map
@@ -96,7 +96,7 @@ Achieve the following tasks:
 
 You can view the installed collections with this command:
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 [student@ansible-1 aci-automation]$ ansible-galaxy collection list
 # /home/student/.ansible/collections/ansible_collections
 Collection        Version
@@ -133,8 +133,9 @@ Achieve the following tasks:
 You may encounter the following error messages:
 
 !!! failure
-    Expect an error message complaining about certification verification:  
-    ```
+    Expect an error message complaining about certification verification:
+
+    ``` { .console .no-copy }
     Connection failed for https://sandboxapicdc.cisco.com/api/aaaLogin.json. Request failed: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1131)>
     ```
 
@@ -148,12 +149,15 @@ For a production environment this is obviously **not recommended**!
 
 !!! failure
     If you see one of the following error messages, ensure that the Sandbox is available:
-    ```
+
+    ``` { .console .no-copy }
     Connection failed for https://sandboxapicdc.cisco.com/api/aaaLogin.json. Connection failure: The read operation timed out
     ```
-    ```
+
+    ``` { .console .no-copy }
     Authentication failed: -1 Unable to parse output as JSON, see 'raw' output. Expecting value: line 1 column 1 (char 0)", "raw": "<html>\r\n<head><title>502 Bad Gateway</title></head>\r\n<body bgcolor=\"white\">\r\n<center><h1>502 Bad Gateway</h1></center>\r\n<hr><center>nginx/1.13.12</center>\r\n</body>\r\n</html>\r\n
     ```
+
     Try to reload the APIC browser tab.
 
 In case of an unavailable APIC sandbox, re-run your playbook when it comes back online.  
@@ -212,13 +216,13 @@ Achieve the following tasks:
 ### Step 5 - Roles and encryption
 
 Now that you can execute automated tasks against the ACI, let's re-format the project and use some Ansible best-practices.  
-All Ansible projects should use the role structure, if your project does not already uses it, now is the time to rearrange your content. Create a `roles` folder and an appropriately named sub-folder for the tenant creation with all ncessary folder and files.  
+All Ansible projects should use the role structure, if your project does not already uses it, now is the time to rearrange your content. Create a `roles` folder and an appropriately named sub-folder for the tenant creation with all necessary folder and files.  
 
-Your tasks using the Ansible ACI module(s) require username and password, at least the password should be encrypted. Ansible Vault encrypts variables and files so you can protect sensitive content rather than leaving it visible as plaintext in playbooks or roles, take a look at the [Ansible Vault documentation](https://docs.ansible.com/ansible/latest/user_guide/vault.html#vault){:target="_blank"} for further informations.
+Your tasks using the Ansible ACI module(s) require username and password, at least the password should be encrypted. Ansible Vault encrypts variables and files so you can protect sensitive content rather than leaving it visible as plaintext in playbooks or roles, take a look at the [Ansible Vault documentation](https://docs.ansible.com/ansible/latest/user_guide/vault.html#vault){:target="_blank"} for further information.
 Encrypt the APIC credentials and re-run your playbook.
 
 !!! tip
-    Remember the necessary additional cli paramater when executing a playbook which references encrypted content.
+    Remember the necessary additional cli parameter when executing a playbook which references encrypted content.
 
 Achieve the following tasks:
 
@@ -240,8 +244,7 @@ Dealing with network devices often means dealing with large JSON objects and you
 
 The Ansible module you will be using returns a JSON output like the following:
 
-```json hl_lines="23 37"
-{
+```json hl_lines="22 36"
   "changed": false,
   "current": [
     {
@@ -363,13 +366,13 @@ The Ansible module you will be using returns a JSON output like the following:
 
 The highlighted lines show the **list** of contracts and the name of the contract-**element**. You need to traverse the JSON object until you reach the key you want to get. In JSON, *list*-objects are encapsulated with square brackets (start with *[* and end with *]*), dictionary objects with curly brackets (start with *{* and end with *}*).  
 
-Oberserving the above outout, you can see that multiple list objects are within the complete JSON object. The value of the *key* `current` is a list, every list item of this key is a tenant (with multiple *key-value* pairs which can also be dictionaries or lists).
+Observing the above output, you can see that multiple list objects are within the complete JSON object. The value of the *key* `current` is a list, every list item of this key is a tenant (with multiple *key-value* pairs which can also be dictionaries or lists).
 
-If you filter for a single tenant (by provding the tenant name) when using the module, the list `current` only has one element. Lists (in Python, which Ansible is based on) start at element *0*, the second list element is *1* and so on.
+If you filter for a single tenant (by providing the tenant name) when using the module, the list `current` only has one element. Lists (in Python, which Ansible is based on) start at element *0*, the second list element is *1* and so on.
 
 The resulting output in your playbook-run should look something like this (considering that the *common* tenant only has one contract):
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 TASK [aci-contract : Output list of contract names of Tenant 'common'] ********
 ok: [demo-aci-host] => {
     "msg": [
@@ -389,7 +392,7 @@ Achieve the following tasks:
 
 ??? tip "If you struggle to find a solution, here are some hints. (Try without them first!)"
 
-    The following tipps may help you to develop a solution:
+    The following tips may help you to develop a solution:
 
     * Use the `cisco.aci.aci_contract` module.  
     * Use `state: query` for listing all contract objects.  

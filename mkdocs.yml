@@ -7,21 +7,68 @@ extra:
       link: https://gitlab.ccloud.ninja/tgruetzmacher/ansible-workshop-exercises
       name: Project in Gitlab
     - icon: fontawesome/brands/docker
-      link: https://gitlab.ccloud.ninja/tgruetzmacher/ansible-workshop-exercises/-/blob/main/dockerfiles/slim/Dockerfile
+      link: https://github.com/TimGrt/Ansible-Workshop-Exercises/blob/main/Dockerfile
       name: Container Definition
 extra_css:
   - assets/stylesheets/tables.css
-  - assets/stylesheets/extra.css
-edit_uri: ""
+extra_javascript:
+  - assets/javascripts/extra/refresh-on-toggle-dark-light.js
+  - assets/javascripts/extra/tablesort.min.js
+  - assets/javascripts/extra/tablesort.js
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.details
+  - tables
+  - toc:
+      title: On this page
+  - pymdownx.tabbed:
+      alternate_style: true
+  - def_list
+  - pymdownx.tasklist:
+      custom_checkbox: true
+plugins:
+  - search:
+      lang: en
+      separator: '[\s]'
+  - awesome-pages
+  - autolinks
+  - git-revision-date-localized:
+    # This plugin needs a Git executable and the .git folder
+      enabled: !ENV [ENABLED_GIT_REVISION_DATE, True]
+      fallback_to_build_date: true
+      locale: en
+  - print-site:
+      add_cover_page: true
+      add_print_site_banner: true
+      cover_page_template: "docs/assets/pdf/cover-page.tpl"
+      enabled: !ENV [ENABLED_PRINT_SITE, True]
+      print_page_title: ""
+      print_site_banner_template: "docs/assets/pdf/print-banner.tpl"
 theme:
   name: material
-  # Comment in, if you want to make an announcement
-  # custom_dir: docs/overrides
+  custom_dir: docs/assets/overrides
   icon:
     repo: fontawesome/brands/github
-  logo: assets/ansible-logo-black.png
-  language: de
-  favicon: assets/ansible-logo-black.png
+    admonition:
+      example: octicons/terminal-24
+  logo: assets/images/ansible-logo-black.png
+  language: en
+  favicon: assets/images/ansible-logo-black.png
   features:
     - content.code.annotate
     - content.code.copy
@@ -30,8 +77,11 @@ theme:
     - navigation.sections
     - navigation.tabs
     - navigation.top
+    - search.highlight
+    - search.suggest
   palette:
-    - scheme: computacenter
+    - scheme: default
+      primary: light-blue
       toggle:
         icon: material/weather-night
         name: Switch to dark mode
@@ -40,37 +90,6 @@ theme:
       toggle:
         icon: material/weather-sunny
         name: Switch to light mode
-plugins:
-  - search:
-      lang: en
-      separator: '[\s]'
-  - awesome-pages
-  - autolinks
-extra_javascript:
-  - assets/extra/refresh-on-toggle-dark-light.js
-  - https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js
-  - assets/extra/tablesort.js
-markdown_extensions:
-  - admonition
-  - attr_list
-  - md_in_html
-  - pymdownx.details
-  - pymdownx.emoji:
-      emoji_index: !!python/name:materialx.emoji.twemoji
-      emoji_generator: !!python/name:materialx.emoji.to_svg
-  - pymdownx.keys
-  - pymdownx.tasklist:
-      custom_checkbox: true
-  - pymdownx.highlight:
-      anchor_linenums: true
-  - pymdownx.inlinehilite
-  - pymdownx.snippets
-  - pymdownx.superfences
-  - pymdownx.tabbed:
-      alternate_style: true
-  - tables
-  - pymdownx.tasklist:
-      custom_checkbox: true
 repo_url: https://github.com/TimGrt/Ansible-Workshop-Exercises
 repo_name: timgrt/ansible-workshop-exercises
 # Navigation definition
@@ -101,10 +120,10 @@ nav:
     - automation-platform/automation-platform-workflows.md
     - automation-platform/automation-platform-wrapup.md
   - "Projects":
-    - projects-overview.md
-    - linux-automation-project/grafana-project.md
-    - network-automation-project/apic-project.md
-    - cloud-automation-project/aws-project.md
+    - projects/projects-overview.md
+    - projects/linux-automation/grafana-project.md
+    - projects/network-automation/apic-project.md
+    - projects/cloud-automation/aws-project.md
   - "Ansible Future":
     - ansible-future-overview.md
     - ansible-navigator/ansible-navigator.md

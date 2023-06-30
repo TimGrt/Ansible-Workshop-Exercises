@@ -49,7 +49,7 @@ Next create the file `ftpserver.yml` on your control host in the `~/ansible-file
 
 ```yaml
 ---
-- name: Install vsftpd on ftpservers
+- name: Install vsftpd if hosts are in inventory group
   hosts: all
   become: true
   tasks:
@@ -65,7 +65,7 @@ Next create the file `ftpserver.yml` on your control host in the `~/ansible-file
 
 Run it and examine the output. The expected outcome: The task is skipped on node1, node3 and the ansible host (your control host) because they are not in the ftpserver group in your inventory file.
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 TASK [Install FTP server when host in ftpserver group] *******************************************
 skipping: [ansible-1]
 skipping: [node1]
@@ -79,11 +79,11 @@ In your condition the *magic variable* `inventory_hostname` is used, a variable 
 
 We installed the *vsftpd* package, we would now be able to start the *vsftp*-Service (Very Secure FTP Daemon). But what version of the package is installed?  
 
-Lets add two more tasks to our playbook, one to gather informations about all installed packages on the target host with the module *package_facts*. This module adds the gathered informations to the `ansible_facts`, from there you can use the information as an Ansible variable. The last tasks outputs the exact version number to *stdout*, but only if the package is installed (the variable in the *packages* dictionary is defined).
+Lets add two more tasks to our playbook, one to gather information about all installed packages on the target host with the module *package_facts*. This module adds the gathered information to the `ansible_facts`, from there you can use the information as an Ansible variable. The last tasks outputs the exact version number to *stdout*, but only if the package is installed (the variable in the *packages* dictionary is defined).
 
 ```yaml
 ---
-- name: Install vsftpd on ftpservers
+- name: Install vsftpd if hosts are in inventory group
   hosts: all
   become: true
   tasks:
@@ -93,7 +93,7 @@ Lets add two more tasks to our playbook, one to gather informations about all in
         state: present
       when: inventory_hostname in groups["ftpserver"]
 
-    - name: Get informations about installed packages
+    - name: Get information about installed packages
       ansible.builtin.package_facts:
         manager: auto
 
@@ -106,24 +106,24 @@ Lets add two more tasks to our playbook, one to gather informations about all in
 As you can see, the simplest conditional statement applies to a single task. Create the task, then add a `when` statement that applies a test. The `when` clause is a *raw* Jinja2 expression, you can use variables here, but you **don't** have to use double curly braces to enclose the variable.
 
 Looking back at the playbook, why did we add the condition to the last task?  
-We know that we installed the package, therefor the condition is always true (the variable is definitly defined) and we could live without the condition.
+We know that we installed the package, therefore the condition is always true (the variable is definitely defined) and we could live without the condition.
 
-You should always strive towards making your playbooks as robust as possible, what would happen if we would change the first task to *deinstall* the service and not use the condition?  
+You should always strive towards making your playbooks as robust as possible, what would happen if we would change the first task to *de-install* the service and not use the condition?  
 Let's change the title and the *state* to `absent`, remove (or comment) the condition and run the playbook again.
 
 ```yaml hl_lines="6 9 19"
 ---
-- name: Install vsftpd on ftpservers
+- name: Install vsftpd if hosts are in inventory group
   hosts: all
   become: true
   tasks:
-    - name: Deinstall FTP server when host in ftpserver group
+    - name: De-install FTP server when host in ftpserver group
       ansible.builtin.yum:
         name: vsftpd
         state: absent
       when: inventory_hostname in groups["ftpserver"]
 
-    - name: Get informations about installed packages
+    - name: Get information about installed packages
       ansible.builtin.package_facts:
         manager: auto
 
@@ -133,7 +133,7 @@ Let's change the title and the *state* to `absent`, remove (or comment) the cond
     #  when: ansible_facts.packages.vsftpd is defined
 ```
 
-The service is removed by the playbook, therefor the result of the *package_facts* module does not include the *vsftpd* package anymore and your playbooks ends with an error message!
+The service is removed by the playbook, therefore the result of the *package_facts* module does not include the *vsftpd* package anymore and your playbooks ends with an error message!
 
 ### Step 3 - Challenge lab
 
@@ -143,7 +143,7 @@ Add a task to the playbook which outputs a message if important security patches
 * Output the message *"The version of vsftpd includes important security patches!"* if the version of *vsftpd* is **greater than 3.0**
 
 !!! tip
-    The Ansible documention is helpful, a *test* to [compare versions](https://docs.ansible.com/ansible/latest/user_guide/playbooks_tests.html#comparing-versions){:target="_blank"} is available.
+    The Ansible documentation is helpful, a *test* to [compare versions](https://docs.ansible.com/ansible/latest/user_guide/playbooks_tests.html#comparing-versions){:target="_blank"} is available.
 
 Run the extended playbook.
 
@@ -153,7 +153,7 @@ Run the extended playbook.
 
     ```yaml
     ---
-    - name: Install vsftpd on ftpservers
+    - name: Install vsftpd if hosts are in inventory group
       hosts: all
       become: true
       tasks:
@@ -163,7 +163,7 @@ Run the extended playbook.
             state: present
           when: inventory_hostname in groups["ftpserver"]
 
-        - name: Get informations about installed packages
+        - name: Get information about installed packages
           ansible.builtin.package_facts:
             manager: auto
 
@@ -180,7 +180,7 @@ Run the extended playbook.
 
     Running the playbook outputs the following:
 
-    ``` { .bash .no-copy }
+    ``` { .console .no-copy }
     ...
     TASK [Output message when vsftp version is greater than 3.0] *******************************************************************
     ok: [node1] => {

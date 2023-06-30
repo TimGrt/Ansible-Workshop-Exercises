@@ -3,7 +3,8 @@
 **Welcome to the Computacenter Ansible Workshop!**
 
 <figure markdown>
-  [![CC Logo](computacenter.png){ width="400", loading=lazy }](https://www.computacenter.com/de-de)
+  ![CC Logo](assets/images/computacenter.png#only-light){ width="500" }
+  ![CC Logo](assets/images/computacenter-white.png#only-dark){ width="500" }
   <figcaption></figcaption>
 </figure>
 
