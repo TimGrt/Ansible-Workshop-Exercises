@@ -10,7 +10,7 @@ The `until` keyword is used to retry a task until a certain condition is met. Fo
 
 ## Guide
 
-Loops enable us to repeat the same task over and over again. For example, lets say you want to create multiple users. By using an Ansible loop, you can do that in a single task. Loops can also iterate over more than just basic lists. For example, if you have a list of users with their coresponding group, loop can iterate over them as well.  
+Loops enable us to repeat the same task over and over again. For example, lets say you want to create multiple users. By using an Ansible loop, you can do that in a single task. Loops can also iterate over more than just basic lists. For example, if you have a list of users with their corresponding group, loop can iterate over them as well.  
 
 Find out more about loops in the [Ansible Loops](https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html){:target="_blank"} documentation.
 
@@ -53,9 +53,9 @@ As mentioned loops can also be over lists of hashes. Imagine that the users shou
   groups: apache
 ```
 
-The `user` module has the optional parameter `groups` which defines the group (or list of groups) the user should be added to. To reference items in a hash, the `{{ item }}` keyword needs to reference the subkey: `{{ item.groups }}` for example.
+The `user` module has the optional parameter `groups` which defines the group (or list of groups) the user should be added to. To reference items in a hash, the `{{ item }}` keyword needs to reference the sub-key: `{{ item.groups }}` for example.
 
-??? note "Hinweis"
+??? note "Hint"
     By default, the user is **removed** from all other groups. Use the module parameter `append: true` to modify this.
 
 Let's rewrite the playbook to create the users with additional user rights:
@@ -105,7 +105,8 @@ Verify that the user `dev_user` was indeed created on `node1` using the followin
 ```
 
 === "Ansible"
-    ```bash
+
+    ```console
     $ ansible-playbook user_id.yml
 
     PLAY [Get user ID play] ******************************************************************************************
@@ -128,7 +129,8 @@ Verify that the user `dev_user` was indeed created on `node1` using the followin
     ```
 
 === "Navigator"
-    ```bash
+
+    ```console
     $ ansible-navigator run user_id.yml -m stdout
 
     PLAY [Get user ID play] ******************************************************************************************

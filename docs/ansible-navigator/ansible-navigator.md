@@ -26,7 +26,7 @@ Why use execution environments?
 
 They provide a standardized way to define, build and distribute the environments that the automation runs in. In a nutshell, Automation execution environments are container images that allow for easier administration of Ansible by the platform administrator.
 
-Considering the shift towards containerized execution of automation, automation development workflow and tooling that existed before Ansible Automation Platform 2 have had to be reimagined. In short, `ansible-navigator` replaces `ansible-playbook` and other `ansible-*` command line utilities.
+Considering the shift towards containerized execution of automation, automation development workflow and tooling that existed before Ansible Automation Platform 2 have had to be re-imagined. In short, `ansible-navigator` replaces `ansible-playbook` and other `ansible-*` command line utilities.
 
 With this change, Ansible playbooks are executed using the `ansible-navigator` command on the control node.
 
@@ -39,7 +39,7 @@ These include:
 * All execution environment (EE) logs are stored within `/home/student/.ansible-navigator/logs/ansible-navigator.log`
 * Playbook artifacts are saved under `/tmp/artifact.json`
 
-Follow the next link for more information on the [Ansible navigator settings](https://github.com/ansible/ansible-navigator/blob/main/docs/settings.rst){:target="_blank"}.
+Follow the next link for more information on the [Ansible navigator settings](https://ansible.readthedocs.io/projects/navigator/settings/#the-ansible-navigator-settings-file){:target="_blank"}.
 
 !!! tip
     The parameters for ansible-navigator maybe modified for your specific environment. The current settings use a default `ansible-navigator.yml` for all projects, but a specific `ansible-navigator.yml` can be created for each project and is the recommended practice.
@@ -77,7 +77,7 @@ Adjust the path to your inventory file, as well as the used container image if a
 
 ### Step 1 - Work with your Inventory
 
-An inventory file is a text file that specifices the nodes that will be managed by the control machine. The nodes to be managed may include a list of hostnames or IP addresses of those nodes. The inventory file allows for nodes to be organized into groups by declaring a host group name within square brackets ([]).
+An inventory file is a text file that specifies the nodes that will be managed by the control machine. The nodes to be managed may include a list of hostnames or IP addresses of those nodes. The inventory file allows for nodes to be organized into groups by declaring a host group name within square brackets ([]).
 
 To use the `ansible-navigator` command for host management, you need to provide an inventory file which defines a list of hosts to be managed from the control node. In this lab, the inventory is provided by your instructor. The inventory file is an `ini` formatted file listing your hosts, sorted in groups, additionally providing some variables. It looks like:
 
@@ -97,7 +97,7 @@ To reference all the inventory hosts, you supply a pattern to the `ansible-navig
 
 === "Navigator"
 
-    ``` { .bash .no-copy }
+    ``` { .console .no-copy }
     [student@ansible-1 ~]$ ansible-navigator inventory --list -m stdout
     {
         "_meta": {
@@ -137,9 +137,10 @@ To reference all the inventory hosts, you supply a pattern to the `ansible-navig
     }
 
     ```
+
 === "Ansible"
 
-    ``` { .bash .no-copy }
+    ``` { .console .no-copy }
     [student@ansible-1 ~]$ ansible-inventory --list
     {
         "_meta": {
@@ -177,7 +178,6 @@ To reference all the inventory hosts, you supply a pattern to the `ansible-navig
             ]
         }
     }
-
     ```
 
 !!! note
@@ -186,7 +186,8 @@ To reference all the inventory hosts, you supply a pattern to the `ansible-navig
 If the `--list` is too verbose, the option of `--graph` can be used to provide a more condensed version of `--list`.
 
 === "Navigator"
-    ``` { .bash .no-copy }
+
+    ``` { .console .no-copy }
     [student@ansible-1 ~]$ ansible-navigator inventory --graph -m stdout
     @all:
     |--@control:
@@ -196,10 +197,11 @@ If the `--list` is too verbose, the option of `--graph` can be used to provide a
     |  |--node1
     |  |--node2
     |  |--node3
-
     ```
+
 === "Ansible"
-    ``` { .bash .no-copy }
+
+    ``` { .console .no-copy }
     [student@ansible-1 ~]$ ansible-inventory --graph
     @all:
     |--@control:
@@ -218,7 +220,7 @@ An inventory file can contain a lot more information, it can organize your hosts
 
 Using the `ansible-navigator inventory` command, we can also run commands that provide information only for one host or group. For example, give the following commands a try to see their output.
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 [student@ansible-1 ~]$ ansible-navigator inventory --graph web -m stdout
 [student@ansible-1 ~]$ ansible-navigator inventory --graph control -m stdout
 [student@ansible-1 ~]$ ansible-navigator inventory --host node1 -m stdout
@@ -296,7 +298,7 @@ Selecting `2` for `Ansible version and collections` will show us all Ansible Col
 
 Either use Visual Studio Code to open or use the `cat` command to view the contents of the `ansible-navigator.yml` file.  The file is located in the home directory:
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 $ cat ~/.ansible-navigator.yml
 ---
 ansible-navigator:
@@ -339,7 +341,7 @@ Create a simple playbook:
 
 To run your playbook, use the `ansible-navigator run <playbook>` command as follows:
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 [student@ansible-1 ansible-files]$ ansible-navigator run apache.yml
 ```
 
@@ -348,7 +350,7 @@ To run your playbook, use the `ansible-navigator run <playbook>` command as foll
 
 When running the playbook, you'll be displayed a text user interface (TUI) that displays the play name among other information about the playbook that is currently run.
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
   PLAY NAME                        OK  CHANGED    UNREACHABLE      FAILED    SKIPPED    IGNORED    IN PROGRESS     TASK COUNT          PROGRESS
 0│Apache server installed           2        1              0           0          0          0              0              2          COMPLETE
 ```
@@ -357,7 +359,7 @@ If you notice, prior to the play name `Apache server installed`, you'll see a `0
 
 The display should look something like this:
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
   RESULT   HOST    NUMBER   CHANGED   TASK                              TASK ACTION    DURATION
 0│OK       node1   0        False     Gathering Facts                   gather_facts   1s
 1│OK       node1   1        False     latest Apache version installed   yum            4s
@@ -374,7 +376,7 @@ Once you've completed, reviewing your Ansible playbook, you can exit out of the 
 
 Once the playbook has completed, connect to `node1` via SSH to make sure Apache has been installed. You may also skip this, as you did this yesterday.
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 [student@ansible-1 ansible-files]$ ssh node1
 Last login: Wed May 15 14:03:45 2019 from 44.55.66.77
 Managed by Ansible
@@ -382,7 +384,7 @@ Managed by Ansible
 
 Use the command `rpm -qi httpd` to verify httpd is installed:
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 [ec2-user@node1 ~]$ rpm -qi httpd
 Name        : httpd
 Version     : 2.4.37
@@ -408,11 +410,11 @@ Log out of `node1` with the command `exit` so that you are back on the control h
         msg: "{{ package }} in Version {{ ansible_facts.packages[package][0].version }} is installed!"
 ```
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 [student@ansible-1 ~]$ ansible-navigator run package.yml -m stdout
 ```
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 PLAY [Check packages] **********************************************************
 TASK [Gathering Facts] *********************************************************
 ok: [ansible]
@@ -445,7 +447,7 @@ Check that the tasks were executed correctly and Apache is accepting connections
 !!! warning
     **Expect a lot of red lines and a 403 status\!**
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 [student@ansible-1 ~]$ ansible-navigator run check_httpd.yml -m stdout
 ```
 
@@ -453,7 +455,7 @@ There are a lot of red lines and an error: As long as there is not at least an `
 
 So why not use Ansible to deploy a simple `web.html` file? On the ansible control host, as the `student` user, create the directory `files` to hold file resources in `~/ansible-files/`:
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 [student@ansible-1 ansible-files]$ mkdir files
 ```
 
@@ -497,7 +499,7 @@ What does this new copy task do? The new task uses the `copy` module and defines
 
 Run your extended Playbook:
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 [student@ansible-1 ansible-files]$ ansible-navigator run apache.yml -m stdout
 ```
 
@@ -513,7 +515,7 @@ While the above, shows the simplicity of applying changes to a particular host. 
 
 As you might remember, the inventory lists all nodes as members of the group `web`:
 
-```ini
+``` { .ini .no-copy }
 [web]
 node1 ansible_host=11.22.33.44
 node2 ansible_host=22.33.44.55
@@ -550,7 +552,7 @@ Change the playbook `hosts` parameter to point to `web` instead of `node1`:
 
 Now run the playbook:
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 [student@ansible-1 ansible-files]$ ansible-navigator run apache.yml -m stdout
 ```
 

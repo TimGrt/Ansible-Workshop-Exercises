@@ -4,7 +4,7 @@
 
 While it is possible to write a playbook in one file as we've done throughout this workshop, eventually you’ll want to reuse files and start to organize things.
 
-Ansible Roles are the way we do this.  When you create a role, you deconstruct your playbook into parts and those parts sit in a directory structure.  This is explained in more details in the [Tips and tricks](https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html){:target="_blank"} and the [Sample Ansible setup](https://docs.ansible.com/ansible/latest/user_guide/sample_setup.html){:target="_blank"}.
+Ansible Roles are the way we do this.  When you create a role, you deconstruct your playbook into parts and those parts sit in a directory structure.  This is explained in more details in Ansible documentation in [Roles](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_reuse_roles.html){:target="_blank"} or in [Sample Ansible setup](https://docs.ansible.com/ansible/latest/user_guide/sample_setup.html){:target="_blank"}.
 
 This exercise will cover:
 
@@ -69,14 +69,14 @@ Ansible looks for roles in a subdirectory called `roles` in the project director
 
 Okay, lets start to build a role. We'll build a role that installs and configures Apache to serve a virtual host. Run these commands in your `~/ansible-files` directory:
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 [student@ansible-1 ansible-files]$ mkdir roles
 [student@ansible-1 ansible-files]$ ansible-galaxy init --offline roles/apache-webserver
 ```
 
 Have a look at the role directories and their content:
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 [student@ansible-1 ansible-files]$ tree roles
 ```
 
@@ -288,17 +288,20 @@ Note the `pre_tasks` and `post_tasks` keywords. Normally, the tasks of *roles* e
 Now you are ready to run your playbook:
 
 === "Ansible"
-    ``` { .bash .no-copy }
+
+    ``` { .console .no-copy }
     [student@ansible-1 ansible-files]$ ansible-playbook test_apache_role.yml
     ```
+
 === "Navigator"
-    ``` { .bash .no-copy }
+
+    ``` { .console .no-copy }
     [student@ansible-1 ansible-files]$ ansible-navigator run test_apache_role.yml -m stdout
     ```
 
 Run a curl command against `node2` to confirm that the role worked or use the `check_httpd.yml` playbook (you may need to adjust the variable in it to `node2:8080`):
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 [student@ansible-1 ansible-files]$ curl -s http://node2:8080
 <body>
 <h1>The virtual host configuration works!</h1>
@@ -314,20 +317,20 @@ Congratulations! You have successfully completed this exercise!
 Did the final curl work?  
 You can see what ports the web server is running on by using the netstat command, connect to the managed node via SSH:
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 #> sudo netstat -tulpn
 ```
 
 If *netstat* is not present, install it with this command:
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 #> sudo yum install -y net-tools
 ```
 
 There should be a line like this:
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 tcp6       0      0 :::8080                 :::*                    LISTEN      25237/httpd
 ```
 
-If it is not working make sure that `/etc/httpd/conf/httpd.conf` has `Listen 8080` in it.  This should have been changed by [Exercise 1.5](ansible-core-handlers.md)
+If it is not working make sure that `/etc/httpd/conf/httpd.conf` has `Listen 8080` in it.  This should have been changed by [Exercise 7](ansible-core-handlers.md).

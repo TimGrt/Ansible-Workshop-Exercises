@@ -21,7 +21,8 @@ In the (near) future this will be replaced/supplemented by the *Ansible Navigato
 Still, although we will be using the *ansible-core* executable in all exercises, it is shown how to also achieve everything using the `ansible-navigator` utility in a separate tab.
 
 === "Ansible"
-    ``` { .bash .no-copy }
+
+    ``` { .console .no-copy }
     [student@ansible-1 ~]$ ansible-playbook --help
     usage: ansible-playbook [-h] [--version] [-v] [--private-key PRIVATE_KEY_FILE] [-u REMOTE_USER] [-c CONNECTION] [-T TIMEOUT] [--ssh-common-args SSH_COMMON_ARGS]
                             [--sftp-extra-args SFTP_EXTRA_ARGS] [--scp-extra-args SCP_EXTRA_ARGS] [--ssh-extra-args SSH_EXTRA_ARGS]
@@ -44,9 +45,10 @@ Still, although we will be using the *ansible-core* executable in all exercises,
 === "Navigator"
 
     !!! note
-        By default, the *ansible-navigator* will start in the *interactive* mode. This will launch the avigator in the *Text-based User Interface* (TUI) mode.  
+        By default, the *ansible-navigator* will start in the *interactive* mode. This will launch the navigator in the *Text-based User Interface* (TUI) mode.  
         If you want to use the tool the same way as with the normal *ansible-playbook* command, provide the parameter `-m stdout` which forces the output to the command-line (though, this prevents you from experiencing the cool features of the navigator).
-    ``` { .bash .no-copy }
+
+    ``` { .console .no-copy }
     [student@ansible-1 ~]$ ansible-navigator --help
     usage: ansible-navigator [-h] [--version] [--rad ANSIBLE_RUNNER_ARTIFACT_DIR] [--rac ANSIBLE_RUNNER_ROTATE_ARTIFACTS_COUNT] [--rt ANSIBLE_RUNNER_TIMEOUT]
                             [--cdcp COLLECTION_DOC_CACHE_PATH] [--ce CONTAINER_ENGINE] [--co CONTAINER_OPTIONS [CONTAINER_OPTIONS ...]] [--dc DISPLAY_COLOR] [--ecmd EDITOR_COMMAND]
@@ -98,7 +100,7 @@ Open a terminal in Visual Studio Code:
 
 Navigate to the `lab_inventory` directory on the Ansible control node terminal.
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 [student@ansible-1 ~]$ cd lab_inventory
 [student@ansible-1 lab_inventory]$ pwd
 /home/student/lab_inventory

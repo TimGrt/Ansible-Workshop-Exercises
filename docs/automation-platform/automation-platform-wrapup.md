@@ -10,9 +10,9 @@ This is the final challenge where we try to put most of what you have learned to
 
 Your operations team and your application development team likes what they see in Ansible automation controller. To really use it in their environment they put together these requirements:
 
-* All webservers (`node1`, `node2` and `node3`) should go in one group
+* All webserver hosts (`node1`, `node2` and `node3`) should go in one group
 
-* As the webservers can be used for development purposes or in production, there has to be a way to flag them accordingly as "stage dev" or "stage prod".
+* As the webserver hosts can be used for development purposes or in production, there has to be a way to flag them accordingly as "stage dev" or "stage prod".
 
     * Currently `node1` and `node3` are used as a development system and `node2` is in production.
 
@@ -134,13 +134,13 @@ This time we use the power of Ansible to check the results: execute uri to get t
 
 Execute the playbook:
 
-``` { .bash .no-copy }
-[student<X>@ansible-1 ~]$ ansible-navigator run check_url.yml -m stdout
+``` { .console .no-copy }
+[student<X>@ansible-1 ~]$ ansible-playbook check_url.yml
 ```
 
 Snippet of output:
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 TASK [debug] *******************************************************************
 ok: [node1] => {
     "uri_output.content": "<body>\n<h1>This is a development webserver, have fun!</h1>\ndev wweb</body>\n"
@@ -193,13 +193,13 @@ In the same fashion add a second **Survey Question**
 
 Check the results again from your automation controller host. We will use the dedicated `uri` module within an Ansible playbook. As arguments it needs the actual URL and a flag to output the body in the results.
 
-``` { .bash .no-copy }
-[student<X>@ansible-1 ~]$ ansible-navigator run check_url.yml -m stdout
+``` { .console .no-copy }
+[student<X>@ansible-1 ~]$ ansible-playbook check_url.yml
 ```
 
 ### Solution
 
 !!! warning
-    **Solution Not Below**
+    **No solution this time :sweat_smile:**
 
 You have done all the required configuration steps in the lab already. If unsure, just refer back to the respective chapters.
