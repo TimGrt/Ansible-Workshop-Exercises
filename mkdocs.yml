@@ -124,6 +124,7 @@ nav:
     - projects/linux-automation/grafana-project.md
     - projects/network-automation/apic-project.md
     - projects/cloud-automation/aws-project.md
+    - projects/dcim-ipam-automation/netbox-project.md
   - "Ansible Future":
     - ansible-future-overview.md
     - ansible-navigator/ansible-navigator.md
