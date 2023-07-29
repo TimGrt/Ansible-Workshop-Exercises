@@ -45,7 +45,6 @@ plugins:
   - search:
       lang: en
       separator: '[\s]'
-  - awesome-pages
   - autolinks
   - git-revision-date-localized:
     # This plugin needs a Git executable and the .git folder

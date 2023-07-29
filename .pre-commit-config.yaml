@@ -20,7 +20,7 @@ repos:
       - id: markdownlint
         name: Lint Markdown files
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.23.2
+    rev: 0.23.3
     hooks:
       - id: check-github-actions
       - id: check-github-workflows
