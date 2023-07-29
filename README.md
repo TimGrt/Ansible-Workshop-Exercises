@@ -55,32 +55,4 @@ docker run -d -p 8080:80/tcp --name workshop ansible-workshop-exercises
 
 ## Development
 
-Create a Python virtual environment:
-
-```bash
-python3 -m venv mkdocs-venv
-```
-
-Activate VE:
-
-```bash
-source mkdocs-venv/bin/activate
-```
-
-Install requirements from project directory:
-
-```bash
-pip3 install -r requirements.txt
-```
-
-Get IP address:
-
-```bash
-hostname -I
-```
-
-Start MkDocs built-in dev-server for live-preview:
-
-```bash
-mkdocs serve -a 172.26.220.226:8080
-```
+We document our Coding Guidelines in the [Contributing Guidelines](https://github.com/TimGrt/Ansible-Best-Practices/blob/main/.github/CONTRIBUTING.md), this document also includes instructions on how the setup a development environment.
