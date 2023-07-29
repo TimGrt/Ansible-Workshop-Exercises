@@ -1,0 +1,110 @@
+---
+name: 🐛 Bug report
+description: Create a report to help us improve.
+labels: ["bug"]
+body:
+- type: markdown
+  attributes:
+    value: |
+      **Thank you for taking the time to open this Issue!**
+
+      ⚠️ **Please note**
+      Verify first that your issue is not already reported!
+
+- type: input
+  id: contact
+  attributes:
+      label: ☎️ Contact Details
+      description: How can we get in touch with you if we need more info?
+      placeholder: ex. email@example.com
+  validations:
+      required: false
+
+- type: dropdown
+  id: type
+  attributes:
+    label: What type of bug?
+    description: Is the bug related to the MkDocs deployment or a documented exercise?
+    options:
+      - MkDocs
+      - Documentation
+  validations:
+    required: true
+
+- type: dropdown
+  id: section
+  attributes:
+    label: Which section?
+    description: Which section of the Guide needs an update?
+    options:
+      - Workshop Overview
+      - Ansible Basics
+      - Automation Platform
+      - Projects
+      - Ansible Future
+  validations:
+    required: true
+
+- type: dropdown
+  id: sub-section
+  attributes:
+    label: Which sub-section?
+    description: Which sub-section of the Guide needs an update, if applicable?
+    options:
+      - Workshop Overview > RedHat Demo Environment
+      - Workshop Overview > Editor Alternatives
+      - Ansible Basics > Overview
+      - Ansible Basics > 1 - Check the Prerequisites
+      - Ansible Basics > 2 - The Ansible Basics
+      - Ansible Basics > 3 - Writing your first Playbook
+      - Ansible Basics > 4 - Using Variables
+      - Ansible Basics > 5 - Work with conditionals
+      - Ansible Basics > 6 - Run tasks multiple times
+      - Ansible Basics > 7 - Trigger changes with Handlers
+      - Ansible Basics > 8 - Templating with Jinja2
+      - Ansible Basics > 9 - Reusability with Roles
+      - Ansible Basics > Bonus exercises
+      - Automation Platform > Overview
+      - Automation Platform > 1 - AAP Introduction
+      - Automation Platform > 2 - Inventory & Ad-hoc commands
+      - Automation Platform > 3 - Projects & Job Templates
+      - Automation Platform > 4 - Surveys
+      - Automation Platform > 5 - Role-based access control
+      - Automation Platform > 6 - Workflows
+      - Automation Platform > 7 - AAP Wrap up
+      - Projects > Overview
+      - Projects > Project - Linux automation
+      - Projects > Project - Network automation
+      - Projects > Project - AWS Automation
+      - Ansible Future > Overview
+      - Ansible Future > Ansible Navigator
+  validations:
+    required: false
+
+- type: textarea
+  id: whats-wrong
+  attributes:
+    label: What is wrong?
+    description: What needs to be fixed?
+    value: "Please give a clear and concise explanation what needs to be fixed!"
+  validations:
+    required: true
+
+- type: textarea
+  id: ansible-version
+  attributes:
+    label: What Ansible version are you using?
+    description: When reporting a bug with the documented exercise, which Ansible version are you using when executing the described exercise.
+    placeholder: Run 'ansible --version' and input the complete output here.
+    render: bash
+  validations:
+    required: false
+
+- type: textarea
+  id: log
+  attributes:
+    label: Relevant log output
+    description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
+    render: bash
+  validations:
+    required: false

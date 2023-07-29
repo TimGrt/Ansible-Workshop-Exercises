@@ -16,9 +16,9 @@ COPY mkdocs.yml .
 # Build new documentation
 RUN mkdocs build
 
-FROM python:3.11-alpine
-WORKDIR /tmp
-COPY --from=builder /tmp/site ./site
-EXPOSE 80
-# Run webserver
-CMD ["python", "-m", "http.server", "80", "-d", "site/"]
+FROM busybox
+RUN adduser -D static
+USER static
+WORKDIR /home/static
+COPY --from=builder /tmp/site .
+CMD ["busybox", "httpd", "-f", "-v", "-p", "80"]

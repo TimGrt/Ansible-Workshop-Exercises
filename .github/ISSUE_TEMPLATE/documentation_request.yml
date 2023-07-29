@@ -1,0 +1,81 @@
+---
+name: 📝 Documentation Request
+description: Request a new or an updated input to the exercises.
+labels: ["enhancement"]
+body:
+- type: markdown
+  attributes:
+    value: |
+      **Thank you for taking the time to open this Issue!**
+
+      💡 **Please note**
+      This Issue type is meant for requesting a new or an updated input for the Workshop Exercises Guide.
+      For a missing feature to the MkDocs deployment itself, please use the [Feature request](https://github.com/TimGrt/Ansible-Workshop-Exercises/issues/new?assignees=&labels=feature&template=feature_request.yml) issue type.
+
+- type: input
+  id: contact
+  attributes:
+      label: ☎️ Contact Details
+      description: How can we get in touch with you if we need more info?
+      placeholder: ex. email@example.com
+  validations:
+      required: false
+
+- type: dropdown
+  id: section
+  attributes:
+    label: Which section?
+    description: Which section of the Guide needs an update?
+    options:
+      - Workshop Overview
+      - Ansible Basics
+      - Automation Platform
+      - Projects
+      - Ansible Future
+  validations:
+    required: true
+
+- type: dropdown
+  id: sub-section
+  attributes:
+    label: Which sub-section?
+    description: Which sub-section of the Guide needs an update, if applicable?
+    options:
+      - Workshop Overview > RedHat Demo Environment
+      - Workshop Overview > Editor Alternatives
+      - Ansible Basics > Overview
+      - Ansible Basics > 1 - Check the Prerequisites
+      - Ansible Basics > 2 - The Ansible Basics
+      - Ansible Basics > 3 - Writing your first Playbook
+      - Ansible Basics > 4 - Using Variables
+      - Ansible Basics > 5 - Work with conditionals
+      - Ansible Basics > 6 - Run tasks multiple times
+      - Ansible Basics > 7 - Trigger changes with Handlers
+      - Ansible Basics > 8 - Templating with Jinja2
+      - Ansible Basics > 9 - Reusability with Roles
+      - Ansible Basics > Bonus exercises
+      - Automation Platform > Overview
+      - Automation Platform > 1 - AAP Introduction
+      - Automation Platform > 2 - Inventory & Ad-hoc commands
+      - Automation Platform > 3 - Projects & Job Templates
+      - Automation Platform > 4 - Surveys
+      - Automation Platform > 5 - Role-based access control
+      - Automation Platform > 6 - Workflows
+      - Automation Platform > 7 - AAP Wrap up
+      - Projects > Overview
+      - Projects > Project - Linux automation
+      - Projects > Project - Network automation
+      - Projects > Project - AWS Automation
+      - Ansible Future > Overview
+      - Ansible Future > Ansible Navigator
+  validations:
+    required: false
+
+- type: textarea
+  id: whats-missing
+  attributes:
+    label: What is missing?
+    description: What needs to be documented better or even documented at all?
+    value: "Please give a clear and concise explanation what needs to be updated or documented!"
+  validations:
+    required: true

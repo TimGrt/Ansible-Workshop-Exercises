@@ -1,5 +1,5 @@
 ---
-name: Deploy MkDocs to Github pages
+name: Deploy to Github pages
 on:
   workflow_dispatch:
   push:
@@ -10,6 +10,7 @@ on:
       - main
 jobs:
   deploy:
+    name: Deploy MkDocs project to Github pages
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
