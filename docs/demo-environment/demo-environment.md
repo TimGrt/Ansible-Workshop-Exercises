@@ -19,3 +19,19 @@ At its heart, Visual Studio Code is a code editor. Like many other code editors,
 
 If you want the real YAML challenge, try to write all your playbooks in the terminal/on the command-line. Expect to struggle at first with indentation, which leads to errors trying to run your playbooks.  
 Nevertheless, mastering to write Ansible playbooks without the help of a Code editor is the best possible way to really understand the YAML syntax. It doesn't take long and is highly rewarding.
+
+### Useful VScode configuration
+
+#### Color theme for syntax highlighting
+
+The *Ansible* extension supports *syntax-highlighting* for Ansible content. Depending on the used *theme* of VScode, this might not be shown correctly. Use the **Default Dark+** theme.  
+Click on *File* in the top menu bar, click on *Preferences* and open *Settings*. Search for `theme` and choose the *Dark+ (default dark)* from the drop-down menu.
+
+![Workbench Color Theme](WorkbenchColorTheme.png)
+
+#### Terminal Scrollback
+
+By default, scrollback of only 1000 lines is possible. If you need to scroll back further, you need to adjust this limit.  
+Click on *File* in the top menu bar, click on *Preferences* and open *Settings*. Search for `scrollback` and adjust the number to 10000 in the second configuration parameter (*Terminal > Integrated: Scrollback*).
+
+![Terminal Scrollback configuration](TerminalScrollback.png)

@@ -244,7 +244,7 @@ Dealing with network devices often means dealing with large JSON objects and you
 
 The Ansible module you will be using returns a JSON output like the following:
 
-```json hl_lines="22 36"
+```json hl_lines="22 36" linenums="1"
   "changed": false,
   "current": [
     {
@@ -394,9 +394,14 @@ Achieve the following tasks:
 
     The following tips may help you to develop a solution:
 
-    * Use the `cisco.aci.aci_contract` module.  
+    * Use the `cisco.aci.aci_contract` module.
+    * Define the tenant `common` in the module, otherwise you will get **all** contracts of **all** users, which is harder to parse.  
     * Use `state: query` for listing all contract objects.  
-    * Store the module output in a variable (register).
+    * Store the module output in a variable (register).  
     * Use the `json_query` filter. The filter is part of the `community.general` collection.  
+    * You need to install a Python package for the filter, run `pip3.9 install jmespath` (if your Ansible uses Python3.9, run `ansible --version` to find out)
     * Traversing the JSON object can be achieved by `current[0].fvTenant.children...`  
-    * Output to stdout can be achieved the debug module.
+    * Output to stdout can be achieved with the debug module.
+
+Dealing with large JSON objects and outputting it to stdout may result in not being able to scroll back far enough to see the start of your task or playbook.  
+You can adjust the [VScode configuration](demo-environment.md#terminal-scrollback) yourself.
