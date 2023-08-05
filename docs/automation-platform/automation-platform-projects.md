@@ -70,7 +70,7 @@ To configure and use this repository as a **Source Control Management (SCM)** sy
 | Name                           | `Workshop Project`              |
 | Organization                   | `Default`                       |
 | Default Execution Environment  | `Default Execution Environment` |
-| Source Control Credential Type | `Git`                           |
+| Source Control Type            | `Git`                           |
 
  Enter the URL into the Project configuration:
 

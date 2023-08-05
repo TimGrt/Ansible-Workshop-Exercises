@@ -382,7 +382,9 @@ ok: [demo-aci-host] => {
 ```
 
 !!! tip
-    There are multiple ways to achieve the desired solution, try around!
+    There are multiple ways to achieve the desired solution, try around!  
+    Dealing with large JSON objects and outputting it to stdout may result in not being able to scroll back far enough to see the start of your task or playbook.  
+    You can adjust the [VScode configuration](demo-environment.md#terminal-scrollback) yourself.
 
 Achieve the following tasks:
 
@@ -402,6 +404,3 @@ Achieve the following tasks:
     * You need to install a Python package for the filter, run `pip3.9 install jmespath` (if your Ansible uses Python3.9, run `ansible --version` to find out)
     * Traversing the JSON object can be achieved by `current[0].fvTenant.children...`  
     * Output to stdout can be achieved with the debug module.
-
-Dealing with large JSON objects and outputting it to stdout may result in not being able to scroll back far enough to see the start of your task or playbook.  
-You can adjust the [VScode configuration](demo-environment.md#terminal-scrollback) yourself.
