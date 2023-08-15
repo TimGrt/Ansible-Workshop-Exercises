@@ -19,3 +19,6 @@ MD038: false
 
 # MD046/code-block-style - Code block style
 MD046: false
+
+# MD052/reference-links-images - Reference links and images should use a label that is defined
+MD052: false
