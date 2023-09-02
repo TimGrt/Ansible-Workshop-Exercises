@@ -16,6 +16,7 @@ extra_javascript:
   - assets/javascripts/extra/tablesort.min.js
   - assets/javascripts/extra/tablesort.js
 markdown_extensions:
+  - abbr
   - admonition
   - attr_list
   - md_in_html
@@ -30,7 +31,9 @@ markdown_extensions:
       pygments_lang_class: true
   - pymdownx.inlinehilite
   - pymdownx.keys
-  - pymdownx.snippets
+  - pymdownx.snippets:
+      auto_append:
+        - includes/abbreviations.md
   - pymdownx.superfences
   - pymdownx.details
   - tables
@@ -45,7 +48,7 @@ plugins:
   - search:
       lang: en
       separator: '[\s]'
-  - autolinks
+  - autolinks:
   - git-revision-date-localized:
     # This plugin needs a Git executable and the .git folder
       enabled: !ENV [ENABLED_GIT_REVISION_DATE, True]
@@ -80,7 +83,7 @@ theme:
     - search.suggest
   palette:
     - scheme: default
-      primary: light-blue
+      primary: light blue
       toggle:
         icon: material/weather-night
         name: Switch to dark mode
