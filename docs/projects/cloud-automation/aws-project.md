@@ -1,7 +1,7 @@
 # Project - AWS Automation
 
 Automating Cloud infrastructure is getting more and more important. Tools like *Terraform* are well suited for provisioning infrastructure in public cloud environments.  
-When dealing with immutable infrastructure, Terraform works well and is great at provisioning cloud resources and applications for AWS, Azure, Docker, GCP, and OCI.  However, there is more to IT operations than automated infrastructure provisioning and this is why Ansible is extremely popular as well.
+When dealing with immutable infrastructure, Terraform works well and is great at provisioning cloud resources and applications for AWS, Azure, Docker, GCP, and others.  However, there is more to IT operations than automated infrastructure provisioning and this is why Ansible is extremely popular as well.
 
 Terraform is an excellent cloud provisioning and de-provisioning tool for infrastructure as code.  Ansible is a great all-purpose, cross-domain automation solution.  
 Together, they perform in harmony to create a better experience for developers and operations teams. Still, this workshops focus is Ansible, let us do provisioning **and** configuration in the cloud with the tool we learned.

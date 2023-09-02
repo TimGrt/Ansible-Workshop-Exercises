@@ -17,12 +17,12 @@ Unlike most Ansible modules, network modules do not run on the managed nodes. Fr
 
 ## Guide
 
-You will execute some automation tasks against Cisco ACI. The Cisco Application Centric Infrastructure (ACI) allows application requirements to define the network. This architecture simplifies, optimizes, and accelerates the entire application deployment life cycle.  
-The Application Policy Infrastructure Controller (APIC) manages the scalable ACI multi-tenant fabric. The APIC provides a unified point of automation and management, policy programming, application deployment, and health monitoring for the fabric. The APIC, which is implemented as a replicated synchronized clustered controller, optimizes performance, supports any application anywhere, and provides unified operation of the physical and virtual infrastructure.
+You will execute some automation tasks against Cisco ACI. The Cisco Application Centric Infrastructure allows application requirements to define the network. This architecture simplifies, optimizes, and accelerates the entire application deployment life cycle.  
+The Application Policy Infrastructure Controller manages the scalable ACI multi-tenant fabric. The APIC provides a unified point of automation and management, policy programming, application deployment, and health monitoring for the fabric. The APIC, which is implemented as a replicated synchronized clustered controller, optimizes performance, supports any application anywhere, and provides unified operation of the physical and virtual infrastructure.
 
 The APIC enables network administrators to easily define the optimal network for applications. Data center operators can clearly see how applications consume network resources, easily isolate and troubleshoot application and infrastructure problems, and monitor and profile resource usage patterns.
 
-The Cisco Application Policy Infrastructure Controller (APIC) API enables applications to directly connect with a secure, shared, high-performance resource pool that includes network, compute, and storage capabilities.
+The Cisco Application Policy Infrastructure Controller API enables applications to directly connect with a secure, shared, high-performance resource pool that includes network, compute, and storage capabilities.
 
 ### Step 1 - Prepare project
 
@@ -180,7 +180,7 @@ Achieve the following tasks:
 ### Step 4 - AP creation and EPGs
 
 Now, that we have our own custom tenant, lets fill it with content. Create an Application profile and add multiple end point groups.
-Application profiles (APs) are containers for the grouping of endpoint groups (EPGs). For example, an AP could group a web server with the backend database, with storage, and so on.
+Application profiles are *container* for the grouping of endpoint groups. For example, an AP could group a web server with the backend database, with storage, and so on.
 
 Create an *Application profile* with the following attributes:
 
