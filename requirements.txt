@@ -1,5 +1,5 @@
-mkdocs
-mkdocs-autolinks-plugin
-mkdocs-git-revision-date-localized-plugin
-mkdocs-material
-mkdocs-print-site-plugin
+mkdocs==1.5.3
+mkdocs-autolinks-plugin==0.7.1
+mkdocs-git-revision-date-localized-plugin==1.2.0
+mkdocs-material==9.4.5
+mkdocs-print-site-plugin==2.3.6
