@@ -4,7 +4,7 @@ This repository contains all exercise descriptions for my Ansible Workshop, util
 The exercises are build with MkDocs and published to [Github pages](https://timgrt.github.io/Ansible-Workshop-Exercises).
 A Dockerfile is included to build a container image which publishes the exercises as a Webserver.
 
-[![Markdown Lint](https://github.com/TimGrt/Ansible-Best-Practices/actions/workflows/ci.yml/badge.svg)](https://github.com/TimGrt/Ansible-Best-Practices/actions/workflows/ci.yml) [![Deploy MkDocs to Github pages](https://github.com/TimGrt/Ansible-Workshop-Exercises/actions/workflows/cd.yml/badge.svg)](https://github.com/TimGrt/Ansible-Workshop-Exercises/actions/workflows/cd.yml)
+[![Markdown Lint](https://github.com/TimGrt/Ansible-Best-Practices/actions/workflows/ci.yml/badge.svg)](https://github.com/TimGrt/Ansible-Best-Practices/actions/workflows/ci.yml) [![Deploy MkDocs to Github pages](https://github.com/TimGrt/Ansible-Workshop-Exercises/actions/workflows/cd.yml/badge.svg)](https://github.com/TimGrt/Ansible-Workshop-Exercises/actions/workflows/cd.yml) [![Built with Material for MkDocs](https://img.shields.io/badge/Material_for_MkDocs-526CFE?logo=MaterialForMkDocs&logoColor=white)](https://squidfunk.github.io/mkdocs-material/)
 
 ## Podman
 
