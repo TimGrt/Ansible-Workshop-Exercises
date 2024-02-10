@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block announce %}
+  <!-- Add announcement here, including arbitrary HTML -->
+  <span class="twemoji">{% include ".icons/octicons/comment-discussion-24.svg" %}</span> &nbsp;The current Workshop URL: <b><a href="https://rh0555.example.opentlc.com/" target="_blank">https://rh0555.example.opentlc.com/</a></b>
+{% endblock %}
+
+{% block content %}
+
+{% if page.url_to_print_page %}
+    <a href="{{ page.url_to_print_page }}" title="Print Site" class="md-content__button md-icon">
+        {% include ".icons/material/file-pdf-box.svg" %}
+    </a>
+{% endif %}
+
+{{ super() }}
+{% endblock content %}
