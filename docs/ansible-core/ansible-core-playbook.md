@@ -271,7 +271,13 @@ Thus with the second task we make sure the Apache server is indeed running on th
     [student@ansible-1 ~]$ ansible-navigator run apache.yml -m stdout
     ```
 
-Notice in the output, we see the play had `1` "CHANGED" shown in yellow and if we press `0` to enter the play output, you can see that task 2, "Apache enabled and running", was the task that incorporated the latest change by the "CHANGED" value being set to True and highlighted in yellow.
+    You may also run the playbook in *interactive* mode:
+
+    ``` { .console .no-copy }
+    [student@ansible-1 ~]$ ansible-navigator run apache.yml -m interactive
+    ```
+
+    Notice in the output, we see the play had `1` "CHANGED" shown in yellow. Press `0` to enter the play output, you can see that task 2, "Ensure Apache is enabled and running", was the task that incorporated the latest change by the "CHANGED" value being set to True and highlighted in yellow.
 
 * Run the playbook a second time  to get used to the change in the output.
 
