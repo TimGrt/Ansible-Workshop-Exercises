@@ -910,7 +910,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../automation-platform/automation-platform-credentials/" class="md-nav__link">
+      <a href="../automation-platform/automation-platform-inventory/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1506,7 +1506,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#automation-platform-automation-platform-credentials" class="md-nav__link">
+  <a href="#automation-platform-automation-platform-inventory" class="md-nav__link">
     <span class="md-ellipsis">
       17. 2 - Inventory & Ad-hoc commands
     </span>
@@ -2707,14 +2707,10 @@ The second task uses the <code>debug</code> module. The variable <em>ansible_fac
 </ul>
 <p>As you might remember, the inventory lists all nodes as members of the group <code>web</code>:</p>
 <div class="language-ini no-copy highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#ansible-core-ansible-core-playbook-__codelineno-28-1"></a><span class="k">[web]</span>
-</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#ansible-core-ansible-core-playbook-__codelineno-28-2"></a><span class="na">node1 ansible_host</span><span class="o">=</span><span class="s">11.22.33.44</span>
-</span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#ansible-core-ansible-core-playbook-__codelineno-28-3"></a><span class="na">node2 ansible_host</span><span class="o">=</span><span class="s">22.33.44.55</span>
-</span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4" href="#ansible-core-ansible-core-playbook-__codelineno-28-4"></a><span class="na">node3 ansible_host</span><span class="o">=</span><span class="s">33.44.55.66</span>
+</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#ansible-core-ansible-core-playbook-__codelineno-28-2"></a><span class="na">node1 ansible_host</span><span class="o">=</span><span class="s">node1.example.com</span>
+</span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#ansible-core-ansible-core-playbook-__codelineno-28-3"></a><span class="na">node2 ansible_host</span><span class="o">=</span><span class="s">node2.example.com</span>
+</span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4" href="#ansible-core-ansible-core-playbook-__codelineno-28-4"></a><span class="na">node3 ansible_host</span><span class="o">=</span><span class="s">node3.example.com</span>
 </span></code></pre></div>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>The IP addresses shown here are just examples, your nodes will have different IP addresses.</p>
-</div>
 <p>Change the playbook <code>hosts</code> parameter to point to <code>web</code> instead of <code>node1</code>:</p>
 <div class="language-yaml highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#ansible-core-ansible-core-playbook-__codelineno-29-1"></a><span class="nn">---</span>
 </span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#ansible-core-ansible-core-playbook-__codelineno-29-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Apache server installation</span>
@@ -3079,21 +3075,17 @@ The facts contain useful information stored into variables that administrators c
 <h3 id="ansible-core-ansible-core-conditionals-step-1-install-service-conditionally">Step 1 - Install service conditionally</h3>
 <p>As an example we would like to install an <abbr title="File Transfer Protocol">FTP</abbr> server, but only on hosts that are in the <code>ftpserver</code> inventory group.</p>
 <p>To do that, first edit the inventory to add another group, and place <code>node2</code> in it. Make sure that that IP address of <code>node2</code> is always the same when <code>node2</code> is listed. Edit the inventory <code>~/lab_inventory/hosts</code> to look like the following listing:</p>
-<div class="language-ini no-copy highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#ansible-core-ansible-core-conditionals-__codelineno-0-1"></a><span class="k">[web]</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#ansible-core-ansible-core-conditionals-__codelineno-0-2"></a><span class="na">node1 ansible_host</span><span class="o">=</span><span class="s">11.22.33.44</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#ansible-core-ansible-core-conditionals-__codelineno-0-3"></a><span class="na">node2 ansible_host</span><span class="o">=</span><span class="s">22.33.44.55</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#ansible-core-ansible-core-conditionals-__codelineno-0-4"></a><span class="na">node3 ansible_host</span><span class="o">=</span><span class="s">33.44.55.66</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#ansible-core-ansible-core-conditionals-__codelineno-0-5"></a>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#ansible-core-ansible-core-conditionals-__codelineno-0-6"></a><span class="k">[ftpserver]</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#ansible-core-ansible-core-conditionals-__codelineno-0-7"></a><span class="na">node2 ansible_host</span><span class="o">=</span><span class="s">22.33.44.55</span>
+<div class="language-ini no-copy highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#ansible-core-ansible-core-conditionals-__codelineno-0-1"></a><span class="k">[control]</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#ansible-core-ansible-core-conditionals-__codelineno-0-2"></a><span class="na">ansible-1 ansible_host</span><span class="o">=</span><span class="s">ansible-1.example.com</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#ansible-core-ansible-core-conditionals-__codelineno-0-3"></a>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#ansible-core-ansible-core-conditionals-__codelineno-0-4"></a><span class="k">[web]</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#ansible-core-ansible-core-conditionals-__codelineno-0-5"></a><span class="na">node1 ansible_host</span><span class="o">=</span><span class="s">node1.example.com</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#ansible-core-ansible-core-conditionals-__codelineno-0-6"></a><span class="na">node2 ansible_host</span><span class="o">=</span><span class="s">node2.example.com</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#ansible-core-ansible-core-conditionals-__codelineno-0-7"></a><span class="na">node3 ansible_host</span><span class="o">=</span><span class="s">node3.example.com</span>
 </span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#ansible-core-ansible-core-conditionals-__codelineno-0-8"></a>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#ansible-core-ansible-core-conditionals-__codelineno-0-9"></a><span class="k">[control]</span>
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#ansible-core-ansible-core-conditionals-__codelineno-0-10"></a><span class="na">ansible-1 ansible_host</span><span class="o">=</span><span class="s">44.55.66.77</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#ansible-core-ansible-core-conditionals-__codelineno-0-9"></a><span class="k">[ftpserver]</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#ansible-core-ansible-core-conditionals-__codelineno-0-10"></a><span class="na">node2 ansible_host</span><span class="o">=</span><span class="s">node2.example.com</span>
 </span></code></pre></div>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Do not copy the inventory above with placeholder IPs, use your own inventory file!</p>
-</div>
 <p>Next create the file <code>ftpserver.yml</code> on your control host in the <code>~/ansible-files/</code> directory:</p>
 <div class="language-yaml highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#ansible-core-ansible-core-conditionals-__codelineno-1-1"></a><span class="nn">---</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#ansible-core-ansible-core-conditionals-__codelineno-1-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install vsftpd if hosts are in inventory group</span>
@@ -4145,7 +4137,7 @@ Create a new variable section (with <em>:vars</em>) for the <em>web</em> group a
 <p>You will complete the following exercises today:</p>
 <ul>
 <li><a href="#automation-platform-automation-platform-intro">Exercise 1 - Introduction</a></li>
-<li><a href="#automation-platform-automation-platform-credentials">Exercise 2 - Inventories, credentials and ad hoc commands</a></li>
+<li><a href="#automation-platform-automation-platform-inventory">Exercise 2 - Inventories, credentials and ad hoc commands</a></li>
 <li><a href="#automation-platform-automation-platform-projects">Exercise 3 - Projects &amp; Job Templates</a></li>
 <li><a href="#automation-platform-automation-platform-surveys">Exercise 4 - Surveys</a></li>
 <li><a href="#automation-platform-automation-platform-rbac">Exercise 5 - Role-based access control</a></li>
@@ -4226,7 +4218,7 @@ Create a new variable section (with <em>:vars</em>) for the <em>web</em> group a
 </table>
 <p>The Ansible automation controller provided in this lab is individually setup for you. Make sure to access the right machine whenever you work with it. Automation controller has already been installed and licensed for you, the web <abbr title="User Interface">UI</abbr> will be reachable over <abbr title="Hyper Text Transfer Protocol">HTTP</abbr>/<abbr title="Hypertext Transfer Protocol Secure">HTTPS</abbr>.</p>
 <h3 id="automation-platform-automation-platform-intro-dashboard">Dashboard</h3>
-<p>Let's have a first look at the automation controller: Point your browser to the <abbr title="Uniform Resource Locator">URL</abbr> you were given, similar to <code>https://student&lt;X&gt;.&lt;workshopname&gt;.demoredhat.com</code> (replace <code>&lt;X&gt;</code> with your student number and <code>workshopname</code> with the name of your current workshop) and log in as <code>admin</code>. The password will be provided by the instructor.</p>
+<p>Let's have a first look at the automation controller: Point your browser to the <abbr title="Uniform Resource Locator">URL</abbr> you were given, similar to <code>https://demo.redhat.com/workshop/pm6xgd</code> (the  current workshop ID will be different) and log in as <code>admin</code>. The password will be provided by the instructor.</p>
 <p>The web <abbr title="User Interface">UI</abbr> of automation controller greets you with a dashboard with a graph showing:</p>
 <ul>
 <li>recent job activity</li>
@@ -4248,8 +4240,8 @@ Create a new variable section (with <em>:vars</em>) for the <em>web</em> group a
 <p>A job template is a definition and set of parameters for running an Ansible job. Job templates are useful to execute the same job many times. Job templates also encourage the reuse of Ansible playbook content and collaboration between teams. To execute a job, automation Controller requires that you first create a job template.</p>
 <h4 id="automation-platform-automation-platform-intro-jobs">Jobs</h4>
 <p>A job is basically an instance of automation controller launching an Ansible playbook against an inventory of hosts.</p>
-<!-- markdownlint-disable --></section><section class="print-page" id="automation-platform-automation-platform-credentials"><h1 id="automation-platform-automation-platform-credentials-2-inventory-ad-hoc-commands">2 - Inventory &amp; Ad-hoc commands</h1>
-<h2 id="automation-platform-automation-platform-credentials-objective">Objective</h2>
+<!-- markdownlint-disable --></section><section class="print-page" id="automation-platform-automation-platform-inventory"><h1 id="automation-platform-automation-platform-inventory-2-inventory-ad-hoc-commands">2 - Inventory &amp; Ad-hoc commands</h1>
+<h2 id="automation-platform-automation-platform-inventory-objective">Objective</h2>
 <p>Explore and understand the lab environment.  This exercise will cover</p>
 <ul>
 <li>
@@ -4263,27 +4255,27 @@ Create a new variable section (with <em>:vars</em>) for the <em>web</em> group a
 <p>Running ad hoc commands via the Ansible Automation Controller web <abbr title="User Interface">UI</abbr></p>
 </li>
 </ul>
-<h2 id="automation-platform-automation-platform-credentials-guide">Guide</h2>
-<h3 id="automation-platform-automation-platform-credentials-examine-an-inventory">Examine an Inventory</h3>
+<h2 id="automation-platform-automation-platform-inventory-guide">Guide</h2>
+<h3 id="automation-platform-automation-platform-inventory-examine-an-inventory">Examine an Inventory</h3>
 <p>The first thing we need is an inventory of your managed hosts. This is the equivalent of an inventory file in Ansible Engine. There is a lot more to it (like dynamic inventories) but let’s start with the basics.</p>
 <ul>
-<li>You should already have the web <abbr title="User Interface">UI</abbr> open, if not: Point your browser to the <abbr title="Uniform Resource Locator">URL</abbr> you were given, similar to <code>https://student&lt;X&gt;.workshopname.demoredhat.com</code> (replace "\&lt;X&gt;" with your student number and "workshopname" with the name of your current workshop) and log in as <code>admin</code>. The password will be provided by the instructor.</li>
+<li>You should already have the web <abbr title="User Interface">UI</abbr> open, if not: Point your browser to the <abbr title="Uniform Resource Locator">URL</abbr> you were given, similar to <code>https://demo.redhat.com/workshop/pm6xgd</code> (the <em>workshop ID</em> will be different) and log in as <code>admin</code>. The password will be provided by the instructor.</li>
 </ul>
 <p>There will be one inventory, the <strong>Workshop Inventory</strong>. Click the <strong>Workshop Inventory</strong> then click the <strong>Hosts</strong> button</p>
 <p>The inventory information at <code>~/lab_inventory/hosts</code> was pre-loaded into the Ansible Automation controller Inventory as part of the provisioning process.</p>
-<div class="language-ini no-copy highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#automation-platform-automation-platform-credentials-__codelineno-0-1"></a><span class="k">[web]</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#automation-platform-automation-platform-credentials-__codelineno-0-2"></a><span class="na">node1 ansible_host</span><span class="o">=</span><span class="s">22.33.44.55</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#automation-platform-automation-platform-credentials-__codelineno-0-3"></a><span class="na">node2 ansible_host</span><span class="o">=</span><span class="s">33.44.55.66</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#automation-platform-automation-platform-credentials-__codelineno-0-4"></a><span class="na">node3 ansible_host</span><span class="o">=</span><span class="s">44.55.66.77</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#automation-platform-automation-platform-credentials-__codelineno-0-5"></a>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#automation-platform-automation-platform-credentials-__codelineno-0-6"></a><span class="k">[control]</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#automation-platform-automation-platform-credentials-__codelineno-0-7"></a><span class="na">ansible ansible_host</span><span class="o">=</span><span class="s">11.22.33.44</span>
+<div class="language-ini no-copy highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#automation-platform-automation-platform-inventory-__codelineno-0-1"></a><span class="k">[web]</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#automation-platform-automation-platform-inventory-__codelineno-0-2"></a><span class="na">node1 ansible_host</span><span class="o">=</span><span class="s">node1.example.com</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#automation-platform-automation-platform-inventory-__codelineno-0-3"></a><span class="na">node2 ansible_host</span><span class="o">=</span><span class="s">node2.example.com</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#automation-platform-automation-platform-inventory-__codelineno-0-4"></a><span class="na">node3 ansible_host</span><span class="o">=</span><span class="s">node3.example.com</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#automation-platform-automation-platform-inventory-__codelineno-0-5"></a>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#automation-platform-automation-platform-inventory-__codelineno-0-6"></a><span class="k">[control]</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#automation-platform-automation-platform-inventory-__codelineno-0-7"></a><span class="na">ansible-1 ansible_host</span><span class="o">=</span><span class="s">ansible-1.example.com</span>
 </span></code></pre></div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>In your inventory the IP addresses will be different, do not copy the values above!</p>
 </div>
-<h3 id="automation-platform-automation-platform-credentials-examine-machine-credentials">Examine Machine Credentials</h3>
+<h3 id="automation-platform-automation-platform-inventory-examine-machine-credentials">Examine Machine Credentials</h3>
 <p>Now we will examine the credentials to access our managed hosts from Automation controller.  As part of the provisioning process for this Ansible Workshop the <strong>Workshop Credential</strong> has already been setup.</p>
 <p>In the <strong>Resources</strong> menu choose <strong>Credentials</strong>. Now click on the <strong>Workshop Credential</strong>.</p>
 <p>Note the following information:</p>
@@ -4313,14 +4305,19 @@ Create a new variable section (with <em>:vars</em>) for the <em>web</em> group a
 </tr>
 </tbody>
 </table>
-<h3 id="automation-platform-automation-platform-credentials-run-ad-hoc-commands">Run Ad Hoc commands</h3>
+<h3 id="automation-platform-automation-platform-inventory-run-ad-hoc-commands">Run Ad Hoc commands</h3>
 <p>It is possible to run run ad hoc commands from Ansible Automation controller as well.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p><strong>Ensure</strong> that all hosts are available and can be included in automation jobs.<br />
+Got to <strong>Resources → Hosts</strong> and move the slider on the right to <strong>On</strong> for all hosts.</p>
+</div>
 <ul>
 <li>
 <p>In the web <abbr title="User Interface">UI</abbr> go to <strong>Resources → Inventories → Workshop Inventory</strong></p>
 </li>
 <li>
-<p>Click the <strong>Hosts</strong> tab to change into the hosts view and select the three hosts by ticking the boxes to the left of the host entries.</p>
+<p>Click the <strong>Hosts</strong> tab to change into the hosts view and select the three hosts <em>node1</em> to <em>node3</em> by ticking the boxes to the left of the host entries.</p>
 </li>
 <li>
 <p>Click <strong>Run Command</strong> button. In the next screen you have to specify the ad hoc command.</p>
@@ -4374,7 +4371,7 @@ Create a new variable section (with <em>:vars</em>) for the <em>web</em> group a
 <p>Oops, the last one didn’t went well, all red.</p>
 <p>Re-run the last ad hoc command but this time check the checkbox labeled <strong>Enable privilege escalation</strong>.</p>
 <p>As you see, this time it worked. For tasks that have to run as <code>root</code> you need to escalate the privileges. This is the same as the <strong>become: yes</strong> used in your Ansible Playbooks.</p>
-<h3 id="automation-platform-automation-platform-credentials-challenge-lab-ad-hoc-commands">Challenge Lab: Ad Hoc Commands</h3>
+<h3 id="automation-platform-automation-platform-inventory-challenge-lab-ad-hoc-commands">Challenge Lab: Ad Hoc Commands</h3>
 <p>Okay, a small challenge: Run an ad hoc to make sure the package "tmux" is installed on all hosts. If unsure, consult the documentation either via the web <abbr title="User Interface">UI</abbr> as shown above or by running <code>ansible-doc yum</code> on your Automation controller control host.</p>
 <details class="success">
 <summary>Solution</summary>
@@ -4592,7 +4589,7 @@ Create a new variable section (with <em>:vars</em>) for the <em>web</em> group a
 <h3 id="automation-platform-automation-platform-projects-challenge-lab-check-the-result">Challenge Lab: Check the Result</h3>
 <p>Time for a little challenge:</p>
 <ul>
-<li>Use an ad hoc command on both hosts to make sure Apache has been installed and is running.</li>
+<li>Use an ad hoc command on all hosts to make sure Apache has been installed and is running.</li>
 </ul>
 <p>You have already been through all the steps needed, so try this for yourself.</p>
 <div class="admonition tip">
@@ -4925,7 +4922,7 @@ Create a new variable section (with <em>:vars</em>) for the <em>web</em> group a
 </li>
 </ul>
 <p>Check the result: execute <code>curl</code> again on the control host to pull the content of the webserver on <code>node1</code> (you could of course check <code>node2</code> and <code>node3</code>, too):</p>
-<div class="language-console no-copy highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#automation-platform-automation-platform-rbac-__codelineno-0-1"></a><span class="gp">[student&lt;X&gt;@ansible-1 ~]$ </span>curl<span class="w"> </span>http://node1
+<div class="language-console no-copy highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#automation-platform-automation-platform-rbac-__codelineno-0-1"></a><span class="gp">[student@ansible-1 ~]$ </span>curl<span class="w"> </span>http://node1
 </span></code></pre></div>
 <p>Just recall what you have just done: You enabled a restricted user to run an Ansible playbook</p>
 <ul>
@@ -5220,7 +5217,7 @@ Click <strong>Save</strong>.</li>
 </div>
 <p><img alt="jobs view of workflow" src="../automation-platform/images/job_workflow.png" /></p>
 <p>After the job was finished, check if everything worked fine: from your control host run the following curl command against <code>node1</code>, <code>node2</code> and <code>node3</code>. The output of each curl command should be <code>Hello World</code>.</p>
-<div class="language-console no-copy highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#automation-platform-automation-platform-workflows-__codelineno-0-1"></a><span class="gp">[student&lt;X&gt;@ansible-1 ansible-files]$ </span>curl<span class="w"> </span>http://nodeX/nodejs
+<div class="language-console no-copy highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#automation-platform-automation-platform-workflows-__codelineno-0-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>curl<span class="w"> </span>http://nodeX/nodejs
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#automation-platform-automation-platform-workflows-__codelineno-0-2"></a><span class="go">Hello World</span>
 </span></code></pre></div>
 <div class="admonition note">
@@ -5256,14 +5253,14 @@ Click <strong>Save</strong>.</li>
 </ul>
 <h3 id="automation-platform-automation-platform-wrapup-the-git-repository">The Git Repository</h3>
 <p>All code is already in place - this is a automation controller lab after all. Check out the <strong>Workshop Project</strong> git repository at <a href="https://github.com/ansible/workshop-examples" target="_blank">https://github.com/ansible/workshop-examples</a>. There you will find the playbook <code>webcontent.yml</code>, which calls the role <code>role_webcontent</code>.</p>
-<p>Compared to the previous Apache installation role there is a major difference: there are now two versions of an <code>index.html</code> template, and a task deploying the template file which has a variable as part of the source file name.</p>
+<p>Compared to the previous Apache installation role there is a major difference: there are now multiple versions of an <code>index.html</code> template, and a task deploying the template file, which has a variable as part of the source file name.</p>
 <p>For the development servers the file is named <code>dev_index.html.j2</code> with the following content:</p>
 <div class="language-html highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#automation-platform-automation-platform-wrapup-__codelineno-0-1"></a><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#automation-platform-automation-platform-wrapup-__codelineno-0-2"></a><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>This is a development webserver, have fun!<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#automation-platform-automation-platform-wrapup-__codelineno-0-3"></a>{{ dev_content }}
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#automation-platform-automation-platform-wrapup-__codelineno-0-4"></a><span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
 </span></code></pre></div>
-<p>For the development servers the file is named <code>prod_index.html.j2</code> with the following content:</p>
+<p>For the production servers the file is named <code>prod_index.html.j2</code> with the following content:</p>
 <div class="language-html highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#automation-platform-automation-platform-wrapup-__codelineno-1-1"></a><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#automation-platform-automation-platform-wrapup-__codelineno-1-2"></a><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>This is a production webserver, take care!<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#automation-platform-automation-platform-wrapup-__codelineno-1-3"></a>{{ prod_content }}
@@ -5371,7 +5368,7 @@ Click <strong>Save</strong>.</li>
 </span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#automation-platform-automation-platform-wrapup-__codelineno-5-13"></a><span class="w">       </span><span class="nt">msg</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">uri_output.content</span><span class="nv"> </span><span class="s">}}&quot;</span>
 </span></code></pre></div>
 <p>Execute the playbook:</p>
-<div class="language-console no-copy highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#automation-platform-automation-platform-wrapup-__codelineno-6-1"></a><span class="gp">[student&lt;X&gt;@ansible-1 ~]$ </span>ansible-playbook<span class="w"> </span>check_url.yml
+<div class="language-console no-copy highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#automation-platform-automation-platform-wrapup-__codelineno-6-1"></a><span class="gp">[student@ansible-1 ~]$ </span>ansible-playbook<span class="w"> </span>check_url.yml
 </span></code></pre></div>
 <p>Snippet of output:</p>
 <div class="language-console no-copy highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#automation-platform-automation-platform-wrapup-__codelineno-7-1"></a><span class="go">TASK [debug] *******************************************************************</span>
@@ -5468,7 +5465,7 @@ Click <strong>Save</strong>.</li>
 </li>
 </ul>
 <p>Check the results again from your automation controller host. We will use the dedicated <code>uri</code> module within an Ansible playbook. As arguments it needs the actual <abbr title="Uniform Resource Locator">URL</abbr> and a flag to output the body in the results.</p>
-<div class="language-console no-copy highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#automation-platform-automation-platform-wrapup-__codelineno-8-1"></a><span class="gp">[student&lt;X&gt;@ansible-1 ~]$ </span>ansible-playbook<span class="w"> </span>check_url.yml
+<div class="language-console no-copy highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#automation-platform-automation-platform-wrapup-__codelineno-8-1"></a><span class="gp">[student@ansible-1 ~]$ </span>ansible-playbook<span class="w"> </span>check_url.yml
 </span></code></pre></div>
 <h3 id="automation-platform-automation-platform-wrapup-solution">Solution</h3>
 <div class="admonition warning">
@@ -6592,11 +6589,11 @@ Run your playbook, if it returns a green <em>ok</em> status, communication is es
 <tbody>
 <tr>
 <td>name</td>
-<td><code>Student&lt;X&gt;</code></td>
+<td><code>Demo Tenant &lt;Initials&gt;</code></td>
 </tr>
 <tr>
 <td>slug</td>
-<td><code>student&lt;X&gt;</code></td>
+<td><code>demo_tenant_&lt;initials&gt;</code></td>
 </tr>
 <tr>
 <td>description</td>
@@ -6610,7 +6607,7 @@ Run your playbook, if it returns a green <em>ok</em> status, communication is es
 </table>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Always replace <code>&lt;X&gt;</code> with your student ID.</p>
+<p>Replace <code>&lt;Initials&gt;</code> with your personal initials to identify the objects later on.</p>
 </div>
 <p>Achieve the following tasks:</p>
 <ul class="task-list">
@@ -6631,7 +6628,7 @@ Find an appropriate module to create a cluster and set the following module para
 <tbody>
 <tr>
 <td>name</td>
-<td><code>Student &lt;X&gt; VMs</code></td>
+<td><code>Demo Tenant &lt;Initials&gt; VMs</code></td>
 </tr>
 <tr>
 <td>site</td>
@@ -6647,10 +6644,6 @@ Find an appropriate module to create a cluster and set the following module para
 </tr>
 </tbody>
 </table>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Again, replace <code>&lt;X&gt;</code> with your student ID.</p>
-</div>
 <p>Achieve the following tasks:</p>
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Cluster created</li>
@@ -6667,6 +6660,9 @@ Find the correct module, every VM object should use the following parameters:</p
 <th>Parameter</th>
 <th>Value</th>
 <th>Example (rendered to)</th>
+<th></th>
+<th></th>
+<th></th>
 </tr>
 </thead>
 <tbody>
@@ -6674,57 +6670,87 @@ Find the correct module, every VM object should use the following parameters:</p
 <td>name</td>
 <td><code class="language-jinja highlight"><span class="x">&quot;</span><span class="cp">{{</span> <span class="nv">hostvars</span><span class="o">[</span><span class="nv">item</span><span class="o">][</span><span class="s1">&#39;ansible_fqdn&#39;</span><span class="o">]</span> <span class="cp">}}</span><span class="x">&quot;</span></code></td>
 <td><em>node2.example.com</em></td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 <tr>
 <td>site</td>
 <td><code>rh_demo_environment</code></td>
 <td></td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 <tr>
 <td>cluster</td>
-<td><code>Student &lt;X&gt; VMs</code></td>
-<td><em>Student 2 VMs</em></td>
+<td><code>Demo Tenant &lt;Initials&gt; VMs</code></td>
+<td><em>Demo Tenant TG VMs</em></td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 <tr>
 <td>tenant</td>
-<td><code>student&lt;X&gt;</code></td>
+<td><code>demo_tenant_&lt;initials&gt;</code></td>
 <td><em>student2</em></td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 <tr>
 <td>platform</td>
-<td><code class="language-jinja highlight"><span class="x">&quot;</span><span class="cp">{{</span> <span class="nv">hostvars</span><span class="o">[</span><span class="nv">item</span><span class="o">][</span><span class="s1">&#39;ansible_distribution&#39;</span><span class="o">]</span> <span class="o">|</span> <span class="nf">lower</span> <span class="cp">}}</span><span class="x">_</span><span class="cp">{{</span> <span class="nv">hostvars</span><span class="o">[</span><span class="nv">item</span><span class="o">][</span><span class="s1">&#39;ansible_distribution_major_version&#39;</span><span class="o">]</span> <span class="cp">}}</span><span class="x">&quot;</span></code></td>
+<td><code class="language-jinja highlight"><span class="x">&quot;</span><span class="cp">{{</span> <span class="nv">hostvars</span><span class="o">[</span><span class="nv">item</span><span class="o">][</span><span class="s1">&#39;ansible_distribution&#39;</span><span class="o">]</span>               <span class="o">|</span> <span class="nf">lower</span> <span class="cp">}}</span><span class="x">_</span><span class="cp">{{</span> <span class="nv">hostvars</span><span class="o">[</span><span class="nv">item</span><span class="o">][</span><span class="s1">&#39;ansible_distribution_major_version&#39;</span><span class="o">]</span> <span class="cp">}}</span><span class="x">&quot;</span></code></td>
 <td><em>Redhat 8</em></td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 <tr>
 <td>vcpus</td>
 <td><code class="language-jinja highlight"><span class="x">&quot;</span><span class="cp">{{</span> <span class="nv">hostvars</span><span class="o">[</span><span class="nv">item</span><span class="o">][</span><span class="s1">&#39;ansible_processor_vcpus&#39;</span><span class="o">]</span> <span class="cp">}}</span><span class="x">&quot;</span></code></td>
 <td><em>2</em></td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 <tr>
 <td>memory</td>
 <td><code class="language-jinja highlight"><span class="x">&quot;</span><span class="cp">{{</span> <span class="nv">hostvars</span><span class="o">[</span><span class="nv">item</span><span class="o">][</span><span class="s1">&#39;ansible_memtotal_mb&#39;</span><span class="o">]</span> <span class="cp">}}</span><span class="x">&quot;</span></code></td>
 <td><em>1024</em></td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 <tr>
 <td>disk</td>
-<td><code class="language-jinja highlight"><span class="x">&quot;</span><span class="cp">{{</span> <span class="nv">hostvars</span><span class="o">[</span><span class="nv">item</span><span class="o">][</span><span class="s1">&#39;ansible_devices&#39;</span><span class="o">][</span><span class="s1">&#39;nvme0n1&#39;</span><span class="o">][</span><span class="s1">&#39;size&#39;</span><span class="o">]</span> <span class="o">|</span> <span class="nf">split</span><span class="o">(</span><span class="s1">&#39; &#39;</span><span class="o">)</span> <span class="o">|</span> <span class="nf">first</span> <span class="o">|</span> <span class="nf">int</span> <span class="cp">}}</span><span class="x">&quot;</span></code></td>
+<td><code class="language-jinja highlight"><span class="x">&quot;</span><span class="cp">{{</span> <span class="nv">hostvars</span><span class="o">[</span><span class="nv">item</span><span class="o">][</span><span class="s1">&#39;ansible_devices&#39;</span><span class="o">][</span><span class="s1">&#39;nvme0n1&#39;</span><span class="o">][</span><span class="s1">&#39;size&#39;</span><span class="o">]</span> <span class="o">|</span> <span class="nf">split</span><span class="o">(</span><span class="s1">&#39; &#39;</span><span class="o">)</span>                                                            <span class="o">|</span> <span class="nf">first</span>      <span class="o">|</span> <span class="nf">int</span> <span class="cp">}}</span><span class="x">&quot;</span></code></td>
 <td><em>10</em></td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 <tr>
 <td>virtual_machine_role</td>
 <td><code>application-server</code></td>
+<td></td>
+<td></td>
+<td></td>
 <td></td>
 </tr>
 <tr>
 <td>status</td>
 <td><code>Active</code></td>
 <td></td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 </tbody>
 </table>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Again, replace <code>&lt;X&gt;</code> with your student ID.</p>
+<p>Again, replace <code>&lt;initials&gt;</code> with your own Initials.</p>
 </div>
 <p>Achieve the following tasks:</p>
 <ul class="task-list">
@@ -7168,14 +7194,10 @@ They are a defined, consistent and portable environment for Ansible Automation c
 </ul>
 <p>As you might remember, the inventory lists all nodes as members of the group <code>web</code>:</p>
 <div class="language-ini no-copy highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#ansible-navigator-ansible-navigator-__codelineno-28-1"></a><span class="k">[web]</span>
-</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#ansible-navigator-ansible-navigator-__codelineno-28-2"></a><span class="na">node1 ansible_host</span><span class="o">=</span><span class="s">11.22.33.44</span>
-</span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#ansible-navigator-ansible-navigator-__codelineno-28-3"></a><span class="na">node2 ansible_host</span><span class="o">=</span><span class="s">22.33.44.55</span>
-</span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4" href="#ansible-navigator-ansible-navigator-__codelineno-28-4"></a><span class="na">node3 ansible_host</span><span class="o">=</span><span class="s">33.44.55.66</span>
+</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#ansible-navigator-ansible-navigator-__codelineno-28-2"></a><span class="na">node1 ansible_host</span><span class="o">=</span><span class="s">node1.example.com</span>
+</span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#ansible-navigator-ansible-navigator-__codelineno-28-3"></a><span class="na">node2 ansible_host</span><span class="o">=</span><span class="s">node2.example.com</span>
+</span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4" href="#ansible-navigator-ansible-navigator-__codelineno-28-4"></a><span class="na">node3 ansible_host</span><span class="o">=</span><span class="s">node3.example.com</span>
 </span></code></pre></div>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>The IP addresses shown here are just examples, your nodes will have different IP addresses.</p>
-</div>
 <p>Change the playbook <code>hosts</code> parameter to point to <code>web</code> instead of <code>node1</code>:</p>
 <div class="language-yaml highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#ansible-navigator-ansible-navigator-__codelineno-29-1"></a><span class="nn">---</span>
 </span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#ansible-navigator-ansible-navigator-__codelineno-29-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Apache server installation</span>

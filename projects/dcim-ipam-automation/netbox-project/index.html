@@ -910,7 +910,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../automation-platform/automation-platform-credentials/" class="md-nav__link">
+      <a href="../../../automation-platform/automation-platform-inventory/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1649,11 +1649,11 @@ Run your playbook, if it returns a green <em>ok</em> status, communication is es
 <tbody>
 <tr>
 <td>name</td>
-<td><code>Student&lt;X&gt;</code></td>
+<td><code>Demo Tenant &lt;Initials&gt;</code></td>
 </tr>
 <tr>
 <td>slug</td>
-<td><code>student&lt;X&gt;</code></td>
+<td><code>demo_tenant_&lt;initials&gt;</code></td>
 </tr>
 <tr>
 <td>description</td>
@@ -1667,7 +1667,7 @@ Run your playbook, if it returns a green <em>ok</em> status, communication is es
 </table>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Always replace <code>&lt;X&gt;</code> with your student ID.</p>
+<p>Replace <code>&lt;Initials&gt;</code> with your personal initials to identify the objects later on.</p>
 </div>
 <p>Achieve the following tasks:</p>
 <ul class="task-list">
@@ -1688,7 +1688,7 @@ Find an appropriate module to create a cluster and set the following module para
 <tbody>
 <tr>
 <td>name</td>
-<td><code>Student &lt;X&gt; VMs</code></td>
+<td><code>Demo Tenant &lt;Initials&gt; VMs</code></td>
 </tr>
 <tr>
 <td>site</td>
@@ -1704,10 +1704,6 @@ Find an appropriate module to create a cluster and set the following module para
 </tr>
 </tbody>
 </table>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Again, replace <code>&lt;X&gt;</code> with your student ID.</p>
-</div>
 <p>Achieve the following tasks:</p>
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Cluster created</li>
@@ -1724,6 +1720,9 @@ Find the correct module, every VM object should use the following parameters:</p
 <th>Parameter</th>
 <th>Value</th>
 <th>Example (rendered to)</th>
+<th></th>
+<th></th>
+<th></th>
 </tr>
 </thead>
 <tbody>
@@ -1731,57 +1730,87 @@ Find the correct module, every VM object should use the following parameters:</p
 <td>name</td>
 <td><code class="language-jinja highlight"><span class="x">&quot;</span><span class="cp">{{</span> <span class="nv">hostvars</span><span class="o">[</span><span class="nv">item</span><span class="o">][</span><span class="s1">&#39;ansible_fqdn&#39;</span><span class="o">]</span> <span class="cp">}}</span><span class="x">&quot;</span></code></td>
 <td><em>node2.example.com</em></td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 <tr>
 <td>site</td>
 <td><code>rh_demo_environment</code></td>
 <td></td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 <tr>
 <td>cluster</td>
-<td><code>Student &lt;X&gt; VMs</code></td>
-<td><em>Student 2 VMs</em></td>
+<td><code>Demo Tenant &lt;Initials&gt; VMs</code></td>
+<td><em>Demo Tenant TG VMs</em></td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 <tr>
 <td>tenant</td>
-<td><code>student&lt;X&gt;</code></td>
+<td><code>demo_tenant_&lt;initials&gt;</code></td>
 <td><em>student2</em></td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 <tr>
 <td>platform</td>
-<td><code class="language-jinja highlight"><span class="x">&quot;</span><span class="cp">{{</span> <span class="nv">hostvars</span><span class="o">[</span><span class="nv">item</span><span class="o">][</span><span class="s1">&#39;ansible_distribution&#39;</span><span class="o">]</span> <span class="o">|</span> <span class="nf">lower</span> <span class="cp">}}</span><span class="x">_</span><span class="cp">{{</span> <span class="nv">hostvars</span><span class="o">[</span><span class="nv">item</span><span class="o">][</span><span class="s1">&#39;ansible_distribution_major_version&#39;</span><span class="o">]</span> <span class="cp">}}</span><span class="x">&quot;</span></code></td>
+<td><code class="language-jinja highlight"><span class="x">&quot;</span><span class="cp">{{</span> <span class="nv">hostvars</span><span class="o">[</span><span class="nv">item</span><span class="o">][</span><span class="s1">&#39;ansible_distribution&#39;</span><span class="o">]</span>               <span class="o">|</span> <span class="nf">lower</span> <span class="cp">}}</span><span class="x">_</span><span class="cp">{{</span> <span class="nv">hostvars</span><span class="o">[</span><span class="nv">item</span><span class="o">][</span><span class="s1">&#39;ansible_distribution_major_version&#39;</span><span class="o">]</span> <span class="cp">}}</span><span class="x">&quot;</span></code></td>
 <td><em>Redhat 8</em></td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 <tr>
 <td>vcpus</td>
 <td><code class="language-jinja highlight"><span class="x">&quot;</span><span class="cp">{{</span> <span class="nv">hostvars</span><span class="o">[</span><span class="nv">item</span><span class="o">][</span><span class="s1">&#39;ansible_processor_vcpus&#39;</span><span class="o">]</span> <span class="cp">}}</span><span class="x">&quot;</span></code></td>
 <td><em>2</em></td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 <tr>
 <td>memory</td>
 <td><code class="language-jinja highlight"><span class="x">&quot;</span><span class="cp">{{</span> <span class="nv">hostvars</span><span class="o">[</span><span class="nv">item</span><span class="o">][</span><span class="s1">&#39;ansible_memtotal_mb&#39;</span><span class="o">]</span> <span class="cp">}}</span><span class="x">&quot;</span></code></td>
 <td><em>1024</em></td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 <tr>
 <td>disk</td>
-<td><code class="language-jinja highlight"><span class="x">&quot;</span><span class="cp">{{</span> <span class="nv">hostvars</span><span class="o">[</span><span class="nv">item</span><span class="o">][</span><span class="s1">&#39;ansible_devices&#39;</span><span class="o">][</span><span class="s1">&#39;nvme0n1&#39;</span><span class="o">][</span><span class="s1">&#39;size&#39;</span><span class="o">]</span> <span class="o">|</span> <span class="nf">split</span><span class="o">(</span><span class="s1">&#39; &#39;</span><span class="o">)</span> <span class="o">|</span> <span class="nf">first</span> <span class="o">|</span> <span class="nf">int</span> <span class="cp">}}</span><span class="x">&quot;</span></code></td>
+<td><code class="language-jinja highlight"><span class="x">&quot;</span><span class="cp">{{</span> <span class="nv">hostvars</span><span class="o">[</span><span class="nv">item</span><span class="o">][</span><span class="s1">&#39;ansible_devices&#39;</span><span class="o">][</span><span class="s1">&#39;nvme0n1&#39;</span><span class="o">][</span><span class="s1">&#39;size&#39;</span><span class="o">]</span> <span class="o">|</span> <span class="nf">split</span><span class="o">(</span><span class="s1">&#39; &#39;</span><span class="o">)</span>                                                            <span class="o">|</span> <span class="nf">first</span>      <span class="o">|</span> <span class="nf">int</span> <span class="cp">}}</span><span class="x">&quot;</span></code></td>
 <td><em>10</em></td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 <tr>
 <td>virtual_machine_role</td>
 <td><code>application-server</code></td>
+<td></td>
+<td></td>
+<td></td>
 <td></td>
 </tr>
 <tr>
 <td>status</td>
 <td><code>Active</code></td>
 <td></td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 </tbody>
 </table>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Again, replace <code>&lt;X&gt;</code> with your student ID.</p>
+<p>Again, replace <code>&lt;initials&gt;</code> with your own Initials.</p>
 </div>
 <p>Achieve the following tasks:</p>
 <ul class="task-list">
@@ -1808,7 +1837,7 @@ Find the correct module, every VM object should use the following parameters:</p
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 22, 2023</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 16, 2024</span>
   </span>
 
     
