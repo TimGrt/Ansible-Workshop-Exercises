@@ -39,7 +39,7 @@ The Ansible automation controller provided in this lab is individually setup for
 
 ### Dashboard
 
-Let's have a first look at the automation controller: Point your browser to the URL you were given, similar to `https://student<X>.<workshopname>.demoredhat.com` (replace `<X>` with your student number and `workshopname` with the name of your current workshop) and log in as `admin`. The password will be provided by the instructor.
+Let's have a first look at the automation controller: Point your browser to the URL you were given, similar to `https://demo.redhat.com/workshop/pm6xgd` (the  current workshop ID will be different) and log in as `admin`. The password will be provided by the instructor.
 
 The web UI of automation controller greets you with a dashboard with a graph showing:
 

@@ -131,15 +131,15 @@ Most core objects within NetBox's data model support tenancy. This is the associ
 
 The goal is to create a new Netbox tenant with Ansible. The tenant should have the following properties, which can be set with the parameters of the appropriate module:
 
-| Parameter    | Value             |
-| ------------ | ----------------- |
-| name         | `Student<X>`      |
-| slug         | `student<X>`      |
-| description  | `Workshop tenant` |
-| tenant_group | `cc_workshop`     |
+| Parameter    | Value                    |
+| ------------ | ------------------------ |
+| name         | `Demo Tenant <Initials>` |
+| slug         | `demo_tenant_<initials>` |
+| description  | `Workshop tenant`        |
+| tenant_group | `cc_workshop`            |
 
 !!! warning
-    Always replace `<X>` with your student ID.
+    Replace `<Initials>` with your personal initials to identify the objects later on.
 
 Achieve the following tasks:
 
@@ -152,15 +152,12 @@ Achieve the following tasks:
 Let's add your three *managed nodes* to a logical group within Netbox. In the Netbox UI, click on *Virtualization*, here you can find *Clusters*.  
 Find an appropriate module to create a cluster and set the following module parameters:
 
-| Parameter    | Value                 |
-| ------------ | --------------------- |
-| name         | `Student <X> VMs`     |
-| site         | `rh_demo_environment` |
-| cluster_type | `Amazon Web Services` |
-| group        | `EMEA`                |
-
-!!! warning
-    Again, replace `<X>` with your student ID.
+| Parameter    | Value                        |
+| ------------ | ---------------------------- |
+| name         | `Demo Tenant <Initials> VMs` |
+| site         | `rh_demo_environment`        |
+| cluster_type | `Amazon Web Services`        |
+| group        | `EMEA`                       |
 
 Achieve the following tasks:
 
@@ -175,21 +172,21 @@ As we need additional information about our VMs (number of vCPU cores, memory, d
 Once you gathered all facts about your managed nodes, add a task to create virtual machine objects in the Netbox with a loop, iterating over the `web` group of your inventory.  
 Find the correct module, every VM object should use the following parameters:
 
-| Parameter            | Value                                                                                                                       | Example (rendered to) |
-| -------------------- | --------------------------------------------------------------------------------------------------------------------------- | --------------------- |
-| name                 | `#!jinja "{{ hostvars[item]['ansible_fqdn'] }}"`                                                                            | *node2.example.com*   |
-| site                 | `rh_demo_environment`                                                                                                       |                       |
-| cluster              | `Student <X> VMs`                                                                                                           | *Student 2 VMs*       |
-| tenant               | `student<X>`                                                                                                                | *student2*            |
-| platform             | `#!jinja "{{ hostvars[item]['ansible_distribution'] | lower }}_{{ hostvars[item]['ansible_distribution_major_version'] }}"` | *Redhat 8*            |
-| vcpus                | `#!jinja "{{ hostvars[item]['ansible_processor_vcpus'] }}"`                                                                 | *2*                   |
-| memory               | `#!jinja "{{ hostvars[item]['ansible_memtotal_mb'] }}"`                                                                     | *1024*                |
-| disk                 | `#!jinja "{{ hostvars[item]['ansible_devices']['nvme0n1']['size'] | split(' ') | first | int }}"`                           | *10*                  |
-| virtual_machine_role | `application-server`                                                                                                        |                       |
-| status               | `Active`                                                                                                                    |                       |
+| Parameter            | Value                                                             | Example (rendered to)                                                 |            |          |      |
+| -------------------- | ----------------------------------------------------------------- | --------------------------------------------------------------------- | ---------- | -------- | ---- |
+| name                 | `#!jinja "{{ hostvars[item]['ansible_fqdn'] }}"`                  | *node2.example.com*                                                   |            |          |      |
+| site                 | `rh_demo_environment`                                             |                                                                       |            |          |      |
+| cluster              | `Demo Tenant <Initials> VMs`                                      | *Demo Tenant TG VMs*                                                  |            |          |      |
+| tenant               | `demo_tenant_<initials>`                                          | *student2*                                                            |            |          |      |
+| platform             | `#!jinja "{{ hostvars[item]['ansible_distribution']               | lower }}_{{ hostvars[item]['ansible_distribution_major_version'] }}"` | *Redhat 8* |          |      |
+| vcpus                | `#!jinja "{{ hostvars[item]['ansible_processor_vcpus'] }}"`       | *2*                                                                   |            |          |      |
+| memory               | `#!jinja "{{ hostvars[item]['ansible_memtotal_mb'] }}"`           | *1024*                                                                |            |          |      |
+| disk                 | `#!jinja "{{ hostvars[item]['ansible_devices']['nvme0n1']['size'] | split(' ')                                                            | first      | int }}"` | *10* |
+| virtual_machine_role | `application-server`                                              |                                                                       |            |          |      |
+| status               | `Active`                                                          |                                                                       |            |          |      |
 
 !!! warning
-    Again, replace `<X>` with your student ID.
+    Again, replace `<initials>` with your own Initials.
 
 Achieve the following tasks:
 

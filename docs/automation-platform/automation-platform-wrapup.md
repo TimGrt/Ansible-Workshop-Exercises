@@ -27,7 +27,7 @@ Your operations team and your application development team likes what they see i
 
 All code is already in place - this is a automation controller lab after all. Check out the **Workshop Project** git repository at [https://github.com/ansible/workshop-examples](https://github.com/ansible/workshop-examples){:target="_blank"}. There you will find the playbook `webcontent.yml`, which calls the role `role_webcontent`.
 
-Compared to the previous Apache installation role there is a major difference: there are now two versions of an `index.html` template, and a task deploying the template file which has a variable as part of the source file name.
+Compared to the previous Apache installation role there is a major difference: there are now multiple versions of an `index.html` template, and a task deploying the template file, which has a variable as part of the source file name.
 
 For the development servers the file is named `dev_index.html.j2` with the following content:
 
@@ -38,7 +38,7 @@ For the development servers the file is named `dev_index.html.j2` with the follo
 </body>
 ```
 
-For the development servers the file is named `prod_index.html.j2` with the following content:
+For the production servers the file is named `prod_index.html.j2` with the following content:
 
 ```html
 <body>
@@ -135,7 +135,7 @@ This time we use the power of Ansible to check the results: execute uri to get t
 Execute the playbook:
 
 ``` { .console .no-copy }
-[student<X>@ansible-1 ~]$ ansible-playbook check_url.yml
+[student@ansible-1 ~]$ ansible-playbook check_url.yml
 ```
 
 Snippet of output:
@@ -194,7 +194,7 @@ In the same fashion add a second **Survey Question**
 Check the results again from your automation controller host. We will use the dedicated `uri` module within an Ansible playbook. As arguments it needs the actual URL and a flag to output the body in the results.
 
 ``` { .console .no-copy }
-[student<X>@ansible-1 ~]$ ansible-playbook check_url.yml
+[student@ansible-1 ~]$ ansible-playbook check_url.yml
 ```
 
 ### Solution

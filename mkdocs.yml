@@ -115,7 +115,7 @@ nav:
   - "Automation Platform":
     - automation-platform-overview.md
     - automation-platform/automation-platform-intro.md
-    - automation-platform/automation-platform-credentials.md
+    - automation-platform/automation-platform-inventory.md
     - automation-platform/automation-platform-projects.md
     - automation-platform/automation-platform-surveys.md
     - automation-platform/automation-platform-rbac.md

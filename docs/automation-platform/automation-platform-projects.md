@@ -140,7 +140,7 @@ After the Job has finished go to the main **Jobs** view: All jobs are listed her
 
 Time for a little challenge:
 
-* Use an ad hoc command on both hosts to make sure Apache has been installed and is running.
+* Use an ad hoc command on all hosts to make sure Apache has been installed and is running.
 
 You have already been through all the steps needed, so try this for yourself.
 
