@@ -10,7 +10,7 @@ Day 2 of the Ansible Workshop is all about the Ansible Automation Platform and u
 You will complete the following exercises today:
 
 * [Exercise 1 - Introduction](automation-platform-intro.md)
-* [Exercise 2 - Inventories, credentials and ad hoc commands](automation-platform-credentials.md)
+* [Exercise 2 - Inventories, credentials and ad hoc commands](automation-platform-inventory.md)
 * [Exercise 3 - Projects & Job Templates](automation-platform-projects.md)
 * [Exercise 4 - Surveys](automation-platform-surveys.md)
 * [Exercise 5 - Role-based access control](automation-platform-rbac.md)

@@ -16,7 +16,7 @@ Explore and understand the lab environment.  This exercise will cover
 
 The first thing we need is an inventory of your managed hosts. This is the equivalent of an inventory file in Ansible Engine. There is a lot more to it (like dynamic inventories) but let’s start with the basics.
 
-* You should already have the web UI open, if not: Point your browser to the URL you were given, similar to `https://student<X>.workshopname.demoredhat.com` (replace "\<X\>" with your student number and "workshopname" with the name of your current workshop) and log in as `admin`. The password will be provided by the instructor.
+* You should already have the web UI open, if not: Point your browser to the URL you were given, similar to `https://demo.redhat.com/workshop/pm6xgd` (the *workshop ID* will be different) and log in as `admin`. The password will be provided by the instructor.
 
 There will be one inventory, the **Workshop Inventory**. Click the **Workshop Inventory** then click the **Hosts** button
 
