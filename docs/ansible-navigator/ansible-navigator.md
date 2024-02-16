@@ -517,13 +517,11 @@ As you might remember, the inventory lists all nodes as members of the group `we
 
 ``` { .ini .no-copy }
 [web]
-node1 ansible_host=11.22.33.44
-node2 ansible_host=22.33.44.55
-node3 ansible_host=33.44.55.66
+node1 ansible_host=node1.example.com
+node2 ansible_host=node2.example.com
+node3 ansible_host=node3.example.com
 ```
 
-!!! tip
-    The IP addresses shown here are just examples, your nodes will have different IP addresses.
 Change the playbook `hosts` parameter to point to `web` instead of `node1`:
 
 ```yaml

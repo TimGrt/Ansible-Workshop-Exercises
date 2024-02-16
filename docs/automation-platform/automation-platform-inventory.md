@@ -24,12 +24,12 @@ The inventory information at `~/lab_inventory/hosts` was pre-loaded into the Ans
 
 ``` { .ini .no-copy }
 [web]
-node1 ansible_host=22.33.44.55
-node2 ansible_host=33.44.55.66
-node3 ansible_host=44.55.66.77
+node1 ansible_host=node1.example.com
+node2 ansible_host=node2.example.com
+node3 ansible_host=node3.example.com
 
 [control]
-ansible ansible_host=11.22.33.44
+ansible-1 ansible_host=ansible-1.example.com
 ```
 
 !!! warning
@@ -53,9 +53,13 @@ Note the following information:
 
 It is possible to run run ad hoc commands from Ansible Automation controller as well.
 
+!!! tip
+    **Ensure** that all hosts are available and can be included in automation jobs.  
+    Got to **Resources → Hosts** and move the slider on the right to **On** for all hosts.
+
 * In the web UI go to **Resources → Inventories → Workshop Inventory**
 
-* Click the **Hosts** tab to change into the hosts view and select the three hosts by ticking the boxes to the left of the host entries.
+* Click the **Hosts** tab to change into the hosts view and select the three hosts *node1* to *node3* by ticking the boxes to the left of the host entries.
 
 * Click **Run Command** button. In the next screen you have to specify the ad hoc command.
 

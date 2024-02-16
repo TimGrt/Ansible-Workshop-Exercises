@@ -30,20 +30,17 @@ As an example we would like to install an FTP server, but only on hosts that are
 To do that, first edit the inventory to add another group, and place `node2` in it. Make sure that that IP address of `node2` is always the same when `node2` is listed. Edit the inventory `~/lab_inventory/hosts` to look like the following listing:
 
 ``` { .ini .no-copy }
+[control]
+ansible-1 ansible_host=ansible-1.example.com
+
 [web]
-node1 ansible_host=11.22.33.44
-node2 ansible_host=22.33.44.55
-node3 ansible_host=33.44.55.66
+node1 ansible_host=node1.example.com
+node2 ansible_host=node2.example.com
+node3 ansible_host=node3.example.com
 
 [ftpserver]
-node2 ansible_host=22.33.44.55
-
-[control]
-ansible-1 ansible_host=44.55.66.77
+node2 ansible_host=node2.example.com
 ```
-
-!!! warning
-    Do not copy the inventory above with placeholder IPs, use your own inventory file!
 
 Next create the file `ftpserver.yml` on your control host in the `~/ansible-files/` directory:
 
