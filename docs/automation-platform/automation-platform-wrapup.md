@@ -135,7 +135,7 @@ This time we use the power of Ansible to check the results: execute uri to get t
 Execute the playbook:
 
 ``` { .console .no-copy }
-[student<X>@ansible-1 ~]$ ansible-playbook check_url.yml
+[student@ansible-1 ~]$ ansible-playbook check_url.yml
 ```
 
 Snippet of output:
@@ -194,7 +194,7 @@ In the same fashion add a second **Survey Question**
 Check the results again from your automation controller host. We will use the dedicated `uri` module within an Ansible playbook. As arguments it needs the actual URL and a flag to output the body in the results.
 
 ``` { .console .no-copy }
-[student<X>@ansible-1 ~]$ ansible-playbook check_url.yml
+[student@ansible-1 ~]$ ansible-playbook check_url.yml
 ```
 
 ### Solution

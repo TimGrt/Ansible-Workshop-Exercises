@@ -95,7 +95,7 @@ Now log out of automation controller’s web UI and in again as the **wweb** use
 Check the result: execute `curl` again on the control host to pull the content of the webserver on `node1` (you could of course check `node2` and `node3`, too):
 
 ``` { .console .no-copy }
-[student<X>@ansible-1 ~]$ curl http://node1
+[student@ansible-1 ~]$ curl http://node1
 ```
 
 Just recall what you have just done: You enabled a restricted user to run an Ansible playbook
