@@ -38,8 +38,6 @@ For example, you may check your inventory with the `ansible-inventory` CLI utili
 !!! hint
     As you can see above, no inventory was provided in the CLI call (e.g. with `-i inventory`), but the correct inventory is used.
 
-Create a small Ansible configuration file (`ansible.cfg`) and instruct Ansible to always use the inventory
-
 Achieve the following tasks:
 
 - [X] Inventory file created
