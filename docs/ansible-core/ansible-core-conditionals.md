@@ -48,12 +48,12 @@ Next create the file `ftpserver.yml` on your control host in the `~/ansible-file
 ---
 - name: Install vsftpd if hosts are in inventory group
   hosts: all
-  become: true
   tasks:
     - name: Install FTP server when host in ftpserver group
       ansible.builtin.yum:
         name: vsftpd
         state: present
+      become: true
       when: inventory_hostname in groups["ftpserver"]
 ```
 
@@ -82,12 +82,12 @@ Lets add two more tasks to our playbook, one to gather information about all ins
 ---
 - name: Install vsftpd if hosts are in inventory group
   hosts: all
-  become: true
   tasks:
     - name: Install FTP server when host in ftpserver group
       ansible.builtin.yum:
         name: vsftpd
         state: present
+      become: true
       when: inventory_hostname in groups["ftpserver"]
 
     - name: Get information about installed packages
@@ -108,16 +108,16 @@ We know that we installed the package, therefore the condition is always true (t
 You should always strive towards making your playbooks as robust as possible, what would happen if we would change the first task to *de-install* the service and not use the condition?  
 Let's change the title and the *state* to `absent`, remove (or comment) the condition and run the playbook again.
 
-```yaml hl_lines="6 9 19"
+```yaml hl_lines="5 8 19"
 ---
 - name: Install vsftpd if hosts are in inventory group
   hosts: all
-  become: true
   tasks:
     - name: De-install FTP server when host in ftpserver group
       ansible.builtin.yum:
         name: vsftpd
         state: absent
+      become: true
       when: inventory_hostname in groups["ftpserver"]
 
     - name: Get information about installed packages
@@ -152,12 +152,12 @@ Run the extended playbook.
     ---
     - name: Install vsftpd if hosts are in inventory group
       hosts: all
-      become: true
       tasks:
         - name: Install FTP server when host in ftpserver group
           ansible.builtin.yum:
             name: vsftpd
             state: present
+          become: true
           when: inventory_hostname in groups["ftpserver"]
 
         - name: Get information about installed packages

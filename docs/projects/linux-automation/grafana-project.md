@@ -21,7 +21,29 @@ Create a new project folder in your home directory:
 [student@ansible-1 ~]$ mkdir grafana-deployment
 ```
 
-Create an inventory file with a *grafana* group definition. You will deploy Grafana to one of the nodes in the lab environment. Copy the *node2* configuration from the default inventory file to your *grafana* group.
+Create an inventory file with a *grafana* group definition. You will deploy Grafana to one of the nodes in the lab environment. Copy the *node2* configuration from the default inventory file to your *grafana* group.  
+Create a small Ansible configuration file (`ansible.cfg`) and instruct Ansible to always use the inventory you just created.
+
+For example, you may check your inventory with the `ansible-inventory` CLI utility. In this case, the host has an alias of *grafana-instance1* which is part of a group *grafana*:
+
+``` { .console .no-copy }
+[student@ansible-1 ~]$ ansible-inventory --graph --vars
+@all:
+  |--@ungrouped:
+  |--@grafana:
+  |  |--grafana-instance1
+  |  |  |--{ansible_host = node2.example.com}
+```
+
+!!! hint
+    As you can see above, no inventory was provided in the CLI call (e.g. with `-i inventory`), but the correct inventory is used.
+
+Create a small Ansible configuration file (`ansible.cfg`) and instruct Ansible to always use the inventory
+
+Achieve the following tasks:
+
+- [X] Inventory file created
+- [X] Configuration file created which sets the correct inventory source
 
 ### Step 2 - Install Grafana
 

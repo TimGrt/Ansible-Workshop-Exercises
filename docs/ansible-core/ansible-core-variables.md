@@ -222,12 +222,17 @@ Run the playbook:
 
 ### Step 6 - Challenge Lab: Facts
 
-* Try to find and print the distribution (Red Hat) of your managed hosts using a playbook.
+* Try to find and print the OS **family** (RedHat) of your managed hosts using a playbook, it should output only this single fact.
 
 !!! tip
-    Use the wildcard to find the fact within your filter, then apply a filter to only print this fact.
+    Use an *ad-hoc* command to output all facts, maybe even filter the output by using `grep` to find the appropriate fact.
 
 ??? success "Solution"
+
+    ```console
+    $ ansible node1 -m setup | grep family
+        "ansible_os_family": "RedHat",
+    ```
 
     ```yaml
     ---
@@ -235,47 +240,15 @@ Run the playbook:
       hosts: node1
       gather_facts: false
       tasks:
-        - name: Collect only specific facts
+        - name: Collect only specific facts, this task can be removed when enabling 'gather_facts' again.
           ansible.builtin.setup:
             filter:
-              - '*distribution'
+              - '*family'
           register: setup_output
 
         - name: Output variable content
           ansible.builtin.debug:
-            msg: "{{ setup_output }}"
-    ```
-
-    With the wildcard in place, the output shows:
-
-    ``` { .console .no-copy }
-
-    TASK [Output variable content] *******************************************************************
-    ok: [ansible] => {
-        "setup": {
-            "ansible_facts": {
-                "ansible_distribution": "RedHat"
-            },
-            "changed": false,
-            "failed": false
-        }
-    }
-    ```
-
-    With this we can conclude the variable we are looking for is labeled `ansible_distribution`.
-
-    Then we can update the playbook to be explicit in its findings and change the following line:
-
-    ```yaml
-    filter:
-      - '*distribution'
-    ```
-
-    to:
-
-    ```yaml
-    filter:
-      - 'ansible_distribution'
+            msg: "{{ ansible_os_family }}"
     ```
 
     Run the playbook:
@@ -301,7 +274,7 @@ Facts can be used in a Playbook like variables, using the proper naming, of cour
   tasks:
     - name: Prints Ansible facts
       ansible.builtin.debug:
-        msg: The default IPv4 address of {{ ansible_fqdn }} is {{ ansible_default_ipv4.address }}
+        msg: From a total of {{ ansible_memtotal_mb }} MB the server {{ ansible_fqdn }} has {{ ansible_memfree_mb }} MB RAM left.
 ```
 
 !!! tip
@@ -323,27 +296,31 @@ Execute it to see how the facts are printed:
 Examine the output:
 
 ``` { .console .no-copy }
-PLAY [Output facts within a playbook] ******************************************
+PLAY [Output facts within a playbook] ******************************************************************************
 
-TASK [Gathering Facts] *********************************************************
-ok: [node3]
+TASK [Gathering Facts] *********************************************************************************************
 ok: [node2]
+ok: [node3]
 ok: [node1]
 ok: [ansible-1]
 
-TASK [Prints Ansible facts] ****************************************************
-ok: [node1] =>
-  msg: The default IPv4 address of node1 is 172.16.190.143
-ok: [node2] =>
-  msg: The default IPv4 address of node2 is 172.16.30.170
-ok: [node3] =>
-  msg: The default IPv4 address of node3 is 172.16.140.196
-ok: [ansible-1] =>
-  msg: The default IPv4 address of ansible is 172.16.2.10
+TASK [Prints Ansible facts] ****************************************************************************************
+ok: [ansible-1] => {
+    "msg": "From a total of 7937 MB the server ansible-1 has 2856 MB RAM left."
+}
+ok: [node1] => {
+    "msg": "From a total of 7937 MB the server node1 has 3152 MB RAM left."
+}
+ok: [node2] => {
+    "msg": "From a total of 7937 MB the server node2 has 3138 MB RAM left."
+}
+ok: [node3] => {
+    "msg": "From a total of 7937 MB the server node3 has 3247 MB RAM left."
+}
 
-PLAY RECAP *********************************************************************
-ansible-1                  : ok=2    changed=0    unreachable=0    failed=0
-node1                      : ok=2    changed=0    unreachable=0    failed=0
-node2                      : ok=2    changed=0    unreachable=0    failed=0
-node3                      : ok=2    changed=0    unreachable=0    failed=0
+PLAY RECAP *********************************************************************************************************
+ansible-1                  : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0  
+node1                      : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0  
+node2                      : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0  
+node3                      : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0  
 ```

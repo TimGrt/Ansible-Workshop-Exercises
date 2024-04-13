@@ -109,16 +109,16 @@ To reference all the inventory hosts, you supply a pattern to the `ansible-inven
         "_meta": {
             "hostvars": {
                 "ansible-1": {
-                    "ansible_host": "3.236.186.92"
+                    "ansible_connection": "local"
                 },
                 "node1": {
-                    "ansible_host": "3.239.234.187"
+                    "ansible_host": "node1.example.com"
                 },
                 "node2": {
-                    "ansible_host": "75.101.228.151"
+                    "ansible_host": "node2.example.com"
                 },
                 "node3": {
-                    "ansible_host": "100.27.38.142"
+                    "ansible_host": "node3.example.com"
                 }
             }
         },
