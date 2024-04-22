@@ -108,10 +108,91 @@ Naturally, you should achieve this with Ansible! Find an appropriate module (the
 !!! tip
     Configuration changes require a service restart!
 
-Now that we adjusted the configuration, try to access the Grafana UI again. Use the public IP address of your *node2* and use Port 8080 this time.  
+After adjusting the configuration, try to access the Grafana UI again. Use the hostname (or public IP address) of your *node2* and use Port 8080 this time.  
 
 !!! success
-    It works! The default login credentials are *admin:admin*, you can skip the password change request.
+    Unfortunately, the UI currently can't be viewed directly in the Red Hat Demo environment!  
+    If you are in a local environment, you can use the default login credentials *admin:admin*, you can skip the password change request.  
+    You can check if the UI is available by using the curl request `curl -L node2:8080`
+
+    ??? info "Example output"
+
+        ```console hl_lines="22 48"
+        [student@ansible-1 ansible-files]$ curl -L node2:8080
+        <!DOCTYPE html>
+        <html lang="en">
+          <head>
+            <script nonce="">
+
+              !(function () {
+                if ('PerformanceLongTaskTiming' in window) {
+                  var g = (window.__tti = { e: [] });
+                  g.o = new PerformanceObserver(function (l) {
+                    g.e = g.e.concat(l.getEntries());
+                  });
+                  g.o.observe({ entryTypes: ['longtask'] });
+                }
+              })();
+            </script>
+            <meta charset="utf-8" />
+            <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+            <meta name="viewport" content="width=device-width" />
+            <meta name="theme-color" content="#000" />
+
+            <title>Grafana</title>
+
+            <base href="/" />
+
+            <link
+              rel="preload"
+              href="public/fonts/roboto/RxZJdnzeo3R5zSexge8UUVtXRa8TVwTICgirnJhmVJw.woff2"
+              as="font"
+              crossorigin
+            />
+
+            <link rel="icon" type="image/png" href="public/img/fav32.png" />
+            <link rel="apple-touch-icon" sizes="180x180" href="public/img/apple-touch-icon.png" />
+            <link rel="mask-icon" href="public/img/grafana_mask_icon.svg" color="#F05A28" />
+            <link rel="stylesheet" href="public/build/grafana.dark.3b87c7ad03e52dfc5e30.css" />
+
+            <script nonce="">
+              performance.mark('frontend_boot_css_time_seconds');
+            </script>
+
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+            <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+            <meta name="msapplication-TileColor" content="#2b5797" />
+            <meta name="msapplication-config" content="public/img/browserconfig.xml" />
+          </head>
+
+          <body class="theme-light app-grafana">
+            <style>
+              .preloader {
+                height: 100%;
+                flex-direction: column;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+              }
+          ...<cut for readability>...
+        ```
+
+    You can use the following playbook the check the current theme setting, create a new file, paste to content and run it:
+
+    ```yaml
+    - name: Test Grafana theme setting
+      hosts: node2
+      tasks:
+        - name: Get Grafana UI content
+          ansible.builtin.uri:
+            url: http://node2:8080
+            return_content: true
+          register: grafana_ui_content
+
+        - name: Output current theme setting
+          ansible.builtin.debug:
+            msg: "HTML body returns '{{ grafana_ui_content.content | replace('\n', '') | regex_replace('^(.*body class=\\\")(.*)( app-grafana.*)', '\\2') }}' as the current color setting."
+    ```
 
 Achieve the following tasks:
 

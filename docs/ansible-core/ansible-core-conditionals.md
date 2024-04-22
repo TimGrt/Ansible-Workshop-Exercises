@@ -10,14 +10,14 @@ Ansible can use conditionals to execute tasks or plays when certain conditions a
 
 To implement a conditional, the `when` statement must be used, followed by the condition to test. The condition is expressed using one of the available operators like e.g. for comparison:
 
-|      |                                                                        |
-| ---- | ---------------------------------------------------------------------- |
-| \==  | Compares two objects for equality.                                     |
-| \!=  | Compares two objects for inequality.                                   |
-| \>   | true if the left hand side is greater than the right hand side.        |
-| \>=  | true if the left hand side is greater or equal to the right hand side. |
-| \<   | true if the left hand side is lower than the right hand side.          |
-| \<=  | true if the left hand side is lower or equal to the right hand side.   |
+| Operator | Description                                                            |
+|:--------:| ---------------------------------------------------------------------- |
+|   `==`   | Compares two objects for equality.                                     |
+|   `!=`   | Compares two objects for inequality.                                   |
+|    `>`   | True if the left hand side is greater than the right hand side.        |
+|   `>=`   | True if the left hand side is greater or equal to the right hand side. |
+|    `<`   | True if the left hand side is lower than the right hand side.          |
+|   `<=`   | True if the left hand side is lower or equal to the right hand side.   |
 
 Ansible uses Jinja2 [tests](https://docs.ansible.com/ansible/latest/user_guide/playbooks_tests.html#playbooks-tests){:target="_blank"} and [filters](https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html#playbooks-filters){:target="_blank"} in conditionals. Ansible supports all the standard tests and filters, and adds some unique ones as well.
 
