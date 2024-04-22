@@ -387,6 +387,8 @@ On the control node as your student user edit the file `~/ansible-files/apache.y
         src: web.html
         dest: /var/www/html/index.html
         mode: "0644"
+        owner: apache
+        group: apache
 ```
 
 What does this new copy task do? The new task uses the `copy` module and defines the source and destination options for the copy operation as parameters.
@@ -448,6 +450,8 @@ Change the playbook `hosts` parameter to point to `web` instead of `node1`:
         src: web.html
         dest: /var/www/html/index.html
         mode: "0644"
+        owner: apache
+        group: apache
 ```
 
 Now run the playbook:

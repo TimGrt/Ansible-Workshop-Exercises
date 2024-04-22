@@ -37,6 +37,8 @@ Next, create the Playbook `httpd_conf.yml`. Make sure that you are in the direct
         src: httpd.conf
         dest: /etc/httpd/conf/httpd.conf
         mode: "0644"
+        owner: apache
+        group: apache
       notify:
         - Restart_apache
   handlers:

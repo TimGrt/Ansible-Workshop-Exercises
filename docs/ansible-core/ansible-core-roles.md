@@ -143,11 +143,17 @@ Next we add two more tasks to ensure a *vhost* directory structure on the manage
   ansible.builtin.file:
     path: "/var/www/vhosts/{{ ansible_hostname }}"
     state: directory
+    mode: "0755"
+    owner: apache
+    group: apache
 
 - name: Deliver html content
   ansible.builtin.copy:
     src: web.html
     dest: "/var/www/vhosts/{{ ansible_hostname }}/index.html"
+    mode: "0644"
+    owner: apache
+    group: apache
 ```
 
 Note that the *vhost* directory is created/ensured using the `file` module.
@@ -256,6 +262,9 @@ The contents of the `vhost.conf.j2` template file are found below.
 </VirtualHost>
 ```
 
+!!! warning
+    The *vhost* configuration expects that the webserver announces on Port 8080, the configuration was adjusted in a [previous exercise](ansible-core-handlers.md#step-1-handlers).
+
 ### Step 6 - Test the role
 
 You are ready to test the role against `node2`. But since a role cannot be assigned to a node directly, first create a playbook which connects the role and the host. Create the file `test_apache_role.yml` in the directory `~/ansible-files`:
@@ -266,24 +275,21 @@ You are ready to test the role against `node2`. But since a role cannot be assig
   hosts: node2
   become: true
   pre_tasks:
-
     - name: Output info before any role execution
       ansible.builtin.debug:
         msg: "Beginning web server configuration."
-
-  roles:
-    - apache-webserver
-
   post_tasks:
     - name: Output info before all roles are executed
       ansible.builtin.debug:
         msg: "Web server has been configured."
+  roles:
+    - apache-webserver
 ```
 
 Note the `pre_tasks` and `post_tasks` keywords. Normally, the tasks of *roles* execute before the *tasks* of a playbook. To control order of execution `pre_tasks` are performed before any roles are applied. The `post_tasks` are performed after all the roles have completed. Here we just use them to better highlight when the actual role is executed.
 
 !!! info
-    In most use cases, you should not mix/use *roles* and *tasks* in your play together. If you need to have single tasks in your play, why not create another role and include the tasks there?!
+    In most use cases, you should not mix/use *roles* **and** *tasks* in your play together. If you need to have single tasks in your play, why not create another role and include the tasks there?!
 
 Now you are ready to run your playbook:
 
@@ -333,4 +339,4 @@ There should be a line like this:
 tcp6       0      0 :::8080                 :::*                    LISTEN      25237/httpd
 ```
 
-If it is not working make sure that `/etc/httpd/conf/httpd.conf` has `Listen 8080` in it.  This should have been changed by [Exercise 7](ansible-core-handlers.md).
+If it is not working, make sure that `/etc/httpd/conf/httpd.conf` has `Listen 8080` in it.  This should have been changed by [Exercise 7](ansible-core-handlers.md).

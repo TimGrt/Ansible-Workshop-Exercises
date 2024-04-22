@@ -100,6 +100,8 @@ Create a new Playbook called `deploy_index_html.yml` in the `~/ansible-files/` d
         src: "{{ stage }}_web.html"
         dest: /var/www/html/index.html
         mode: "0644"
+        owner: apache
+        group: apache
 ```
 
 * Run the Playbook:
