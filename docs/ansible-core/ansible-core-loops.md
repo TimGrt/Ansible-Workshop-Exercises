@@ -157,9 +157,9 @@ Verify that the user `dev_user` was indeed created on `node1` using the followin
     ```yaml
     - name: Output info for user
       ansible.builtin.debug:
-        msg: "{{ myuser }} uid: {{ getent_passwd['dev_user'][1] }}"
+        msg: "{{ myuser }} uid: {{ getent_passwd{--[myuser]--}{++['dev_user']++}[1] }}"
     ```
-    As you can see the *value* of the variable `myuser` is used directly. It must be enclosed in single quotes. You can't use normal quotation marks, as these are used outside of the whole variable.
+    As you can see the *value* (`dev_user`) of the variable `myuser` is used directly. It must be enclosed in single quotes. You can't use normal quotation marks, as these are used outside of the whole variable.
 
 ### Step 3 - Loops with *list*-variable
 
