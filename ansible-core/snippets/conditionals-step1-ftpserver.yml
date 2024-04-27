@@ -1,0 +1,10 @@
+---
+- name: Install vsftpd if hosts are in inventory group
+  hosts: all
+  tasks:
+    - name: Install FTP server when host in ftpserver group
+      ansible.builtin.yum:
+        name: vsftpd
+        state: present
+      become: true
+      when: inventory_hostname in groups["ftpserver"]

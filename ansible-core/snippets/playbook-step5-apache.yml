@@ -1,0 +1,23 @@
+---
+- name: Apache server installation
+  hosts: node1
+  become: true
+  tasks:
+    - name: Install Apache package
+      ansible.builtin.yum:
+        name: httpd
+        state: present
+
+    - name: Ensure Apache is enabled and running
+      ansible.builtin.service:
+        name: httpd.service
+        enabled: true
+        state: started
+
+    - name: Copy file for webserver index
+      ansible.builtin.copy:
+        src: web.html
+        dest: /var/www/html/index.html
+        mode: "0644"
+        owner: apache
+        group: apache

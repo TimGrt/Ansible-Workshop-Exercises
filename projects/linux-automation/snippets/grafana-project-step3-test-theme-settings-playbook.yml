@@ -1,0 +1,12 @@
+- name: Test Grafana theme setting
+  hosts: node2
+  tasks:
+    - name: Get Grafana UI content
+      ansible.builtin.uri:
+        url: http://node2:8080
+        return_content: true
+      register: grafana_ui_content
+
+    - name: Output current theme setting
+      ansible.builtin.debug:
+        msg: "HTML body returns '{{ grafana_ui_content.content | replace('\n', '') | regex_replace('^(.*body class=\\\")(.*)( app-grafana.*)', '\\2') }}' as the current color setting."

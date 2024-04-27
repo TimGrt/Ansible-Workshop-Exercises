@@ -1,0 +1,11 @@
+- name: Ensure AWS credentials are set
+  ansible.builtin.assert:
+  that:
+    - ansible_env.AWS_ACCESS_KEY_ID is defined
+    - ansible_env.AWS_SECRET_ACCESS_KEY is defined
+  quiet: true
+  fail_msg: |
+    No environment variables with AWS credentials found!
+    Set the variables with:
+      export AWS_ACCESS_KEY_ID='AK123'
+      export AWS_SECRET_ACCESS_KEY='abc123'
