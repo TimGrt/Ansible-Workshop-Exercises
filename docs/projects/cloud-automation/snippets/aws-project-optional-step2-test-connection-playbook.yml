@@ -1,0 +1,6 @@
+---
+- name: Playbook targeting hosts from dynamic inventory
+  hosts: test_stage
+  tasks:
+    - name: Try to reach hosts
+      ansible.builtin.ping:

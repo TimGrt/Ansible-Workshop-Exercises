@@ -27,25 +27,7 @@ We now have the configuration file for our webserver, we will adjust the file la
 Next, create the Playbook `httpd_conf.yml`. Make sure that you are in the directory `~/ansible-files`.
 
 ```yaml
----
-- name: Manage httpd.conf
-  hosts: web
-  become: true
-  tasks:
-    - name: Copy Apache configuration file
-      ansible.builtin.copy:
-        src: httpd.conf
-        dest: /etc/httpd/conf/httpd.conf
-        mode: "0644"
-        owner: apache
-        group: apache
-      notify:
-        - Restart_apache
-  handlers:
-    - name: Restart_apache
-      ansible.builtin.service:
-        name: httpd
-        state: restarted
+--8<-- "handlers-step1-http-conf.yml"
 ```
 
 So what’s new here?

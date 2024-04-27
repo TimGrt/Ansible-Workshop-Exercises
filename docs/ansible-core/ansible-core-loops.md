@@ -19,19 +19,7 @@ Find out more about loops in the [Ansible Loops](https://docs.ansible.com/ansibl
 To show the loops feature we will generate three new users on `node1`. For that, create the file `loop_users.yml` in `~/ansible-files` on your control node as your student user. We will use the `user` module to generate the user accounts.
 
 ```yaml
----
-- name: Demo playbook for loops
-  hosts: node1
-  become: true
-  tasks:
-    - name: Ensure multiple users are present
-      ansible.builtin.user:
-        name: "{{ item }}"
-        state: present
-      loop:
-        - dev_user
-        - qa_user
-        - prod_user
+--8<-- "loops-step1-loop-users.yml"
 ```
 
 Understand the playbook and the output:
@@ -61,24 +49,7 @@ The `user` module has the optional parameter `groups` which defines the group (o
 Let's rewrite the playbook to create the users with additional user rights:
 
 ```yaml
----
-- name: Demo playbook for loops
-  hosts: node1
-  become: true
-  tasks:
-    - name: Ensure multiple users are present
-      ansible.builtin.user:
-        name: "{{ item.username }}"
-        state: present
-        groups: "{{ item.groups }}"
-      loop:
-        - username: dev_user
-          groups: ftp
-        - username: qa_user
-          groups: ftp
-        - username: prod_user
-          groups: apache
-
+--8<-- "loops-step2-loop-users.yml"
 ```
 
 Check the output:
@@ -88,20 +59,7 @@ Check the output:
 Verify that the user `dev_user` was indeed created on `node1` using the following playbook, name it `user_id.yml`:
 
 ```yaml
----
-- name: Get user ID play
-  hosts: node1
-  vars:
-    myuser: "dev_user"
-  tasks:
-    - name: Get info for {{ myuser }}
-      ansible.builtin.getent:
-        database: passwd
-        key: "{{ myuser }}"
-
-    - name: Output info for {{ myuser }}
-      ansible.builtin.debug:
-        msg: "{{ myuser }} uid: {{ getent_passwd[myuser][1] }}"
+--8<-- "loops-step2-user-id.yml"
 ```
 
 === "Ansible"
@@ -166,19 +124,7 @@ Verify that the user `dev_user` was indeed created on `node1` using the followin
 Up to now, we always provided the list to loop in the *loop* keyword directly, most of the times you will provide the list with a variable.
 
 ```yaml
----
-- name: Use Ansible magic variables
-  hosts: control
-  tasks:
-    - name: Show all the hosts in the inventory
-      ansible.builtin.debug:
-        msg: "{{ item }}"
-      loop: "{{ groups['all'] }}"
-
-    - name: Show all the hosts in the current play
-      ansible.builtin.debug:
-        msg: "{{ item }}"
-      loop: "{{ ansible_play_hosts }}"
+--8<-- "loops-step3-special-variables-playbook.yml"
 ```
 
 This playbook uses two *[magic variables](https://docs.ansible.com/ansible/latest/reference_appendices/special_variables.html){:target="_blank"}*, these variables cannot be set directly by the user and are always defined.  

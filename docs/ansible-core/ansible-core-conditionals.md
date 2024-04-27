@@ -45,16 +45,7 @@ node2 ansible_host=node2.example.com
 Next create the file `ftpserver.yml` on your control host in the `~/ansible-files/` directory:
 
 ```yaml
----
-- name: Install vsftpd if hosts are in inventory group
-  hosts: all
-  tasks:
-    - name: Install FTP server when host in ftpserver group
-      ansible.builtin.yum:
-        name: vsftpd
-        state: present
-      become: true
-      when: inventory_hostname in groups["ftpserver"]
+--8<-- "conditionals-step1-ftpserver.yml"
 ```
 
 !!! tip
@@ -79,25 +70,7 @@ We installed the *vsftpd* package, we would now be able to start the *vsftp*-Ser
 Lets add two more tasks to our playbook, one to gather information about all installed packages on the target host with the module *package_facts*. This module adds the gathered information to the `ansible_facts`, from there you can use the information as an Ansible variable. The last tasks outputs the exact version number to *stdout*, but only if the package is installed (the variable in the *packages* dictionary is defined).
 
 ```yaml
----
-- name: Install vsftpd if hosts are in inventory group
-  hosts: all
-  tasks:
-    - name: Install FTP server when host in ftpserver group
-      ansible.builtin.yum:
-        name: vsftpd
-        state: present
-      become: true
-      when: inventory_hostname in groups["ftpserver"]
-
-    - name: Get information about installed packages
-      ansible.builtin.package_facts:
-        manager: auto
-
-    - name: Debug exact version of installed vsFTP package
-      ansible.builtin.debug:
-        msg: "vsFTP is installed in Version {{ ansible_facts.packages.vsftpd.0.version }}"
-      when: ansible_facts.packages.vsftpd is defined
+--8<-- "conditionals-step2-ftpserver.yml"
 ```
 
 As you can see, the simplest conditional statement applies to a single task. Create the task, then add a `when` statement that applies a test. The `when` clause is a *raw* Jinja2 expression, you can use variables here, but you **don't** have to use double curly braces to enclose the variable.
@@ -109,25 +82,7 @@ You should always strive towards making your playbooks as robust as possible, wh
 Let's change the title and the *state* to `absent`, remove (or comment) the condition and run the playbook again.
 
 ```yaml hl_lines="5 8 19"
----
-- name: Install vsftpd if hosts are in inventory group
-  hosts: all
-  tasks:
-    - name: De-install FTP server when host in ftpserver group
-      ansible.builtin.yum:
-        name: vsftpd
-        state: absent
-      become: true
-      when: inventory_hostname in groups["ftpserver"]
-
-    - name: Get information about installed packages
-      ansible.builtin.package_facts:
-        manager: auto
-
-    - name: Debug exact version of installed vsFTP package
-      ansible.builtin.debug:
-        msg: "vsFTP is installed in Version {{ ansible_facts.packages.vsftpd.0.version }}"
-    #  when: ansible_facts.packages.vsftpd is defined
+--8<-- "conditionals-step2-ftpserver-commented.yml"
 ```
 
 The service is removed by the playbook, therefore the result of the *package_facts* module does not include the *vsftpd* package anymore and your playbooks ends with an error message!
@@ -149,30 +104,7 @@ Run the extended playbook.
     The updated playbook:
 
     ```yaml
-    ---
-    - name: Install vsftpd if hosts are in inventory group
-      hosts: all
-      tasks:
-        - name: Install FTP server when host in ftpserver group
-          ansible.builtin.yum:
-            name: vsftpd
-            state: present
-          become: true
-          when: inventory_hostname in groups["ftpserver"]
-
-        - name: Get information about installed packages
-          ansible.builtin.package_facts:
-            manager: auto
-
-        - name: Debug exact version of installed vsFTP package
-          ansible.builtin.debug:
-            msg: "{{ ansible_facts.packages.vsftpd.0.version }}"
-          when: ansible_facts.packages.vsftpd is defined
-
-        - name: Output message when vsftpd version is greater than 3.0
-          ansible.builtin.debug:
-            msg: "The version of vsftp includes important security patches!"
-          when: ansible_facts.packages.vsftpd.0.version is version('3.0', '>')
+    --8<-- "conditionals-step3-challenge.yml"
     ```
 
     Running the playbook outputs the following:

@@ -180,18 +180,7 @@ After adjusting the configuration, try to access the Grafana UI again. Use the h
     You can use the following playbook the check the current theme setting, create a new file, paste to content and run it:
 
     ```yaml
-    - name: Test Grafana theme setting
-      hosts: node2
-      tasks:
-        - name: Get Grafana UI content
-          ansible.builtin.uri:
-            url: http://node2:8080
-            return_content: true
-          register: grafana_ui_content
-
-        - name: Output current theme setting
-          ansible.builtin.debug:
-            msg: "HTML body returns '{{ grafana_ui_content.content | replace('\n', '') | regex_replace('^(.*body class=\\\")(.*)( app-grafana.*)', '\\2') }}' as the current color setting."
+    --8<-- "grafana-project-step3-test-theme-settings-playbook.yml"
     ```
 
 Achieve the following tasks:
@@ -206,14 +195,7 @@ All Ansible projects should use the role structure, if your project does not alr
 Change your playbook to use your role, e.g.:
 
 ```yaml
----
-# This is the main Playbook for the 'Grafana Deployment' Project
-
-- name: Deploy Grafana instance
-  hosts: grafana
-  roles:
-    - grafana
-
+--8<-- "grafana-project-roles-playbook.yml"
 ```
 
 Make sure everything works by executing your playbook again, you should not see any changes, all tasks should return a green "Ok" status.

@@ -1,0 +1,24 @@
+---
+- name: Install vsftpd if hosts are in inventory group
+  hosts: all
+  tasks:
+    - name: Install FTP server when host in ftpserver group
+      ansible.builtin.yum:
+        name: vsftpd
+        state: present
+      become: true
+      when: inventory_hostname in groups["ftpserver"]
+
+    - name: Get information about installed packages
+      ansible.builtin.package_facts:
+        manager: auto
+
+    - name: Debug exact version of installed vsFTP package
+      ansible.builtin.debug:
+        msg: "{{ ansible_facts.packages.vsftpd.0.version }}"
+      when: ansible_facts.packages.vsftpd is defined
+
+    - name: Output message when vsftpd version is greater than 3.0
+      ansible.builtin.debug:
+        msg: "The version of vsftp includes important security patches!"
+      when: ansible_facts.packages.vsftpd.0.version is version('3.0', '>')

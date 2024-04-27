@@ -124,20 +124,13 @@ export AWS_ACCESS_KEY_ID='AK123'
 export AWS_SECRET_ACCESS_KEY='abc123'
 ```
 
-Environment variables are only set in the current session, if you close your terminal, you'll need to set them again. To remember this, you could include this optional task as the first in your playbook which asserts that the variables are set. If the variables are missing, it will fail the playbook with a hint on what to do:
+!!! warning
+    Environment variables are only set in the current session, if you close your terminal, you'll need to set them again.
+
+To remember setting the variables, you could include this optional task as the first in your playbook which asserts that the variables are set. If the variables are missing, it will fail the playbook with a hint on what to do:
 
 ```yaml
-- name: Ensure AWS credentials are set
-  ansible.builtin.assert:
-  that:
-    - ansible_env.AWS_ACCESS_KEY_ID is defined
-    - ansible_env.AWS_SECRET_ACCESS_KEY is defined
-  quiet: true
-  fail_msg: |
-    No environment variables with AWS credentials found!
-    Set the variables with:
-      export AWS_ACCESS_KEY_ID='AK123'
-      export AWS_SECRET_ACCESS_KEY='abc123'
+--8<-- "aws-project-step2-env-variables-task.yml"
 ```
 
 !!! danger
@@ -376,14 +369,8 @@ You need to set some [Ansible connection variables](https://docs.ansible.com/ans
 
 When you finished your inventory, use this playbook to test the connection:
 
-```yaml title="test.yml"
----
-
-- name: Playbook targeting hosts from dynamic inventory
-  hosts: test_stage
-  tasks:
-    - name: Try to reach hosts
-      ansible.builtin.ping:
+```yaml title="test-connection.yml"
+--8<-- "aws-project-optional-step2-test-connection-playbook.yml"
 ```
 
 Running the playbook (and providing the inventory!) results in the following output:

@@ -87,15 +87,7 @@ This shows one of Ansible’s strengths: The Playbook syntax is easy to read and
 Now that we've defined the play, let's add a task to get something done. We will add a task in which yum will ensure that the Apache package is installed in the latest version. Modify the file so that it looks like the following listing:
 
 ```yaml
----
-- name: Apache server installed
-  hosts: node1
-  become: true
-  tasks:
-    - name: Install Apache package
-      ansible.builtin.yum:
-        name: httpd
-        state: present
+--8<-- "playbook-step2-apache.yml"
 ```
 
 !!! tip
@@ -170,20 +162,7 @@ Version     : 2.4.37
 Log out of `node1` with the command `exit` so that you are back on the control host and verify the installed package with an Ansible playbook named `package.yml`. Create the file and paste in the following content:
 
 ```yaml
----
-- name: Check packages
-  hosts: node1
-  become: true
-  vars:
-    package: "httpd"
-  tasks:
-    - name: Gather the package facts
-      ansible.builtin.package_facts:
-        manager: auto
-
-    - name: Output message if package is installed
-      ansible.builtin.debug:
-        msg: "{{ package }} in Version {{ ansible_facts.packages[package][0].version }} is installed!"
+--8<-- "playbook-step3-package.yml"
 ```
 
 !!! note
@@ -234,21 +213,7 @@ The next part of the Ansible playbook makes sure the Apache application is enabl
 On the control host, as your student user, edit the file `~/ansible-files/apache.yml` to add a second task using the `service` module. The Playbook should now look like this:
 
 ```yaml
----
-- name: Apache server installation
-  hosts: node1
-  become: true
-  tasks:
-    - name: Install Apache package
-      ansible.builtin.yum:
-        name: httpd
-        state: present
-
-    - name: Ensure Apache is enabled and running
-      ansible.builtin.service:
-        name: httpd.service
-        enabled: true
-        state: started
+--8<-- "playbook-step4-apache.yml"
 ```
 
 What exactly did we do?
@@ -284,19 +249,7 @@ Thus with the second task we make sure the Apache server is indeed running on th
 * Use an Ansible playbook labeled `service_state.yml` to make sure the Apache (httpd) service is running on `node1`.
 
 ```yaml
----
-- name: Check Service status
-  hosts: node1
-  become: true
-  vars:
-    service: "httpd.service"
-  tasks:
-    - name: Get state of all service
-      ansible.builtin.service_facts:
-
-    - name: Output service state of {{ service }}
-      ansible.builtin.debug:
-        msg: "{{ ansible_facts['services'][service]['state'] }}"
+--8<-- "playbook-step4-service-state.yml"
 ```
 
 === "Ansible"
@@ -318,16 +271,7 @@ This would be the same as checking the service state manually on `node1` with: `
 Check that the tasks were executed correctly and Apache is accepting connections: Make an HTTP request using Ansible’s `uri` module in a playbook named `check_httpd.yml` from the control node to `node1`.
 
 ```yaml
----
-- name: Check URL
-  hosts: control
-  vars:
-    node: "node1"
-  tasks:
-    - name: Check that you can connect (GET) to a page and it returns a status 200
-      ansible.builtin.uri:
-        url: "http://{{ node }}"
-
+--8<-- "playbook-step5-check-httpd.yml"
 ```
 
 !!! warning
@@ -366,29 +310,7 @@ In a previous example, you used Ansible’s `copy` module to write text supplied
 On the control node as your student user edit the file `~/ansible-files/apache.yml` and add a new task utilizing the `copy` module. It should now look like this:
 
 ```yaml
----
-- name: Apache server installation
-  hosts: node1
-  become: true
-  tasks:
-    - name: Install Apache package
-      ansible.builtin.yum:
-        name: httpd
-        state: present
-
-    - name: Ensure Apache is enabled and running
-      ansible.builtin.service:
-        name: httpd.service
-        enabled: true
-        state: started
-
-    - name: Copy file for webserver index
-      ansible.builtin.copy:
-        src: web.html
-        dest: /var/www/html/index.html
-        mode: "0644"
-        owner: apache
-        group: apache
+--8<-- "playbook-step5-apache.yml"
 ```
 
 What does this new copy task do? The new task uses the `copy` module and defines the source and destination options for the copy operation as parameters.
@@ -429,29 +351,7 @@ node3 ansible_host=node3.example.com
 Change the playbook `hosts` parameter to point to `web` instead of `node1`:
 
 ```yaml
----
-- name: Apache server installation
-  hosts: web
-  become: true
-  tasks:
-    - name: Install Apache package
-      ansible.builtin.yum:
-        name: httpd
-        state: present
-
-    - name: Ensure Apache is enabled and running
-      ansible.builtin.service:
-        name: httpd.service
-        enabled: true
-        state: started
-
-    - name: Copy file for webserver index
-      ansible.builtin.copy:
-        src: web.html
-        dest: /var/www/html/index.html
-        mode: "0644"
-        owner: apache
-        group: apache
+--8<-- "playbook-step6-apache.yml"
 ```
 
 Now run the playbook:

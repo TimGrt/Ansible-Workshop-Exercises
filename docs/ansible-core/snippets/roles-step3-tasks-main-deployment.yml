@@ -1,0 +1,9 @@
+- name: Deploy vhost template
+  ansible.builtin.template:
+    src: vhost.conf.j2
+    dest: /etc/httpd/conf.d/vhost.conf
+    owner: root
+    group: root
+    mode: "0644"
+  notify:
+    - Restart_httpd

@@ -49,12 +49,7 @@ The various `main.yml` files contain content depending on their location in the 
 Using roles in a Playbook is straight forward:
 
 ```yaml
----
-- name: Launch roles
-  hosts: web
-  roles:
-    - role1
-    - role2
+--8<-- "roles-step1-playbook.yml"
 ```
 
 For each role, the tasks, handlers and variables of that role will be included in the Playbook, in that order. Any copy, script, template, or include tasks in the role can reference the relevant files, templates, or tasks *without absolute or relative path names*. Ansible will look for them in the role's files, templates, or tasks respectively, based on their
@@ -116,17 +111,7 @@ The `main.yml` file in the tasks subdirectory of the role should do the followin
 Edit the `roles/apache-webserver/tasks/main.yml` file:
 
 ```yaml
----
-- name: Install httpd package
-  ansible.builtin.yum:
-    name: httpd
-    state: latest
-
-- name: Start and enable httpd service
-  ansible.builtin.service:
-    name: httpd
-    state: started
-    enabled: true
+--8<-- "roles-step3-tasks-main-installation.yml"
 ```
 
 Note that here just tasks were added. The details of a playbook are not present.
@@ -139,21 +124,7 @@ The tasks added so far do:
 Next we add two more tasks to ensure a *vhost* directory structure on the managed nodes and copy HTML content:
 
 ```yaml
-- name: Ensure vhost directory is present
-  ansible.builtin.file:
-    path: "/var/www/vhosts/{{ ansible_hostname }}"
-    state: directory
-    mode: "0755"
-    owner: apache
-    group: apache
-
-- name: Deliver html content
-  ansible.builtin.copy:
-    src: web.html
-    dest: "/var/www/vhosts/{{ ansible_hostname }}/index.html"
-    mode: "0644"
-    owner: apache
-    group: apache
+--8<-- "roles-step3-tasks-main-configuration.yml"
 ```
 
 Note that the *vhost* directory is created/ensured using the `file` module.
@@ -164,15 +135,7 @@ Note that the *vhost* directory is created/ensured using the `file` module.
 The last task we add uses the template module to create the vhost configuration file from a j2-template:
 
 ```yaml
-- name: Deploy vhost template
-  ansible.builtin.template:
-    src: vhost.conf.j2
-    dest: /etc/httpd/conf.d/vhost.conf
-    owner: root
-    group: root
-    mode: "0644"
-  notify:
-    - Restart_httpd
+--8<-- "roles-step3-tasks-main-deployment.yml"
 ```
 
 Note it is using a handler to restart httpd after an configuration update.
@@ -180,39 +143,7 @@ Note it is using a handler to restart httpd after an configuration update.
 The full `tasks/main.yml` file is:
 
 ```yaml
----
-- name: Install httpd package
-  ansible.builtin.yum:
-    name: httpd
-    state: present
-
-- name: Start and enable httpd service
-  ansible.builtin.service:
-    name: httpd
-    state: started
-    enabled: true
-
-- name: Ensure vhost directory is present
-  ansible.builtin.file:
-    path: "/var/www/vhosts/{{ ansible_hostname }}"
-    state: directory
-    mode: "0755"
-
-- name: Deliver html content
-  ansible.builtin.copy:
-    src: web.html
-    dest: "/var/www/vhosts/{{ ansible_hostname }}/index.html"
-    mode: "0644"
-
-- name: Deploy vhost template
-  ansible.builtin.template:
-    src: vhost.conf.j2
-    dest: /etc/httpd/conf.d/vhost.conf
-    owner: root
-    group: root
-    mode: "0644"
-  notify:
-    - Restart_httpd
+--8<-- "roles-step3-tasks-main-complete.yml"
 ```
 
 ### Step 4 - Create the handler
@@ -220,12 +151,7 @@ The full `tasks/main.yml` file is:
 Create the handler in the file `roles/apache-webserver/handlers/main.yml` to restart httpd when notified by the template task:
 
 ```yaml
----
-# handlers file for roles/apache-webserver
-- name: Restart_httpd
-  ansible.builtin.service:
-    name: httpd
-    state: restarted
+--8<-- "roles-step4-handlers-main.yml"
 ```
 
 ### Step 5 - Create the web.html and vhost configuration file template
@@ -270,20 +196,7 @@ The contents of the `vhost.conf.j2` template file are found below.
 You are ready to test the role against `node2`. But since a role cannot be assigned to a node directly, first create a playbook which connects the role and the host. Create the file `test_apache_role.yml` in the directory `~/ansible-files`:
 
 ```yaml
----
-- name: Use apache-webserver role
-  hosts: node2
-  become: true
-  pre_tasks:
-    - name: Output info before any role execution
-      ansible.builtin.debug:
-        msg: "Beginning web server configuration."
-  post_tasks:
-    - name: Output info before all roles are executed
-      ansible.builtin.debug:
-        msg: "Web server has been configured."
-  roles:
-    - apache-webserver
+--8<-- "roles-step6-playbook.yml"
 ```
 
 Note the `pre_tasks` and `post_tasks` keywords. Normally, the tasks of *roles* execute before the *tasks* of a playbook. To control order of execution `pre_tasks` are performed before any roles are applied. The `post_tasks` are performed after all the roles have completed. Here we just use them to better highlight when the actual role is executed.

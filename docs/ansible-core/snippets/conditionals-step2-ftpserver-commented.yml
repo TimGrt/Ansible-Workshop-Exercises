@@ -1,0 +1,19 @@
+---
+- name: Install vsftpd if hosts are in inventory group
+  hosts: all
+  tasks:
+    - name: De-install FTP server when host in ftpserver group
+      ansible.builtin.yum:
+        name: vsftpd
+        state: absent
+      become: true
+      when: inventory_hostname in groups["ftpserver"]
+
+    - name: Get information about installed packages
+      ansible.builtin.package_facts:
+        manager: auto
+
+    - name: Debug exact version of installed vsFTP package
+      ansible.builtin.debug:
+        msg: "vsFTP is installed in Version {{ ansible_facts.packages.vsftpd.0.version }}"
+    #  when: ansible_facts.packages.vsftpd is defined

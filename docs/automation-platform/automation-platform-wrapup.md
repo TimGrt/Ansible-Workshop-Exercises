@@ -117,19 +117,7 @@ This time we use the power of Ansible to check the results: execute uri to get t
     We are using the `ansible_host` variable in the URL to access every node in the inventory group.
 
 ```yaml
----
-- name: Check URL results
-  hosts: web
-
-  tasks:
-    - name: Check that you can connect (GET) to a page and it returns a status 200
-      uri:
-        url: "http://{{ ansible_host }}"
-        return_content: yes
-      register: uri_output
-
-    - debug:
-       msg: "{{ uri_output.content }}"
+--8<-- "wrapup-check-results-check-html-playbook.yml"
 ```
 
 Execute the playbook:
