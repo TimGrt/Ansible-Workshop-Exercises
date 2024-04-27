@@ -1,0 +1,7 @@
+---
+- name: Output facts within a playbook
+  hosts: all
+  tasks:
+    - name: Prints Ansible facts
+      ansible.builtin.debug:
+        msg: From a total of {{ ansible_memtotal_mb }} MB the server {{ ansible_fqdn }} has {{ ansible_memfree_mb }} MB RAM left.

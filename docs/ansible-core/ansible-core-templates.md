@@ -31,39 +31,13 @@ The template file contains the basic text that will later be copied over. It als
 Next we need a playbook to use this template. In the `~/ansible-files/` directory create the Playbook `motd-facts.yml`:
 
 ```yaml
----
-- name: Fill motd file with host data
-  hosts: node1
-  become: true
-  tasks:
-    - name: Deploy message of the day file
-      ansible.builtin.template:
-        src: motd-facts.j2
-        dest: /etc/motd
-        owner: root
-        group: root
-        mode: "0644"
+--8<-- "templates-step1-motd-facts.yml"
 ```
 
 As we just learned what *handlers* do, let's add one to this playbook. Add the handlers block with a simple task, which just outputs a message:
 
 ```yaml
----
-- name: Fill motd file with host data
-  hosts: node1
-  become: true
-  handlers:
-    - name: Motd_changed
-      ansible.builtin.debug:
-        msg: "The Message of the Day was updated! SSH to node1 and check the content."
-  tasks:
-    - name: Deploy message of the day file
-      ansible.builtin.template:
-        src: motd-facts.j2
-        dest: /etc/motd
-        owner: root
-        group: root
-        mode: "0644"
+--8<-- "templates-step1-motd-facts-handler.yml"
 ```
 
 Before we do a bigger challenge lab, let's see if you remember how handlers are triggered. Currently, the handler is not triggered, add the missing keyword to the task, which deploys the template.
@@ -73,23 +47,7 @@ Before we do a bigger challenge lab, let's see if you remember how handlers are 
     Add the *notify* keyword and the name of the handler:
 
     ```yaml hl_lines="17"
-    ---
-    - name: Fill motd file with host data
-      hosts: node1
-      become: true
-      handlers:
-        - name: Motd_changed
-          ansible.builtin.debug:
-            msg: "The Message of the Day was updated! SSH to node1 and check the content."
-      tasks:
-        - name: Deploy message of the day file
-          ansible.builtin.template:
-            src: motd-facts.j2
-            dest: /etc/motd
-            owner: root
-            group: root
-            mode: "0644"
-          notify: Motd_changed
+    --8<-- "templates-step1-motd-facts-handler-notify.yml"
     ```
 
 You have done this a couple of times by now:
@@ -124,19 +82,7 @@ Run the newly created playbook to find the fact name.
     Find the fact:
 
     ```yaml
-    ---
-    - name: Capture Kernel Version
-      hosts: node1
-      tasks:
-        - name: Collect only kernel facts
-          ansible.builtin.setup:
-            filter:
-              - '*kernel'
-          register: setup_output
-
-        - name: Output variable content
-          ansible.builtin.debug:
-            msg: "{{ setup_output }}"
+    --8<-- "templates-step2-challenge.yml"
     ```
 
     With the wildcard in place, the output shows:

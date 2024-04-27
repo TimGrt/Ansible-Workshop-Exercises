@@ -90,18 +90,7 @@ Create a new Playbook called `deploy_index_html.yml` in the `~/ansible-files/` d
     Note how the variable "stage" is used in the name of the file to copy.
 
 ```yaml
----
-- name: Webserver configuration
-  hosts: web
-  become: true
-  tasks:
-    - name: Copy web.html
-      ansible.builtin.copy:
-        src: "{{ stage }}_web.html"
-        dest: /var/www/html/index.html
-        mode: "0644"
-        owner: apache
-        group: apache
+--8<-- "variables-step3-deploy-index-html-playbook.yml"
 ```
 
 * Run the Playbook:
@@ -160,20 +149,7 @@ The facts contain useful information stored into variables that administrators c
 To get an idea what facts Ansible collects by default, on your control node as your student user create the playbook `setup.yml` and run it to get the setup details of `node1`:
 
 ```yaml
----
-- name: Capture and output facts
-  hosts: node1
-  gather_facts: false
-  tasks:
-    - name: Collect only facts returned by facter
-      ansible.builtin.setup:
-        gather_subset:
-          - 'all'
-      register: setup_output
-
-    - name: Output variable content
-      ansible.builtin.debug:
-        msg: "{{ setup_output }}"
+--8<-- "variables-step5-setup-playbook.yml"
 ```
 
 === "Ansible"
@@ -191,21 +167,7 @@ To get an idea what facts Ansible collects by default, on your control node as y
 This might be a bit too much, you can use filters to limit the output to certain facts, the expression is shell-style wildcard within your playbook. Create a playbook labeled `setup_filter.yml` as shown below. In this example, we filter to get the `eth0` facts as well as memory details of `node1`.
 
 ```yaml
----
-- name: Capture and output facts
-  hosts: node1
-  gather_facts: false
-  tasks:
-    - name: Collect only specific facts
-      ansible.builtin.setup:
-        filter:
-          - 'ansible_eth0'
-          - 'ansible_*_mb'
-      register: setup_output
-
-    - name: Output variable content
-      ansible.builtin.debug:
-        msg: "{{ setup_output }}"
+--8<-- "variables-step5-setup-filter-playbook.yml"
 ```
 
 Run the playbook:
@@ -237,20 +199,7 @@ Run the playbook:
     ```
 
     ```yaml
-    ---
-    - name: Capture and output facts
-      hosts: node1
-      gather_facts: false
-      tasks:
-        - name: Collect only specific facts, this task can be removed when enabling 'gather_facts' again.
-          ansible.builtin.setup:
-            filter:
-              - '*family'
-          register: setup_output
-
-        - name: Output variable content
-          ansible.builtin.debug:
-            msg: "{{ ansible_os_family }}"
+    --8<-- "variables-step6-challenge-playbook.yml"
     ```
 
     Run the playbook:
@@ -270,13 +219,7 @@ Run the playbook:
 Facts can be used in a Playbook like variables, using the proper naming, of course. Create this Playbook as `facts.yml` in the `~/ansible-files/` directory:
 
 ```yaml
----
-- name: Output facts within a playbook
-  hosts: all
-  tasks:
-    - name: Prints Ansible facts
-      ansible.builtin.debug:
-        msg: From a total of {{ ansible_memtotal_mb }} MB the server {{ ansible_fqdn }} has {{ ansible_memfree_mb }} MB RAM left.
+--8<-- "variables-step7-facts-playbook.yml"
 ```
 
 !!! tip

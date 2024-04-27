@@ -1,0 +1,7 @@
+---
+# This is the main Playbook for the 'Grafana Deployment' Project
+
+- name: Deploy Grafana instance
+  hosts: grafana
+  roles:
+    - grafana

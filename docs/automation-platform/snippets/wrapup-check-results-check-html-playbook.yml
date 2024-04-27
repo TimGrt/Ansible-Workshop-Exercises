@@ -1,0 +1,13 @@
+---
+- name: Check URL results
+  hosts: web
+  tasks:
+    - name: Check that you can connect (GET) to a page and it returns a status 200
+      ansible.builtin.uri:
+        url: "http://{{ ansible_host }}"
+        return_content: true
+      register: uri_output
+
+    - name: Output result
+      ansible.builtin.debug:
+        msg: "{{ uri_output.content }}"

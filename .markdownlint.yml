@@ -22,3 +22,6 @@ MD046: false
 
 # MD052/reference-links-images - Reference links and images should use a label that is defined
 MD052: false
+
+# MD056/table-column-count Table column count [Expected: 3; Actual: 4; Too many cells, extra data will be missing]
+MD056: false

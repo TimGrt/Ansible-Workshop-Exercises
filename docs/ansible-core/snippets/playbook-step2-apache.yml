@@ -1,0 +1,9 @@
+---
+- name: Apache server installed
+  hosts: node1
+  become: true
+  tasks:
+    - name: Install Apache package
+      ansible.builtin.yum:
+        name: httpd
+        state: present

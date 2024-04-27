@@ -172,18 +172,18 @@ As we need additional information about our VMs (number of vCPU cores, memory, d
 Once you gathered all facts about your managed nodes, add a task to create virtual machine objects in the Netbox with a loop, iterating over the `web` group of your inventory.  
 Find the correct module, every VM object should use the following parameters:
 
-| Parameter            | Value                                                             | Example (rendered to)                                                 |            |          |      |
-| -------------------- | ----------------------------------------------------------------- | --------------------------------------------------------------------- | ---------- | -------- | ---- |
-| name                 | `#!jinja "{{ hostvars[item]['ansible_fqdn'] }}"`                  | *node2.example.com*                                                   |            |          |      |
-| site                 | `rh_demo_environment`                                             |                                                                       |            |          |      |
-| cluster              | `Demo Tenant <Initials> VMs`                                      | *Demo Tenant TG VMs*                                                  |            |          |      |
-| tenant               | `demo_tenant_<initials>`                                          | *student2*                                                            |            |          |      |
-| platform             | `#!jinja "{{ hostvars[item]['ansible_distribution']               | lower }}_{{ hostvars[item]['ansible_distribution_major_version'] }}"` | *Redhat 8* |          |      |
-| vcpus                | `#!jinja "{{ hostvars[item]['ansible_processor_vcpus'] }}"`       | *2*                                                                   |            |          |      |
-| memory               | `#!jinja "{{ hostvars[item]['ansible_memtotal_mb'] }}"`           | *1024*                                                                |            |          |      |
-| disk                 | `#!jinja "{{ hostvars[item]['ansible_devices']['nvme0n1']['size'] | split(' ')                                                            | first      | int }}"` | *10* |
-| virtual_machine_role | `application-server`                                              |                                                                       |            |          |      |
-| status               | `Active`                                                          |                                                                       |            |          |      |
+| Parameter            | Value                                                                                                                       | Example (rendered to) |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------------- | --------------------- |
+| name                 | `#!jinja "{{ hostvars[item]['ansible_fqdn'] }}"`                                                                            | *node2.example.com*   |
+| site                 | `rh_demo_environment`                                                                                                       |                       |
+| cluster              | `Demo Tenant <Initials> VMs`                                                                                                | *Demo Tenant TG VMs*  |
+| tenant               | `demo_tenant_<initials>`                                                                                                    | *student2*            |
+| platform             | `#!jinja "{{ hostvars[item]['ansible_distribution'] | lower }}_{{ hostvars[item]['ansible_distribution_major_version'] }}"` | *Redhat 8*            |
+| vcpus                | `#!jinja "{{ hostvars[item]['ansible_processor_vcpus'] }}"`                                                                 | *2*                   |
+| memory               | `#!jinja "{{ hostvars[item]['ansible_memtotal_mb'] }}"`                                                                     | *1024*                |
+| disk                 | `#!jinja "{{ hostvars[item]['ansible_devices']['nvme0n1']['size'] | split(' ') | first | int }}"`                           | *10*                  |
+| virtual_machine_role | `application-server`                                                                                                        |                       |
+| status               | `Active`                                                                                                                    |                       |
 
 !!! warning
     Again, replace `<initials>` with your own Initials.

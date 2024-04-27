@@ -1,0 +1,17 @@
+---
+- name: Demo playbook for loops
+  hosts: node1
+  become: true
+  tasks:
+    - name: Ensure multiple users are present
+      ansible.builtin.user:
+        name: "{{ item.username }}"
+        state: present
+        groups: "{{ item.groups }}"
+      loop:
+        - username: dev_user
+          groups: ftp
+        - username: qa_user
+          groups: ftp
+        - username: prod_user
+          groups: apache
