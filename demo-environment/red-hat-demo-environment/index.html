@@ -9,10 +9,10 @@
       
       
       
-        <link rel="prev" href="../ansible-core-loops/">
+        <link rel="prev" href="../..">
       
       
-        <link rel="next" href="../ansible-core-templates/">
+        <link rel="next" href="../local-demo-environment/">
       
       
       <link rel="icon" href="../../assets/images/ansible-logo-black.png">
@@ -20,7 +20,7 @@
     
     
       
-        <title>7 - Trigger changes with Handlers - Ansible Workshop</title>
+        <title>RedHat Demo Environment - Ansible Workshop</title>
       
     
     
@@ -98,7 +98,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#7-trigger-changes-with-handlers" class="md-skip">
+        <a href="#redhat-demo-environment" class="md-skip">
           Skip to content
         </a>
       
@@ -142,7 +142,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              7 - Trigger changes with Handlers
+              RedHat Demo Environment
             
           </span>
         </div>
@@ -249,10 +249,12 @@
         
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
+      <li class="md-tabs__item md-tabs__item--active">
         <a href="../.." class="md-tabs__link">
           
   
@@ -269,12 +271,10 @@
         
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
+      <li class="md-tabs__item">
         <a href="../../ansible-basics-overview/" class="md-tabs__link">
           
   
@@ -396,6 +396,8 @@
       
   
   
+    
+  
   
   
     
@@ -414,16 +416,19 @@
     
     
       
+        
+        
+      
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
         
           
           
@@ -439,13 +444,13 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_1">
             <span class="md-nav__icon md-icon"></span>
             Workshop Overview
@@ -458,10 +463,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../demo-environment/red-hat-demo-environment/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    RedHat Demo Environment
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -470,6 +495,85 @@
   
 
       </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#lab-diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab Diagram
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#visual-studio-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      Visual Studio Code
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Visual Studio Code">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#useful-vscode-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Useful VScode configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Useful VScode configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#color-theme-for-syntax-highlighting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Color theme for syntax highlighting
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#terminal-scrollback" class="md-nav__link">
+    <span class="md-ellipsis">
+      Terminal Scrollback
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -482,7 +586,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../demo-environment/local-demo-environment/" class="md-nav__link">
+      <a href="../local-demo-environment/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -503,7 +607,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../demo-environment/editor-alternatives/" class="md-nav__link">
+      <a href="../editor-alternatives/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -528,10 +632,8 @@
       
   
   
-    
   
   
-  
     
     
       
@@ -560,22 +662,19 @@
     
     
       
-        
-        
-      
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -586,7 +685,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             Ansible Basics
@@ -621,7 +720,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ansible-core-intro/" class="md-nav__link">
+      <a href="../../ansible-core/ansible-core-intro/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -642,7 +741,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ansible-core-basics/" class="md-nav__link">
+      <a href="../../ansible-core/ansible-core-basics/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -663,7 +762,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ansible-core-playbook/" class="md-nav__link">
+      <a href="../../ansible-core/ansible-core-playbook/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -684,7 +783,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ansible-core-variables/" class="md-nav__link">
+      <a href="../../ansible-core/ansible-core-variables/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -705,7 +804,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ansible-core-conditionals/" class="md-nav__link">
+      <a href="../../ansible-core/ansible-core-conditionals/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -726,7 +825,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ansible-core-loops/" class="md-nav__link">
+      <a href="../../ansible-core/ansible-core-loops/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -744,30 +843,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    7 - Trigger changes with Handlers
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../ansible-core/ansible-core-handlers/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -776,61 +855,6 @@
   
 
       </a>
-      
-        
-
-  
-
-<nav class="md-nav md-nav--secondary" aria-label="On this page">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#objective" class="md-nav__link">
-    <span class="md-ellipsis">
-      Objective
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#guide" class="md-nav__link">
-    <span class="md-ellipsis">
-      Guide
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Guide">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#step-1-handlers" class="md-nav__link">
-    <span class="md-ellipsis">
-      Step 1 - Handlers
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -843,7 +867,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ansible-core-templates/" class="md-nav__link">
+      <a href="../../ansible-core/ansible-core-templates/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -864,7 +888,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ansible-core-roles/" class="md-nav__link">
+      <a href="../../ansible-core/ansible-core-roles/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -885,7 +909,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ansible-core-supplemental/" class="md-nav__link">
+      <a href="../../ansible-core/ansible-core-supplemental/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1427,30 +1451,54 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#objective" class="md-nav__link">
+  <a href="#lab-diagram" class="md-nav__link">
     <span class="md-ellipsis">
-      Objective
+      Lab Diagram
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#guide" class="md-nav__link">
+  <a href="#visual-studio-code" class="md-nav__link">
     <span class="md-ellipsis">
-      Guide
+      Visual Studio Code
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Guide">
+    <nav class="md-nav" aria-label="Visual Studio Code">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#step-1-handlers" class="md-nav__link">
+  <a href="#useful-vscode-configuration" class="md-nav__link">
     <span class="md-ellipsis">
-      Step 1 - Handlers
+      Useful VScode configuration
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Useful VScode configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#color-theme-for-syntax-highlighting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Color theme for syntax highlighting
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#terminal-scrollback" class="md-nav__link">
+    <span class="md-ellipsis">
+      Terminal Scrollback
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -1485,76 +1533,29 @@
   
 
 
-<h1 id="7-trigger-changes-with-handlers">7 - Trigger changes with Handlers</h1>
-<h2 id="objective">Objective</h2>
-<p>Get to know <em>Handler</em>, a special task which is defined in its own <em>play</em> parameter. A handler is often used to restart services, but it can be used with every module Ansible offers.  </p>
-<h2 id="guide">Guide</h2>
-<p>Sometimes when a task does make a change to the system, an additional task or tasks may need to be run. For example, a change to a service’s configuration file may then require that the service be restarted so that the changed configuration takes effect.</p>
-<p>Here Ansible’s handlers come into play. Handlers can be seen as inactive tasks that only get triggered when explicitly invoked using the "notify" statement. Read more about them in the <a href="https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_handlers.html" target="_blank">Ansible Handlers</a> documentation.</p>
-<h3 id="step-1-handlers">Step 1 - Handlers</h3>
-<p>As a an example, let’s write a playbook that:</p>
-<ul>
-<li>manages Apache’s configuration file <code>/etc/httpd/conf/httpd.conf</code> on all hosts in the <code>web</code> group</li>
-<li>restarts Apache when the file has changed</li>
-</ul>
-<p>First we need the file Ansible will deploy, let’s just take the one from node1.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>scp<span class="w"> </span>node1:/etc/httpd/conf/httpd.conf<span class="w"> </span>~/ansible-files/files/.
-</code></pre></div>
-<p>We now have the configuration file for our webserver, we will adjust the file later and copy it back to all webserver hosts later.<br />
-Next, create the Playbook <code>httpd_conf.yml</code>. Make sure that you are in the directory <code>~/ansible-files</code>.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nn">---</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Manage httpd.conf</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="nt">become</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="nt">handlers</span><span class="p">:</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Restart_apache</span>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">      </span><span class="nt">ansible.builtin.service</span><span class="p">:</span>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">httpd</span>
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">        </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">restarted</span>
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">  </span><span class="nt">tasks</span><span class="p">:</span>
-<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Copy Apache configuration file</span>
-<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">      </span><span class="nt">ansible.builtin.copy</span><span class="p">:</span>
-<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">        </span><span class="nt">src</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">httpd.conf</span>
-<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">        </span><span class="nt">dest</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/etc/httpd/conf/httpd.conf</span>
-<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">        </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0644&quot;</span>
-<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w">        </span><span class="nt">owner</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apache</span>
-<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w">        </span><span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apache</span>
-<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="w">      </span><span class="nt">notify</span><span class="p">:</span>
-<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Restart_apache</span>
-</code></pre></div>
-<p>So what’s new here?</p>
-<ul>
-<li>The "notify" parameter calls the handler only when the copy task actually changes the file. That way the service is only restarted if needed - and not each time the playbook is run.</li>
-<li>The "handlers" section defines a task that is only run on notification.</li>
-</ul>
-<p>Run the playbook. We didn’t change anything in the file yet so there should not be any <code>changed</code> lines in the output and of course the handler shouldn’t have fired.</p>
-<ul>
-<li>Now change the <code>Listen 80</code> line in <code>~/ansible-files/files/httpd.conf</code> to:</li>
-</ul>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="na">Listen 8080</span>
-</code></pre></div>
-<ul>
-<li>
-<p>Run the playbook again. Now the Ansible’s output should be a lot more interesting:</p>
-<ul>
-<li>httpd.conf should have been copied over</li>
-<li>The handler should have restarted Apache</li>
-</ul>
-</li>
-</ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>By default, handlers run after all the tasks in a particular play have been completed.</p>
+<h1 id="redhat-demo-environment">RedHat Demo Environment</h1>
+<p>Every Workshop attendant has his own demo environment.</p>
+<h2 id="lab-diagram">Lab Diagram</h2>
+<p>The Lab environment consist of an <em>Ansible control node</em> (called <code>ansible-1</code>) and three <em>Managed nodes</em> (called <code>node1</code>, <code>node2</code> and <code>node3</code>). All managed nodes are RHEL 8 hosts and are reachable password-less with SSH.</p>
+<p><img alt="ansible rhel lab diagram" src="../../assets/images/rhel_lab_diagram.png" /></p>
+<p>You will be logged in to the <em>Ansible Control node</em> with the Code editor <em>Visual Studio Code</em>. From here you will be writing all your playbooks and issuing all Ansible CLI commands.</p>
+<h2 id="visual-studio-code">Visual Studio Code</h2>
+<p>At its heart, Visual Studio Code is a code editor. Like many other code editors, VS Code adopts a common user interface and layout of an explorer on the left, showing all of the files and folders you have access to, and an editor on the right, showing the content of the files you have opened.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>It is highly recommended to use the <em>VS Code Editor</em> to write your playbooks, it has <strong>automatic saving</strong> and syntax highlighting enabled!</p>
 </div>
-<p>Apache should now listen on port 8080. Easy enough to verify:</p>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>curl<span class="w"> </span>http://node1
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="go">curl: (7) Failed to connect to node1 port 80: Connection refused</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>curl<span class="w"> </span>http://node1:8080
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="go">&lt;body&gt;</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="go">&lt;h1&gt;This is a development webserver, have fun!&lt;/h1&gt;</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="go">&lt;/body&gt;</span>
-</code></pre></div>
-<p>Run the playbook one last time. As the configuration file is already copied over with the desired configuration state, the handler is not triggered, Apache will keep running.</p>
+<p>If you want the real YAML challenge, try to write all your playbooks in the terminal/on the command-line. Expect to struggle at first with indentation, which leads to errors trying to run your playbooks.<br />
+Nevertheless, mastering to write Ansible playbooks without the help of a Code editor is the best possible way to really understand the YAML syntax. It doesn't take long and is highly rewarding.</p>
+<h3 id="useful-vscode-configuration">Useful VScode configuration</h3>
+<h4 id="color-theme-for-syntax-highlighting">Color theme for syntax highlighting</h4>
+<p>The <em>Ansible</em> extension supports <em>syntax-highlighting</em> for Ansible content. Depending on the used <em>theme</em> of VScode, this might not be shown correctly. Use the <strong>Default Dark+</strong> theme.<br />
+Click on <em>File</em> in the top menu bar, click on <em>Preferences</em> and open <em>Settings</em>. Search for <code>theme</code> and choose the <em>Dark+ (default dark)</em> from the drop-down menu.</p>
+<p><img alt="Workbench Color Theme" src="../images/WorkbenchColorTheme.png" /></p>
+<h4 id="terminal-scrollback">Terminal Scrollback</h4>
+<p>By default, scrollback of only 1000 lines is possible. If you need to scroll back further, you need to adjust this limit.<br />
+Click on <em>File</em> in the top menu bar, click on <em>Preferences</em> and open <em>Settings</em>. Search for <code>scrollback</code> and adjust the number to 10000 in the second configuration parameter (<em>Terminal &gt; Integrated: Scrollback</em>).</p>
+<p><img alt="Terminal Scrollback configuration" src="../images/TerminalScrollback.png" /></p>
 
 
 
@@ -1575,7 +1576,7 @@ Next, create the Playbook <code>httpd_conf.yml</code>. Make sure that you are in
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 27, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 1, 2024</span>
   </span>
 
     
