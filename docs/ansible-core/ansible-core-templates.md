@@ -31,13 +31,13 @@ The template file contains the basic text that will later be copied over. It als
 Next we need a playbook to use this template. In the `~/ansible-files/` directory create the Playbook `motd-facts.yml`:
 
 ```yaml
---8<-- "templates-step1-motd-facts.yml"
+--8<-- "templates-step1-motd-facts-playbook.yml"
 ```
 
 As we just learned what *handlers* do, let's add one to this playbook. Add the handlers block with a simple task, which just outputs a message:
 
 ```yaml
---8<-- "templates-step1-motd-facts-handler.yml"
+--8<-- "templates-step1-motd-facts-handler-playbook.yml"
 ```
 
 Before we do a bigger challenge lab, let's see if you remember how handlers are triggered. Currently, the handler is not triggered, add the missing keyword to the task, which deploys the template.
@@ -47,7 +47,7 @@ Before we do a bigger challenge lab, let's see if you remember how handlers are 
     Add the *notify* keyword and the name of the handler:
 
     ```yaml hl_lines="17"
-    --8<-- "templates-step1-motd-facts-handler-notify.yml"
+    --8<-- "templates-step1-motd-facts-handler-notify-playbook.yml"
     ```
 
 You have done this a couple of times by now:
@@ -82,7 +82,7 @@ Run the newly created playbook to find the fact name.
     Find the fact:
 
     ```yaml
-    --8<-- "templates-step2-challenge.yml"
+    --8<-- "templates-step2-challenge-playbook.yml"
     ```
 
     With the wildcard in place, the output shows:
