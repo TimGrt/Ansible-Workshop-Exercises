@@ -13,7 +13,7 @@ These first few lab exercises will be exploring the command-line utilities of th
 * [Execution Environments](https://docs.ansible.com/automation-controller/latest/html/userguide/execution_environments.html){:target="_blank"} - not specifically covered in this workshop (day 1) because the built-in Ansible Execution Environments already included all the Red Hat supported collections which includes all the collections we use for this workshop.  Execution Environments are container images that can be utilized as Ansible execution.
 * [ansible-builder](https://github.com/ansible/ansible-builder){:target="_blank"} - not specifically covered in this workshop, `ansible-builder` is a command line utility to automate the process of building Execution Environments.
 
-If you need more information on new Ansible Automation Platform components bookmark this landing page [https://red.ht/AAP-20](https://red.ht/AAP-20){:target="_blank"}
+If you need more information on new Ansible Automation Platform components bookmark this landing page [https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.4](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.4){:target="_blank"}
 
 We will be using especially the *ansible-core* executable and the CLI tools it provides, as currently (Q1/2023) it is still the main interface to interact with Ansible.
 
