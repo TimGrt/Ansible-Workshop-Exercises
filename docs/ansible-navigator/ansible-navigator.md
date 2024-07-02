@@ -334,7 +334,7 @@ Create a simple playbook:
   become: true
   tasks:
     - name: Ensure Apache package is installed
-      ansible.builtin.yum:
+      ansible.builtin.package:
         name: httpd
         state: present
 ```
@@ -362,7 +362,7 @@ The display should look something like this:
 ``` { .console .no-copy }
   RESULT   HOST    NUMBER   CHANGED   TASK                              TASK ACTION    DURATION
 0│OK       node1   0        False     Gathering Facts                   gather_facts   1s
-1│OK       node1   1        False     latest Apache version installed   yum            4s
+1│OK       node1   1        False     latest Apache version installed   package            4s
 ```
 
 Taking a closer look, you'll notice that each task is associated with a number. Task 1, "latest Apache version installed", does not show a change state, you already installed Apache yesterday, otherwise it would show a change.
@@ -478,7 +478,7 @@ On the control node as your student user edit the file `~/ansible-files/apache.y
   become: true
   tasks:
     - name: Install Apache package
-      ansible.builtin.yum:
+      ansible.builtin.package:
         name: httpd
         state: present
 
@@ -531,7 +531,7 @@ Change the playbook `hosts` parameter to point to `web` instead of `node1`:
   become: true
   tasks:
     - name: Install Apache package
-      ansible.builtin.yum:
+      ansible.builtin.package:
         name: httpd
         state: present
 

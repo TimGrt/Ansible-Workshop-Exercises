@@ -127,3 +127,21 @@ Okay, a small challenge: Run an ad hoc to make sure the package "tmux" is instal
 
 !!! info
     Notice how the package was installed via the "CHANGED" output. If you run the ad hoc command a second time, the output will mention "SUCCESS" and inform you via the message parameter that there is nothing to do.
+
+### Adjust AAP settings for additional ad-hoc module
+
+The previous Challenge Lab made use of the `yum` module, this module only makes sense on *older* Fedora-based systems like RHEL 7 or RHEL 8 hosts.  
+Previously, we used the generic `package` module to install packages on the target systems. Let's add this module to the list of modules which can be used with ad-hoc commands.  
+
+* In the web UI go to **Settings**. In the Tab *Jobs* click on **Jobs settings**.
+
+* At the bottom of the page, click the **Edit** button.
+
+* In the textarea *Ansible Modules Allowed for Ad Hoc Jobs*, add `"package",` (in between `mount` and `ping` to keep the alphabatical order).
+
+!!! warning
+    The textarea contains a JSON list! Ensure to use quotation marks and end the line with comma to keep the valid list structure.
+
+* After adding the module to the list, scroll down to the bottom of the page and click the **Save** button.
+
+Now, you are able to use the *package* module in the ad-hoc command, try to do the previous Challenge Lab by using this module.
