@@ -3,7 +3,7 @@
   hosts: all
   tasks:
     - name: Install FTP server when host in ftpserver group
-      ansible.builtin.yum:
+      ansible.builtin.package:
         name: vsftpd
         state: present
       become: true
