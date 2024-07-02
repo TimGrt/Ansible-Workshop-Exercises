@@ -6,7 +6,7 @@ This exercise covers using Ansible to build two Apache web servers on Red Hat En
 
 * Understanding Ansible module parameters
 * Understanding and using the following modules
-    * [yum module](https://docs.ansible.com/ansible/latest/modules/yum_module.html){:target="_blank"}
+    * [package module](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/package_module.html){:target="_blank"}
     * [service module](https://docs.ansible.com/ansible/latest/modules/service_module.html){:target="_blank"}
     * [copy module](https://docs.ansible.com/ansible/latest/modules/copy_module.html){:target="_blank"}
 * Understanding [Idempotence](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_intro.html#desired-state-and-idempotency){:target="_blank"} and how Ansible modules can be idempotent
@@ -84,7 +84,7 @@ This shows one of Ansible’s strengths: The Playbook syntax is easy to read and
 !!! tip
     You obviously need to use privilege escalation to install a package or run any other task that requires root permissions. This is done in the Playbook by `become: true`.
 
-Now that we've defined the play, let's add a task to get something done. We will add a task in which yum will ensure that the Apache package is installed in the latest version. Modify the file so that it looks like the following listing:
+Now that we've defined the play, let's add a task to get something done. We will add a task in which the RHEL package manager will ensure that the Apache package is installed in the latest version. Modify the file so that it looks like the following listing:
 
 ```yaml
 --8<-- "playbook-step2-apache.yml"
@@ -96,7 +96,7 @@ Now that we've defined the play, let's add a task to get something done. We will
 In the added lines:
 
 * We started the tasks part with the keyword `tasks:`.
-* A task is named and the module for the task is referenced. Here it uses the `yum` module.
+* A task is named and the module for the task is referenced. Here it uses the `package` module.
 * Parameters for the module are added:
     * `name:` to identify the package name
     * `state:` to define the wanted state of the package

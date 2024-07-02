@@ -118,7 +118,7 @@ Note that here just tasks were added. The details of a playbook are not present.
 
 The tasks added so far do:
 
-* Install the httpd package using the yum module
+* Install the httpd package using the package module
 * Use the service module to enable and start httpd
 
 Next we add two more tasks to ensure a *vhost* directory structure on the managed nodes and copy HTML content:
@@ -243,7 +243,7 @@ You can see what ports the web server is running on by using the netstat command
 If *netstat* is not present, install it with this command:
 
 ``` { .console .no-copy }
-#> sudo yum install -y net-tools
+#> sudo dnf install -y net-tools
 ```
 
 There should be a line like this:

@@ -114,14 +114,14 @@ As you see, this time it worked. For tasks that have to run as `root` you need t
 
 ### Challenge Lab: Ad Hoc Commands
 
-Okay, a small challenge: Run an ad hoc to make sure the package "tmux" is installed on all hosts. If unsure, consult the documentation either via the web UI as shown above or by running `ansible-doc yum` on your Automation controller control host.
+Okay, a small challenge: Run an ad hoc to make sure the package "tmux" is installed on all hosts. If unsure, consult the documentation either via the web UI as shown above or by running `ansible-doc package` on your Automation controller control host.
 
 ??? success "Solution"
 
     * In the Web UI go to **Resources → Inventories → Workshop Inventory**.  
     * Click the **Hosts** tab to change into the hosts view and select the three hosts by ticking the boxes to the left of the host entries.
     * Click **Run Command** button. In the next screen you have to specify the ad hoc command.
-    * Within the **Details** window, select **Module** `yum`, in **Arguments** type `name=tmux`, check **Enable privilege escalation** and click **Next**.
+    * Within the **Details** window, select **Module** `package`, in **Arguments** type `name=tmux`, check **Enable privilege escalation** and click **Next**.
     * Within the **Execution Environment** window, select **Default execution environment** and click **Next**.
     * Within the **Machine Credential** window, select **Workshop Credentials** and click **Launch**.
 
