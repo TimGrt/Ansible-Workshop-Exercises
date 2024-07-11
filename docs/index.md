@@ -1,14 +1,12 @@
-# Ansible Workshop
-
-**Welcome to the Computacenter Ansible Workshop!**
-
-<figure markdown>
-  ![CC Logo](assets/images/computacenter.png#only-light){ width="500" }
-  ![CC Logo](assets/images/computacenter-white.png#only-dark){ width="500" }
-  <figcaption></figcaption>
-</figure>
+# Welcome to the Asible Workshop!
 
 Ansible is a radically simple IT automation system. It handles configuration management, application deployment, cloud provisioning, ad-hoc task execution, network automation, and multi-node orchestration.
+
+<figure markdown>
+  ![CC Logo](assets/images/ansible-community-logo-black.png#only-light){ width="500" }
+  ![CC Logo](assets/images/ansible-community-logo-white.png#only-dark){ width="500" }
+  <figcaption></figcaption>
+</figure>
 
 You will learn all about Ansible:
 

@@ -1,6 +1,6 @@
 # MkDocs configuration file
 site_name: Ansible Workshop
-copyright: Copyright &copy; Computacenter 2024
+copyright: Copyright &copy; Tim Grützmacher 2024
 extra:
   social:
     - icon: fontawesome/brands/gitlab
