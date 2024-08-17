@@ -38,13 +38,14 @@ markdown_extensions:
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.snippets:
+      auto_append:
+        - includes/abbreviations.md
       base_path:
-        - docs/ansible-core/snippets
+        - .
+        -  docs/ansible-core/snippets
         - docs/automation-platform/snippets
         - docs/projects/cloud-automation/snippets
         - docs/projects/linux-automation/snippets
-      auto_append:
-        - includes/abbreviations.md
   - pymdownx.superfences:
       custom_fences:
         - name: mermaid
@@ -103,6 +104,8 @@ theme:
         name: Switch to light mode
 repo_url: https://github.com/TimGrt/Ansible-Workshop-Exercises
 repo_name: timgrt/ansible-workshop-exercises
+watch:
+  - includes
 # Navigation definition
 nav:
   - "Workshop Overview":
