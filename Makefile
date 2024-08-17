@@ -23,9 +23,9 @@ venv: $(VENV_NAME)/bin/activate  ## Creates Python virtual environment
 
 $(VENV_NAME)/bin/activate: requirements.txt
 	$(info $(COLOUR_BLUE)## Creating Python virtual environment and installing dependencies...$(COLOUR_END))
-	@test -d $(VENV_NAME) || (virtualenv -p python3 $(VENV_NAME) && echo -e "$(COLOUR_GREEN)##Python VE created.$(COLOUR_END)")
-	@${PYTHON} -m pip install -r requirements.txt && echo -e "$(COLOUR_GREEN)## Python requirements installed.$(COLOUR_END)"
-	@${PYTHON} -m pip install pre-commit && echo -e "$(COLOUR_GREEN)## pre-commit package installed.$(COLOUR_END)"
+	@test -d $(VENV_NAME) || (python3 -m venv $(VENV_NAME) && echo -e "$(COLOUR_GREEN)##Python VE created.$(COLOUR_END)")
+	@${PYTHON} -m pip3 install -r requirements.txt && echo -e "$(COLOUR_GREEN)## Python requirements installed.$(COLOUR_END)"
+	@${PYTHON} -m pip3 install pre-commit && echo -e "$(COLOUR_GREEN)## pre-commit package installed.$(COLOUR_END)"
 	@touch $(VENV_NAME)/bin/activate
 
 hooks: pre-commit-install ## Installs pre-commit hooks
