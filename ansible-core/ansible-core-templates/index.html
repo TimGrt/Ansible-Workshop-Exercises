@@ -1579,7 +1579,7 @@
 <li>Understand what the Playbook does.</li>
 <li>Execute the Playbook <code>motd-facts.yml</code>.</li>
 <li>Observe if the handler was triggered. Re-Run the playbook multiple times.</li>
-<li>Login to node1 via SSH and check the message of the day content.</li>
+<li>Login to node1 via <abbr title="Secure Shell">SSH</abbr> and check the message of the day content.</li>
 <li>Log out of node1.</li>
 </ul>
 <p>You should see how Ansible replaces the variables with the facts it discovered from the system. The handler was only triggered when the task reported a <em>changed</em> state.</p>
@@ -1654,7 +1654,7 @@ Then we can update the motd-facts.j2 template to include <code>ansible_kernel</c
 </div>
 </div>
 </div>
-<p>Verify the new message via SSH login to <code>node1</code>.</p>
+<p>Verify the new message via <abbr title="Secure Shell">SSH</abbr> login to <code>node1</code>.</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="gp">[student@ansible-1 ~]$ </span>ssh<span class="w"> </span>node1
 <a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="go">Welcome to node1.</span>
 <a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="go">Host runs RedHat 8.1</span>
@@ -1662,6 +1662,7 @@ Then we can update the motd-facts.j2 template to include <code>ansible_kernel</c
 <a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="go">The kernel version is 4.18.0-305.12.1.el8_4.x86_64.</span>
 </code></pre></div>
 </details>
+<!-- markdownlint-disable -->
 
 
 

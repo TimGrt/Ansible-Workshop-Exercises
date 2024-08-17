@@ -1606,7 +1606,7 @@
 </ul>
 <h2 id="guide">Guide</h2>
 <h3 id="step-1-understanding-the-ansible-role-structure">Step 1 - Understanding the Ansible Role Structure</h3>
-<p>Roles follow a defined directory structure; a role is named by the top level directory. Some of the subdirectories contain YAML files, named <code>main.yml</code>. The files and templates subdirectories can contain objects referenced by the YAML files.</p>
+<p>Roles follow a defined directory structure; a role is named by the top level directory. Some of the subdirectories contain <abbr title="YAML Ain't Markup Language">YAML</abbr> files, named <code>main.yml</code>. The files and templates subdirectories can contain objects referenced by the <abbr title="YAML Ain't Markup Language">YAML</abbr> files.</p>
 <p>An example project structure could look like this, the name of the role would be "apache":</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>apache/
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>├── defaults
@@ -1678,7 +1678,7 @@ use.</p>
 <ul>
 <li>Make sure httpd is installed</li>
 <li>Make sure httpd is started and enabled</li>
-<li>Put HTML content into the Apache document root</li>
+<li>Put <abbr title="Hyper Text Markup Language">HTML</abbr> content into the Apache document root</li>
 <li>Install the template provided to configure the vhost</li>
 </ul>
 <div class="admonition note">
@@ -1704,7 +1704,7 @@ use.</p>
 <li>Install the httpd package using the package module</li>
 <li>Use the service module to enable and start httpd</li>
 </ul>
-<p>Next we add two more tasks to ensure a <em>vhost</em> directory structure on the managed nodes and copy HTML content:</p>
+<p>Next we add two more tasks to ensure a <em>vhost</em> directory structure on the managed nodes and copy <abbr title="Hyper Text Markup Language">HTML</abbr> content:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Ensure vhost directory is present</span>
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span><span class="nt">ansible.builtin.file</span><span class="p">:</span>
 <a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/var/www/vhosts/{{</span><span class="nv"> </span><span class="s">ansible_hostname</span><span class="nv"> </span><span class="s">}}&quot;</span>
@@ -1783,9 +1783,9 @@ use.</p>
 <a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">    </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">restarted</span>
 </code></pre></div>
 <h3 id="step-5-create-the-webhtml-and-vhost-configuration-file-template">Step 5 - Create the web.html and vhost configuration file template</h3>
-<p>Create the HTML content that will be served by the webserver.</p>
+<p>Create the <abbr title="Hyper Text Markup Language">HTML</abbr> content that will be served by the webserver.</p>
 <ul>
-<li>Create an <code>web.html</code> file in the "src" directory of the role, the <code>files</code> folder. Add a simple HTML content to the file:</li>
+<li>Create an <code>web.html</code> file in the "src" directory of the role, the <code>files</code> folder. Add a simple <abbr title="Hyper Text Markup Language">HTML</abbr> content to the file:</li>
 </ul>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
 <a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>    <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>The virtual host configuration works!<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
@@ -1860,7 +1860,7 @@ use.</p>
 <p>Congratulations! You have successfully completed this exercise!</p>
 <h2 id="troubleshooting-problems">Troubleshooting problems</h2>
 <p>Did the final curl work?<br />
-You can see what ports the web server is running on by using the netstat command, connect to the managed node via SSH:</p>
+You can see what ports the web server is running on by using the netstat command, connect to the managed node via <abbr title="Secure Shell">SSH</abbr>:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="gp">#</span>&gt;<span class="w"> </span>sudo<span class="w"> </span>netstat<span class="w"> </span>-tulpn
 </code></pre></div>
 <p>If <em>netstat</em> is not present, install it with this command:</p>
@@ -1870,6 +1870,7 @@ You can see what ports the web server is running on by using the netstat command
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="go">tcp6       0      0 :::8080                 :::*                    LISTEN      25237/httpd</span>
 </code></pre></div>
 <p>If it is not working, make sure that <code>/etc/httpd/conf/httpd.conf</code> has <code>Listen 8080</code> in it.  This should have been changed by <a href="../ansible-core-handlers/">Exercise 7</a>.</p>
+<!-- markdownlint-disable -->
 
 
 

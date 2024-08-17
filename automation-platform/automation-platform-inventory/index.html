@@ -1569,14 +1569,14 @@
 </ul>
 </li>
 <li>
-<p>Running ad hoc commands via the Ansible Automation Controller web UI</p>
+<p>Running ad hoc commands via the Ansible Automation Controller web <abbr title="User Interface">UI</abbr></p>
 </li>
 </ul>
 <h2 id="guide">Guide</h2>
 <h3 id="examine-an-inventory">Examine an Inventory</h3>
 <p>The first thing we need is an inventory of your managed hosts. This is the equivalent of an inventory file in Ansible Engine. There is a lot more to it (like dynamic inventories) but let’s start with the basics.</p>
 <ul>
-<li>You should already have the web UI open, if not: Point your browser to the URL you were given, similar to <code>https://demo.redhat.com/workshop/pm6xgd</code> (the <em>workshop ID</em> will be different) and log in as <code>admin</code>. The password will be provided by the instructor.</li>
+<li>You should already have the web <abbr title="User Interface">UI</abbr> open, if not: Point your browser to the <abbr title="Uniform Resource Locator">URL</abbr> you were given, similar to <code>https://demo.redhat.com/workshop/pm6xgd</code> (the <em>workshop ID</em> will be different) and log in as <code>admin</code>. The password will be provided by the instructor.</li>
 </ul>
 <p>There will be one inventory, the <strong>Workshop Inventory</strong>. Click the <strong>Workshop Inventory</strong> then click the <strong>Hosts</strong> button</p>
 <p>The inventory information at <code>~/lab_inventory/hosts</code> was pre-loaded into the Ansible Automation controller Inventory as part of the provisioning process.</p>
@@ -1616,9 +1616,9 @@
 <td>The user which matches our command-line Ansible inventory username for the other Linux nodes</td>
 </tr>
 <tr>
-<td><nobr>SSH Private Key</nobr></td>
+<td><nobr><abbr title="Secure Shell">SSH</abbr> Private Key</nobr></td>
 <td><code>Encrypted</code></td>
-<td>Note that you can't actually examine the SSH private key once someone hands it over to Ansible Automation controller</td>
+<td>Note that you can't actually examine the <abbr title="Secure Shell">SSH</abbr> private key once someone hands it over to Ansible Automation controller</td>
 </tr>
 </tbody>
 </table>
@@ -1631,7 +1631,7 @@ Got to <strong>Resources → Hosts</strong> and move the slider on the right to 
 </div>
 <ul>
 <li>
-<p>In the web UI go to <strong>Resources → Inventories → Workshop Inventory</strong></p>
+<p>In the web <abbr title="User Interface">UI</abbr> go to <strong>Resources → Inventories → Workshop Inventory</strong></p>
 </li>
 <li>
 <p>Click the <strong>Hosts</strong> tab to change into the hosts view and select the three hosts <em>node1</em> to <em>node3</em> by ticking the boxes to the left of the host entries.</p>
@@ -1650,7 +1650,7 @@ Got to <strong>Resources → Hosts</strong> and move the slider on the right to 
 <p>The simple <strong>ping</strong> module doesn’t need options. For other modules you need to supply the command to run as an argument. Try the <strong>command</strong> module to find the userid of the executing user using an ad hoc command.</p>
 <ul>
 <li>
-<p>In the web UI go to <strong>Resources → Inventories → Workshop Inventory</strong></p>
+<p>In the web <abbr title="User Interface">UI</abbr> go to <strong>Resources → Inventories → Workshop Inventory</strong></p>
 </li>
 <li>
 <p>Click the <strong>Hosts</strong> tab to change into the hosts view and select the three hosts by ticking the boxes to the left of the host entries.</p>
@@ -1669,7 +1669,7 @@ Got to <strong>Resources → Hosts</strong> and move the slider on the right to 
 <p>How about trying to get some secret information from the system? Try to print out <code>/etc/shadow</code>.</p>
 <ul>
 <li>
-<p>In the web UI go to <strong>Resources → Inventories → Workshop Inventory</strong></p>
+<p>In the web <abbr title="User Interface">UI</abbr> go to <strong>Resources → Inventories → Workshop Inventory</strong></p>
 </li>
 <li>
 <p>Click the <strong>Hosts</strong> tab to change into the hosts view and select the three hosts by ticking the boxes to the left of the host entries.</p>
@@ -1689,11 +1689,11 @@ Got to <strong>Resources → Hosts</strong> and move the slider on the right to 
 <p>Re-run the last ad hoc command but this time check the checkbox labeled <strong>Enable privilege escalation</strong>.</p>
 <p>As you see, this time it worked. For tasks that have to run as <code>root</code> you need to escalate the privileges. This is the same as the <strong>become: yes</strong> used in your Ansible Playbooks.</p>
 <h3 id="challenge-lab-ad-hoc-commands">Challenge Lab: Ad Hoc Commands</h3>
-<p>Okay, a small challenge: Run an ad hoc to make sure the package "tmux" is installed on all hosts. If unsure, consult the documentation either via the web UI as shown above or by running <code>ansible-doc yum</code> on your Automation controller control host.</p>
+<p>Okay, a small challenge: Run an ad hoc to make sure the package "tmux" is installed on all hosts. If unsure, consult the documentation either via the web <abbr title="User Interface">UI</abbr> as shown above or by running <code>ansible-doc yum</code> on your Automation controller control host.</p>
 <details class="success">
 <summary>Solution</summary>
 <ul>
-<li>In the Web UI go to <strong>Resources → Inventories → Workshop Inventory</strong>.  </li>
+<li>In the Web <abbr title="User Interface">UI</abbr> go to <strong>Resources → Inventories → Workshop Inventory</strong>.  </li>
 <li>Click the <strong>Hosts</strong> tab to change into the hosts view and select the three hosts by ticking the boxes to the left of the host entries.</li>
 <li>Click <strong>Run Command</strong> button. In the next screen you have to specify the ad hoc command.</li>
 <li>Within the <strong>Details</strong> window, select <strong>Module</strong> <code>yum</code>, in <strong>Arguments</strong> type <code>name=tmux</code>, check <strong>Enable privilege escalation</strong> and click <strong>Next</strong>.</li>
@@ -1705,12 +1705,12 @@ Got to <strong>Resources → Hosts</strong> and move the slider on the right to 
 <p class="admonition-title">Info</p>
 <p>Notice how the package was installed via the "CHANGED" output. If you run the ad hoc command a second time, the output will mention "SUCCESS" and inform you via the message parameter that there is nothing to do.</p>
 </div>
-<h3 id="adjust-aap-settings-for-additional-ad-hoc-module">Adjust AAP settings for additional ad-hoc module</h3>
-<p>The previous Challenge Lab made use of the <code>yum</code> module, this module only makes sense on <em>older</em> Fedora-based systems like RHEL 7 or RHEL 8 hosts.<br />
+<h3 id="adjust-aap-settings-for-additional-ad-hoc-module">Adjust <abbr title="Ansible Automation Platform">AAP</abbr> settings for additional ad-hoc module</h3>
+<p>The previous Challenge Lab made use of the <code>yum</code> module, this module only makes sense on <em>older</em> Fedora-based systems like <abbr title="Red Hat Enterprise Linux">RHEL</abbr> 7 or <abbr title="Red Hat Enterprise Linux">RHEL</abbr> 8 hosts.<br />
 Previously, we used the generic <code>package</code> module to install packages on the target systems. Let's add this module to the list of modules which can be used with ad-hoc commands.  </p>
 <ul>
 <li>
-<p>In the web UI go to <strong>Settings</strong>. In the Tab <em>Jobs</em> click on <strong>Jobs settings</strong>.</p>
+<p>In the web <abbr title="User Interface">UI</abbr> go to <strong>Settings</strong>. In the Tab <em>Jobs</em> click on <strong>Jobs settings</strong>.</p>
 </li>
 <li>
 <p>At the bottom of the page, click the <strong>Edit</strong> button.</p>
@@ -1721,12 +1721,13 @@ Previously, we used the generic <code>package</code> module to install packages 
 </ul>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>The textarea contains a JSON list! Ensure to use quotation marks and end the line with comma to keep the valid list structure.</p>
+<p>The textarea contains a <abbr title="JavaScript Object Notation">JSON</abbr> list! Ensure to use quotation marks and end the line with comma to keep the valid list structure.</p>
 </div>
 <ul>
 <li>After adding the module to the list, scroll down to the bottom of the page and click the <strong>Save</strong> button.</li>
 </ul>
 <p>Now, you are able to use the <em>package</em> module in the ad-hoc command, try to do the previous Challenge Lab by using this module.</p>
+<!-- markdownlint-disable -->
 
 
 

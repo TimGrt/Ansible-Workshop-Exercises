@@ -1604,7 +1604,7 @@
 <p>With the introduction of Ansible Automation Platform 2, several new key components are being introduced as a part of the overall developer experience. Execution environments have been introduced to provide predictable environments to be used during automation runtime. All collection dependencies are contained within the execution environment to ensure that automation created in development environments runs the same as in production environments.</p>
 <p>What do you find within an execution environment?</p>
 <ul>
-<li>RHEL UBI 8</li>
+<li><abbr title="Red Hat Enterprise Linux">RHEL</abbr> UBI 8</li>
 <li>Ansible 2.9 or Ansible Core 2.11</li>
 <li>Python 3.8</li>
 <li>Any content Collections</li>
@@ -1619,7 +1619,7 @@
 <ul>
 <li>Installing the <code>ansible-navigator</code> package</li>
 <li>Creating a default settings <code>/home/student/.ansible-navigator.yml</code> for all your projects (optional)</li>
-<li>All execution environment (EE) logs are stored within <code>/home/student/.ansible-navigator/logs/ansible-navigator.log</code></li>
+<li>All execution environment (<abbr title="Execution Environment">EE</abbr>) logs are stored within <code>/home/student/.ansible-navigator/logs/ansible-navigator.log</code></li>
 <li>Playbook artifacts are saved under <code>/tmp/artifact.json</code></li>
 </ul>
 <p>Follow the next link for more information on the <a href="https://ansible.readthedocs.io/projects/navigator/settings/#the-ansible-navigator-settings-file" target="_blank">Ansible navigator settings</a>.</p>
@@ -1793,10 +1793,10 @@
 </code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>The inventory can contain more data. E.g. if you have hosts that run on non-standard SSH ports you can put the port number after the hostname with a colon. Or you could define names specific to Ansible and have them point to the "real" IP or hostname.</p>
+<p>The inventory can contain more data. E.g. if you have hosts that run on non-standard <abbr title="Secure Shell">SSH</abbr> ports you can put the port number after the hostname with a colon. Or you could define names specific to Ansible and have them point to the "real" IP or hostname.</p>
 </div>
 <h3 id="step-2-listing-modules-and-getting-help">Step 2 - Listing Modules and Getting Help</h3>
-<p>Ansible Automation Platform comes with multiple supported Execution Environments (EEs).  These EEs come with bundled supported collections that contain supported content, including modules.  To browse your available modules first enter interactive mode:</p>
+<p>Ansible Automation Platform comes with multiple supported Execution Environments (<abbr title="Execution Environments">EEs</abbr>).  These <abbr title="Execution Environments">EEs</abbr> come with bundled supported collections that contain supported content, including modules.  To browse your available modules first enter interactive mode:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>ansible-navigator
 </code></pre></div>
 <p><img alt="picture of ansible-navigator" src="../images/interactive-mode.png" /></p>
@@ -1831,9 +1831,9 @@
 <p class="admonition-title">Note</p>
 <p>The output  you see might differ from the above output</p>
 </div>
-<p>This command gives you information about all currently installed Execution Environments or EEs for short.  Investigate an EE by pressing the corresponding number.  For example pressing <strong>2</strong> with the above example will open the <code>ee-supported-rhel8</code> execution environment:</p>
+<p>This command gives you information about all currently installed Execution Environments or <abbr title="Execution Environments">EEs</abbr> for short.  Investigate an <abbr title="Execution Environment">EE</abbr> by pressing the corresponding number.  For example pressing <strong>2</strong> with the above example will open the <code>ee-supported-rhel8</code> execution environment:</p>
 <p><img alt="ee main menu" src="../images/navigator-ee-menu.png" /></p>
-<p>Selecting <code>2</code> for <code>Ansible version and collections</code> will show us all Ansible Collections installed on that particular EE, and the version of <code>ansible-core</code>:</p>
+<p>Selecting <code>2</code> for <code>Ansible version and collections</code> will show us all Ansible Collections installed on that particular <abbr title="Execution Environment">EE</abbr>, and the version of <code>ansible-core</code>:</p>
 <p><img alt="ee info" src="../images/navigator-ee-collections.png" /></p>
 <h3 id="step-4-examining-the-ansible-navigator-configuration">Step 4 - Examining the ansible-navigator configuration</h3>
 <p>Either use Visual Studio Code to open or use the <code>cat</code> command to view the contents of the <code>ansible-navigator.yml</code> file.  The file is located in the home directory:</p>
@@ -1895,7 +1895,7 @@
 <p class="admonition-title">Tip</p>
 <p>The <em>Esc</em> key only takes you back to the previous screen. Once at the main overview screen an additional <em>Esc</em> key will take you back to the terminal window.</p>
 </div>
-<p>Once the playbook has completed, connect to <code>node1</code> via SSH to make sure Apache has been installed. You may also skip this, as you did this yesterday.</p>
+<p>Once the playbook has completed, connect to <code>node1</code> via <abbr title="Secure Shell">SSH</abbr> to make sure Apache has been installed. You may also skip this, as you did this yesterday.</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>ssh<span class="w"> </span>node1
 <a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="go">Last login: Wed May 15 14:03:45 2019 from 44.55.66.77</span>
 <a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="go">Managed by Ansible</span>
@@ -1937,7 +1937,7 @@
 <a id="__codelineno-21-11" name="__codelineno-21-11" href="#__codelineno-21-11"></a><span class="go">ansible                    : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0  </span>
 </code></pre></div>
 <h3 id="step-5-extend-your-playbook-create-an-webhtml">Step 5 - Extend your Playbook: Create an web.html</h3>
-<p>Check that the tasks were executed correctly and Apache is accepting connections: Make an HTTP request using Ansible’s <code>uri</code> module in a playbook named check_httpd.yml from the control node to <code>node1</code>.</p>
+<p>Check that the tasks were executed correctly and Apache is accepting connections: Make an <abbr title="Hyper Text Transfer Protocol">HTTP</abbr> request using Ansible’s <code>uri</code> module in a playbook named check_httpd.yml from the control node to <code>node1</code>.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="nn">---</span>
 <a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Check URL</span>
 <a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="w">  </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">control</span>
@@ -1954,7 +1954,7 @@
 </div>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="gp">[student@ansible-1 ~]$ </span>ansible-navigator<span class="w"> </span>run<span class="w"> </span>check_httpd.yml<span class="w"> </span>-m<span class="w"> </span>stdout
 </code></pre></div>
-<p>There are a lot of red lines and an error: As long as there is not at least an <code>web.html</code> file to be served by Apache, it will throw an ugly "HTTP Error 403: Forbidden" status and Ansible will report an error.</p>
+<p>There are a lot of red lines and an error: As long as there is not at least an <code>web.html</code> file to be served by Apache, it will throw an ugly "<abbr title="Hyper Text Transfer Protocol">HTTP</abbr> Error 403: Forbidden" status and Ansible will report an error.</p>
 <p>So why not use Ansible to deploy a simple <code>web.html</code> file? On the ansible control host, as the <code>student</code> user, create the directory <code>files</code> to hold file resources in <code>~/ansible-files/</code>:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>mkdir<span class="w"> </span>files
 </code></pre></div>
@@ -2037,6 +2037,7 @@
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>ansible-navigator<span class="w"> </span>run<span class="w"> </span>apache.yml<span class="w"> </span>-m<span class="w"> </span>stdout
 </code></pre></div>
 <p>Verify if Apache is now running on all web servers (node1, node2, node3). All output should be green.</p>
+<!-- markdownlint-disable -->
 
 
 

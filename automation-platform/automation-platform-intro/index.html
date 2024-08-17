@@ -1641,7 +1641,7 @@
   
 
 
-<h1 id="1-aap-introduction">1 - AAP Introduction</h1>
+<h1 id="1-aap-introduction">1 - <abbr title="Ansible Automation Platform">AAP</abbr> Introduction</h1>
 <h2 id="objective">Objective</h2>
 <p>The following exercise will provide an Ansible automation controller overview including going through features that are provided by the Red Hat Ansible Automation Platform.  This will cover automation controller fundamentals such as:</p>
 <ul>
@@ -1653,14 +1653,14 @@
 </ul>
 <h2 id="guide">Guide</h2>
 <h3 id="why-ansible-automation-controller">Why Ansible automation controller?</h3>
-<p>Automation controller is a web-based UI that provides an enterprise solution for IT automation. It</p>
+<p>Automation controller is a web-based <abbr title="User Interface">UI</abbr> that provides an enterprise solution for IT automation. It</p>
 <ul>
 <li>has a user-friendly dashboard.</li>
 <li>complements Ansible, adding automation, visual management, and monitoring capabilities.</li>
 <li>provides user access control to administrators.</li>
 <li>provides distinct <em>view</em> and <em>edit</em> perspectives for automation controller objects and components.</li>
 <li>graphically manages or synchronizes inventories with a wide variety of sources.</li>
-<li>has a RESTful API.</li>
+<li>has a RESTful <abbr title="Application Programming Interface">API</abbr>.</li>
 <li>And much more...</li>
 </ul>
 <h3 id="your-ansible-automation-controller-lab-environment">Your Ansible automation controller lab environment</h3>
@@ -1691,10 +1691,10 @@
 </tr>
 </tbody>
 </table>
-<p>The Ansible automation controller provided in this lab is individually setup for you. Make sure to access the right machine whenever you work with it. Automation controller has already been installed and licensed for you, the web UI will be reachable over HTTP/HTTPS.</p>
+<p>The Ansible automation controller provided in this lab is individually setup for you. Make sure to access the right machine whenever you work with it. Automation controller has already been installed and licensed for you, the web <abbr title="User Interface">UI</abbr> will be reachable over <abbr title="Hyper Text Transfer Protocol">HTTP</abbr>/<abbr title="Hypertext Transfer Protocol Secure">HTTPS</abbr>.</p>
 <h3 id="dashboard">Dashboard</h3>
-<p>Let's have a first look at the automation controller: Point your browser to the URL you were given, similar to <code>https://demo.redhat.com/workshop/pm6xgd</code> (the  current workshop ID will be different) and log in as <code>admin</code>. The password will be provided by the instructor.</p>
-<p>The web UI of automation controller greets you with a dashboard with a graph showing:</p>
+<p>Let's have a first look at the automation controller: Point your browser to the <abbr title="Uniform Resource Locator">URL</abbr> you were given, similar to <code>https://demo.redhat.com/workshop/pm6xgd</code> (the  current workshop ID will be different) and log in as <code>admin</code>. The password will be provided by the instructor.</p>
+<p>The web <abbr title="User Interface">UI</abbr> of automation controller greets you with a dashboard with a graph showing:</p>
 <ul>
 <li>recent job activity</li>
 <li>the number of managed hosts</li>
@@ -1715,6 +1715,7 @@
 <p>A job template is a definition and set of parameters for running an Ansible job. Job templates are useful to execute the same job many times. Job templates also encourage the reuse of Ansible playbook content and collaboration between teams. To execute a job, automation Controller requires that you first create a job template.</p>
 <h4 id="jobs">Jobs</h4>
 <p>A job is basically an instance of automation controller launching an Ansible playbook against an inventory of hosts.</p>
+<!-- markdownlint-disable -->
 
 
 

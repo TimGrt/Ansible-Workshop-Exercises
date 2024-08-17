@@ -1476,9 +1476,9 @@
 <h1 id="bonus-exercises">Bonus exercises</h1>
 <p>You have finished the lab already. But it doesn’t have to end here. We prepared some slightly more advanced bonus labs for you to follow through if you like. So if you are done with the labs and still have some time, here are some more labs for you:</p>
 <h2 id="bonus-lab-1-prepare-infrastructure">Bonus Lab 1: Prepare infrastructure</h2>
-<p>Ansible uses SSH to communicate with Linux nodes, the recommended method is to use <em>SSH-Keys</em> and not use a password to connect to the managed nodes.<br />
+<p>Ansible uses <abbr title="Secure Shell">SSH</abbr> to communicate with Linux nodes, the recommended method is to use <em><abbr title="Secure Shell">SSH</abbr>-Keys</em> and not use a password to connect to the managed nodes.<br />
 It is also advisable to use a dedicated user for automation on all managed nodes. In our exercises this user will be called <code>ansible</code>.  </p>
-<p>Let's break the initially working (password-less) SSH-connection in the lab environment and establish a new one with the service user <code>ansible</code>.</p>
+<p>Let's break the initially working (password-less) <abbr title="Secure Shell">SSH</abbr>-connection in the lab environment and establish a new one with the service user <code>ansible</code>.</p>
 <p>Download a script using the next command. Copy the command by clicking the <em>copy</em> button on the right of the code block:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="go">wget -q https://raw.githubusercontent.com/TimGrt/prepare-redhat-demo-system/master/break-ssh.sh</span>
 </code></pre></div>
@@ -1487,23 +1487,23 @@ It is also advisable to use a dedicated user for automation on all managed nodes
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="gp">[student@ansible-1 ~]$ </span>sh<span class="w"> </span><span class="k">break</span>-ssh.sh
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="gp">[student@ansible-1 ~]$</span>
 </code></pre></div>
-<p><em>No output is good output.</em> Now we can configure the SSH connection the way it want.</p>
+<p><em>No output is good output.</em> Now we can configure the <abbr title="Secure Shell">SSH</abbr> connection the way it want.</p>
 <div class="admonition success">
 <p class="admonition-title">Success</p>
 <p>The goal is to be able to communicate from <em>ansible-1</em> as <code>student</code> to the <code>ansible</code> user on all 3 managed nodes.</p>
 </div>
-<p>We will need the (already present) SSH <strong>public key</strong> of user <code>student</code> on <em>ansible-1</em> (use your own, not this one!):</p>
+<p>We will need the (already present) <abbr title="Secure Shell">SSH</abbr> <strong>public key</strong> of user <code>student</code> on <em>ansible-1</em> (use your own, not this one!):</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="gp">[student@ansible-1 ~]$ </span>cat<span class="w"> </span>.ssh/id_rsa.pub
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="go">ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCFeZ0j9HODBeDzP5aV5mkrsIGY1mvHTLjbCZIeHNpldIGETKflG6W0/</span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="go">...</span>
 </code></pre></div>
 <details class="hint">
 <summary>Hint</summary>
-<p>If you want to create your own SSH-Key-Pair, use this command:
+<p>If you want to create your own <abbr title="Secure Shell">SSH</abbr>-Key-Pair, use this command:
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="go">ssh-keygen</span>
 </code></pre></div></p>
 </details>
-<p>Next, SSH to the <em>ec2-user</em> on <em>node1</em>.</p>
+<p>Next, <abbr title="Secure Shell">SSH</abbr> to the <em>ec2-user</em> on <em>node1</em>.</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="gp">[student@ansible-1 ~]$ </span>ssh<span class="w"> </span>ec2-user@node1
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="gp">[ec2-user@node1 ~]$</span>
 </code></pre></div>
@@ -1548,7 +1548,7 @@ It is also advisable to use a dedicated user for automation on all managed nodes
 </code></pre></div>
 <div class="admonition failure">
 <p class="admonition-title">Failure</p>
-<p>If password-less SSH is not working, check the permissions of the <code>.ssh</code> folder and the <code>authorized_keys</code> file on the target host!</p>
+<p>If password-less <abbr title="Secure Shell">SSH</abbr> is not working, check the permissions of the <code>.ssh</code> folder and the <code>authorized_keys</code> file on the target host!</p>
 </div>
 <div class="admonition success">
 <p class="admonition-title">Success</p>
@@ -1557,7 +1557,7 @@ It is also advisable to use a dedicated user for automation on all managed nodes
 <p>Once you can reach all managed nodes password-less (and sudo-permissions are set, you will need this later), we can start to do some Ansible stuff like executing this Ad-hoc command:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="gp">[student@ansible-1 ~]$ </span>ansible<span class="w"> </span>web<span class="w"> </span>-m<span class="w"> </span>ping
 </code></pre></div>
-<p>We got an error, all three nodes aren't reachable?! But manually, we can reach all nodes via SSH!<br />
+<p>We got an error, all three nodes aren't reachable?! But manually, we can reach all nodes via <abbr title="Secure Shell">SSH</abbr>!<br />
 Observing the error message we can see what the problem is, Ansible tries to us reach all hosts as the <em>student</em> user. We established the service user <em>ansible</em> for that, we must instruct Ansible to use that user. By default, Ansible will use the user that is executing the <em>ansible</em> commands.</p>
 <p>Open the Ansible inventory file, either by clicking the <em>lab_inventory</em> folder and the <em>hosts</em> file in the VScode explorer or on the terminal.<br />
 Create a new variable section (with <em>:vars</em>) for the <em>web</em> group and set the <em>ansible_user=ansible</em> variable:</p>
@@ -1572,7 +1572,7 @@ Create a new variable section (with <em>:vars</em>) for the <em>web</em> group a
 <a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="k">[control]</span>
 <a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="na">ansible-1 ansible_host</span><span class="o">=</span><span class="s">44.55.66.77</span>
 </code></pre></div>
-<p>All hosts in the <em>web</em> group will now use the <em>ansible</em> user for the SSH connection. Try with the ad hoc command again:</p>
+<p>All hosts in the <em>web</em> group will now use the <em>ansible</em> user for the <abbr title="Secure Shell">SSH</abbr> connection. Try with the ad hoc command again:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="gp">[student@ansible-1 ~]$ </span>ansible<span class="w"> </span>web<span class="w"> </span>-m<span class="w"> </span>ping
 <a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="go">node2 | SUCCESS =&gt; {</span>
 <a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="go">    &quot;ansible_facts&quot;: {</span>
@@ -1596,11 +1596,11 @@ Create a new variable section (with <em>:vars</em>) for the <em>web</em> group a
 <a id="__codelineno-14-21" name="__codelineno-14-21" href="#__codelineno-14-21"></a><span class="go">    &quot;ping&quot;: &quot;pong&quot;</span>
 <a id="__codelineno-14-22" name="__codelineno-14-22" href="#__codelineno-14-22"></a><span class="go">}</span>
 </code></pre></div>
-<p>Success! All three nodes are reachable, we get a <em>pong</em> back, we proved that we can establish a SSH connection and that the node(s) have a usable Python interpreter.</p>
+<p>Success! All three nodes are reachable, we get a <em>pong</em> back, we proved that we can establish a <abbr title="Secure Shell">SSH</abbr> connection and that the node(s) have a usable Python interpreter.</p>
 <p>Try to run the same ad hoc command against the <em>control</em> group.  </p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="gp">[student@ansible-1 ~]$ </span>ansible<span class="w"> </span>control<span class="w"> </span>-m<span class="w"> </span>ping
 </code></pre></div>
-<p>An error again?? Although being on the same host, Ansible tries to open an SSH connection. Adjust the inventory file again and set the <code>ansible_connection</code> variable for the <em>ansible-1</em> host:</p>
+<p>An error again?? Although being on the same host, Ansible tries to open an <abbr title="Secure Shell">SSH</abbr> connection. Adjust the inventory file again and set the <code>ansible_connection</code> variable for the <em>ansible-1</em> host:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="k">[web]</span>
 <a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="na">node1 ansible_host</span><span class="o">=</span><span class="s">&lt;X.X.X.X&gt;</span>
 <a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="na">node2 ansible_host</span><span class="o">=</span><span class="s">&lt;Y.Y.Y.Y&gt;</span>
@@ -1726,6 +1726,7 @@ Create a new variable section (with <em>:vars</em>) for the <em>web</em> group a
 <a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a><span class="go">&lt;/body&gt;</span>
 </code></pre></div>
 </details>
+<!-- markdownlint-disable -->
 
 
 

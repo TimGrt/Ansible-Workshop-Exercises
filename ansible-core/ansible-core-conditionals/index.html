@@ -1564,7 +1564,7 @@
 <p>Ansible uses Jinja2 <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_tests.html#playbooks-tests" target="_blank">tests</a> and <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html#playbooks-filters" target="_blank">filters</a> in conditionals. Ansible supports all the standard tests and filters, and adds some unique ones as well.</p>
 <p>For more on this, please refer to the documentation: <a href="https://jinja.palletsprojects.com/en/latest/templates/" target="_blank">https://jinja.palletsprojects.com/en/latest/templates/</a></p>
 <h3 id="step-1-install-service-conditionally">Step 1 - Install service conditionally</h3>
-<p>As an example we would like to install an FTP server, but only on hosts that are in the <code>ftpserver</code> inventory group.</p>
+<p>As an example we would like to install an <abbr title="File Transfer Protocol">FTP</abbr> server, but only on hosts that are in the <code>ftpserver</code> inventory group.</p>
 <p>To do that, first edit the inventory to add another group, and place <code>node2</code> in it. Make sure that that IP address of <code>node2</code> is always the same when <code>node2</code> is listed. Edit the inventory <code>~/lab_inventory/hosts</code> to look like the following listing:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">[control]</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="na">ansible-1 ansible_host</span><span class="o">=</span><span class="s">ansible-1.example.com</span>
@@ -1602,7 +1602,7 @@
 </code></pre></div>
 <p>In your condition the <em>magic variable</em> <code>inventory_hostname</code> is used, a variable set by Ansible itself. It contains the inventory name for the <em>current</em> host being iterated over in the play.</p>
 <h3 id="step-2-find-out-exact-version-of-installed-service">Step 2 - Find out exact version of installed service</h3>
-<p>We installed the <em>vsftpd</em> package, we would now be able to start the <em>vsftp</em>-Service (Very Secure FTP Daemon). But what version of the package is installed?  </p>
+<p>We installed the <em>vsftpd</em> package, we would now be able to start the <em>vsftp</em>-Service (Very Secure <abbr title="File Transfer Protocol">FTP</abbr> Daemon). But what version of the package is installed?  </p>
 <p>Lets add two more tasks to our playbook, one to gather information about all installed packages on the target host with the module <em>package_facts</em>. This module adds the gathered information to the <code>ansible_facts</code>, from there you can use the information as an Ansible variable. The last tasks outputs the exact version number to <em>stdout</em>, but only if the package is installed (the variable in the <em>packages</em> dictionary is defined).</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nn">---</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install vsftpd if hosts are in inventory group</span>
@@ -1700,6 +1700,7 @@ Let's change the title and the <em>state</em> to <code>absent</code>, remove (or
 </details>
 <p>The message is shown? Awesome!<br />
 To see if the conditions works, change the version to compare to <code>4.0</code> and run the playbook again. You should now see the last task as <em>skipped</em>.</p>
+<!-- markdownlint-disable -->
 
 
 

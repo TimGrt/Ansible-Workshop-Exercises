@@ -1593,7 +1593,7 @@
   
 
 
-<h1 id="7-aap-wrap-up">7 - AAP Wrap up</h1>
+<h1 id="7-aap-wrap-up">7 - <abbr title="Ansible Automation Platform">AAP</abbr> Wrap up</h1>
 <h2 id="objective">Objective</h2>
 <p>This is the final challenge where we try to put most of what you have learned together.</p>
 <h2 id="guide">Guide</h2>
@@ -1660,7 +1660,7 @@
 </code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>Make sure to keep the three dashes that mark the YAML start and the <code>ansible_host</code> line in place!</p>
+<p>Make sure to keep the three dashes that mark the <abbr title="YAML Ain't Markup Language">YAML</abbr> start and the <code>ansible_host</code> line in place!</p>
 </div>
 <h3 id="create-the-template">Create the Template</h3>
 <p>Within <strong>Resources</strong> -&gt; <strong>Templates</strong>, select the <strong>Add</strong> button and <strong>Add job template</strong> as follows:</p>
@@ -1720,7 +1720,7 @@
 <p>This time we use the power of Ansible to check the results: execute uri to get the web content from each node, orchestrated by an Ansible playbook labeled <code>check_url.yml</code></p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>We are using the <code>ansible_host</code> variable in the URL to access every node in the inventory group.</p>
+<p>We are using the <code>ansible_host</code> variable in the <abbr title="Uniform Resource Locator">URL</abbr> to access every node in the inventory group.</p>
 </div>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nn">---</span>
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Check URL results</span>
@@ -1833,7 +1833,7 @@
 </ul>
 </li>
 </ul>
-<p>Check the results again from your automation controller host. We will use the dedicated <code>uri</code> module within an Ansible playbook. As arguments it needs the actual URL and a flag to output the body in the results.</p>
+<p>Check the results again from your automation controller host. We will use the dedicated <code>uri</code> module within an Ansible playbook. As arguments it needs the actual <abbr title="Uniform Resource Locator">URL</abbr> and a flag to output the body in the results.</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="gp">[student@ansible-1 ~]$ </span>ansible-playbook<span class="w"> </span>check_url.yml
 </code></pre></div>
 <h3 id="solution">Solution</h3>
@@ -1842,6 +1842,7 @@
 <p><strong>No solution this time <img alt="😅" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/1f605.svg" title=":sweat_smile:" /></strong></p>
 </div>
 <p>You have done all the required configuration steps in the lab already. If unsure, just refer back to the respective chapters.</p>
+<!-- markdownlint-disable -->
 
 
 

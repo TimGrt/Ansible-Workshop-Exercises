@@ -1685,6 +1685,7 @@ We can use the playbook to display that the <em>loop</em> keyword needs <em>list
 <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>fatal:<span class="w"> </span><span class="o">[</span>node1<span class="o">]</span>:<span class="w"> </span>FAILED!<span class="w"> </span><span class="o">=</span>&gt;<span class="w"> </span><span class="o">{</span><span class="s2">&quot;msg&quot;</span>:<span class="w"> </span><span class="s2">&quot;Invalid data passed to &#39;loop&#39;, it requires a list, got this instead: {&#39;all&#39;: [&#39;node1&#39;, &#39;node2&#39;, &#39;node3&#39;], &#39;ungrouped&#39;: [], &#39;web&#39;: [&#39;node1&#39;, &#39;node2&#39;, &#39;node3&#39;]}. Hint: If you passed a list/dict of just one element, try adding wantlist=True to your lookup invocation or use q/query instead of lookup.&quot;</span><span class="o">}</span>
 </code></pre></div>
 <p>You can provoke this, if you change line 8 to <code>loop: "{{ groups }}"</code>. With that change you would try to loop a dictionary, this obviously fails.</p>
+<!-- markdownlint-disable -->
 
 
 

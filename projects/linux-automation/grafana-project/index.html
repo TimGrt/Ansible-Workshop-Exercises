@@ -1591,7 +1591,7 @@
 </code></pre></div>
 <p>Create an inventory file with a <em>grafana</em> group definition. You will deploy Grafana to one of the nodes in the lab environment. Copy the <em>node2</em> configuration from the default inventory file to your <em>grafana</em> group.<br />
 Create a small Ansible configuration file (<code>ansible.cfg</code>) and instruct Ansible to always use the inventory you just created.</p>
-<p>For example, you may check your inventory with the <code>ansible-inventory</code> CLI utility. In this case, the host has an alias of <em>grafana-instance1</em> which is part of a group <em>grafana</em>:</p>
+<p>For example, you may check your inventory with the <code>ansible-inventory</code> <abbr title="Command-Line Interface">CLI</abbr> utility. In this case, the host has an alias of <em>grafana-instance1</em> which is part of a group <em>grafana</em>:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="gp">[student@ansible-1 ~]$ </span>ansible-inventory<span class="w"> </span>--graph<span class="w"> </span>--vars
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="go">@all:</span>
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="go">  |--@ungrouped:</span>
@@ -1601,7 +1601,7 @@ Create a small Ansible configuration file (<code>ansible.cfg</code>) and instruc
 </code></pre></div>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
-<p>As you can see above, no inventory was provided in the CLI call (e.g. with <code>-i inventory</code>), but the correct inventory is used.</p>
+<p>As you can see above, no inventory was provided in the <abbr title="Command-Line Interface">CLI</abbr> call (e.g. with <code>-i inventory</code>), but the correct inventory is used.</p>
 </div>
 <p>Achieve the following tasks:</p>
 <ul class="task-list">
@@ -1640,16 +1640,16 @@ Use the following file and copy it to <code>/etc/yum.repos.d/grafana.repo</code>
 <a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="go">   CGroup: /system.slice/grafana-server.service</span>
 <a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="go">           └─20887 /usr/sbin/grafana-server --config=/etc/grafana/grafana.ini --pidfile=/var/run/grafana/grafana-server.pid --packaging=rpm cfg:default.paths.logs=/var/log/grafana cfg:default.paths.data=/var/lib/grafana cfg:default.paths.plugins=/var/lib/grafana/plugins cfg:default.paths.provisioning=/etc/grafana/provisioning</span>
 </code></pre></div>
-<p>Accessing the Grafana UI from the browser currently fails with a timeout, use the <strong>public</strong> IP address of your <em>node2</em> (the one from your inventory) and port 3000 (this is the default port for Grafana). We will fix this in the next step.</p>
+<p>Accessing the Grafana <abbr title="User Interface">UI</abbr> from the browser currently fails with a timeout, use the <strong>public</strong> IP address of your <em>node2</em> (the one from your inventory) and port 3000 (this is the default port for Grafana). We will fix this in the next step.</p>
 <h3 id="step-3-configure-grafana">Step 3 - Configure Grafana</h3>
-<p>Currently, you are not able to access the Grafana UI, using the <strong>public</strong> IP address of your <em>node2</em> and the Grafana default port of 3000, you will get a timeout.<br />
-The lab environment only allows access to Port 80 and 8080, yesterday you started an Apache webserver on these ports with Ansible. You'll have to configure Grafana to start on Port 8080 to able to access the UI.</p>
+<p>Currently, you are not able to access the Grafana <abbr title="User Interface">UI</abbr>, using the <strong>public</strong> IP address of your <em>node2</em> and the Grafana default port of 3000, you will get a timeout.<br />
+The lab environment only allows access to Port 80 and 8080, yesterday you started an Apache webserver on these ports with Ansible. You'll have to configure Grafana to start on Port 8080 to able to access the <abbr title="User Interface">UI</abbr>.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>There should be no running Apache webserver on <em>node2</em>, if otherwise, you'll need to stop <em>httpd</em> on <em>node2</em>! If the port is occupied, Grafana can not be started!<br />
 You could (and should!) ensure a stopped Apache easily with an Ansible task...</p>
 </div>
-<p>By default, Grafana uses a black background. You will adjust the Grafana configuration with Ansible to show the Grafana UI with white background. You will change the look from this...</p>
+<p>By default, Grafana uses a black background. You will adjust the Grafana configuration with Ansible to show the Grafana <abbr title="User Interface">UI</abbr> with white background. You will change the look from this...</p>
 <p><img alt="Grafana with black background" src="../images/grafana-dark-background.png" /></p>
 <p>...to this...</p>
 <p><img alt="Grafana with white background" src="../images/grafana-light-background.png" /></p>
@@ -1659,12 +1659,12 @@ Naturally, you should achieve this with Ansible! Find an appropriate module (the
 <p class="admonition-title">Tip</p>
 <p>Configuration changes require a service restart!</p>
 </div>
-<p>After adjusting the configuration, try to access the Grafana UI again. Use the hostname (or public IP address) of your <em>node2</em> and use Port 8080 this time.  </p>
+<p>After adjusting the configuration, try to access the Grafana <abbr title="User Interface">UI</abbr> again. Use the hostname (or public IP address) of your <em>node2</em> and use Port 8080 this time.  </p>
 <div class="admonition success">
 <p class="admonition-title">Success</p>
-<p>Unfortunately, the UI currently can't be viewed directly in the Red Hat Demo environment!<br />
+<p>Unfortunately, the <abbr title="User Interface">UI</abbr> currently can't be viewed directly in the Red Hat Demo environment!<br />
 If you are in a local environment, you can use the default login credentials <em>admin:admin</em>, you can skip the password change request.<br />
-You can check if the UI is available by using the curl request <code>curl -L node2:8080</code></p>
+You can check if the <abbr title="User Interface">UI</abbr> is available by using the curl request <code>curl -L node2:8080</code></p>
 <details class="info">
 <summary>Example output</summary>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>curl<span class="w"> </span>-L<span class="w"> </span>node2:8080
@@ -1743,8 +1743,8 @@ You can check if the UI is available by using the curl request <code>curl -L nod
 </div>
 <p>Achieve the following tasks:</p>
 <ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Accessible Grafana UI on port 8080</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Grafana UI in <code>light</code> theme</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Accessible Grafana <abbr title="User Interface">UI</abbr> on port 8080</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Grafana <abbr title="User Interface">UI</abbr> in <code>light</code> theme</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Bonus: Can you manage to control the look of Grafana by just switching a variable?</li>
 </ul>
 <h3 id="step-4-re-format-project-to-role-structure">Step 4 - Re-format project to role structure</h3>
@@ -1766,8 +1766,9 @@ Change your playbook to use your role, e.g.:</p>
 </ul>
 <h3 id="step-5-bonus-upload-project-to-github">Step 5 - Bonus: Upload project to Github</h3>
 <p>Create a new project in your personal Github account and commit your Ansible project.</p>
-<h3 id="step-6-bonus-run-your-project-within-aap">Step 6 - Bonus: Run your project within AAP</h3>
-<p>Create a new project in AAP, reference your Grafana project from Github as the code source. Create a template and run your playbook.</p>
+<h3 id="step-6-bonus-run-your-project-within-aap">Step 6 - Bonus: Run your project within <abbr title="Ansible Automation Platform">AAP</abbr></h3>
+<p>Create a new project in <abbr title="Ansible Automation Platform">AAP</abbr>, reference your Grafana project from Github as the code source. Create a template and run your playbook.</p>
+<!-- markdownlint-disable -->
 
 
 

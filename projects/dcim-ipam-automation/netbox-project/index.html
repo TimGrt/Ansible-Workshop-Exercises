@@ -1558,7 +1558,7 @@
 
 
 <h1 id="project-dcim-automation">Project - DCIM Automation</h1>
-<p><strong>D</strong>ata<strong>c</strong>enter <strong>I</strong>nventory <strong>M</strong>anagement and IP Address Management are indispensable in today's large data centers. NetBox offers both functions including a versatile API.</p>
+<p><strong>D</strong>ata<strong>c</strong>enter <strong>I</strong>nventory <strong>M</strong>anagement and IP Address Management are indispensable in today's large data centers. NetBox offers both functions including a versatile <abbr title="Application Programming Interface">API</abbr>.</p>
 <figure>
 <p><img alt="Netbox logo" src="../images/netbox-logo.png" />
   </p>
@@ -1571,7 +1571,7 @@
 <figcaption></figcaption>
 </figure>
 <h2 id="objective">Objective</h2>
-<p>Create an Ansible project <em>from scratch</em>, automate against an API and make use of an Ansible <em>dynamic inventory</em>.</p>
+<p>Create an Ansible project <em>from scratch</em>, automate against an <abbr title="Application Programming Interface">API</abbr> and make use of an Ansible <em>dynamic inventory</em>.</p>
 <h2 id="guide">Guide</h2>
 <h3 id="step-1-prepare-project">Step 1 - Prepare project</h3>
 <p>Create a new project folder in your home directory:</p>
@@ -1581,7 +1581,7 @@
 <p>Open a new browser tab and go to <a href="https://demo.netbox.dev/" target="_blank">https://demo.netbox.dev/</a>.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>You can create <a href="https://demo.netbox.dev/plugins/demo/login/" target="_blank">personal login credentials</a> yourself. Once logged in, you can create an <a href="https://demo.netbox.dev/user/api-tokens/add/" target="_blank">API token</a> which you will need for your automation tasks. Either use the link or click on your username in the upper right corner of the Netbox UI and select <em>API Tokens</em> from the dropdown menu.</p>
+<p>You can create <a href="https://demo.netbox.dev/plugins/demo/login/" target="_blank">personal login credentials</a> yourself. Once logged in, you can create an <a href="https://demo.netbox.dev/user/api-tokens/add/" target="_blank"><abbr title="Application Programming Interface">API</abbr> token</a> which you will need for your automation tasks. Either use the link or click on your username in the upper right corner of the Netbox <abbr title="User Interface">UI</abbr> and select <em><abbr title="Application Programming Interface">API</abbr> Tokens</em> from the dropdown menu.</p>
 </div>
 <p>Today, you'll need additional Ansible modules. In the first part of the workshop, we only used a handful of modules which are all included in the <code>ansible-core</code> binary. With <em>ansible-core</em> only 69 of the most used modules are included:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="gp">[student@ansible-1 ~]$ </span>ansible-doc<span class="w"> </span>-l
@@ -1599,7 +1599,7 @@
 </code></pre></div>
 <p>Additional modules are installed through <em>collections</em>, search the <a href="https://docs.ansible.com/ansible/latest/collections/index.html" target="_blank">Collection Index</a> in the Ansible documentation for a module or use the search field.</p>
 <p><img alt="Ansible documentation" src="../../network-automation/images/ansible-docs.png" /></p>
-<p>If, for example, you want to create an EC2 instance in AWS, you will need the module <code>amazon.aws.ec2_instance</code>. To get the module, you'll need the collection <code>aws</code> of the provider <code>amazon</code>. Download the collection with the <code>ansible-galaxy</code> utility:</p>
+<p>If, for example, you want to create an <abbr title="Eleastic Compute Cloud">EC2</abbr> instance in <abbr title="Amazon Web Services">AWS</abbr>, you will need the module <code>amazon.aws.ec2_instance</code>. To get the module, you'll need the collection <code>aws</code> of the provider <code>amazon</code>. Download the collection with the <code>ansible-galaxy</code> utility:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="gp">[student@ansible-1 ~]$ </span>ansible-galaxy<span class="w"> </span>collection<span class="w"> </span>install<span class="w"> </span>amazon.aws
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="go">Starting galaxy collection install process</span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="go">Process install dependency map</span>
@@ -1610,7 +1610,7 @@
 </code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>Well, you won't need the AWS collection, but automating the Netbox with Ansible also requires additional modules, these are not included in the <code>ansible-core</code> binary and need to be installed with Ansible Galaxy.</p>
+<p>Well, you won't need the <abbr title="Amazon Web Services">AWS</abbr> collection, but automating the Netbox with Ansible also requires additional modules, these are not included in the <code>ansible-core</code> binary and need to be installed with Ansible Galaxy.</p>
 </div>
 <p>Achieve the following tasks:</p>
 <ul class="task-list">
@@ -1630,10 +1630,10 @@
 <p>Within your newly created project folder, create an inventory file and a playbook file.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>You have to instruct Ansible to communicate with the Netbox API, by default Ansible would try to communicate via SSH. This will not work.<br />
-Use the API token you created in the Netbox UI.</p>
+<p>You have to instruct Ansible to communicate with the Netbox <abbr title="Application Programming Interface">API</abbr>, by default Ansible would try to communicate via <abbr title="Secure Shell">SSH</abbr>. This will not work.<br />
+Use the <abbr title="Application Programming Interface">API</abbr> token you created in the Netbox <abbr title="User Interface">UI</abbr>.</p>
 </div>
-<p>Testing the successful communication with the API could be done by querying all available tenants with the <code>nb_lookup</code> plugin. Take a look at the <a href="https://docs.ansible.com/ansible/latest/index.html" target="_blank">documentation</a> for how to use it, use the <em>search</em> to find it.<br />
+<p>Testing the successful communication with the <abbr title="Application Programming Interface">API</abbr> could be done by querying all available tenants with the <code>nb_lookup</code> plugin. Take a look at the <a href="https://docs.ansible.com/ansible/latest/index.html" target="_blank">documentation</a> for how to use it, use the <em>search</em> to find it.<br />
 Create your playbook and add a task with the <em>debug</em> module, utilizing the <em>lookup plugin</em>.<br />
 In the documented example the loop uses the <a href="https://docs.ansible.com/ansible/latest/plugins/lookup.html#forcing-lookups-to-return-lists-query-and-wantlist-true" target="_blank">query</a> function, instead of <code>devices</code> search for <code>tenant</code>, the variable to output can be <code class="highlight"><span class="cp">{{</span> <span class="nv">item.value.display</span> <span class="cp">}}</span></code> for the name of the respective tenant.<br />
 Run your playbook, if it returns a green <em>ok</em> status, communication is established.</p>
@@ -1650,14 +1650,14 @@ Run your playbook, if it returns a green <em>ok</em> status, communication is es
 <p>The <em>loop_control</em> is not really necessary, but improves readability.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>You need to input your personal API token.</p>
+<p>You need to input your personal <abbr title="Application Programming Interface">API</abbr> token.</p>
 </div>
 </details>
 <p>Achieve the following tasks:</p>
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Inventory and playbook created</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Use variables where possible (and useful)</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Successful communication with API established</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Successful communication with <abbr title="Application Programming Interface">API</abbr> established</li>
 </ul>
 <h3 id="step-3-create-a-new-tenant">Step 3 - Create a new Tenant</h3>
 <p>Most core objects within NetBox's data model support tenancy. This is the association of an object with a particular tenant to convey ownership or dependency.</p>
@@ -1696,10 +1696,10 @@ Run your playbook, if it returns a green <em>ok</em> status, communication is es
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Tenant created</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Tenant is part of <code>cc_workshop</code> tenant group</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Inspect tenant in the UI</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Inspect tenant in the <abbr title="User Interface">UI</abbr></li>
 </ul>
 <h3 id="step-4-create-group-for-vms">Step 4 - Create group for VMs</h3>
-<p>Let's add your three <em>managed nodes</em> to a logical group within Netbox. In the Netbox UI, click on <em>Virtualization</em>, here you can find <em>Clusters</em>.<br />
+<p>Let's add your three <em>managed nodes</em> to a logical group within Netbox. In the Netbox <abbr title="User Interface">UI</abbr>, click on <em>Virtualization</em>, here you can find <em>Clusters</em>.<br />
 Find an appropriate module to create a cluster and set the following module parameters:</p>
 <table>
 <thead>
@@ -1806,6 +1806,7 @@ Find the correct module, every VM object should use the following parameters:</p
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> VM objects for all managed nodes created</li>
 </ul>
+<!-- markdownlint-disable -->
 
 
 

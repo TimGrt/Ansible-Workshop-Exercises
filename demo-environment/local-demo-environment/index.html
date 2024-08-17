@@ -1528,7 +1528,7 @@
 </ul>
 <p>The demo environment will <em>mimic</em> the Red Hat Demo Environment with three managed nodes: <strong>node1</strong>, <strong>node2</strong> and <strong>node3</strong>. The Ansible control node (your VM) will be known as <strong>ansible-1</strong> in the lab inventory. Instead of virtual machines, <em>Podman</em> containers are used as the <em>managed nodes</em>.  </p>
 <h2 id="lab-diagram">Lab Diagram</h2>
-<p>The Lab environment consist of an <em>Ansible control node</em> (called <code>ansible-1</code>, your actual VM) and three <em>Managed nodes</em> (called <code>node1</code>, <code>node2</code> and <code>node3</code>, these are all containers). All managed nodes are Rocky8 hosts and are reachable password-less with SSH.</p>
+<p>The Lab environment consist of an <em>Ansible control node</em> (called <code>ansible-1</code>, your actual VM) and three <em>Managed nodes</em> (called <code>node1</code>, <code>node2</code> and <code>node3</code>, these are all containers). All managed nodes are Rocky8 hosts and are reachable password-less with <abbr title="Secure Shell">SSH</abbr>.</p>
 <pre class="mermaid"><code>stateDiagram-v2
 [*] --&gt; 8002: http
 [*] --&gt; 8005: http
@@ -1559,7 +1559,7 @@ state Host {
         webserver3_port1 --&gt; webserver3
     }
 }</code></pre>
-<p>Although containers are used, all managed nodes are accessible via SSH, a couple of ports are exposed with every container:</p>
+<p>Although containers are used, all managed nodes are accessible via <abbr title="Secure Shell">SSH</abbr>, a couple of ports are exposed with every container:</p>
 <table>
 <thead>
 <tr>
@@ -1616,9 +1616,9 @@ state Host {
 <li>Install Podman (if necessary).</li>
 <li>Pull a Docker image and start as many containers as are defined in the inventory.</li>
 <li>Deploy the <em>Workshop inventory</em> (not the same as is used by this playbook!) to <code>~/lab_inventory/hosts</code>.</li>
-<li>Add a block with SSH config to access the managed nodes to <code>~/.ssh/config</code>.</li>
+<li>Add a block with <abbr title="Secure Shell">SSH</abbr> config to access the managed nodes to <code>~/.ssh/config</code>.</li>
 <li>Deploy the Ansible configuration for the Workshop to <code>~/.ansible.cfg</code>.</li>
-<li>Create a SSH keypair for the Workshop (<code>~/.ssh/ansible-workshop-environment</code> and <code>~/.ssh/ansible-workshop-environment.pub</code>).</li>
+<li>Create a <abbr title="Secure Shell">SSH</abbr> keypair for the Workshop (<code>~/.ssh/ansible-workshop-environment</code> and <code>~/.ssh/ansible-workshop-environment.pub</code>).</li>
 <li>Prepare all managed nodes.</li>
 </ol>
 <p>For additional information, take a look at the <a href="https://github.com/TimGrt/Workshop-Environment" target="_blank">README in the Github project</a></p>
@@ -1630,7 +1630,7 @@ state Host {
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="na">127.0.0.1 localhost node1 node2 node3</span>
 </code></pre></div>
 <p>You still need to add the port, but now you can run <code>curl http://node1:8002</code>.</p>
-<p>The SSH port for every container is also exposed via a high port (<em>node1</em> on <em>8001</em>, <em>node2</em> on <em>8004</em> and <em>node3</em> on <em>8007</em>), but you can access the managed nodes container like this:</p>
+<p>The <abbr title="Secure Shell">SSH</abbr> port for every container is also exposed via a high port (<em>node1</em> on <em>8001</em>, <em>node2</em> on <em>8004</em> and <em>node3</em> on <em>8007</em>), but you can access the managed nodes container like this:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="go">ssh node1</span>
 </code></pre></div>
 <blockquote>
@@ -1652,6 +1652,7 @@ state Host {
 <p>If you want to delete the Podman installation as well, run the playbook like this:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="go">ansible-playbook delete-workshop-environment.yml -e delete_podman=true</span>
 </code></pre></div>
+<!-- markdownlint-disable -->
 
 
 

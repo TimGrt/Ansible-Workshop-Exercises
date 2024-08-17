@@ -1592,7 +1592,7 @@
 </div>
 <h3 id="the-apache-configuration-role">The Apache-configuration Role</h3>
 <p>The playbook and the role with the Jinja2 template already exist in the Github repository <a href="https://github.com/ansible/workshop-examples" target="_blank">https://github.com/ansible/workshop-examples</a> in the directory <code>rhel/apache</code>.</p>
-<p>Head over to the Github UI and have a look at the content: the playbook <code>apache_role_install.yml</code> merely references the role. The role can be found in the <code>roles/role_apache</code> subdirectory.</p>
+<p>Head over to the Github <abbr title="User Interface">UI</abbr> and have a look at the content: the playbook <code>apache_role_install.yml</code> merely references the role. The role can be found in the <code>roles/role_apache</code> subdirectory.</p>
 <ul>
 <li>Inside the role, note the two variables in the <code>templates/index.html.j2</code> template file marked by <code>{{…​}}</code>.</li>
 <li>Notice the tasks in <code>tasks/main.yml</code> that deploy the file from the template.</li>
@@ -1729,7 +1729,7 @@
 <h3 id="launch-the-template">Launch the Template</h3>
 <p>Now launch <strong>Create index.html</strong> job template by selecting the <strong>Details</strong> tab and clicking the <strong>Launch</strong> button.</p>
 <p>Before the actual launch the survey will ask for <strong>First Line</strong> and <strong>Second Line</strong>. Fill in some text and click <strong>Next</strong>. The <strong>Preview</strong> window shows the values, if all is good run the Job by clicking <strong>Launch</strong>.</p>
-<p>After the job has completed, check the Apache homepage. In the SSH console on the control host, execute <code>curl</code> against <code>node1</code>:</p>
+<p>After the job has completed, check the Apache homepage. In the <abbr title="Secure Shell">SSH</abbr> console on the control host, execute <code>curl</code> against <code>node1</code>:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="gp">[student1@ansible-1 ~]$ </span>curl<span class="w"> </span>http://node1
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="go">&lt;body&gt;</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="go">&lt;h1&gt;Apache is running fine&lt;/h1&gt;</span>
@@ -1738,6 +1738,7 @@
 <a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="go">&lt;/body&gt;</span>
 </code></pre></div>
 <p>Note how the two variables where used by the playbook to create the content of the <code>index.html</code> file.</p>
+<!-- markdownlint-disable -->
 
 
 

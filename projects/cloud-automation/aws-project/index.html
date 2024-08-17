@@ -1695,27 +1695,27 @@
   
 
 
-<h1 id="project-aws-automation">Project - AWS Automation</h1>
+<h1 id="project-aws-automation">Project - <abbr title="Amazon Web Services">AWS</abbr> Automation</h1>
 <p>Automating Cloud infrastructure is getting more and more important. Tools like <em>Terraform</em> are well suited for provisioning infrastructure in public cloud environments.<br />
-When dealing with immutable infrastructure, Terraform works well and is great at provisioning cloud resources and applications for AWS, Azure, Docker, GCP, and others.  However, there is more to IT operations than automated infrastructure provisioning and this is why Ansible is extremely popular as well.</p>
+When dealing with immutable infrastructure, Terraform works well and is great at provisioning cloud resources and applications for <abbr title="Amazon Web Services">AWS</abbr>, Azure, Docker, <abbr title="Google Cloud Platform">GCP</abbr>, and others.  However, there is more to IT operations than automated infrastructure provisioning and this is why Ansible is extremely popular as well.</p>
 <p>Terraform is an excellent cloud provisioning and de-provisioning tool for infrastructure as code.  Ansible is a great all-purpose, cross-domain automation solution.<br />
 Together, they perform in harmony to create a better experience for developers and operations teams. Still, this workshops focus is Ansible, let us do provisioning <strong>and</strong> configuration in the cloud with the tool we learned.</p>
 <h2 id="objective">Objective</h2>
 <p>Get to know cloud automation with Ansible.<br />
 Cloud automation uses the basic Ansible concepts, but there are some differences in how the modules work.<br />
 From a user’s point of view, cloud modules work like any other modules. They work with ad hoc commands, playbooks, and roles.
-Behind the scenes, however, cloud modules use a different methodology than the other (Linux/Unix and Windows) modules use. As we are communicating with an API endpoint, but Ansible and most of its modules are written and executed in Python, you need to use the Python interpreter on the Ansible control node.</p>
+Behind the scenes, however, cloud modules use a different methodology than the other (Linux/Unix and Windows) modules use. As we are communicating with an <abbr title="Application Programming Interface">API</abbr> endpoint, but Ansible and most of its modules are written and executed in Python, you need to use the Python interpreter on the Ansible control node.</p>
 <h2 id="requirements">Requirements</h2>
-<p>For doing the following exercises, you will need an AWS Account and an AWS Access key (consists of an <em>Access Key ID</em> and a <em>Secret Access Key</em>).<br />
+<p>For doing the following exercises, you will need an <abbr title="Amazon Web Services">AWS</abbr> Account and an <abbr title="Amazon Web Services">AWS</abbr> Access key (consists of an <em>Access Key ID</em> and a <em>Secret Access Key</em>).<br />
 <img align="left" alt="AWS Security credentials" src="../images/AWS-Security-Credentials.png" width="300" />
-After creating your AWS Account, go to the navigation bar on the upper right, choose your user name, and then choose <em>Security credentials</em>.<br />
+After creating your <abbr title="Amazon Web Services">AWS</abbr> Account, go to the navigation bar on the upper right, choose your user name, and then choose <em>Security credentials</em>.<br />
 In the Access keys section, choose Create access key.  On the Access key best practices &amp; alternatives page, choose your use case to learn about additional options which can help you avoid creating a long-term access key. Mark the checkbox and click <em>Create Access Key</em>. On the <em>Retrieve access keys</em> page, choose either Show to reveal the value of your user's secret access key, or Download .csv file. This is your only opportunity to save your secret access key. After you've saved your secret access key in a secure location, choose Done.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>Most modules need the region set, use the region <code>eu-central-1</code> throughout your playbook.</p>
 </div>
 <h2 id="guide">Guide</h2>
-<p>The following steps explain and train you how to use the modules and inventory scripts to automate your AWS resources with Ansible.</p>
+<p>The following steps explain and train you how to use the modules and inventory scripts to automate your <abbr title="Amazon Web Services">AWS</abbr> resources with Ansible.</p>
 <h3 id="step-1-prepare-controller">Step 1 - Prepare controller</h3>
 <p>Today, you will need additional Ansible modules. In the first part of the workshop, we only used a handful of modules which are all included in the <code>ansible-core</code> binary. With <em>ansible-core</em> only 69 of the most used modules are included:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="gp">[student@ansible-1 ~]$ </span>ansible-doc<span class="w"> </span>-l
@@ -1733,10 +1733,10 @@ In the Access keys section, choose Create access key.  On the Access key best pr
 </code></pre></div>
 <p>Additional modules are installed through <em>collections</em>, search the <a href="https://docs.ansible.com/ansible/latest/collections/index.html" target="_blank">Collection Index</a> in the Ansible documentation for a suitable collection or use the search field.</p>
 <p><img alt="Ansible documentation" src="../../network-automation/images/ansible-docs.png" /></p>
-<p>Once you found the appropriate collection, install it with the <code>ansible-galaxy</code> CLI command:</p>
+<p>Once you found the appropriate collection, install it with the <code>ansible-galaxy</code> <abbr title="Command-Line Interface">CLI</abbr> command:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="go">ansible-galaxy collection install provider.collection</span>
 </code></pre></div>
-<p>Requirements for the AWS modules are minimal, you will need an additional Python package. Install the package with this command:</p>
+<p>Requirements for the <abbr title="Amazon Web Services">AWS</abbr> modules are minimal, you will need an additional Python package. Install the package with this command:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="go">pip3.9 install boto3 --user</span>
 </code></pre></div>
 <div class="admonition note">
@@ -1759,7 +1759,7 @@ You can check for the Python interpreter of Ansible with the <code>ansible --ver
 </div>
 <p>Achieve the following tasks:</p>
 <ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Find appropriate collection for AWS automation in the documentation</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Find appropriate collection for <abbr title="Amazon Web Services">AWS</abbr> automation in the documentation</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Collection installed</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Python requirements installed</li>
 </ul>
@@ -1779,12 +1779,12 @@ You can check for the Python interpreter of Ansible with the <code>ansible --ver
 <p>Within your newly created project folder, create a playbook file.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>You have to instruct Ansible to communicate with the AWS API, per default Ansible would try to communicate via SSH. This will not work. Set the target of your playbook to your <em>local machine</em>.  </p>
+<p>You have to instruct Ansible to communicate with the <abbr title="Amazon Web Services">AWS</abbr> <abbr title="Application Programming Interface">API</abbr>, per default Ansible would try to communicate via <abbr title="Secure Shell">SSH</abbr>. This will not work. Set the target of your playbook to your <em>local machine</em>.  </p>
 </div>
-<p>The documentation provides an <a href="https://docs.ansible.com/ansible/latest/scenario_guides/guide_aci.html" target="_blank">extensive Guide</a> for AWS automation which can help you setting up everything.
-For successful communication with the AWS API, you need to authenticate yourself, this is where your previously created Access key is needed.  </p>
+<p>The documentation provides an <a href="https://docs.ansible.com/ansible/latest/scenario_guides/guide_aci.html" target="_blank">extensive Guide</a> for <abbr title="Amazon Web Services">AWS</abbr> automation which can help you setting up everything.
+For successful communication with the <abbr title="Amazon Web Services">AWS</abbr> <abbr title="Application Programming Interface">API</abbr>, you need to authenticate yourself, this is where your previously created Access key is needed.  </p>
 <p>You can either specify your credentials as module arguments (you'll need to repeat them with <strong>every</strong> module) or as <em>environment variables</em>. The first variant would require you to set the credentials in variables (which need to be encrypted, this can be achieved with <em>ansible-vault</em>). Let's use the method with environment variables, this eases the first steps and is also applicable if you would run your playbook in the <a href="https://docs.ansible.com/automation-controller/latest/html/userguide/credentials.html#amazon-web-services" target="_blank">Ansible Automation Platform</a>.</p>
-<p>Set the environment variables on the CLI:</p>
+<p>Set the environment variables on the <abbr title="Command-Line Interface">CLI</abbr>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">AWS_ACCESS_KEY_ID</span><span class="o">=</span><span class="s1">&#39;AK123&#39;</span>
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">AWS_SECRET_ACCESS_KEY</span><span class="o">=</span><span class="s1">&#39;abc123&#39;</span>
 </code></pre></div>
@@ -1807,7 +1807,7 @@ For successful communication with the AWS API, you need to authenticate yourself
 </code></pre></div>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<p><strong>Your bash history reveals the CLI input and your credentials!</strong><br />
+<p><strong>Your bash history reveals the <abbr title="Command-Line Interface">CLI</abbr> input and your credentials!</strong><br />
 You can delete the respective entry with <code>history -d &lt;position&gt;</code>.</p>
 </div>
 <details class="tip">
@@ -1821,25 +1821,25 @@ You can delete the respective entry with <code>history -d &lt;position&gt;</code
 <p>Note, this solution also does not store the credentials in an encrypted way! Everybody with access to your home directory would be able to read your credentials!<br />
 In production, its best to use an external credential provider. In the Ansible Automation platform you can store your variables in an encrypted database or use multiple credential provider plugins.</p>
 </details>
-<p>Testing the successful communication with the API could be done by querying information about an EC2 AMI Image. Find an appropriate module, create your playbook and add a task. Try to gather information about the following AMI, you can copy the content with a button:</p>
+<p>Testing the successful communication with the <abbr title="Application Programming Interface">API</abbr> could be done by querying information about an <abbr title="Eleastic Compute Cloud">EC2</abbr> <abbr title="Amazon Machine Image">AMI</abbr> Image. Find an appropriate module, create your playbook and add a task. Try to gather information about the following <abbr title="Amazon Machine Image">AMI</abbr>, you can copy the content with a button:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>ami-06c39ed6b42908a36
 </code></pre></div>
-<p>The AMI is available in the <em>eu-central-1</em> region, you may to define this in the module you've chosen.  </p>
-<p>Run your playbook, if it returns a green <em>ok</em> status, communication is established. For now, the gathered information about the AMI is not relevant for us, still, you could store the output in a variable and output it with an appropriate module, if you are curious.</p>
+<p>The <abbr title="Amazon Machine Image">AMI</abbr> is available in the <em>eu-central-1</em> region, you may to define this in the module you've chosen.  </p>
+<p>Run your playbook, if it returns a green <em>ok</em> status, communication is established. For now, the gathered information about the <abbr title="Amazon Machine Image">AMI</abbr> is not relevant for us, still, you could store the output in a variable and output it with an appropriate module, if you are curious.</p>
 <p>Achieve the following tasks:</p>
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Playbook created</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Successful communication with AWS established</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Successful communication with <abbr title="Amazon Web Services">AWS</abbr> established</li>
 </ul>
-<h3 id="step-3-create-ssh-key-pair">Step 3 - Create SSH key-pair</h3>
-<p>In a later step, we will create EC2 instances. To be able to login to these hosts, we need a SSH key-pair. Let's create a dedicated key, this can be achieved with the module <code>openssh_keypair</code>.
+<h3 id="step-3-create-ssh-key-pair">Step 3 - Create <abbr title="Secure Shell">SSH</abbr> key-pair</h3>
+<p>In a later step, we will create <abbr title="Eleastic Compute Cloud">EC2</abbr> instances. To be able to login to these hosts, we need a <abbr title="Secure Shell">SSH</abbr> key-pair. Let's create a dedicated key, this can be achieved with the module <code>openssh_keypair</code>.
 The module is not part of the <em>ansible.builtin</em> collection, try to find the collection where the module is stored (Tip: Use the search field in the documentation). When you found the correct collection, install it with the <code>ansible-galaxy collection install</code> command.</p>
 <p>Add a task to your playbook which creates a key-pair in the default folder in your home directory (<code>~/.ssh</code>). The key should be called <code>workshop</code>, the module will create a private key with this name and a public key with the name <code>workshop.pub</code>. The home directory of the user running the playbook is stored in the fact <code>ansible_env.HOME</code>, use this as a variable and append <code>/.ssh/workshop</code>.  </p>
 <div class="admonition success">
 <p class="admonition-title">Success</p>
 <p>Use a key size of <strong>2048 bits</strong>!</p>
 </div>
-<p>Now, lets create the EC2 key-pair named <code>workshop</code> in AWS with our playbook.<br />
+<p>Now, lets create the <abbr title="Eleastic Compute Cloud">EC2</abbr> key-pair named <code>workshop</code> in <abbr title="Amazon Web Services">AWS</abbr> with our playbook.<br />
 Find the correct module and provide the <strong>public</strong> key created by the previous task.<br />
 You can access the content of the public key with a <em>lookup</em> plugin:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">lookup(&#39;file&#39;,</span><span class="nv"> </span><span class="s">ansible_env.HOME</span><span class="nv"> </span><span class="s">+</span><span class="nv"> </span><span class="s">&#39;/.ssh/workshop.pub&#39;)</span><span class="nv"> </span><span class="s">}}&quot;</span>
@@ -1848,29 +1848,29 @@ You can access the content of the public key with a <em>lookup</em> plugin:</p>
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Collection with module <code>openssh_keypair</code> found and installed</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Added task to create key pair with 2048 bits</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Added task to create new AWS EC2 keypair using public key of previously created local keypair</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Added task to create new <abbr title="Amazon Web Services">AWS</abbr> <abbr title="Eleastic Compute Cloud">EC2</abbr> keypair using public key of previously created local keypair</li>
 </ul>
-<h3 id="step-4-get-default-vpc">Step 4 - Get default VPC</h3>
-<p>A AWS Virtual Private Cloud should already be configured for you, lets use this for our workshop. We need to get the ID of the default VPC net, this can be achieved with Ansible as well.<br />
-Find the correct module to gather information about EC2 VPCs and add it to your playbook. Add the following parameters:</p>
+<h3 id="step-4-get-default-vpc">Step 4 - Get default <abbr title="Amazon Virtual Private Cloud">VPC</abbr></h3>
+<p>A <abbr title="Amazon Web Services">AWS</abbr> Virtual Private Cloud should already be configured for you, lets use this for our workshop. We need to get the ID of the default <abbr title="Amazon Virtual Private Cloud">VPC</abbr> net, this can be achieved with Ansible as well.<br />
+Find the correct module to gather information about <abbr title="Eleastic Compute Cloud">EC2</abbr> VPCs and add it to your playbook. Add the following parameters:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nt">region</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">eu-central-1</span>
 <a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="nt">filters</span><span class="p">:</span>
 <a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">  </span><span class="s">&quot;is-default&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 </code></pre></div>
-<p>Store the output of the module in a variable, e.g. <code>vpc_info</code>. Afterwards, add the following task which sets a fact/variable with the ID of your default VPC:</p>
+<p>Store the output of the module in a variable, e.g. <code>vpc_info</code>. Afterwards, add the following task which sets a fact/variable with the ID of your default <abbr title="Amazon Virtual Private Cloud">VPC</abbr>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Set variable with ID of default VPC</span>
 <a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">  </span><span class="nt">set_fact</span><span class="p">:</span>
 <a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">    </span><span class="nt">default_vpc_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">vpc_info.vpcs.0.vpc_id</span><span class="nv"> </span><span class="s">}}&quot;</span>
 </code></pre></div>
-<p>The variable <code>vpc_info</code> contains a list <code>vpcs</code>. As we filtered for the default VPC, the list only contains one element, therefore we can access the list item with <code>0</code>. The list item contains a key <code>vpc_id</code>, the value is what we are looking for.</p>
+<p>The variable <code>vpc_info</code> contains a list <code>vpcs</code>. As we filtered for the default <abbr title="Amazon Virtual Private Cloud">VPC</abbr>, the list only contains one element, therefore we can access the list item with <code>0</code>. The list item contains a key <code>vpc_id</code>, the value is what we are looking for.</p>
 <p>Achieve the following tasks:</p>
 <ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Module for gathering VPC info identified and used</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Module for gathering <abbr title="Amazon Virtual Private Cloud">VPC</abbr> info identified and used</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <em>set_fact</em> Task returns green "ok" status</li>
 </ul>
 <p>If you are curious, add another task which debugs the variable to <em>stdout</em>.</p>
 <h3 id="step-5-create-security-group">Step 5 - Create Security group</h3>
-<p>We need to create a security group and add a rule for incoming SSH access to be able to login to our EC2 instance later.
+<p>We need to create a security group and add a rule for incoming <abbr title="Secure Shell">SSH</abbr> access to be able to login to our <abbr title="Eleastic Compute Cloud">EC2</abbr> instance later.
 Find the correct module and add a task, provide the following parameter:</p>
 <table>
 <thead>
@@ -1916,8 +1916,8 @@ Find the correct module and add a task, provide the following parameter:</p>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Module for maintaining security groups identified and used</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Security group successfully created</li>
 </ul>
-<h3 id="step-6-create-ec2-instance">Step 6 - Create EC2 instance</h3>
-<p>Now it's finally time to create a virtual machine in AWS.<br />
+<h3 id="step-6-create-ec2-instance">Step 6 - Create <abbr title="Eleastic Compute Cloud">EC2</abbr> instance</h3>
+<p>Now it's finally time to create a virtual machine in <abbr title="Amazon Web Services">AWS</abbr>.<br />
 Find the appropriate module and add a task to your playbook, your instance should have the following configuration (this time it is up to you to find the correct key-value-pairs):</p>
 <ul>
 <li>Must be called <code>workshop-instance1</code></li>
@@ -1926,22 +1926,22 @@ Find the appropriate module and add a task to your playbook, your instance shoul
 <li>Must have the <code>workshop</code> key assigned</li>
 <li>Must have the size <code>t2.micro</code></li>
 <li>Must be in the security group <code>workshop-sg</code></li>
-<li>Must use the AMI <code>ami-06c39ed6b42908a36</code></li>
+<li>Must use the <abbr title="Amazon Machine Image">AMI</abbr> <code>ami-06c39ed6b42908a36</code></li>
 <li>Should have the tag <code>Environment: Testing</code> attached</li>
 </ul>
 <p>Choose the right value for the <code>state</code> parameter, your playbook should wait for a <em>running</em> instance!</p>
 <p>Achieve the following task:</p>
 <ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Running EC2 instance</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Running <abbr title="Eleastic Compute Cloud">EC2</abbr> instance</li>
 </ul>
-<h3 id="step-7-get-dns-name-and-login">Step 7 - Get DNS name and login</h3>
-<p>Find a module to gather information about your EC2 instances in your region, use the filter <code>"tag:Name": workshop-instance1</code> to only get this single instance.<br />
-Store the output of the module into a variable and use the variable in another task which <em>debugs</em> only the <em>public DNS name</em> of your previously created EC2 instance.</p>
+<h3 id="step-7-get-dns-name-and-login">Step 7 - Get <abbr title="Domain Name System">DNS</abbr> name and login</h3>
+<p>Find a module to gather information about your <abbr title="Eleastic Compute Cloud">EC2</abbr> instances in your region, use the filter <code>"tag:Name": workshop-instance1</code> to only get this single instance.<br />
+Store the output of the module into a variable and use the variable in another task which <em>debugs</em> only the <em>public <abbr title="Domain Name System">DNS</abbr> name</em> of your previously created <abbr title="Eleastic Compute Cloud">EC2</abbr> instance.</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="go">TASK [Output public DNS name of workshop-instance1] ****************************************************************************************************************</span>
 <a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="go">ok: [localhost] =&gt;</span>
 <a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="go">  msg: ec2-3-70-238-39.eu-central-1.compute.amazonaws.com</span>
 </code></pre></div>
-<p>Copy the output of your task and login to your EC2 instance with SSH. Provide the <em>private</em> key and use the user <code>ec2-user</code>, for example:</p>
+<p>Copy the output of your task and login to your <abbr title="Eleastic Compute Cloud">EC2</abbr> instance with <abbr title="Secure Shell">SSH</abbr>. Provide the <em>private</em> key and use the user <code>ec2-user</code>, for example:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="gp">[student@ansible-1 ~]$ </span>ssh<span class="w"> </span>-i<span class="w"> </span>~/.ssh/workshop<span class="w"> </span>ec2-user@ec2-3-70-238-39.eu-central-1.compute.amazonaws.com
 <a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="go">Last login: Sat Feb 11 13:27:56 2023 from ec2-3-71-15-149.eu-central-1.compute.amazonaws.com</span>
 <a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>
@@ -1955,17 +1955,17 @@ Store the output of the module into a variable and use the variable in another t
 </code></pre></div>
 <p>Achieve the following tasks:</p>
 <ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Added task to gather information about EC2 instances</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Added task to output public DNS name of instance</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Successful SSH login to EC2 instance</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Added task to gather information about <abbr title="Eleastic Compute Cloud">EC2</abbr> instances</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Added task to output public <abbr title="Domain Name System">DNS</abbr> name of instance</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Successful <abbr title="Secure Shell">SSH</abbr> login to <abbr title="Eleastic Compute Cloud">EC2</abbr> instance</li>
 </ul>
 <div class="admonition success">
 <p class="admonition-title">Success</p>
 <p>Awesome, you created a virtual machine in the Cloud and are able to login!</p>
 </div>
 <h2 id="optional">Optional</h2>
-<h3 id="step-1-create-multiple-ec2-instances">Step 1 - Create multiple EC2 instances</h3>
-<p>In <em>Step 5</em> you created a single EC2 instance, adjust your task to create multiple instances in a loop. The <em>name</em> of every instance must differ, as well as the <code>Environment</code> tag.<br />
+<h3 id="step-1-create-multiple-ec2-instances">Step 1 - Create multiple <abbr title="Eleastic Compute Cloud">EC2</abbr> instances</h3>
+<p>In <em>Step 5</em> you created a single <abbr title="Eleastic Compute Cloud">EC2</abbr> instance, adjust your task to create multiple instances in a loop. The <em>name</em> of every instance must differ, as well as the <code>Environment</code> tag.<br />
 Create three instances with the single task, with the instance being in the given <em>Environment</em> :</p>
 <table>
 <thead>
@@ -1992,13 +1992,13 @@ Create three instances with the single task, with the instance being in the give
 <p>Run your playbook, you should see two more instances being created.</p>
 <p>Achieve the following task:</p>
 <ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Adjusted task to create three EC2 instances <code>workshop-instance[1-3]</code></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Adjusted task to create three <abbr title="Eleastic Compute Cloud">EC2</abbr> instances <code>workshop-instance[1-3]</code></li>
 </ul>
 <h3 id="step-2-create-dynamic-inventory">Step 2 - Create dynamic inventory</h3>
-<p>When using Ansible with AWS, inventory file maintenance will be a hectic task as AWS frequently changes IPs, autoscaling instances, and more. Once your AWS EC2 hosts are spun up, you’ll probably want to talk to them again. With a cloud setup, it’s best not to maintain a static list of cloud hostnames in text files. Rather, the best way to handle this is to use the <code>aws_ec2</code> dynamic inventory plugin.  </p>
+<p>When using Ansible with <abbr title="Amazon Web Services">AWS</abbr>, inventory file maintenance will be a hectic task as <abbr title="Amazon Web Services">AWS</abbr> frequently changes IPs, autoscaling instances, and more. Once your <abbr title="Amazon Web Services">AWS</abbr> <abbr title="Eleastic Compute Cloud">EC2</abbr> hosts are spun up, you’ll probably want to talk to them again. With a cloud setup, it’s best not to maintain a static list of cloud hostnames in text files. Rather, the best way to handle this is to use the <code>aws_ec2</code> dynamic inventory plugin.  </p>
 <p>Create a file <code>workshop.aws_ec2.yml</code></p>
 <p>The inventory should have two additional groups <code>test_stage</code> and <code>prod_stage</code>. The hosts have a tag <code>Environment</code> with either <code>Testing</code> or <code>Production</code>, ensure that they are part of the correct group.<br />
-You can test your inventory with the <code>ansible-inventory</code> CLI utility, it outputs a JSON representation of how Ansible sees your provided inventory.</p>
+You can test your inventory with the <code>ansible-inventory</code> <abbr title="Command-Line Interface">CLI</abbr> utility, it outputs a <abbr title="JavaScript Object Notation">JSON</abbr> representation of how Ansible sees your provided inventory.</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="gp">[student@ansible-1 aws-automation]$ </span>ansible-inventory<span class="w"> </span>-i<span class="w"> </span>demo.aws_ec2.yml<span class="w"> </span>--list
 <a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="go">{</span>
 <a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="go">    &quot;_meta&quot;: {</span>
@@ -2032,10 +2032,10 @@ You can test your inventory with the <code>ansible-inventory</code> CLI utility,
 <a id="__codelineno-15-31" name="__codelineno-15-31" href="#__codelineno-15-31"></a><span class="go">    }</span>
 <a id="__codelineno-15-32" name="__codelineno-15-32" href="#__codelineno-15-32"></a><span class="go">}</span>
 </code></pre></div>
-<p>You need to set some <a href="https://docs.ansible.com/ansible/latest/collections/amazon/aws/docsite/aws_ec2_guide.html#compose" target="_blank">Ansible connection variables</a>, remember, direct SSH connection also only worked when providing the SSH private key and the target user.</p>
+<p>You need to set some <a href="https://docs.ansible.com/ansible/latest/collections/amazon/aws/docsite/aws_ec2_guide.html#compose" target="_blank">Ansible connection variables</a>, remember, direct <abbr title="Secure Shell">SSH</abbr> connection also only worked when providing the <abbr title="Secure Shell">SSH</abbr> private key and the target user.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>The documentation has a typo, the variable for the SSH private key file is <strong>not</strong> <code>ansible_private_ssh_key_file</code> but <code>ansible_ssh_private_key_file</code>!</p>
+<p>The documentation has a typo, the variable for the <abbr title="Secure Shell">SSH</abbr> private key file is <strong>not</strong> <code>ansible_private_ssh_key_file</code> but <code>ansible_ssh_private_key_file</code>!</p>
 </div>
 <p>When you finished your inventory, use this playbook to test the connection:</p>
 <div class="highlight"><span class="filename">test-connection.yml</span><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="nn">---</span>
@@ -2089,14 +2089,15 @@ You can test your inventory with the <code>ansible-inventory</code> CLI utility,
 <h2 id="cleanup">Cleanup</h2>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>When you are done, remember to <strong>clean up all created resources</strong> in AWS to prevent incurring costs!</p>
+<p>When you are done, remember to <strong>clean up all created resources</strong> in <abbr title="Amazon Web Services">AWS</abbr> to prevent incurring costs!</p>
 </div>
-<p>You created the following resources in AWS:</p>
+<p>You created the following resources in <abbr title="Amazon Web Services">AWS</abbr>:</p>
 <ul>
-<li><a href="https://eu-central-1.console.aws.amazon.com/ec2/home?region=eu-central-1#Instances:" target="_blank">EC2 Instance(s)</a></li>
+<li><a href="https://eu-central-1.console.aws.amazon.com/ec2/home?region=eu-central-1#Instances:" target="_blank"><abbr title="Eleastic Compute Cloud">EC2</abbr> Instance(s)</a></li>
 <li><a href="https://eu-central-1.console.aws.amazon.com/ec2/home?region=eu-central-1#SecurityGroups:" target="_blank">Security Group</a></li>
-<li><a href="https://eu-central-1.console.aws.amazon.com/ec2/home?region=eu-central-1#KeyPairs:" target="_blank">SSH Keypair</a></li>
+<li><a href="https://eu-central-1.console.aws.amazon.com/ec2/home?region=eu-central-1#KeyPairs:" target="_blank"><abbr title="Secure Shell">SSH</abbr> Keypair</a></li>
 </ul>
+<!-- markdownlint-disable -->
 
 
 

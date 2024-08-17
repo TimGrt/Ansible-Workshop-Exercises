@@ -1536,17 +1536,17 @@
 <h1 id="redhat-demo-environment">RedHat Demo Environment</h1>
 <p>Every Workshop attendant has his own demo environment.</p>
 <h2 id="lab-diagram">Lab Diagram</h2>
-<p>The Lab environment consist of an <em>Ansible control node</em> (called <code>ansible-1</code>) and three <em>Managed nodes</em> (called <code>node1</code>, <code>node2</code> and <code>node3</code>). All managed nodes are RHEL 8 hosts and are reachable password-less with SSH.</p>
+<p>The Lab environment consist of an <em>Ansible control node</em> (called <code>ansible-1</code>) and three <em>Managed nodes</em> (called <code>node1</code>, <code>node2</code> and <code>node3</code>). All managed nodes are <abbr title="Red Hat Enterprise Linux">RHEL</abbr> 8 hosts and are reachable password-less with <abbr title="Secure Shell">SSH</abbr>.</p>
 <p><img alt="ansible rhel lab diagram" src="../../assets/images/rhel_lab_diagram.png" /></p>
-<p>You will be logged in to the <em>Ansible Control node</em> with the Code editor <em>Visual Studio Code</em>. From here you will be writing all your playbooks and issuing all Ansible CLI commands.</p>
+<p>You will be logged in to the <em>Ansible Control node</em> with the Code editor <em>Visual Studio Code</em>. From here you will be writing all your playbooks and issuing all Ansible <abbr title="Command-Line Interface">CLI</abbr> commands.</p>
 <h2 id="visual-studio-code">Visual Studio Code</h2>
 <p>At its heart, Visual Studio Code is a code editor. Like many other code editors, VS Code adopts a common user interface and layout of an explorer on the left, showing all of the files and folders you have access to, and an editor on the right, showing the content of the files you have opened.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>It is highly recommended to use the <em>VS Code Editor</em> to write your playbooks, it has <strong>automatic saving</strong> and syntax highlighting enabled!</p>
 </div>
-<p>If you want the real YAML challenge, try to write all your playbooks in the terminal/on the command-line. Expect to struggle at first with indentation, which leads to errors trying to run your playbooks.<br />
-Nevertheless, mastering to write Ansible playbooks without the help of a Code editor is the best possible way to really understand the YAML syntax. It doesn't take long and is highly rewarding.</p>
+<p>If you want the real <abbr title="YAML Ain't Markup Language">YAML</abbr> challenge, try to write all your playbooks in the terminal/on the command-line. Expect to struggle at first with indentation, which leads to errors trying to run your playbooks.<br />
+Nevertheless, mastering to write Ansible playbooks without the help of a Code editor is the best possible way to really understand the <abbr title="YAML Ain't Markup Language">YAML</abbr> syntax. It doesn't take long and is highly rewarding.</p>
 <h3 id="useful-vscode-configuration">Useful VScode configuration</h3>
 <h4 id="color-theme-for-syntax-highlighting">Color theme for syntax highlighting</h4>
 <p>The <em>Ansible</em> extension supports <em>syntax-highlighting</em> for Ansible content. Depending on the used <em>theme</em> of VScode, this might not be shown correctly. Use the <strong>Default Dark+</strong> theme.<br />
@@ -1556,6 +1556,7 @@ Click on <em>File</em> in the top menu bar, click on <em>Preferences</em> and op
 <p>By default, scrollback of only 1000 lines is possible. If you need to scroll back further, you need to adjust this limit.<br />
 Click on <em>File</em> in the top menu bar, click on <em>Preferences</em> and open <em>Settings</em>. Search for <code>scrollback</code> and adjust the number to 10000 in the second configuration parameter (<em>Terminal &gt; Integrated: Scrollback</em>).</p>
 <p><img alt="Terminal Scrollback configuration" src="../images/TerminalScrollback.png" /></p>
+<!-- markdownlint-disable -->
 
 
 

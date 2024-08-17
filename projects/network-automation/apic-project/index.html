@@ -1583,24 +1583,24 @@ Ansible collections support a wide range of vendors, device types, and actions, 
 <li>Leverage the same simple, powerful, and agent-less automation tool for network tasks that operations and development use</li>
 <li>Separate the data model (in a playbook or role) from the execution layer (via Ansible modules) to manage heterogeneous network devices</li>
 <li>Benefit from community and vendor-generated sample playbooks and roles to help accelerate network automation projects</li>
-<li>Communicate securely with network hardware over SSH or HTTPS</li>
+<li>Communicate securely with network hardware over <abbr title="Secure Shell">SSH</abbr> or <abbr title="Hypertext Transfer Protocol Secure">HTTPS</abbr></li>
 </ul>
 <h2 id="objective">Objective</h2>
 <p>Get to know network automation with Ansible.<br />
 Network automation uses the basic Ansible concepts, but there are some differences in how the network modules work.<br />
 Unlike most Ansible modules, network modules do not run on the managed nodes. From a user’s point of view, network modules work like any other modules. They work with ad hoc commands, playbooks, and roles. Behind the scenes, however, network modules use a different methodology than the other (Linux/Unix and Windows) modules use. Ansible is written and executed in Python. Because the majority of network devices can not run Python, the Ansible network modules are executed on the Ansible control node.</p>
 <h2 id="guide">Guide</h2>
-<p>You will execute some automation tasks against Cisco ACI. The Cisco Application Centric Infrastructure allows application requirements to define the network. This architecture simplifies, optimizes, and accelerates the entire application deployment life cycle.<br />
-The Application Policy Infrastructure Controller manages the scalable ACI multi-tenant fabric. The APIC provides a unified point of automation and management, policy programming, application deployment, and health monitoring for the fabric. The APIC, which is implemented as a replicated synchronized clustered controller, optimizes performance, supports any application anywhere, and provides unified operation of the physical and virtual infrastructure.</p>
-<p>The APIC enables network administrators to easily define the optimal network for applications. Data center operators can clearly see how applications consume network resources, easily isolate and troubleshoot application and infrastructure problems, and monitor and profile resource usage patterns.</p>
-<p>The Cisco Application Policy Infrastructure Controller API enables applications to directly connect with a secure, shared, high-performance resource pool that includes network, compute, and storage capabilities.</p>
+<p>You will execute some automation tasks against Cisco <abbr title="Application Centric Infrastructure">ACI</abbr>. The Cisco Application Centric Infrastructure allows application requirements to define the network. This architecture simplifies, optimizes, and accelerates the entire application deployment life cycle.<br />
+The Application Policy Infrastructure Controller manages the scalable <abbr title="Application Centric Infrastructure">ACI</abbr> multi-tenant fabric. The <abbr title="Application Policy Infrastructure Controller">APIC</abbr> provides a unified point of automation and management, policy programming, application deployment, and health monitoring for the fabric. The <abbr title="Application Policy Infrastructure Controller">APIC</abbr>, which is implemented as a replicated synchronized clustered controller, optimizes performance, supports any application anywhere, and provides unified operation of the physical and virtual infrastructure.</p>
+<p>The <abbr title="Application Policy Infrastructure Controller">APIC</abbr> enables network administrators to easily define the optimal network for applications. Data center operators can clearly see how applications consume network resources, easily isolate and troubleshoot application and infrastructure problems, and monitor and profile resource usage patterns.</p>
+<p>The Cisco Application Policy Infrastructure Controller <abbr title="Application Programming Interface">API</abbr> enables applications to directly connect with a secure, shared, high-performance resource pool that includes network, compute, and storage capabilities.</p>
 <h3 id="step-1-prepare-project">Step 1 - Prepare project</h3>
 <p>Create a new project folder in your home directory:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="gp">[student@ansible-1 ~]$ </span>mkdir<span class="w"> </span>aci-automation
 </code></pre></div>
-<p>We will be using a Cisco ACI Sandbox available online.</p>
+<p>We will be using a Cisco <abbr title="Application Centric Infrastructure">ACI</abbr> Sandbox available online.</p>
 <p><img alt="Cisco APIC overview" src="../images/apic-quickstart.png" /></p>
-<p>Open a new browser tab and go to <a href="https://sandboxapicdc.cisco.com/#" target="_blank">https://sandboxapicdc.cisco.com/#</a></p>
+<p>Open a new browser tab and go to <a href="https://sandboxapicdc.cisco.com/#" target="_blank">https://sandboxapicdc.cisco.com/#</a>.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>The credentials for accessing the <a href="https://sandboxapicdc.cisco.com/#" target="_blank">Cisco Sandbox</a> are shown below, you can copy the content by using the symbol on the right of the code block.</p>
@@ -1627,7 +1627,7 @@ The Application Policy Infrastructure Controller manages the scalable ACI multi-
 </code></pre></div>
 <p>Additional modules are installed through <em>collections</em>, search the <a href="https://docs.ansible.com/ansible/latest/collections/index.html" target="_blank">Collection Index</a> in the Ansible documentation for a module or use the search field.</p>
 <p><img alt="Ansible documentation" src="../images/ansible-docs.png" /></p>
-<p>If, for example, you want to create an EC2 instance in AWS, you will need the module <code>amazon.aws.ec2_instance</code>. To get the module, you'll need the collection <code>aws</code> of the provider <code>amazon</code>. Download the collection with the <code>ansible-galaxy</code> utility:</p>
+<p>If, for example, you want to create an <abbr title="Eleastic Compute Cloud">EC2</abbr> instance in <abbr title="Amazon Web Services">AWS</abbr>, you will need the module <code>amazon.aws.ec2_instance</code>. To get the module, you'll need the collection <code>aws</code> of the provider <code>amazon</code>. Download the collection with the <code>ansible-galaxy</code> utility:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="gp">[student@ansible-1 ~]$ </span>ansible-galaxy<span class="w"> </span>collection<span class="w"> </span>install<span class="w"> </span>amazon.aws
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="go">Starting galaxy collection install process</span>
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="go">Process install dependency map</span>
@@ -1638,11 +1638,11 @@ The Application Policy Infrastructure Controller manages the scalable ACI multi-
 </code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>Well, you won't need the AWS collection, but automating the ACI with Ansible also requires additional modules, these are not included in the <code>ansible-core</code> binary and need to be installed with Ansible Galaxy.</p>
+<p>Well, you won't need the <abbr title="Amazon Web Services">AWS</abbr> collection, but automating the <abbr title="Application Centric Infrastructure">ACI</abbr> with Ansible also requires additional modules, these are not included in the <code>ansible-core</code> binary and need to be installed with Ansible Galaxy.</p>
 </div>
 <p>Achieve the following tasks:</p>
 <ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Find appropriate collection for Cisco ACI automation in the documentation</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Find appropriate collection for Cisco <abbr title="Application Centric Infrastructure">ACI</abbr> automation in the documentation</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Collection installed</li>
 </ul>
 <p>You can view the installed collections with this command:</p>
@@ -1659,56 +1659,62 @@ The Application Policy Infrastructure Controller manages the scalable ACI multi-
 <p>If you use the Ansible navigator (which utilizes an execution environment), the collection is available. The method for playbook execution is up to you, why not try it with both ways?!</p>
 </details>
 <h3 id="step-2-inventory-and-playbook">Step 2 - Inventory and playbook</h3>
-<p>Within your newly created project folder, create an inventory file and a playbook file.</p>
+<p>Within your newly created project folder, create an inventory file and a playbook file (the name of the files are up to you).</p>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="gp">[student@ansible-1 aci-automation]$ </span>touch<span class="w"> </span>inventory.ini
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="gp">[student@ansible-1 aci-automation]$ </span>touch<span class="w"> </span>playbook.yml
+</code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>You have to instruct Ansible to communicate with the APIC API, per default Ansible would try to communicate via SSH. This will not work.<br />
-Use the same credentials for API communication as for the login to the APIC UI.</p>
+<p>By default, Ansible will try to communicate via <abbr title="Secure Shell">SSH</abbr>. <strong>This will not work!</strong><br />
+You have to instruct Ansible to communicate with the <abbr title="Application Policy Infrastructure Controller">APIC</abbr> <abbr title="Representational State Transfer">REST</abbr> Interface, the <abbr title="Application Centric Infrastructure">ACI</abbr> modules do not run on the network devices or controller, they need to run on the Ansible control node <strong>locally</strong>!<br />
+Add the necessary parameters to your inventory file!</p>
 </div>
-<p>The API endpoint (<em>host</em>) for the ACI modules can use the URL of the sandbox, you won't need the prefix <code>https://</code>. An overview of all available ACI modules can be found in the <a href="https://docs.ansible.com/ansible/latest/collections/cisco/aci/index.html#plugins-in-cisco-aci" target="_blank">Ansible documentation</a>. The documentation also provides an <a href="https://docs.ansible.com/ansible/latest/scenario_guides/guide_aci.html" target="_blank">extensive Guide</a> for ACI automation.</p>
-<p>Testing the successful communication with the API could be done by querying ACI system information with the <code>aci_system</code> module. Create your playbook and add a task, utilizing this module. Fill all necessary parameter.<br />
+<p>Use the same credentials for <abbr title="Application Programming Interface">API</abbr> communication as for the login to the <abbr title="Application Policy Infrastructure Controller">APIC</abbr> <abbr title="User Interface">UI</abbr>.<br />
+The <abbr title="Application Programming Interface">API</abbr> endpoint (<em>host</em>) for the <abbr title="Application Centric Infrastructure">ACI</abbr> modules uses the <abbr title="Uniform Resource Locator">URL</abbr> of the sandbox, you won't need the prefix <code>https://</code>.<br />
+The documentation provides an <a href="https://docs.ansible.com/ansible/9/scenario_guides/guide_aci.html#aci-guide" target="_blank">extensive Guide</a> for <abbr title="Application Centric Infrastructure">ACI</abbr> automation, which also describes how to <a href="https://docs.ansible.com/ansible/9/scenario_guides/guide_aci.html#using-the-local-connection-method" target="_blank">setup communication with <abbr title="Application Policy Infrastructure Controller">APIC</abbr></a>.</p>
+<p>Testing the successful communication with the <abbr title="Application Programming Interface">API</abbr> could be done by querying <abbr title="Application Centric Infrastructure">ACI</abbr> system information with the <code>aci_system</code> module. Create your playbook and add a task, utilizing this module. Fill all necessary parameter.<br />
 Run your playbook, if it returns a green <em>ok</em> status, communication is established.</p>
-<p>For now, the gathered system information about the ACI system is not relevant for us, still, you could store the output in a variable and output it with an appropriate module, if you are curious.</p>
+<p>For now, the gathered system information about the <abbr title="Application Centric Infrastructure">ACI</abbr> system is not relevant for us, still, you could store the output in a variable and output it with an appropriate module, if you are curious.</p>
 <p>Achieve the following tasks:</p>
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Inventory and playbook created</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Use variables where possible (and useful)</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Successful communication with APIC established</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Successful communication with <abbr title="Application Policy Infrastructure Controller">APIC</abbr> established</li>
 </ul>
 <p>You may encounter the following error messages:</p>
 <div class="admonition failure">
 <p class="admonition-title">Failure</p>
 <p>Expect an error message complaining about certification verification:</p>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="go">Connection failed for https://sandboxapicdc.cisco.com/api/aaaLogin.json. Request failed: &lt;urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1131)&gt;</span>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="go">Connection failed for https://sandboxapicdc.cisco.com/api/aaaLogin.json. Request failed: &lt;urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1131)&gt;</span>
 </code></pre></div>
 </div>
 <p>If you see an error message like above, you can disable certificate validation for your task:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nt">validate_certs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nt">validate_certs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 </code></pre></div>
 <p>For a production environment this is obviously <strong>not recommended</strong>!</p>
 <div class="admonition failure">
 <p class="admonition-title">Failure</p>
 <p>If you see one of the following error messages, ensure that the Sandbox is available:</p>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="go">Connection failed for https://sandboxapicdc.cisco.com/api/aaaLogin.json. Connection failure: The read operation timed out</span>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="go">Connection failed for https://sandboxapicdc.cisco.com/api/aaaLogin.json. Connection failure: The read operation timed out</span>
 </code></pre></div>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="go">Authentication failed: -1 Unable to parse output as JSON, see &#39;raw&#39; output. Expecting value: line 1 column 1 (char 0)&quot;, &quot;raw&quot;: &quot;&lt;html&gt;\r\n&lt;head&gt;&lt;title&gt;502 Bad Gateway&lt;/title&gt;&lt;/head&gt;\r\n&lt;body bgcolor=\&quot;white\&quot;&gt;\r\n&lt;center&gt;&lt;h1&gt;502 Bad Gateway&lt;/h1&gt;&lt;/center&gt;\r\n&lt;hr&gt;&lt;center&gt;nginx/1.13.12&lt;/center&gt;\r\n&lt;/body&gt;\r\n&lt;/html&gt;\r\n</span>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="go">Authentication failed: -1 Unable to parse output as JSON, see &#39;raw&#39; output. Expecting value: line 1 column 1 (char 0)&quot;, &quot;raw&quot;: &quot;&lt;html&gt;\r\n&lt;head&gt;&lt;title&gt;502 Bad Gateway&lt;/title&gt;&lt;/head&gt;\r\n&lt;body bgcolor=\&quot;white\&quot;&gt;\r\n&lt;center&gt;&lt;h1&gt;502 Bad Gateway&lt;/h1&gt;&lt;/center&gt;\r\n&lt;hr&gt;&lt;center&gt;nginx/1.13.12&lt;/center&gt;\r\n&lt;/body&gt;\r\n&lt;/html&gt;\r\n</span>
 </code></pre></div>
-<p>Try to reload the APIC browser tab.</p>
+<p>Try to reload the <abbr title="Application Policy Infrastructure Controller">APIC</abbr> browser tab.</p>
 </div>
-<p>In case of an unavailable APIC sandbox, re-run your playbook when it comes back online.  </p>
+<p>In case of an unavailable <abbr title="Application Policy Infrastructure Controller">APIC</abbr> sandbox, re-run your playbook when it comes back online.  </p>
 <h3 id="step-3-create-a-new-tenant">Step 3 - Create a new tenant</h3>
-<p>The APIC manages the scalable ACI multi-tenant fabric. A <em>multi-tenant</em> environment or <em>multi-tenancy</em> data centres handle segregation of traffic between multiple tenants and ensure privacy and security between tenant data.</p>
-<p>The goal is to create a new tenant within the APIC controller with Ansible. The tenant should have a recognizable name e.g. <code>demo-tenant-&lt;initials&gt;</code>. Add the tenant description <code>Workshop tenant</code>.</p>
+<p>The <abbr title="Application Policy Infrastructure Controller">APIC</abbr> manages the scalable <abbr title="Application Centric Infrastructure">ACI</abbr> multi-tenant fabric. A <em>multi-tenant</em> environment or <em>multi-tenancy</em> data centres handle segregation of traffic between multiple tenants and ensure privacy and security between tenant data.</p>
+<p>The goal is to create a new tenant within the <abbr title="Application Policy Infrastructure Controller">APIC</abbr> controller with Ansible. The tenant should have a recognizable name e.g. <code>demo-tenant-&lt;initials&gt;</code>. Add the tenant description <code>Workshop tenant</code>.</p>
 <p><img alt="Demo Tenant in APIC UI" src="../images/apic-demo-tenant.png" /></p>
-<p>Observe the tenant and it's annotation in the APIC UI.</p>
+<p>Observe the tenant and it's annotation in the <abbr title="Application Policy Infrastructure Controller">APIC</abbr> <abbr title="User Interface">UI</abbr>.</p>
 <p>Achieve the following tasks:</p>
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Tenant created</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Inspected tenant in the UI</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Inspected tenant in the <abbr title="User Interface">UI</abbr></li>
 </ul>
-<h3 id="step-4-ap-creation-and-epgs">Step 4 - AP creation and EPGs</h3>
+<h3 id="step-4-ap-creation-and-epgs">Step 4 - <abbr title="Application Profile">AP</abbr> creation and <abbr title="End Point Groups">EPGs</abbr></h3>
 <p>Now, that we have our own custom tenant, lets fill it with content. Create an Application profile and add multiple end point groups.
-Application profiles are <em>container</em> for the grouping of endpoint groups. For example, an AP could group a web server with the backend database, with storage, and so on.</p>
+Application profiles are <em>container</em> for the grouping of endpoint groups. For example, an <abbr title="Application Profile">AP</abbr> could group a web server with the backend database, with storage, and so on.</p>
 <p>Create an <em>Application profile</em> with the following attributes:</p>
 <table>
 <thead>
@@ -1719,11 +1725,11 @@ Application profiles are <em>container</em> for the grouping of endpoint groups.
 </thead>
 <tbody>
 <tr>
-<td><em>AP name</em></td>
+<td><em><abbr title="Application Profile">AP</abbr> name</em></td>
 <td><code>workshop</code></td>
 </tr>
 <tr>
-<td><em>AP description</em></td>
+<td><em><abbr title="Application Profile">AP</abbr> description</em></td>
 <td><code>Workshop AP</code></td>
 </tr>
 <tr>
@@ -1732,15 +1738,15 @@ Application profiles are <em>container</em> for the grouping of endpoint groups.
 </tr>
 </tbody>
 </table>
-<p>Ensure that your AP is created for your own tenant!</p>
-<p>Let's create three EPGs for our Application profile, use a single task by creating them in a loop.
-The <em>EPGs</em> should have the following attributes:</p>
+<p>Ensure that your <abbr title="Application Profile">AP</abbr> is created for your own tenant!</p>
+<p>Let's create three <abbr title="End Point Groups">EPGs</abbr> for our Application profile, use a single task by creating them in a loop.
+The <em><abbr title="End Point Groups">EPGs</abbr></em> should have the following attributes:</p>
 <table>
 <thead>
 <tr>
 <th style="text-align: center;">Loop item</th>
-<th style="text-align: left;"><em>EPG name</em></th>
-<th style="text-align: left;"><em>EPG description</em></th>
+<th style="text-align: left;"><em><abbr title="End Point Group">EPG</abbr> name</em></th>
+<th style="text-align: left;"><em><abbr title="End Point Group">EPG</abbr> description</em></th>
 </tr>
 </thead>
 <tbody>
@@ -1761,22 +1767,22 @@ The <em>EPGs</em> should have the following attributes:</p>
 </tr>
 </tbody>
 </table>
-<p>Setting the required attributes requires looping over a <a href="https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_loops.html#iterating-over-a-list-of-hashes" target="_blank">list of hashes</a>. All EPGs should have the <code>default</code> monitoring policy attached.</p>
-<p>Observe the tenant in the APIC UI.</p>
+<p>Setting the required attributes requires looping over a <a href="https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_loops.html#iterating-over-a-list-of-hashes" target="_blank">list of hashes</a>. All <abbr title="End Point Groups">EPGs</abbr> should have the <code>default</code> monitoring policy attached.</p>
+<p>Observe the tenant in the <abbr title="Application Policy Infrastructure Controller">APIC</abbr> <abbr title="User Interface">UI</abbr>.</p>
 <p>Achieve the following tasks:</p>
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Application profile created</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> EPGs created</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <abbr title="End Point Groups">EPGs</abbr> created</li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>No communication between the different EPGs is established yet, this would be achieved with <em>contracts</em>. By now, you are experienced enough with creating objects in ACI with Ansible, let's skip the contracts creation.</p>
+<p>No communication between the different <abbr title="End Point Groups">EPGs</abbr> is established yet, this would be achieved with <em>contracts</em>. By now, you are experienced enough with creating objects in <abbr title="Application Centric Infrastructure">ACI</abbr> with Ansible, let's skip the contracts creation.</p>
 </div>
 <h3 id="step-5-roles-and-encryption">Step 5 - Roles and encryption</h3>
-<p>Now that you can execute automated tasks against the ACI, let's re-format the project and use some Ansible best-practices.<br />
+<p>Now that you can execute automated tasks against the <abbr title="Application Centric Infrastructure">ACI</abbr>, let's re-format the project and use some Ansible best-practices.<br />
 All Ansible projects should use the role structure, if your project does not already uses it, now is the time to rearrange your content. Create a <code>roles</code> folder and an appropriately named sub-folder for the tenant creation with all necessary folder and files.  </p>
-<p>Your tasks using the Ansible ACI module(s) require username and password, at least the password should be encrypted. Ansible Vault encrypts variables and files so you can protect sensitive content rather than leaving it visible as plaintext in playbooks or roles, take a look at the <a href="https://docs.ansible.com/ansible/latest/user_guide/vault.html#vault" target="_blank">Ansible Vault documentation</a> for further information.
-Encrypt the APIC credentials and re-run your playbook.</p>
+<p>Your tasks using the Ansible <abbr title="Application Centric Infrastructure">ACI</abbr> module(s) require username and password, at least the password should be encrypted. Ansible Vault encrypts variables and files so you can protect sensitive content rather than leaving it visible as plaintext in playbooks or roles, take a look at the <a href="https://docs.ansible.com/ansible/latest/user_guide/vault.html#vault" target="_blank">Ansible Vault documentation</a> for further information.
+Encrypt the <abbr title="Application Policy Infrastructure Controller">APIC</abbr> credentials and re-run your playbook.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>Remember the necessary additional cli parameter when executing a playbook which references encrypted content.</p>
@@ -1784,265 +1790,265 @@ Encrypt the APIC credentials and re-run your playbook.</p>
 <p>Achieve the following tasks:</p>
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Project uses Ansible role structure</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> APIC credentials are vault-encrypted</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <abbr title="Application Policy Infrastructure Controller">APIC</abbr> credentials are vault-encrypted</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Playbook references role, tasks are executed</li>
 </ul>
 <h3 id="step-6-use-filters-to-manipulate-data">Step 6 - Use filters to manipulate data</h3>
-<p>Filters let you transform JSON data into YAML data, split a URL to extract the hostname, get the SHA1 hash of a string, add or multiply integers, and much more. You can use the Ansible-specific filters documented <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html" target="_blank">here</a> to manipulate your data, or use any of the standard filters shipped with <a href="https://jinja.palletsprojects.com/en/3.0.x/templates/#builtin-filters" target="_blank">Jinja2</a>.</p>
-<p>Create a new role which utilizes an <a href="https://docs.ansible.com/ansible/latest/collections/cisco/aci/index.html" target="_blank">Ansible ACI module</a> that can manage contract resources (<em>vz:BrCP</em>). Get all contracts of the <strong>common</strong> tenant and output a list with only the contract names.</p>
+<p>Filters let you transform <abbr title="JavaScript Object Notation">JSON</abbr> data into <abbr title="YAML Ain't Markup Language">YAML</abbr> data, split a <abbr title="Uniform Resource Locator">URL</abbr> to extract the hostname, get the SHA1 hash of a string, add or multiply integers, and much more. You can use the Ansible-specific filters documented <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html" target="_blank">here</a> to manipulate your data, or use any of the standard filters shipped with <a href="https://jinja.palletsprojects.com/en/3.0.x/templates/#builtin-filters" target="_blank">Jinja2</a>.</p>
+<p>Create a new role which utilizes an <a href="https://docs.ansible.com/ansible/latest/collections/cisco/aci/index.html" target="_blank">Ansible <abbr title="Application Centric Infrastructure">ACI</abbr> module</a> that can manage contract resources (<em>vz:BrCP</em>). Get all contracts of the <strong>common</strong> tenant and output a list with only the contract names.</p>
 <p><img alt="Contracts of common tenant" src="../images/apic-common-contracts.png" /></p>
 <p>The <em>common</em> tenant has at least one contract (<em>default</em>).</p>
-<p>Dealing with network devices often means dealing with large JSON objects and you have to <em>filter</em> the output to your needs. Browse the <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html" target="_blank">Ansible filter documentation</a> for a suitable filter.</p>
-<p>The Ansible module you will be using returns a JSON output like the following:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">  1</a></span>
-<span class="normal"><a href="#__codelineno-10-2">  2</a></span>
-<span class="normal"><a href="#__codelineno-10-3">  3</a></span>
-<span class="normal"><a href="#__codelineno-10-4">  4</a></span>
-<span class="normal"><a href="#__codelineno-10-5">  5</a></span>
-<span class="normal"><a href="#__codelineno-10-6">  6</a></span>
-<span class="normal"><a href="#__codelineno-10-7">  7</a></span>
-<span class="normal"><a href="#__codelineno-10-8">  8</a></span>
-<span class="normal"><a href="#__codelineno-10-9">  9</a></span>
-<span class="normal"><a href="#__codelineno-10-10"> 10</a></span>
-<span class="normal"><a href="#__codelineno-10-11"> 11</a></span>
-<span class="normal"><a href="#__codelineno-10-12"> 12</a></span>
-<span class="normal"><a href="#__codelineno-10-13"> 13</a></span>
-<span class="normal"><a href="#__codelineno-10-14"> 14</a></span>
-<span class="normal"><a href="#__codelineno-10-15"> 15</a></span>
-<span class="normal"><a href="#__codelineno-10-16"> 16</a></span>
-<span class="normal"><a href="#__codelineno-10-17"> 17</a></span>
-<span class="normal"><a href="#__codelineno-10-18"> 18</a></span>
-<span class="normal"><a href="#__codelineno-10-19"> 19</a></span>
-<span class="normal"><a href="#__codelineno-10-20"> 20</a></span>
-<span class="normal"><a href="#__codelineno-10-21"> 21</a></span>
-<span class="normal"><a href="#__codelineno-10-22"> 22</a></span>
-<span class="normal"><a href="#__codelineno-10-23"> 23</a></span>
-<span class="normal"><a href="#__codelineno-10-24"> 24</a></span>
-<span class="normal"><a href="#__codelineno-10-25"> 25</a></span>
-<span class="normal"><a href="#__codelineno-10-26"> 26</a></span>
-<span class="normal"><a href="#__codelineno-10-27"> 27</a></span>
-<span class="normal"><a href="#__codelineno-10-28"> 28</a></span>
-<span class="normal"><a href="#__codelineno-10-29"> 29</a></span>
-<span class="normal"><a href="#__codelineno-10-30"> 30</a></span>
-<span class="normal"><a href="#__codelineno-10-31"> 31</a></span>
-<span class="normal"><a href="#__codelineno-10-32"> 32</a></span>
-<span class="normal"><a href="#__codelineno-10-33"> 33</a></span>
-<span class="normal"><a href="#__codelineno-10-34"> 34</a></span>
-<span class="normal"><a href="#__codelineno-10-35"> 35</a></span>
-<span class="normal"><a href="#__codelineno-10-36"> 36</a></span>
-<span class="normal"><a href="#__codelineno-10-37"> 37</a></span>
-<span class="normal"><a href="#__codelineno-10-38"> 38</a></span>
-<span class="normal"><a href="#__codelineno-10-39"> 39</a></span>
-<span class="normal"><a href="#__codelineno-10-40"> 40</a></span>
-<span class="normal"><a href="#__codelineno-10-41"> 41</a></span>
-<span class="normal"><a href="#__codelineno-10-42"> 42</a></span>
-<span class="normal"><a href="#__codelineno-10-43"> 43</a></span>
-<span class="normal"><a href="#__codelineno-10-44"> 44</a></span>
-<span class="normal"><a href="#__codelineno-10-45"> 45</a></span>
-<span class="normal"><a href="#__codelineno-10-46"> 46</a></span>
-<span class="normal"><a href="#__codelineno-10-47"> 47</a></span>
-<span class="normal"><a href="#__codelineno-10-48"> 48</a></span>
-<span class="normal"><a href="#__codelineno-10-49"> 49</a></span>
-<span class="normal"><a href="#__codelineno-10-50"> 50</a></span>
-<span class="normal"><a href="#__codelineno-10-51"> 51</a></span>
-<span class="normal"><a href="#__codelineno-10-52"> 52</a></span>
-<span class="normal"><a href="#__codelineno-10-53"> 53</a></span>
-<span class="normal"><a href="#__codelineno-10-54"> 54</a></span>
-<span class="normal"><a href="#__codelineno-10-55"> 55</a></span>
-<span class="normal"><a href="#__codelineno-10-56"> 56</a></span>
-<span class="normal"><a href="#__codelineno-10-57"> 57</a></span>
-<span class="normal"><a href="#__codelineno-10-58"> 58</a></span>
-<span class="normal"><a href="#__codelineno-10-59"> 59</a></span>
-<span class="normal"><a href="#__codelineno-10-60"> 60</a></span>
-<span class="normal"><a href="#__codelineno-10-61"> 61</a></span>
-<span class="normal"><a href="#__codelineno-10-62"> 62</a></span>
-<span class="normal"><a href="#__codelineno-10-63"> 63</a></span>
-<span class="normal"><a href="#__codelineno-10-64"> 64</a></span>
-<span class="normal"><a href="#__codelineno-10-65"> 65</a></span>
-<span class="normal"><a href="#__codelineno-10-66"> 66</a></span>
-<span class="normal"><a href="#__codelineno-10-67"> 67</a></span>
-<span class="normal"><a href="#__codelineno-10-68"> 68</a></span>
-<span class="normal"><a href="#__codelineno-10-69"> 69</a></span>
-<span class="normal"><a href="#__codelineno-10-70"> 70</a></span>
-<span class="normal"><a href="#__codelineno-10-71"> 71</a></span>
-<span class="normal"><a href="#__codelineno-10-72"> 72</a></span>
-<span class="normal"><a href="#__codelineno-10-73"> 73</a></span>
-<span class="normal"><a href="#__codelineno-10-74"> 74</a></span>
-<span class="normal"><a href="#__codelineno-10-75"> 75</a></span>
-<span class="normal"><a href="#__codelineno-10-76"> 76</a></span>
-<span class="normal"><a href="#__codelineno-10-77"> 77</a></span>
-<span class="normal"><a href="#__codelineno-10-78"> 78</a></span>
-<span class="normal"><a href="#__codelineno-10-79"> 79</a></span>
-<span class="normal"><a href="#__codelineno-10-80"> 80</a></span>
-<span class="normal"><a href="#__codelineno-10-81"> 81</a></span>
-<span class="normal"><a href="#__codelineno-10-82"> 82</a></span>
-<span class="normal"><a href="#__codelineno-10-83"> 83</a></span>
-<span class="normal"><a href="#__codelineno-10-84"> 84</a></span>
-<span class="normal"><a href="#__codelineno-10-85"> 85</a></span>
-<span class="normal"><a href="#__codelineno-10-86"> 86</a></span>
-<span class="normal"><a href="#__codelineno-10-87"> 87</a></span>
-<span class="normal"><a href="#__codelineno-10-88"> 88</a></span>
-<span class="normal"><a href="#__codelineno-10-89"> 89</a></span>
-<span class="normal"><a href="#__codelineno-10-90"> 90</a></span>
-<span class="normal"><a href="#__codelineno-10-91"> 91</a></span>
-<span class="normal"><a href="#__codelineno-10-92"> 92</a></span>
-<span class="normal"><a href="#__codelineno-10-93"> 93</a></span>
-<span class="normal"><a href="#__codelineno-10-94"> 94</a></span>
-<span class="normal"><a href="#__codelineno-10-95"> 95</a></span>
-<span class="normal"><a href="#__codelineno-10-96"> 96</a></span>
-<span class="normal"><a href="#__codelineno-10-97"> 97</a></span>
-<span class="normal"><a href="#__codelineno-10-98"> 98</a></span>
-<span class="normal"><a href="#__codelineno-10-99"> 99</a></span>
-<span class="normal"><a href="#__codelineno-10-100">100</a></span>
-<span class="normal"><a href="#__codelineno-10-101">101</a></span>
-<span class="normal"><a href="#__codelineno-10-102">102</a></span>
-<span class="normal"><a href="#__codelineno-10-103">103</a></span>
-<span class="normal"><a href="#__codelineno-10-104">104</a></span>
-<span class="normal"><a href="#__codelineno-10-105">105</a></span>
-<span class="normal"><a href="#__codelineno-10-106">106</a></span>
-<span class="normal"><a href="#__codelineno-10-107">107</a></span>
-<span class="normal"><a href="#__codelineno-10-108">108</a></span>
-<span class="normal"><a href="#__codelineno-10-109">109</a></span>
-<span class="normal"><a href="#__codelineno-10-110">110</a></span>
-<span class="normal"><a href="#__codelineno-10-111">111</a></span>
-<span class="normal"><a href="#__codelineno-10-112">112</a></span>
-<span class="normal"><a href="#__codelineno-10-113">113</a></span>
-<span class="normal"><a href="#__codelineno-10-114">114</a></span>
-<span class="normal"><a href="#__codelineno-10-115">115</a></span>
-<span class="normal"><a href="#__codelineno-10-116">116</a></span>
-<span class="normal"><a href="#__codelineno-10-117">117</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="w">  </span><span class="nt">&quot;changed&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-<a id="__codelineno-10-2" name="__codelineno-10-2"></a><span class="w">  </span><span class="nt">&quot;current&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<a id="__codelineno-10-3" name="__codelineno-10-3"></a><span class="w">    </span><span class="p">{</span>
-<a id="__codelineno-10-4" name="__codelineno-10-4"></a><span class="w">      </span><span class="nt">&quot;fvTenant&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-10-5" name="__codelineno-10-5"></a><span class="w">        </span><span class="nt">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-10-6" name="__codelineno-10-6"></a><span class="w">          </span><span class="nt">&quot;annotation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-7" name="__codelineno-10-7"></a><span class="w">          </span><span class="nt">&quot;childAction&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-8" name="__codelineno-10-8"></a><span class="w">          </span><span class="nt">&quot;descr&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-9" name="__codelineno-10-9"></a><span class="w">          </span><span class="nt">&quot;dn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uni/tn-common&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-10" name="__codelineno-10-10"></a><span class="w">          </span><span class="nt">&quot;extMngdBy&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-11" name="__codelineno-10-11"></a><span class="w">          </span><span class="nt">&quot;lcOwn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;local&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-12" name="__codelineno-10-12"></a><span class="w">          </span><span class="nt">&quot;modTs&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2022-04-16T13:54:30.664+00:00&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-13" name="__codelineno-10-13"></a><span class="w">          </span><span class="nt">&quot;monPolDn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uni/tn-common/monepg-default&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-14" name="__codelineno-10-14"></a><span class="w">          </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;common&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-15" name="__codelineno-10-15"></a><span class="w">          </span><span class="nt">&quot;nameAlias&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-16" name="__codelineno-10-16"></a><span class="w">          </span><span class="nt">&quot;ownerKey&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-17" name="__codelineno-10-17"></a><span class="w">          </span><span class="nt">&quot;ownerTag&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-18" name="__codelineno-10-18"></a><span class="w">          </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-19" name="__codelineno-10-19"></a><span class="w">          </span><span class="nt">&quot;uid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-20" name="__codelineno-10-20"></a><span class="w">          </span><span class="nt">&quot;userdom&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;all&quot;</span>
-<a id="__codelineno-10-21" name="__codelineno-10-21"></a><span class="w">        </span><span class="p">},</span>
-<a id="__codelineno-10-22" name="__codelineno-10-22"></a><span class="hll"><span class="w">        </span><span class="nt">&quot;children&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-</span><a id="__codelineno-10-23" name="__codelineno-10-23"></a><span class="w">            </span><span class="p">{</span>
-<a id="__codelineno-10-24" name="__codelineno-10-24"></a><span class="w">              </span><span class="nt">&quot;vzBrCP&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-10-25" name="__codelineno-10-25"></a><span class="w">                </span><span class="nt">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-10-26" name="__codelineno-10-26"></a><span class="w">                  </span><span class="nt">&quot;accessPrivilege&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;USER&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-27" name="__codelineno-10-27"></a><span class="w">                  </span><span class="nt">&quot;annotation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-28" name="__codelineno-10-28"></a><span class="w">                  </span><span class="nt">&quot;childAction&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-29" name="__codelineno-10-29"></a><span class="w">                  </span><span class="nt">&quot;configIssues&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-30" name="__codelineno-10-30"></a><span class="w">                  </span><span class="nt">&quot;descr&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-31" name="__codelineno-10-31"></a><span class="w">                  </span><span class="nt">&quot;extMngdBy&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-32" name="__codelineno-10-32"></a><span class="w">                  </span><span class="nt">&quot;intent&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;install&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-33" name="__codelineno-10-33"></a><span class="w">                  </span><span class="nt">&quot;lcOwn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;local&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-34" name="__codelineno-10-34"></a><span class="w">                  </span><span class="nt">&quot;modTs&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2022-04-16T13:54:30.664+00:00&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-35" name="__codelineno-10-35"></a><span class="w">                  </span><span class="nt">&quot;monPolDn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uni/tn-common/monepg-default&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-36" name="__codelineno-10-36"></a><span class="hll"><span class="w">                  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;default&quot;</span><span class="p">,</span>
-</span><a id="__codelineno-10-37" name="__codelineno-10-37"></a><span class="w">                  </span><span class="nt">&quot;nameAlias&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-38" name="__codelineno-10-38"></a><span class="w">                  </span><span class="nt">&quot;ownerKey&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-39" name="__codelineno-10-39"></a><span class="w">                  </span><span class="nt">&quot;ownerTag&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-40" name="__codelineno-10-40"></a><span class="w">                  </span><span class="nt">&quot;prio&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;unspecified&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-41" name="__codelineno-10-41"></a><span class="w">                  </span><span class="nt">&quot;reevaluateAll&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;no&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-42" name="__codelineno-10-42"></a><span class="w">                  </span><span class="nt">&quot;rn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;brc-default&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-43" name="__codelineno-10-43"></a><span class="w">                  </span><span class="nt">&quot;scope&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;context&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-44" name="__codelineno-10-44"></a><span class="w">                  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-45" name="__codelineno-10-45"></a><span class="w">                  </span><span class="nt">&quot;targetDscp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;unspecified&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-46" name="__codelineno-10-46"></a><span class="w">                  </span><span class="nt">&quot;uid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-47" name="__codelineno-10-47"></a><span class="w">                  </span><span class="nt">&quot;userdom&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;all&quot;</span>
-<a id="__codelineno-10-48" name="__codelineno-10-48"></a><span class="w">                </span><span class="p">},</span>
-<a id="__codelineno-10-49" name="__codelineno-10-49"></a><span class="w">                </span><span class="nt">&quot;children&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<a id="__codelineno-10-50" name="__codelineno-10-50"></a><span class="w">                  </span><span class="p">{</span>
-<a id="__codelineno-10-51" name="__codelineno-10-51"></a><span class="w">                    </span><span class="nt">&quot;vzSubj&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-10-52" name="__codelineno-10-52"></a><span class="w">                      </span><span class="nt">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-10-53" name="__codelineno-10-53"></a><span class="w">                        </span><span class="nt">&quot;accessPrivilege&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;USER&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-54" name="__codelineno-10-54"></a><span class="w">                        </span><span class="nt">&quot;annotation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-55" name="__codelineno-10-55"></a><span class="w">                        </span><span class="nt">&quot;childAction&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-56" name="__codelineno-10-56"></a><span class="w">                        </span><span class="nt">&quot;configIssues&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-57" name="__codelineno-10-57"></a><span class="w">                        </span><span class="nt">&quot;consMatchT&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AtleastOne&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-58" name="__codelineno-10-58"></a><span class="w">                        </span><span class="nt">&quot;descr&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-59" name="__codelineno-10-59"></a><span class="w">                        </span><span class="nt">&quot;extMngdBy&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-60" name="__codelineno-10-60"></a><span class="w">                        </span><span class="nt">&quot;lcOwn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;local&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-61" name="__codelineno-10-61"></a><span class="w">                        </span><span class="nt">&quot;modTs&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2022-04-16T13:54:30.664+00:00&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-62" name="__codelineno-10-62"></a><span class="w">                        </span><span class="nt">&quot;monPolDn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uni/tn-common/monepg-default&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-63" name="__codelineno-10-63"></a><span class="w">                        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;default&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-64" name="__codelineno-10-64"></a><span class="w">                        </span><span class="nt">&quot;nameAlias&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-65" name="__codelineno-10-65"></a><span class="w">                        </span><span class="nt">&quot;prio&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;unspecified&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-66" name="__codelineno-10-66"></a><span class="w">                        </span><span class="nt">&quot;provMatchT&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AtleastOne&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-67" name="__codelineno-10-67"></a><span class="w">                        </span><span class="nt">&quot;revFltPorts&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;yes&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-68" name="__codelineno-10-68"></a><span class="w">                        </span><span class="nt">&quot;rn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;subj-default&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-69" name="__codelineno-10-69"></a><span class="w">                        </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-70" name="__codelineno-10-70"></a><span class="w">                        </span><span class="nt">&quot;targetDscp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;unspecified&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-71" name="__codelineno-10-71"></a><span class="w">                        </span><span class="nt">&quot;uid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-72" name="__codelineno-10-72"></a><span class="w">                        </span><span class="nt">&quot;userdom&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;all&quot;</span>
-<a id="__codelineno-10-73" name="__codelineno-10-73"></a><span class="w">                      </span><span class="p">},</span>
-<a id="__codelineno-10-74" name="__codelineno-10-74"></a><span class="w">                      </span><span class="nt">&quot;children&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<a id="__codelineno-10-75" name="__codelineno-10-75"></a><span class="w">                        </span><span class="p">{</span>
-<a id="__codelineno-10-76" name="__codelineno-10-76"></a><span class="w">                          </span><span class="nt">&quot;vzRsSubjFiltAtt&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-10-77" name="__codelineno-10-77"></a><span class="w">                            </span><span class="nt">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-10-78" name="__codelineno-10-78"></a><span class="w">                              </span><span class="nt">&quot;accessPrivilege&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;USER&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-79" name="__codelineno-10-79"></a><span class="w">                              </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;permit&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-80" name="__codelineno-10-80"></a><span class="w">                              </span><span class="nt">&quot;annotation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-81" name="__codelineno-10-81"></a><span class="w">                              </span><span class="nt">&quot;childAction&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-82" name="__codelineno-10-82"></a><span class="w">                              </span><span class="nt">&quot;directives&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-83" name="__codelineno-10-83"></a><span class="w">                              </span><span class="nt">&quot;extMngdBy&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-84" name="__codelineno-10-84"></a><span class="w">                              </span><span class="nt">&quot;forceResolve&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;yes&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-85" name="__codelineno-10-85"></a><span class="w">                              </span><span class="nt">&quot;lcOwn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;local&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-86" name="__codelineno-10-86"></a><span class="w">                              </span><span class="nt">&quot;modTs&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2022-04-16T13:54:30.664+00:00&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-87" name="__codelineno-10-87"></a><span class="w">                              </span><span class="nt">&quot;monPolDn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uni/tn-common/monepg-default&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-88" name="__codelineno-10-88"></a><span class="w">                              </span><span class="nt">&quot;priorityOverride&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;default&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-89" name="__codelineno-10-89"></a><span class="w">                              </span><span class="nt">&quot;rType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mo&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-90" name="__codelineno-10-90"></a><span class="w">                              </span><span class="nt">&quot;rn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rssubjFiltAtt-default&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-91" name="__codelineno-10-91"></a><span class="w">                              </span><span class="nt">&quot;state&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;formed&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-92" name="__codelineno-10-92"></a><span class="w">                              </span><span class="nt">&quot;stateQual&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;none&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-93" name="__codelineno-10-93"></a><span class="w">                              </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-94" name="__codelineno-10-94"></a><span class="w">                              </span><span class="nt">&quot;tCl&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;vzFilter&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-95" name="__codelineno-10-95"></a><span class="w">                              </span><span class="nt">&quot;tContextDn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-96" name="__codelineno-10-96"></a><span class="w">                              </span><span class="nt">&quot;tDn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uni/tn-common/flt-default&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-97" name="__codelineno-10-97"></a><span class="w">                              </span><span class="nt">&quot;tRn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;flt-default&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-98" name="__codelineno-10-98"></a><span class="w">                              </span><span class="nt">&quot;tType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;name&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-99" name="__codelineno-10-99"></a><span class="w">                              </span><span class="nt">&quot;tnVzFilterName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;default&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-100" name="__codelineno-10-100"></a><span class="w">                              </span><span class="nt">&quot;uid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-101" name="__codelineno-10-101"></a><span class="w">                              </span><span class="nt">&quot;userdom&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;all&quot;</span>
-<a id="__codelineno-10-102" name="__codelineno-10-102"></a><span class="w">                            </span><span class="p">}</span>
-<a id="__codelineno-10-103" name="__codelineno-10-103"></a><span class="w">                          </span><span class="p">}</span>
-<a id="__codelineno-10-104" name="__codelineno-10-104"></a><span class="w">                        </span><span class="p">}</span>
-<a id="__codelineno-10-105" name="__codelineno-10-105"></a><span class="w">                      </span><span class="p">]</span>
-<a id="__codelineno-10-106" name="__codelineno-10-106"></a><span class="w">                    </span><span class="p">}</span>
-<a id="__codelineno-10-107" name="__codelineno-10-107"></a><span class="w">                  </span><span class="p">}</span>
-<a id="__codelineno-10-108" name="__codelineno-10-108"></a><span class="w">                </span><span class="p">]</span>
-<a id="__codelineno-10-109" name="__codelineno-10-109"></a><span class="w">              </span><span class="p">}</span>
-<a id="__codelineno-10-110" name="__codelineno-10-110"></a><span class="w">            </span><span class="p">}</span>
-<a id="__codelineno-10-111" name="__codelineno-10-111"></a><span class="w">          </span><span class="p">]</span>
-<a id="__codelineno-10-112" name="__codelineno-10-112"></a><span class="w">        </span><span class="p">}</span>
-<a id="__codelineno-10-113" name="__codelineno-10-113"></a><span class="w">      </span><span class="p">}</span>
-<a id="__codelineno-10-114" name="__codelineno-10-114"></a><span class="w">    </span><span class="p">],</span>
-<a id="__codelineno-10-115" name="__codelineno-10-115"></a><span class="w">    </span><span class="nt">&quot;failed&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
-<a id="__codelineno-10-116" name="__codelineno-10-116"></a><span class="w">  </span><span class="p">}</span>
-<a id="__codelineno-10-117" name="__codelineno-10-117"></a><span class="p">}</span>
+<p>Dealing with network devices often means dealing with large <abbr title="JavaScript Object Notation">JSON</abbr> objects and you have to <em>filter</em> the output to your needs. Browse the <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html" target="_blank">Ansible filter documentation</a> for a suitable filter.</p>
+<p>The Ansible module you will be using returns a <abbr title="JavaScript Object Notation">JSON</abbr> output like the following:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">  1</a></span>
+<span class="normal"><a href="#__codelineno-11-2">  2</a></span>
+<span class="normal"><a href="#__codelineno-11-3">  3</a></span>
+<span class="normal"><a href="#__codelineno-11-4">  4</a></span>
+<span class="normal"><a href="#__codelineno-11-5">  5</a></span>
+<span class="normal"><a href="#__codelineno-11-6">  6</a></span>
+<span class="normal"><a href="#__codelineno-11-7">  7</a></span>
+<span class="normal"><a href="#__codelineno-11-8">  8</a></span>
+<span class="normal"><a href="#__codelineno-11-9">  9</a></span>
+<span class="normal"><a href="#__codelineno-11-10"> 10</a></span>
+<span class="normal"><a href="#__codelineno-11-11"> 11</a></span>
+<span class="normal"><a href="#__codelineno-11-12"> 12</a></span>
+<span class="normal"><a href="#__codelineno-11-13"> 13</a></span>
+<span class="normal"><a href="#__codelineno-11-14"> 14</a></span>
+<span class="normal"><a href="#__codelineno-11-15"> 15</a></span>
+<span class="normal"><a href="#__codelineno-11-16"> 16</a></span>
+<span class="normal"><a href="#__codelineno-11-17"> 17</a></span>
+<span class="normal"><a href="#__codelineno-11-18"> 18</a></span>
+<span class="normal"><a href="#__codelineno-11-19"> 19</a></span>
+<span class="normal"><a href="#__codelineno-11-20"> 20</a></span>
+<span class="normal"><a href="#__codelineno-11-21"> 21</a></span>
+<span class="normal"><a href="#__codelineno-11-22"> 22</a></span>
+<span class="normal"><a href="#__codelineno-11-23"> 23</a></span>
+<span class="normal"><a href="#__codelineno-11-24"> 24</a></span>
+<span class="normal"><a href="#__codelineno-11-25"> 25</a></span>
+<span class="normal"><a href="#__codelineno-11-26"> 26</a></span>
+<span class="normal"><a href="#__codelineno-11-27"> 27</a></span>
+<span class="normal"><a href="#__codelineno-11-28"> 28</a></span>
+<span class="normal"><a href="#__codelineno-11-29"> 29</a></span>
+<span class="normal"><a href="#__codelineno-11-30"> 30</a></span>
+<span class="normal"><a href="#__codelineno-11-31"> 31</a></span>
+<span class="normal"><a href="#__codelineno-11-32"> 32</a></span>
+<span class="normal"><a href="#__codelineno-11-33"> 33</a></span>
+<span class="normal"><a href="#__codelineno-11-34"> 34</a></span>
+<span class="normal"><a href="#__codelineno-11-35"> 35</a></span>
+<span class="normal"><a href="#__codelineno-11-36"> 36</a></span>
+<span class="normal"><a href="#__codelineno-11-37"> 37</a></span>
+<span class="normal"><a href="#__codelineno-11-38"> 38</a></span>
+<span class="normal"><a href="#__codelineno-11-39"> 39</a></span>
+<span class="normal"><a href="#__codelineno-11-40"> 40</a></span>
+<span class="normal"><a href="#__codelineno-11-41"> 41</a></span>
+<span class="normal"><a href="#__codelineno-11-42"> 42</a></span>
+<span class="normal"><a href="#__codelineno-11-43"> 43</a></span>
+<span class="normal"><a href="#__codelineno-11-44"> 44</a></span>
+<span class="normal"><a href="#__codelineno-11-45"> 45</a></span>
+<span class="normal"><a href="#__codelineno-11-46"> 46</a></span>
+<span class="normal"><a href="#__codelineno-11-47"> 47</a></span>
+<span class="normal"><a href="#__codelineno-11-48"> 48</a></span>
+<span class="normal"><a href="#__codelineno-11-49"> 49</a></span>
+<span class="normal"><a href="#__codelineno-11-50"> 50</a></span>
+<span class="normal"><a href="#__codelineno-11-51"> 51</a></span>
+<span class="normal"><a href="#__codelineno-11-52"> 52</a></span>
+<span class="normal"><a href="#__codelineno-11-53"> 53</a></span>
+<span class="normal"><a href="#__codelineno-11-54"> 54</a></span>
+<span class="normal"><a href="#__codelineno-11-55"> 55</a></span>
+<span class="normal"><a href="#__codelineno-11-56"> 56</a></span>
+<span class="normal"><a href="#__codelineno-11-57"> 57</a></span>
+<span class="normal"><a href="#__codelineno-11-58"> 58</a></span>
+<span class="normal"><a href="#__codelineno-11-59"> 59</a></span>
+<span class="normal"><a href="#__codelineno-11-60"> 60</a></span>
+<span class="normal"><a href="#__codelineno-11-61"> 61</a></span>
+<span class="normal"><a href="#__codelineno-11-62"> 62</a></span>
+<span class="normal"><a href="#__codelineno-11-63"> 63</a></span>
+<span class="normal"><a href="#__codelineno-11-64"> 64</a></span>
+<span class="normal"><a href="#__codelineno-11-65"> 65</a></span>
+<span class="normal"><a href="#__codelineno-11-66"> 66</a></span>
+<span class="normal"><a href="#__codelineno-11-67"> 67</a></span>
+<span class="normal"><a href="#__codelineno-11-68"> 68</a></span>
+<span class="normal"><a href="#__codelineno-11-69"> 69</a></span>
+<span class="normal"><a href="#__codelineno-11-70"> 70</a></span>
+<span class="normal"><a href="#__codelineno-11-71"> 71</a></span>
+<span class="normal"><a href="#__codelineno-11-72"> 72</a></span>
+<span class="normal"><a href="#__codelineno-11-73"> 73</a></span>
+<span class="normal"><a href="#__codelineno-11-74"> 74</a></span>
+<span class="normal"><a href="#__codelineno-11-75"> 75</a></span>
+<span class="normal"><a href="#__codelineno-11-76"> 76</a></span>
+<span class="normal"><a href="#__codelineno-11-77"> 77</a></span>
+<span class="normal"><a href="#__codelineno-11-78"> 78</a></span>
+<span class="normal"><a href="#__codelineno-11-79"> 79</a></span>
+<span class="normal"><a href="#__codelineno-11-80"> 80</a></span>
+<span class="normal"><a href="#__codelineno-11-81"> 81</a></span>
+<span class="normal"><a href="#__codelineno-11-82"> 82</a></span>
+<span class="normal"><a href="#__codelineno-11-83"> 83</a></span>
+<span class="normal"><a href="#__codelineno-11-84"> 84</a></span>
+<span class="normal"><a href="#__codelineno-11-85"> 85</a></span>
+<span class="normal"><a href="#__codelineno-11-86"> 86</a></span>
+<span class="normal"><a href="#__codelineno-11-87"> 87</a></span>
+<span class="normal"><a href="#__codelineno-11-88"> 88</a></span>
+<span class="normal"><a href="#__codelineno-11-89"> 89</a></span>
+<span class="normal"><a href="#__codelineno-11-90"> 90</a></span>
+<span class="normal"><a href="#__codelineno-11-91"> 91</a></span>
+<span class="normal"><a href="#__codelineno-11-92"> 92</a></span>
+<span class="normal"><a href="#__codelineno-11-93"> 93</a></span>
+<span class="normal"><a href="#__codelineno-11-94"> 94</a></span>
+<span class="normal"><a href="#__codelineno-11-95"> 95</a></span>
+<span class="normal"><a href="#__codelineno-11-96"> 96</a></span>
+<span class="normal"><a href="#__codelineno-11-97"> 97</a></span>
+<span class="normal"><a href="#__codelineno-11-98"> 98</a></span>
+<span class="normal"><a href="#__codelineno-11-99"> 99</a></span>
+<span class="normal"><a href="#__codelineno-11-100">100</a></span>
+<span class="normal"><a href="#__codelineno-11-101">101</a></span>
+<span class="normal"><a href="#__codelineno-11-102">102</a></span>
+<span class="normal"><a href="#__codelineno-11-103">103</a></span>
+<span class="normal"><a href="#__codelineno-11-104">104</a></span>
+<span class="normal"><a href="#__codelineno-11-105">105</a></span>
+<span class="normal"><a href="#__codelineno-11-106">106</a></span>
+<span class="normal"><a href="#__codelineno-11-107">107</a></span>
+<span class="normal"><a href="#__codelineno-11-108">108</a></span>
+<span class="normal"><a href="#__codelineno-11-109">109</a></span>
+<span class="normal"><a href="#__codelineno-11-110">110</a></span>
+<span class="normal"><a href="#__codelineno-11-111">111</a></span>
+<span class="normal"><a href="#__codelineno-11-112">112</a></span>
+<span class="normal"><a href="#__codelineno-11-113">113</a></span>
+<span class="normal"><a href="#__codelineno-11-114">114</a></span>
+<span class="normal"><a href="#__codelineno-11-115">115</a></span>
+<span class="normal"><a href="#__codelineno-11-116">116</a></span>
+<span class="normal"><a href="#__codelineno-11-117">117</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="w">  </span><span class="nt">&quot;changed&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2"></a><span class="w">  </span><span class="nt">&quot;current&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4"></a><span class="w">      </span><span class="nt">&quot;fvTenant&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5"></a><span class="w">        </span><span class="nt">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6"></a><span class="w">          </span><span class="nt">&quot;annotation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7"></a><span class="w">          </span><span class="nt">&quot;childAction&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8"></a><span class="w">          </span><span class="nt">&quot;descr&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-9" name="__codelineno-11-9"></a><span class="w">          </span><span class="nt">&quot;dn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uni/tn-common&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-10" name="__codelineno-11-10"></a><span class="w">          </span><span class="nt">&quot;extMngdBy&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-11" name="__codelineno-11-11"></a><span class="w">          </span><span class="nt">&quot;lcOwn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;local&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-12" name="__codelineno-11-12"></a><span class="w">          </span><span class="nt">&quot;modTs&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2022-04-16T13:54:30.664+00:00&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-13" name="__codelineno-11-13"></a><span class="w">          </span><span class="nt">&quot;monPolDn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uni/tn-common/monepg-default&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-14" name="__codelineno-11-14"></a><span class="w">          </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;common&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-15" name="__codelineno-11-15"></a><span class="w">          </span><span class="nt">&quot;nameAlias&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-16" name="__codelineno-11-16"></a><span class="w">          </span><span class="nt">&quot;ownerKey&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-17" name="__codelineno-11-17"></a><span class="w">          </span><span class="nt">&quot;ownerTag&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-18" name="__codelineno-11-18"></a><span class="w">          </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-19" name="__codelineno-11-19"></a><span class="w">          </span><span class="nt">&quot;uid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-20" name="__codelineno-11-20"></a><span class="w">          </span><span class="nt">&quot;userdom&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;all&quot;</span>
+<a id="__codelineno-11-21" name="__codelineno-11-21"></a><span class="w">        </span><span class="p">},</span>
+<a id="__codelineno-11-22" name="__codelineno-11-22"></a><span class="hll"><span class="w">        </span><span class="nt">&quot;children&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><a id="__codelineno-11-23" name="__codelineno-11-23"></a><span class="w">            </span><span class="p">{</span>
+<a id="__codelineno-11-24" name="__codelineno-11-24"></a><span class="w">              </span><span class="nt">&quot;vzBrCP&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-11-25" name="__codelineno-11-25"></a><span class="w">                </span><span class="nt">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-11-26" name="__codelineno-11-26"></a><span class="w">                  </span><span class="nt">&quot;accessPrivilege&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;USER&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-27" name="__codelineno-11-27"></a><span class="w">                  </span><span class="nt">&quot;annotation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-28" name="__codelineno-11-28"></a><span class="w">                  </span><span class="nt">&quot;childAction&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-29" name="__codelineno-11-29"></a><span class="w">                  </span><span class="nt">&quot;configIssues&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-30" name="__codelineno-11-30"></a><span class="w">                  </span><span class="nt">&quot;descr&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-31" name="__codelineno-11-31"></a><span class="w">                  </span><span class="nt">&quot;extMngdBy&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-32" name="__codelineno-11-32"></a><span class="w">                  </span><span class="nt">&quot;intent&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;install&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-33" name="__codelineno-11-33"></a><span class="w">                  </span><span class="nt">&quot;lcOwn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;local&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-34" name="__codelineno-11-34"></a><span class="w">                  </span><span class="nt">&quot;modTs&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2022-04-16T13:54:30.664+00:00&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-35" name="__codelineno-11-35"></a><span class="w">                  </span><span class="nt">&quot;monPolDn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uni/tn-common/monepg-default&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-36" name="__codelineno-11-36"></a><span class="hll"><span class="w">                  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;default&quot;</span><span class="p">,</span>
+</span><a id="__codelineno-11-37" name="__codelineno-11-37"></a><span class="w">                  </span><span class="nt">&quot;nameAlias&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-38" name="__codelineno-11-38"></a><span class="w">                  </span><span class="nt">&quot;ownerKey&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-39" name="__codelineno-11-39"></a><span class="w">                  </span><span class="nt">&quot;ownerTag&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-40" name="__codelineno-11-40"></a><span class="w">                  </span><span class="nt">&quot;prio&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;unspecified&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-41" name="__codelineno-11-41"></a><span class="w">                  </span><span class="nt">&quot;reevaluateAll&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;no&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-42" name="__codelineno-11-42"></a><span class="w">                  </span><span class="nt">&quot;rn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;brc-default&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-43" name="__codelineno-11-43"></a><span class="w">                  </span><span class="nt">&quot;scope&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;context&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-44" name="__codelineno-11-44"></a><span class="w">                  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-45" name="__codelineno-11-45"></a><span class="w">                  </span><span class="nt">&quot;targetDscp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;unspecified&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-46" name="__codelineno-11-46"></a><span class="w">                  </span><span class="nt">&quot;uid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-47" name="__codelineno-11-47"></a><span class="w">                  </span><span class="nt">&quot;userdom&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;all&quot;</span>
+<a id="__codelineno-11-48" name="__codelineno-11-48"></a><span class="w">                </span><span class="p">},</span>
+<a id="__codelineno-11-49" name="__codelineno-11-49"></a><span class="w">                </span><span class="nt">&quot;children&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-11-50" name="__codelineno-11-50"></a><span class="w">                  </span><span class="p">{</span>
+<a id="__codelineno-11-51" name="__codelineno-11-51"></a><span class="w">                    </span><span class="nt">&quot;vzSubj&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-11-52" name="__codelineno-11-52"></a><span class="w">                      </span><span class="nt">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-11-53" name="__codelineno-11-53"></a><span class="w">                        </span><span class="nt">&quot;accessPrivilege&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;USER&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-54" name="__codelineno-11-54"></a><span class="w">                        </span><span class="nt">&quot;annotation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-55" name="__codelineno-11-55"></a><span class="w">                        </span><span class="nt">&quot;childAction&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-56" name="__codelineno-11-56"></a><span class="w">                        </span><span class="nt">&quot;configIssues&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-57" name="__codelineno-11-57"></a><span class="w">                        </span><span class="nt">&quot;consMatchT&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AtleastOne&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-58" name="__codelineno-11-58"></a><span class="w">                        </span><span class="nt">&quot;descr&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-59" name="__codelineno-11-59"></a><span class="w">                        </span><span class="nt">&quot;extMngdBy&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-60" name="__codelineno-11-60"></a><span class="w">                        </span><span class="nt">&quot;lcOwn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;local&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-61" name="__codelineno-11-61"></a><span class="w">                        </span><span class="nt">&quot;modTs&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2022-04-16T13:54:30.664+00:00&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-62" name="__codelineno-11-62"></a><span class="w">                        </span><span class="nt">&quot;monPolDn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uni/tn-common/monepg-default&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-63" name="__codelineno-11-63"></a><span class="w">                        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;default&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-64" name="__codelineno-11-64"></a><span class="w">                        </span><span class="nt">&quot;nameAlias&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-65" name="__codelineno-11-65"></a><span class="w">                        </span><span class="nt">&quot;prio&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;unspecified&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-66" name="__codelineno-11-66"></a><span class="w">                        </span><span class="nt">&quot;provMatchT&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AtleastOne&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-67" name="__codelineno-11-67"></a><span class="w">                        </span><span class="nt">&quot;revFltPorts&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;yes&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-68" name="__codelineno-11-68"></a><span class="w">                        </span><span class="nt">&quot;rn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;subj-default&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-69" name="__codelineno-11-69"></a><span class="w">                        </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-70" name="__codelineno-11-70"></a><span class="w">                        </span><span class="nt">&quot;targetDscp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;unspecified&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-71" name="__codelineno-11-71"></a><span class="w">                        </span><span class="nt">&quot;uid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-72" name="__codelineno-11-72"></a><span class="w">                        </span><span class="nt">&quot;userdom&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;all&quot;</span>
+<a id="__codelineno-11-73" name="__codelineno-11-73"></a><span class="w">                      </span><span class="p">},</span>
+<a id="__codelineno-11-74" name="__codelineno-11-74"></a><span class="w">                      </span><span class="nt">&quot;children&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-11-75" name="__codelineno-11-75"></a><span class="w">                        </span><span class="p">{</span>
+<a id="__codelineno-11-76" name="__codelineno-11-76"></a><span class="w">                          </span><span class="nt">&quot;vzRsSubjFiltAtt&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-11-77" name="__codelineno-11-77"></a><span class="w">                            </span><span class="nt">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-11-78" name="__codelineno-11-78"></a><span class="w">                              </span><span class="nt">&quot;accessPrivilege&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;USER&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-79" name="__codelineno-11-79"></a><span class="w">                              </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;permit&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-80" name="__codelineno-11-80"></a><span class="w">                              </span><span class="nt">&quot;annotation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-81" name="__codelineno-11-81"></a><span class="w">                              </span><span class="nt">&quot;childAction&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-82" name="__codelineno-11-82"></a><span class="w">                              </span><span class="nt">&quot;directives&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-83" name="__codelineno-11-83"></a><span class="w">                              </span><span class="nt">&quot;extMngdBy&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-84" name="__codelineno-11-84"></a><span class="w">                              </span><span class="nt">&quot;forceResolve&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;yes&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-85" name="__codelineno-11-85"></a><span class="w">                              </span><span class="nt">&quot;lcOwn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;local&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-86" name="__codelineno-11-86"></a><span class="w">                              </span><span class="nt">&quot;modTs&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2022-04-16T13:54:30.664+00:00&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-87" name="__codelineno-11-87"></a><span class="w">                              </span><span class="nt">&quot;monPolDn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uni/tn-common/monepg-default&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-88" name="__codelineno-11-88"></a><span class="w">                              </span><span class="nt">&quot;priorityOverride&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;default&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-89" name="__codelineno-11-89"></a><span class="w">                              </span><span class="nt">&quot;rType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mo&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-90" name="__codelineno-11-90"></a><span class="w">                              </span><span class="nt">&quot;rn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rssubjFiltAtt-default&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-91" name="__codelineno-11-91"></a><span class="w">                              </span><span class="nt">&quot;state&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;formed&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-92" name="__codelineno-11-92"></a><span class="w">                              </span><span class="nt">&quot;stateQual&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;none&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-93" name="__codelineno-11-93"></a><span class="w">                              </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-94" name="__codelineno-11-94"></a><span class="w">                              </span><span class="nt">&quot;tCl&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;vzFilter&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-95" name="__codelineno-11-95"></a><span class="w">                              </span><span class="nt">&quot;tContextDn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-96" name="__codelineno-11-96"></a><span class="w">                              </span><span class="nt">&quot;tDn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uni/tn-common/flt-default&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-97" name="__codelineno-11-97"></a><span class="w">                              </span><span class="nt">&quot;tRn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;flt-default&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-98" name="__codelineno-11-98"></a><span class="w">                              </span><span class="nt">&quot;tType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;name&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-99" name="__codelineno-11-99"></a><span class="w">                              </span><span class="nt">&quot;tnVzFilterName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;default&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-100" name="__codelineno-11-100"></a><span class="w">                              </span><span class="nt">&quot;uid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-101" name="__codelineno-11-101"></a><span class="w">                              </span><span class="nt">&quot;userdom&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;all&quot;</span>
+<a id="__codelineno-11-102" name="__codelineno-11-102"></a><span class="w">                            </span><span class="p">}</span>
+<a id="__codelineno-11-103" name="__codelineno-11-103"></a><span class="w">                          </span><span class="p">}</span>
+<a id="__codelineno-11-104" name="__codelineno-11-104"></a><span class="w">                        </span><span class="p">}</span>
+<a id="__codelineno-11-105" name="__codelineno-11-105"></a><span class="w">                      </span><span class="p">]</span>
+<a id="__codelineno-11-106" name="__codelineno-11-106"></a><span class="w">                    </span><span class="p">}</span>
+<a id="__codelineno-11-107" name="__codelineno-11-107"></a><span class="w">                  </span><span class="p">}</span>
+<a id="__codelineno-11-108" name="__codelineno-11-108"></a><span class="w">                </span><span class="p">]</span>
+<a id="__codelineno-11-109" name="__codelineno-11-109"></a><span class="w">              </span><span class="p">}</span>
+<a id="__codelineno-11-110" name="__codelineno-11-110"></a><span class="w">            </span><span class="p">}</span>
+<a id="__codelineno-11-111" name="__codelineno-11-111"></a><span class="w">          </span><span class="p">]</span>
+<a id="__codelineno-11-112" name="__codelineno-11-112"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-11-113" name="__codelineno-11-113"></a><span class="w">      </span><span class="p">}</span>
+<a id="__codelineno-11-114" name="__codelineno-11-114"></a><span class="w">    </span><span class="p">],</span>
+<a id="__codelineno-11-115" name="__codelineno-11-115"></a><span class="w">    </span><span class="nt">&quot;failed&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
+<a id="__codelineno-11-116" name="__codelineno-11-116"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-11-117" name="__codelineno-11-117"></a><span class="p">}</span>
 </code></pre></div></td></tr></table></div>
-<p>The highlighted lines show the <strong>list</strong> of contracts and the name of the contract-<strong>element</strong>. You need to traverse the JSON object until you reach the key you want to get. In JSON, <em>list</em>-objects are encapsulated with square brackets (start with <em>[</em> and end with <em>]</em>), dictionary objects with curly brackets (start with <em>{</em> and end with <em>}</em>).  </p>
-<p>Observing the above output, you can see that multiple list objects are within the complete JSON object. The value of the <em>key</em> <code>current</code> is a list, every list item of this key is a tenant (with multiple <em>key-value</em> pairs which can also be dictionaries or lists).</p>
+<p>The highlighted lines show the <strong>list</strong> of contracts and the name of the contract-<strong>element</strong>. You need to traverse the <abbr title="JavaScript Object Notation">JSON</abbr> object until you reach the key you want to get. In <abbr title="JavaScript Object Notation">JSON</abbr>, <em>list</em>-objects are encapsulated with square brackets (start with <em>[</em> and end with <em>]</em>), dictionary objects with curly brackets (start with <em>{</em> and end with <em>}</em>).  </p>
+<p>Observing the above output, you can see that multiple list objects are within the complete <abbr title="JavaScript Object Notation">JSON</abbr> object. The value of the <em>key</em> <code>current</code> is a list, every list item of this key is a tenant (with multiple <em>key-value</em> pairs which can also be dictionaries or lists).</p>
 <p>If you filter for a single tenant (by providing the tenant name) when using the module, the list <code>current</code> only has one element. Lists (in Python, which Ansible is based on) start at element <em>0</em>, the second list element is <em>1</em> and so on.</p>
 <p>The resulting output in your playbook-run should look something like this (considering that the <em>common</em> tenant only has one contract):</p>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="go">TASK [aci-contract : Output list of contract names of Tenant &#39;common&#39;] ********</span>
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="go">ok: [demo-aci-host] =&gt; {</span>
-<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="go">    &quot;msg&quot;: [</span>
-<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="go">        &quot;default&quot;</span>
-<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="go">    ]</span>
-<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="go">}</span>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="go">TASK [aci-contract : Output list of contract names of Tenant &#39;common&#39;] ********</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="go">ok: [demo-aci-host] =&gt; {</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="go">    &quot;msg&quot;: [</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="go">        &quot;default&quot;</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="go">    ]</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="go">}</span>
 </code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>There are multiple ways to achieve the desired solution, try around!<br />
-Dealing with large JSON objects and outputting it to stdout may result in not being able to scroll back far enough to see the start of your task or playbook.<br />
+Dealing with large <abbr title="JavaScript Object Notation">JSON</abbr> objects and outputting it to stdout may result in not being able to scroll back far enough to see the start of your task or playbook.<br />
 You can adjust the <a href="../../../demo-environment/red-hat-demo-environment/#terminal-scrollback">VScode configuration</a> yourself.</p>
 </div>
 <p>Achieve the following tasks:</p>
@@ -2061,10 +2067,11 @@ You can adjust the <a href="../../../demo-environment/red-hat-demo-environment/#
 <li>Store the module output in a variable (register).  </li>
 <li>Use the <code>json_query</code> filter. The filter is part of the <code>community.general</code> collection.  </li>
 <li>You need to install a Python package for the filter, run <code>pip3.9 install jmespath</code> (if your Ansible uses Python3.9, run <code>ansible --version</code> to find out)</li>
-<li>Traversing the JSON object can be achieved by <code>current[0].fvTenant.children...</code>  </li>
+<li>Traversing the <abbr title="JavaScript Object Notation">JSON</abbr> object can be achieved by <code>current[0].fvTenant.children...</code>  </li>
 <li>Output to stdout can be achieved with the debug module.</li>
 </ul>
 </details>
+<!-- markdownlint-disable -->
 
 
 
@@ -2085,7 +2092,7 @@ You can adjust the <a href="../../../demo-environment/red-hat-demo-environment/#
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 1, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 17, 2024</span>
   </span>
 
     

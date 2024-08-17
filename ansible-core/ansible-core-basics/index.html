@@ -1534,10 +1534,10 @@ The goal is to familiarize yourself with some of the different cli tools Ansible
 </ul>
 <h2 id="guide">Guide</h2>
 <h3 id="step-1-check-the-infrastructure">Step 1 - Check the infrastructure</h3>
-<p>The Ansible <em>master nodes</em> by default communicates via SSH with all <em>managed hosts</em>. As we are automating Linux hosts, this is fine and we need to make sure that we can reach every node with SSH.<br />
+<p>The Ansible <em>master nodes</em> by default communicates via <abbr title="Secure Shell">SSH</abbr> with all <em>managed hosts</em>. As we are automating Linux hosts, this is fine and we need to make sure that we can reach every node with <abbr title="Secure Shell">SSH</abbr>.<br />
 If you intend to automate hosts that can't be reached with the default method, e.g. Windows hosts, network infrastructure nodes, firewall hosts and so on, you need to instruct Ansible to use another communication method. In most cases, this is very easy and only requires setting a certain variable. But, let's focus on automating Linux nodes first.</p>
-<p>You can reach all your <em>managed nodes</em> (the hosts that you want to automate) with <em>password-less SSH</em>, you won't need to enter a password (or a user) when connecting to the nodes.</p>
-<p>Try it out, SSH to <code>node1</code>:</p>
+<p>You can reach all your <em>managed nodes</em> (the hosts that you want to automate) with <em>password-less <abbr title="Secure Shell">SSH</abbr></em>, you won't need to enter a password (or a user) when connecting to the nodes.</p>
+<p>Try it out, <abbr title="Secure Shell">SSH</abbr> to <code>node1</code>:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="gp">[student1@ansible-1 ~]$ </span>ssh<span class="w"> </span>node1
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="gp">[ec2-user@node1 ~]$</span>
 </code></pre></div>
@@ -1727,7 +1727,7 @@ In this lab, the inventory is provided by your instructor. The inventory file is
 <a id="__codelineno-10-21" name="__codelineno-10-21" href="#__codelineno-10-21"></a><span class="go">    &quot;ping&quot;: &quot;pong&quot;</span>
 <a id="__codelineno-10-22" name="__codelineno-10-22" href="#__codelineno-10-22"></a><span class="go">}</span>
 </code></pre></div>
-<p>Success! All three nodes are reachable, we get a <em>pong</em> back, we proved that we can establish a SSH connection and that the node(s) have a usable Python interpreter.</p>
+<p>Success! All three nodes are reachable, we get a <em>pong</em> back, we proved that we can establish a <abbr title="Secure Shell">SSH</abbr> connection and that the node(s) have a usable Python interpreter.</p>
 <p>Try to run the same ad hoc command against the <em>control</em> group.  </p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="gp">[student@ansible-1 ~]$ </span>ansible<span class="w"> </span>control<span class="w"> </span>-m<span class="w"> </span>ping
 <a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="go">ansible-1 | SUCCESS =&gt; {</span>
@@ -1820,6 +1820,7 @@ In this lab, the inventory is provided by your instructor. The inventory file is
 <a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a><span class="go">...</span>
 </code></pre></div>
 <p>You will get loads of useful information and you can use every bit as variables in your playbooks later on! We will use facts in a later exercise again.</p>
+<!-- markdownlint-disable -->
 
 
 
