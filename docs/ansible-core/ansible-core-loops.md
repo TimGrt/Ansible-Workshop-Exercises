@@ -30,18 +30,18 @@ Understand the playbook and the output:
 
 ### Step 2 - Loops over hashes
 
-As mentioned loops can also be over lists of hashes. Imagine that the users should be assigned to different additional groups:
+As mentioned loops can also be over lists of hashes (multiple key-value-pairs in every list item). Imagine that the users should be assigned to different additional groups:
 
 ```yaml
 - username: dev_user
-  groups: ftp
+  group: ftp
 - username: qa_user
-  groups: ftp
+  group: apache
 - username: prod_user
-  groups: apache
+  group: admin
 ```
 
-The `user` module has the optional parameter `groups` which defines the group (or list of groups) the user should be added to. To reference items in a hash, the `{{ item }}` keyword needs to reference the sub-key: `{{ item.groups }}` for example.
+The `user` module has the optional parameter `groups` which defines the group (or list of groups) the user should be added to. To reference items in a hash, the `{{ item }}` keyword needs to reference the sub-key: `{{ item.group }}` for example.
 
 ??? note "Hint"
     By default, the user is **removed** from all other groups. Use the module parameter `append: true` to modify this.
@@ -50,13 +50,35 @@ Let's rewrite the playbook to create the users with additional user rights:
 
 ```yaml
 --8<-- "loops-step2-loop-users.yml"
-```
+```  
 
 Check the output:
 
-* Again the task is listed once, but three changes are listed. Each loop with its content is shown.
+* Again the task is listed once, but three changes are listed. Each loop item with its content is shown.
 
-Verify that the user `dev_user` was indeed created on `node1` using the following playbook, name it `user_id.yml`:
+!!! failure
+    At least one user was not created because of a missing group, the playbook failed?  
+    Well, we did not create all groups, the *user*-module does not do this! Some groups are already present, either they were present by default or were created when we installed packages, other groups must be created before we can use them.  
+
+!!! success
+    To ensure all groups are created, before you reference them, add one more task which creates the groups for you!  
+    Use the [`ansible.builtin.group` module](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/group_module.html){:target="_blank"} and loop over the same list as the task which creates the users, this list contains all groups which need to be created.
+
+    ??? tip "Need help?"
+
+        ```yaml
+        --8<-- "loops-step2-loop-users-and-groups.yml"
+        ```
+
+        Instead of repeating the list in the loop, you can (and should!) relocate the loop content to a variable and reference this one. Take a look at the following playbook:
+
+        ```yaml hl_lines="6 18 25"
+        --8<-- "loops-step2-loop-users-and-groups-with-variable.yml"
+        ```
+
+**Run the playbook again** to ensure all users (and groups) are created!
+
+Afterwards, verify that the user `prod_user` was indeed created on `node1` using the following playbook, name it `user_id.yml`:
 
 ```yaml
 --8<-- "loops-step2-user-id.yml"
@@ -64,7 +86,7 @@ Verify that the user `dev_user` was indeed created on `node1` using the followin
 
 === "Ansible"
 
-    ```console
+    ``` { .console .no-copy }
     $ ansible-playbook user_id.yml
 
     PLAY [Get user ID play] ******************************************************************************************
@@ -72,13 +94,13 @@ Verify that the user `dev_user` was indeed created on `node1` using the followin
     TASK [Gathering Facts] *******************************************************************************************
     ok: [node1]
 
-    TASK [Get info for dev_user] *****************************************************************************************
+    TASK [Get info for prod_user] *****************************************************************************************
     ok: [node1]
 
-    TASK [Output info for dev_user] **************************************************************************************
+    TASK [Output info for prod_user] **************************************************************************************
     ok: [node1] => {
         "msg": [
-            "dev_user uid: 1002"
+            "prod_user uid: 1002"
         ]
     }
 
@@ -88,7 +110,7 @@ Verify that the user `dev_user` was indeed created on `node1` using the followin
 
 === "Navigator"
 
-    ```console
+    ``` { .console .no-copy }
     $ ansible-navigator run user_id.yml -m stdout
 
     PLAY [Get user ID play] ******************************************************************************************
@@ -96,13 +118,13 @@ Verify that the user `dev_user` was indeed created on `node1` using the followin
     TASK [Gathering Facts] *******************************************************************************************
     ok: [node1]
 
-    TASK [Get info for dev_user] *****************************************************************************************
+    TASK [Get info for prod_user] *****************************************************************************************
     ok: [node1]
 
-    TASK [Output info for dev_user] **************************************************************************************
+    TASK [Output info for prod_user] **************************************************************************************
     ok: [node1] => {
         "msg": [
-            "dev_user uid: 1002"
+            "prod_user uid: 1002"
         ]
     }
 
@@ -112,12 +134,12 @@ Verify that the user `dev_user` was indeed created on `node1` using the followin
 
 !!! hint
     It is possible to insert a *string* directly into the dictionary structure like this (although it makes the task less flexible):
-    ```yaml
+    ```  { .yaml .no-copy }
     - name: Output info for user
       ansible.builtin.debug:
-        msg: "{{ myuser }} uid: {{ getent_passwd{--[myuser]--}{++['dev_user']++}[1] }}"
+        msg: "{{ myuser }} uid: {{ getent_passwd{--[myuser]--}{++['prod_user']++}[1] }}"
     ```
-    As you can see the *value* (`dev_user`) of the variable `myuser` is used directly. It must be enclosed in single quotes. You can't use normal quotation marks, as these are used outside of the whole variable.
+    As you can see the *value* (`prod_user`) of the variable `myuser` is used directly. It must be enclosed in single quotes. You can't use normal quotation marks, as these are used outside of the whole variable.
 
 ### Step 3 - Loops with *list*-variable
 

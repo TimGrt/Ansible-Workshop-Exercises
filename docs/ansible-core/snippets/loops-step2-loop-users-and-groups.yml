@@ -3,6 +3,19 @@
   hosts: node1
   become: true
   tasks:
+    # Looping over same list as the next task, but only using/referencing the groups key
+    - name: Ensure groups are present
+      ansible.builtin.group:
+        name: "{{ item.group }}"
+        state: present
+      loop:
+        - username: dev_user
+          group: ftp
+        - username: qa_user
+          group: apache
+        - username: prod_user
+          group: admin
+
     - name: Ensure multiple users are present
       ansible.builtin.user:
         name: "{{ item.username }}"
