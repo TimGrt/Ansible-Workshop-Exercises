@@ -100,6 +100,10 @@ Add a task to the playbook which outputs a message if important security patches
 !!! tip
     The Ansible documentation is helpful, a *test* to [compare versions](https://docs.ansible.com/ansible/latest/user_guide/playbooks_tests.html#comparing-versions){:target="_blank"} is available.
 
+!!! tip  
+    You need to check multiple conditions this time (if the package is installed at all **and** if the version is greater than 3.0)!  
+    You can use *logical operators* (like `and`, `or`, `not`) to combine conditions. When you have multiple conditions that all need to be **true** (that is, a logical `and`), you can specify them as a **list**. Take a look at the [documentation for additional information](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_conditionals.html#conditionals-based-on-ansible-facts){:target="_blank"}.
+
 Run the extended playbook.
 
 ??? success "Solution"
@@ -115,7 +119,9 @@ Run the extended playbook.
     ``` { .console .no-copy }
     ...
     TASK [Output message when vsftp version is greater than 3.0] *******************************************************************
-    ok: [node1] => {
+    skipping: [node1]
+    skipping: [node3]
+    ok: [node2] => {
         "msg": "The version of vsftpd includes important security patches!"
     }
     ...
