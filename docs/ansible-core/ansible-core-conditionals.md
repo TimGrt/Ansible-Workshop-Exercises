@@ -31,7 +31,7 @@ To do that, first edit the inventory to add another group, and place `node2` in 
 
 ``` { .ini .no-copy }
 [control]
-ansible-1 ansible_host=ansible-1.example.com
+ansible-1 ansible_connection=local
 
 [web]
 node1 ansible_host=node1.example.com
@@ -73,7 +73,10 @@ Lets add two more tasks to our playbook, one to gather information about all ins
 --8<-- "conditionals-step2-ftpserver.yml"
 ```
 
-As you can see, the simplest conditional statement applies to a single task. Create the task, then add a `when` statement that applies a test. The `when` clause is a *raw* Jinja2 expression, you can use variables here, but you **don't** have to use double curly braces to enclose the variable.
+As you can see, the simplest conditional statement applies to a single task. If you do this on your own, create the task, then add a `when` statement that applies a [*test*](https://docs.ansible.com/ansible/latest/plugins/test.html){:target="_blank"}. The `when` clause is a *raw* Jinja2 expression, you can use variables here, but you **don't** have to use double curly braces to enclose the variable.
+
+!!! tip
+    Run the playbook and observe the output!
 
 Looking back at the playbook, why did we add the condition to the last task?  
 We know that we installed the package, therefore the condition is always true (the variable is definitely defined) and we could live without the condition.
@@ -85,7 +88,7 @@ Let's change the title and the *state* to `absent`, remove (or comment) the cond
 --8<-- "conditionals-step2-ftpserver-commented.yml"
 ```
 
-The service is removed by the playbook, therefore the result of the *package_facts* module does not include the *vsftpd* package anymore and your playbooks ends with an error message!
+The service is removed by the playbook, therefore the result of the *package_facts* module does **not** include the *vsftpd* package anymore (!) and your playbooks ends with an error message!
 
 ### Step 3 - Challenge lab
 
@@ -96,6 +99,10 @@ Add a task to the playbook which outputs a message if important security patches
 
 !!! tip
     The Ansible documentation is helpful, a *test* to [compare versions](https://docs.ansible.com/ansible/latest/user_guide/playbooks_tests.html#comparing-versions){:target="_blank"} is available.
+
+!!! tip  
+    You need to check multiple conditions this time (if the package is installed at all **and** if the version is greater than 3.0)!  
+    You can use *logical operators* (like `and`, `or`, `not`) to combine conditions. When you have multiple conditions that all need to be **true** (that is, a logical `and`), you can specify them as a **list**. Take a look at the [documentation for additional information](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_conditionals.html#conditionals-based-on-ansible-facts){:target="_blank"}.
 
 Run the extended playbook.
 
@@ -112,7 +119,9 @@ Run the extended playbook.
     ``` { .console .no-copy }
     ...
     TASK [Output message when vsftp version is greater than 3.0] *******************************************************************
-    ok: [node1] => {
+    skipping: [node1]
+    skipping: [node3]
+    ok: [node2] => {
         "msg": "The version of vsftpd includes important security patches!"
     }
     ...

@@ -60,14 +60,31 @@ For example, if you want to access a webserver running on port 80 on node2 (this
 You'll need Ansible to deploy the Workshop environment, install it with the following command:
 
 ```console
-pip3 install ansible-core
+pip3 install ansible-core==2.16.8
 ```
+
+??? question "Why not use the latest version?"
+    *ansible-core 2.17+* only supports Python 3.7+ for target executions!  
+    With many older distributions, the default Python version is Python3.6 or even older (as for RHEL8 or Rocky8 it is `/usr/libexec/platform-python`, which is Python3.6).  
+    With 2.17+, the decision was made to not support such old Python versions anymore (which is understandable as in currently Q3 2024, even Python 3.7 is already EOL), but this obviously has implications on automating older distributions.  
+    **For now, use the *older* 2.16.x (or *ansible 9* if you installed the complete package), as this is *supported*/tested until 2025.**
 
 The playbook for deploying the Workshop environment is hosted in Gihub, you'll need the *Git* client to clone the project. In most Linux distributions, the Git client is already installed, otherwise install it with the following command, here for a Debian/Ubuntu distribution:
 
 ```console
 sudo apt install git
 ```
+
+To make sure your WSL distribution can start services in the managed node containers, run the following command:
+
+```console
+sudo apt install dbus-user-session
+```
+
+??? note
+    Without this, you may encounter an error with `Failed to connect to bus: No such file or directory`.
+
+It may be necessary to restart your WSL distribution (open Powershell and run `wsl --terminate`).
 
 ## Deployment
 
@@ -134,7 +151,7 @@ ssh node1
 After completing the workshop, you can remove all traces of the demo environment by running the `delete-workshop-environment` playbook:
 
 ```console
-ansible-playbook create-workshop-environment.yml
+ansible-playbook delete-workshop-environment.yml
 ```
 
 The playbook will do the following steps:

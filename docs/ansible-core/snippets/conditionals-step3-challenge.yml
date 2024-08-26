@@ -21,4 +21,6 @@
     - name: Output message when vsftpd version is greater than 3.0
       ansible.builtin.debug:
         msg: "The version of vsftp includes important security patches!"
-      when: ansible_facts.packages.vsftpd.0.version is version('3.0', '>')
+      when:
+        - ansible_facts.packages.vsftpd is defined
+        - ansible_facts.packages.vsftpd.0.version is version('3.0', '>')
