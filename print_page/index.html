@@ -12,7 +12,7 @@
       
       
       <link rel="icon" href="../assets/images/ansible-logo-black.png">
-      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.33">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.31">
     
     
       
@@ -1870,24 +1870,39 @@ state Host {
 </blockquote>
 <h2 id="demo-environment-local-demo-environment-prerequisites">Prerequisites</h2>
 <p>You'll need Ansible to deploy the Workshop environment, install it with the following command:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#demo-environment-local-demo-environment-__codelineno-0-1"></a><span class="go">pip3 install ansible-core</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#demo-environment-local-demo-environment-__codelineno-0-1"></a><span class="go">pip3 install ansible-core==2.16.8</span>
 </code></pre></div>
+<details class="question">
+<summary>Why not use the latest version?</summary>
+<p><em>ansible-core 2.17+</em> only supports Python 3.7+ for target executions!<br />
+With many older distributions, the default Python version is Python3.6 or even older (as for RHEL8 or Rocky8 it is <code>/usr/libexec/platform-python</code>, which is Python3.6).<br />
+With 2.17+, the decision was made to not support such old Python versions anymore (which is understandable as in currently Q3 2024, even Python 3.7 is already EOL), but this obviously has implications on automating older distributions.<br />
+<strong>For now, use the <em>older</em> 2.16.x (or <em>ansible 9</em> if you installed the complete package), as this is <em>supported</em>/tested until 2025.</strong></p>
+</details>
 <p>The playbook for deploying the Workshop environment is hosted in Gihub, you'll need the <em>Git</em> client to clone the project. In most Linux distributions, the Git client is already installed, otherwise install it with the following command, here for a Debian/Ubuntu distribution:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#demo-environment-local-demo-environment-__codelineno-1-1"></a><span class="go">sudo apt install git</span>
 </code></pre></div>
+<p>To make sure your WSL distribution can start services in the managed node containers, run the following command:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#demo-environment-local-demo-environment-__codelineno-2-1"></a><span class="go">sudo apt install dbus-user-session</span>
+</code></pre></div>
+<details class="note">
+<summary>Note</summary>
+<p>Without this, you may encounter an error with <code>Failed to connect to bus: No such file or directory</code>.</p>
+</details>
+<p>It may be necessary to restart your WSL distribution (open Powershell and run <code>wsl --terminate</code>).</p>
 <h2 id="demo-environment-local-demo-environment-deployment">Deployment</h2>
 <p>The deployment of the demo environment is automated, we will use Ansible to deploy the Ansible development/learning environment!</p>
 <p>Clone the project from Github:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#demo-environment-local-demo-environment-__codelineno-2-1"></a><span class="go">git clone https://github.com/TimGrt/Workshop-Environment.git</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#demo-environment-local-demo-environment-__codelineno-3-1"></a><span class="go">git clone https://github.com/TimGrt/Workshop-Environment.git</span>
 </code></pre></div>
 <p>Change into the directory:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#demo-environment-local-demo-environment-__codelineno-3-1"></a><span class="go">cd Workshop-Environment</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#demo-environment-local-demo-environment-__codelineno-4-1"></a><span class="go">cd Workshop-Environment</span>
 </code></pre></div>
 <p>Install the necessary requirements for Ansible with the following command:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#demo-environment-local-demo-environment-__codelineno-4-1"></a><span class="go">ansible-galaxy collection install -r requirements.yml</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#demo-environment-local-demo-environment-__codelineno-5-1"></a><span class="go">ansible-galaxy collection install -r requirements.yml</span>
 </code></pre></div>
 <p>To create the managed node containers, run the <code>create-workshop-environment</code> playbook:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#demo-environment-local-demo-environment-__codelineno-5-1"></a><span class="go">ansible-playbook create-workshop-environment.yml</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#demo-environment-local-demo-environment-__codelineno-6-1"></a><span class="go">ansible-playbook create-workshop-environment.yml</span>
 </code></pre></div>
 <p>In short, the playbook will do the following steps:</p>
 <ol>
@@ -1905,18 +1920,18 @@ state Host {
 <p>As your local <code>/etc/hosts</code> may include multiple personal adjustments the playbook won't change this file!</p>
 </blockquote>
 <p>If you want to resolve the hosts (containers) with their hostname, adjust your <code>/etc/hosts</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#demo-environment-local-demo-environment-__codelineno-6-1"></a><span class="na">127.0.0.1 localhost node1 node2 node3</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#demo-environment-local-demo-environment-__codelineno-7-1"></a><span class="na">127.0.0.1 localhost node1 node2 node3</span>
 </code></pre></div>
 <p>You still need to add the port, but now you can run <code>curl http://node1:8002</code>.</p>
 <p>The <abbr title="Secure Shell">SSH</abbr> port for every container is also exposed via a high port (<em>node1</em> on <em>8001</em>, <em>node2</em> on <em>8004</em> and <em>node3</em> on <em>8007</em>), but you can access the managed nodes container like this:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#demo-environment-local-demo-environment-__codelineno-7-1"></a><span class="go">ssh node1</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#demo-environment-local-demo-environment-__codelineno-8-1"></a><span class="go">ssh node1</span>
 </code></pre></div>
 <blockquote>
 <p>NOTE: First login might take a while, subsequent logins will be faster!</p>
 </blockquote>
 <h2 id="demo-environment-local-demo-environment-delete-workshop-environment">Delete Workshop environment</h2>
 <p>After completing the workshop, you can remove all traces of the demo environment by running the <code>delete-workshop-environment</code> playbook:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#demo-environment-local-demo-environment-__codelineno-8-1"></a><span class="go">ansible-playbook create-workshop-environment.yml</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#demo-environment-local-demo-environment-__codelineno-9-1"></a><span class="go">ansible-playbook delete-workshop-environment.yml</span>
 </code></pre></div>
 <p>The playbook will do the following steps:</p>
 <ol>
@@ -1928,7 +1943,7 @@ state Host {
 <li>Delete the keypair created for the workshop (<code>~/.ssh/ansible-workshop-environment</code> and <code>~/.ssh/ansible-workshop-environment.pub</code>).</li>
 </ol>
 <p>If you want to delete the Podman installation as well, run the playbook like this:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#demo-environment-local-demo-environment-__codelineno-9-1"></a><span class="go">ansible-playbook delete-workshop-environment.yml -e delete_podman=true</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#demo-environment-local-demo-environment-__codelineno-10-1"></a><span class="go">ansible-playbook delete-workshop-environment.yml -e delete_podman=true</span>
 </code></pre></div>
 <!-- markdownlint-disable --></section><section class="print-page" id="demo-environment-editor-alternatives"><h1 id="demo-environment-editor-alternatives-editor-alternatives">Editor Alternatives</h1>
 <p>It is recommended to use the <strong>VS Code Editor</strong> for your exercises, if you don't like it, you may use <strong>vi</strong> or <strong>vim</strong> in the terminal directly.<br />
@@ -3230,7 +3245,7 @@ The facts contain useful information stored into variables that administrators c
 <p>As an example we would like to install an <abbr title="File Transfer Protocol">FTP</abbr> server, but only on hosts that are in the <code>ftpserver</code> inventory group.</p>
 <p>To do that, first edit the inventory to add another group, and place <code>node2</code> in it. Make sure that that IP address of <code>node2</code> is always the same when <code>node2</code> is listed. Edit the inventory <code>~/lab_inventory/hosts</code> to look like the following listing:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#ansible-core-ansible-core-conditionals-__codelineno-0-1"></a><span class="k">[control]</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#ansible-core-ansible-core-conditionals-__codelineno-0-2"></a><span class="na">ansible-1 ansible_host</span><span class="o">=</span><span class="s">ansible-1.example.com</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#ansible-core-ansible-core-conditionals-__codelineno-0-2"></a><span class="na">ansible-1 ansible_connection</span><span class="o">=</span><span class="s">local</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#ansible-core-ansible-core-conditionals-__codelineno-0-3"></a>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#ansible-core-ansible-core-conditionals-__codelineno-0-4"></a><span class="k">[web]</span>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#ansible-core-ansible-core-conditionals-__codelineno-0-5"></a><span class="na">node1 ansible_host</span><span class="o">=</span><span class="s">node1.example.com</span>
@@ -3287,7 +3302,11 @@ The facts contain useful information stored into variables that administrators c
 <a id="__codelineno-3-18" name="__codelineno-3-18" href="#ansible-core-ansible-core-conditionals-__codelineno-3-18"></a><span class="w">        </span><span class="nt">msg</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;vsFTP</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">installed</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">Version</span><span class="nv"> </span><span class="s">{{</span><span class="nv"> </span><span class="s">ansible_facts.packages.vsftpd.0.version</span><span class="nv"> </span><span class="s">}}&quot;</span>
 <a id="__codelineno-3-19" name="__codelineno-3-19" href="#ansible-core-ansible-core-conditionals-__codelineno-3-19"></a><span class="w">      </span><span class="nt">when</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ansible_facts.packages.vsftpd is defined</span>
 </code></pre></div>
-<p>As you can see, the simplest conditional statement applies to a single task. Create the task, then add a <code>when</code> statement that applies a test. The <code>when</code> clause is a <em>raw</em> Jinja2 expression, you can use variables here, but you <strong>don't</strong> have to use double curly braces to enclose the variable.</p>
+<p>As you can see, the simplest conditional statement applies to a single task. If you do this on your own, create the task, then add a <code>when</code> statement that applies a <a href="https://docs.ansible.com/ansible/latest/plugins/test.html" target="_blank"><em>test</em></a>. The <code>when</code> clause is a <em>raw</em> Jinja2 expression, you can use variables here, but you <strong>don't</strong> have to use double curly braces to enclose the variable.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Run the playbook and observe the output!</p>
+</div>
 <p>Looking back at the playbook, why did we add the condition to the last task?<br />
 We know that we installed the package, therefore the condition is always true (the variable is definitely defined) and we could live without the condition.</p>
 <p>You should always strive towards making your playbooks as robust as possible, what would happen if we would change the first task to <em>de-install</em> the service and not use the condition?<br />
@@ -3312,7 +3331,7 @@ Let's change the title and the <em>state</em> to <code>absent</code>, remove (or
 <a id="__codelineno-4-18" name="__codelineno-4-18" href="#ansible-core-ansible-core-conditionals-__codelineno-4-18"></a><span class="w">        </span><span class="nt">msg</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;vsFTP</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">installed</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">Version</span><span class="nv"> </span><span class="s">{{</span><span class="nv"> </span><span class="s">ansible_facts.packages.vsftpd.0.version</span><span class="nv"> </span><span class="s">}}&quot;</span>
 <a id="__codelineno-4-19" name="__codelineno-4-19" href="#ansible-core-ansible-core-conditionals-__codelineno-4-19"></a><span class="hll"><span class="w">    </span><span class="c1">#  when: ansible_facts.packages.vsftpd is defined</span>
 </span></code></pre></div>
-<p>The service is removed by the playbook, therefore the result of the <em>package_facts</em> module does not include the <em>vsftpd</em> package anymore and your playbooks ends with an error message!</p>
+<p>The service is removed by the playbook, therefore the result of the <em>package_facts</em> module does <strong>not</strong> include the <em>vsftpd</em> package anymore (!) and your playbooks ends with an error message!</p>
 <h3 id="ansible-core-ansible-core-conditionals-step-3-challenge-lab">Step 3 - Challenge lab</h3>
 <p>Add a task to the playbook which outputs a message if important security patches are included in the installed <em>vsftpd</em> package.</p>
 <ul>
@@ -3322,6 +3341,11 @@ Let's change the title and the <em>state</em> to <code>absent</code>, remove (or
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>The Ansible documentation is helpful, a <em>test</em> to <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_tests.html#comparing-versions" target="_blank">compare versions</a> is available.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>You need to check multiple conditions this time (if the package is installed at all <strong>and</strong> if the version is greater than 3.0)!<br />
+You can use <em>logical operators</em> (like <code>and</code>, <code>or</code>, <code>not</code>) to combine conditions. When you have multiple conditions that all need to be <strong>true</strong> (that is, a logical <code>and</code>), you can specify them as a <strong>list</strong>. Take a look at the <a href="https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_conditionals.html#conditionals-based-on-ansible-facts" target="_blank">documentation for additional information</a>.</p>
 </div>
 <p>Run the extended playbook.</p>
 <details class="success">
@@ -3350,15 +3374,19 @@ Let's change the title and the <em>state</em> to <code>absent</code>, remove (or
 <a id="__codelineno-5-21" name="__codelineno-5-21" href="#ansible-core-ansible-core-conditionals-__codelineno-5-21"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Output message when vsftpd version is greater than 3.0</span>
 <a id="__codelineno-5-22" name="__codelineno-5-22" href="#ansible-core-ansible-core-conditionals-__codelineno-5-22"></a><span class="w">      </span><span class="nt">ansible.builtin.debug</span><span class="p">:</span>
 <a id="__codelineno-5-23" name="__codelineno-5-23" href="#ansible-core-ansible-core-conditionals-__codelineno-5-23"></a><span class="w">        </span><span class="nt">msg</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;The</span><span class="nv"> </span><span class="s">version</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">vsftp</span><span class="nv"> </span><span class="s">includes</span><span class="nv"> </span><span class="s">important</span><span class="nv"> </span><span class="s">security</span><span class="nv"> </span><span class="s">patches!&quot;</span>
-<a id="__codelineno-5-24" name="__codelineno-5-24" href="#ansible-core-ansible-core-conditionals-__codelineno-5-24"></a><span class="w">      </span><span class="nt">when</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ansible_facts.packages.vsftpd.0.version is version(&#39;3.0&#39;, &#39;&gt;&#39;)</span>
+<a id="__codelineno-5-24" name="__codelineno-5-24" href="#ansible-core-ansible-core-conditionals-__codelineno-5-24"></a><span class="w">      </span><span class="nt">when</span><span class="p">:</span>
+<a id="__codelineno-5-25" name="__codelineno-5-25" href="#ansible-core-ansible-core-conditionals-__codelineno-5-25"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ansible_facts.packages.vsftpd is defined</span>
+<a id="__codelineno-5-26" name="__codelineno-5-26" href="#ansible-core-ansible-core-conditionals-__codelineno-5-26"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ansible_facts.packages.vsftpd.0.version is version(&#39;3.0&#39;, &#39;&gt;&#39;)</span>
 </code></pre></div>
 <p>Running the playbook outputs the following:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#ansible-core-ansible-core-conditionals-__codelineno-6-1"></a><span class="go">...</span>
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#ansible-core-ansible-core-conditionals-__codelineno-6-2"></a><span class="go">TASK [Output message when vsftp version is greater than 3.0] *******************************************************************</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#ansible-core-ansible-core-conditionals-__codelineno-6-3"></a><span class="go">ok: [node1] =&gt; {</span>
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#ansible-core-ansible-core-conditionals-__codelineno-6-4"></a><span class="go">    &quot;msg&quot;: &quot;The version of vsftpd includes important security patches!&quot;</span>
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#ansible-core-ansible-core-conditionals-__codelineno-6-5"></a><span class="go">}</span>
-<a id="__codelineno-6-6" name="__codelineno-6-6" href="#ansible-core-ansible-core-conditionals-__codelineno-6-6"></a><span class="go">...</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#ansible-core-ansible-core-conditionals-__codelineno-6-3"></a><span class="go">skipping: [node1]</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#ansible-core-ansible-core-conditionals-__codelineno-6-4"></a><span class="go">skipping: [node3]</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#ansible-core-ansible-core-conditionals-__codelineno-6-5"></a><span class="go">ok: [node2] =&gt; {</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#ansible-core-ansible-core-conditionals-__codelineno-6-6"></a><span class="go">    &quot;msg&quot;: &quot;The version of vsftpd includes important security patches!&quot;</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#ansible-core-ansible-core-conditionals-__codelineno-6-7"></a><span class="go">}</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#ansible-core-ansible-core-conditionals-__codelineno-6-8"></a><span class="go">...</span>
 </code></pre></div>
 </details>
 <p>The message is shown? Awesome!<br />
@@ -7562,7 +7590,7 @@ They are a defined, consistent and portable environment for Ansible Automation c
     <script id="__config" type="application/json">{"base": "/", "features": ["content.code.annotate", "content.code.copy", "navigation.indexes", "navigation.instant", "navigation.sections", "navigation.tabs", "navigation.top", "search.highlight", "search.suggest"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.af256bd8.min.js"></script>
+      <script src="../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
       
         <script src="../js/print-site.js"></script>
       
