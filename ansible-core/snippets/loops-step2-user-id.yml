@@ -2,7 +2,7 @@
 - name: Get user ID play
   hosts: node1
   vars:
-    myuser: "dev_user"
+    myuser: "prod_user"
   tasks:
     - name: Get info for {{ myuser }}
       ansible.builtin.getent:
