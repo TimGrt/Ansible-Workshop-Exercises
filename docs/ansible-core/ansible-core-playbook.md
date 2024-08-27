@@ -275,7 +275,9 @@ Check that the tasks were executed correctly and Apache is accepting connections
 ```
 
 !!! warning
-    **Expect a lot of red lines and a 403 status\!**
+    **Expect a lot of red lines and a 403 status\!**  
+    If you are using the [local development environment](local-demo-environment.md#lab-diagram), remember, you are using containers instead of actual VMs! You need to **append the correct port** (e.g. `node: "node1:8002"`).  
+    Take a look at the table with the ports overview or execute `podman ps` and check the output.
 
 === "Ansible"
 

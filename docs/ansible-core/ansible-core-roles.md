@@ -227,6 +227,10 @@ Run a curl command against `node2` to confirm that the role worked or use the `c
 </body>
 ```
 
+!!! warning
+    If you are using the [local development environment](local-demo-environment.md#lab-diagram), remember, you are using containers instead of actual VMs! You need to **append the correct port** (e.g. `curl http://node1:8003"` for Port 8080 of *node1*, or `curl http://node2:8006"` for Port 8080 of *node2*).  
+    Take a look at the table with the ports overview or execute `podman ps` and check the output.
+
 You can also use the IP address of node2 (copy it from your inventory) and paste it into the browser (as well as adding `:8080`).
 
 Congratulations! You have successfully completed this exercise!
