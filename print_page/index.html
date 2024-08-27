@@ -12,7 +12,7 @@
       
       
       <link rel="icon" href="../assets/images/ansible-logo-black.png">
-      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.33">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.31">
     
     
       
@@ -2808,7 +2808,9 @@ The second task uses the <code>debug</code> module. The variable <em>ansible_fac
 </code></pre></div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p><strong>Expect a lot of red lines and a 403 status!</strong></p>
+<p><strong>Expect a lot of red lines and a 403 status!</strong><br />
+If you are using the <a href="#demo-environment-local-demo-environment-lab-diagram">local development environment</a>, remember, you are using containers instead of actual VMs! You need to <strong>append the correct port</strong> (e.g. <code>node: "node1:8002"</code>).<br />
+Take a look at the table with the ports overview or execute <code>podman ps</code> and check the output.</p>
 </div>
 <div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="ansible-core-ansible-core-playbook-__tabbed_5_1" name="ansible-core-ansible-core-playbook-__tabbed_5" type="radio" /><input id="ansible-core-ansible-core-playbook-__tabbed_5_2" name="ansible-core-ansible-core-playbook-__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="ansible-core-ansible-core-playbook-__tabbed_5_1">Ansible</label><label for="ansible-core-ansible-core-playbook-__tabbed_5_2">Navigator</label></div>
 <div class="tabbed-content">
@@ -3696,6 +3698,11 @@ Next, create the Playbook <code>httpd_conf.yml</code>. Make sure that you are in
 <a id="__codelineno-3-5" name="__codelineno-3-5" href="#ansible-core-ansible-core-handlers-__codelineno-3-5"></a><span class="go">&lt;h1&gt;This is a development webserver, have fun!&lt;/h1&gt;</span>
 <a id="__codelineno-3-6" name="__codelineno-3-6" href="#ansible-core-ansible-core-handlers-__codelineno-3-6"></a><span class="go">&lt;/body&gt;</span>
 </code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If you are using the <a href="#demo-environment-local-demo-environment-lab-diagram">local development environment</a>, remember, you are using containers instead of actual VMs! You need to <strong>append the correct port</strong> (e.g. <code>curl http://node1:8002"</code> for Port 80, <code>curl http://node1:8003"</code> for Port 8080).<br />
+Take a look at the table with the ports overview or execute <code>podman ps</code> and check the output.</p>
+</div>
 <p>Run the playbook one last time. As the configuration file is already copied over with the desired configuration state, the handler is not triggered, Apache will keep running.</p>
 <!-- markdownlint-disable --></section><section class="print-page" id="ansible-core-ansible-core-templates"><h1 id="ansible-core-ansible-core-templates-8-templating-with-jinja2">8 - Templating with Jinja2</h1>
 <h2 id="ansible-core-ansible-core-templates-objective">Objective</h2>
@@ -4119,6 +4126,11 @@ use.</p>
 <a id="__codelineno-15-3" name="__codelineno-15-3" href="#ansible-core-ansible-core-roles-__codelineno-15-3"></a><span class="go">&lt;h1&gt;The virtual host configuration works!&lt;/h1&gt;</span>
 <a id="__codelineno-15-4" name="__codelineno-15-4" href="#ansible-core-ansible-core-roles-__codelineno-15-4"></a><span class="go">&lt;/body&gt;</span>
 </code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If you are using the <a href="#demo-environment-local-demo-environment-lab-diagram">local development environment</a>, remember, you are using containers instead of actual VMs! You need to <strong>append the correct port</strong> (e.g. <code>curl http://node1:8003"</code> for Port 8080 of <em>node1</em>, or <code>curl http://node2:8006"</code> for Port 8080 of <em>node2</em>).<br />
+Take a look at the table with the ports overview or execute <code>podman ps</code> and check the output.</p>
+</div>
 <p>You can also use the IP address of node2 (copy it from your inventory) and paste it into the browser (as well as adding <code>:8080</code>).</p>
 <p>Congratulations! You have successfully completed this exercise!</p>
 <h2 id="ansible-core-ansible-core-roles-troubleshooting-problems">Troubleshooting problems</h2>
@@ -7662,7 +7674,7 @@ They are a defined, consistent and portable environment for Ansible Automation c
     <script id="__config" type="application/json">{"base": "/", "features": ["content.code.annotate", "content.code.copy", "navigation.indexes", "navigation.instant", "navigation.sections", "navigation.tabs", "navigation.top", "search.highlight", "search.suggest"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.af256bd8.min.js"></script>
+      <script src="../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
       
         <script src="../js/print-site.js"></script>
       
