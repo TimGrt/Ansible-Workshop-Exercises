@@ -2,7 +2,7 @@
 
 ## Objective
 
-In this exercise, we are going to explore the Ansible command line utility `ansible-inventory` to learn how to work with inventory files, using the utility `ansible` to run commands on hosts in the inventory file and getting help by the `ansible-doc` utility.  
+In this exercise, we are going to explore the Ansible command line utility `ansible-inventory` to learn how to work with inventory files, using the utility `ansible` to run commands on hosts in the inventory file and using the `ansible-inventory` utility.  
 The goal is to familiarize yourself with some of the different cli tools Ansible provides and how it can be used to enrich your Ansible experience.
 
 This exercise will cover
@@ -14,7 +14,55 @@ This exercise will cover
 
 ## Guide
 
-### Step 1 - Check the infrastructure
+### Step 1 - Check and create Ansible configuration
+
+Ansible can be configured in multiple ways, changes can be made and used in a configuration file which will be searched for in the following order:
+
+1. `ANSIBLE_CONFIG` (environment variable if set)
+2. `ansible.cfg` (in the current directory)
+3. `~/.ansible.cfg` (in the home directory)
+4. `/etc/ansible/ansible.cfg`
+
+Ansible will process the above list and use the first file found, all others are ignored. For additional information (and a possibility to create a *sample* file with all available options and explanation for every parameter), [take a look at the documentation](https://docs.ansible.com/ansible/latest/reference_appendices/config.html){:target="_blank"}.
+
+You will create all Ansible *content* in a separate folder (this makes it easy to *version-control* it if necessary).  
+On your control host **ansible-1**, create a directory called `ansible-files` in your home directory and change directories into it:
+
+``` { .console .no-copy }
+[student@ansible-1 ~]$ mkdir ansible-files
+[student@ansible-1 ~]$ cd ansible-files/
+```
+
+In this folder, create the file `ansible.cfg`:
+
+```console
+touch ansible.cfg
+```
+
+Add the following content to the file:
+
+```ini
+[defaults]
+inventory = ~/lab_inventory/hosts
+```
+
+!!! warning
+    If you don't use a configuration file which specifies the inventory file, you will always have to provide the path to it, when running Ansible!
+
+With the small configuration above, you will be able to do all exercises without having to provide the path to the inventory file. If you don't create the file with the `inventory` parameter, you have to use `-i ~/lab_inventory/hosts` with every playbook or ad-hoc run.
+
+Run the following command to take a look at all parameters with the current value (default values are highlighted in *green*, changed values are *yellow*)
+
+```console
+ansible-config dump
+```
+
+Use `:q` to exit.
+
+!!! success
+    Using a small configuration file in every single Ansible project is highly recommended!
+
+### Step 2 - Check the managed nodes
 
 The Ansible *master nodes* by default communicates via SSH with all *managed hosts*. As we are automating Linux hosts, this is fine and we need to make sure that we can reach every node with SSH.  
 If you intend to automate hosts that can't be reached with the default method, e.g. Windows hosts, network infrastructure nodes, firewall hosts and so on, you need to instruct Ansible to use another communication method. In most cases, this is very easy and only requires setting a certain variable. But, let's focus on automating Linux nodes first.
@@ -37,7 +85,7 @@ As you can see, you are now the user `ec2-user` on `node1`. Leave `node1` again:
 
 You can also connect to `node2` and `node3` with the same method. When you are finished, make sure you are back on your Ansible Control node (`ansible-1`), only here you can execute Ansible commands (as the Ansible binary is only installed on the Controller, Ansible works *agent-less*).
 
-### Step 2 - Work with your Inventory
+### Step 3 - Work with your Inventory
 
 An inventory file is a text file that specifies the nodes that will be managed by the control machine. The nodes to be managed may include a list of hostnames and/or IP addresses of those nodes. The inventory file allows for nodes to be organized into groups by declaring a host group name within square brackets ([ ]).
 
@@ -199,7 +247,7 @@ Using the `ansible-inventory` command, we can also run commands that provide inf
 !!! tip
     The inventory can contain more data.
 
-### Step 3 - Use the inventory with ad-hoc commands
+### Step 4 - Use the inventory with ad-hoc commands
 
 An Ansible ad hoc command uses the `ansible` command-line tool to automate a single task on one or more managed nodes. Ad hoc commands are quick and easy, but they are not reusable. So why learn about ad hoc commands first? Ad hoc commands demonstrate the simplicity and power of Ansible. The concepts you learn here will port over directly to the playbook language.
 

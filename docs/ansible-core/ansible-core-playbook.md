@@ -59,7 +59,7 @@ That said, our playbook today is very basic and creating a complex structure wil
 
 Instead, we are going to create a very simple directory structure for our playbook, and add just a couple of files to it.
 
-On your control host **ansible-1**, create a directory called `ansible-files` in your home directory and change directories into it:
+If you haven't done this already, on your control host **ansible-1**, create a directory called `ansible-files` in your home directory and change directories into it:
 
 ``` { .console .no-copy }
 [student@ansible-1 ~]$ mkdir ansible-files
