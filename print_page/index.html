@@ -2216,7 +2216,7 @@ If you want to use the tool the same way as with the normal <em>ansible-playbook
 <p>You will soon discover that many chapters in this lab guide come with a "Challenge Lab" section. These labs are meant to give you a small task to solve using what you have learned so far. The solution of the task is shown underneath a warning sign.</p>
 <!-- markdownlint-disable --></section><section class="print-page" id="ansible-core-ansible-core-basics"><h1 id="ansible-core-ansible-core-basics-2-the-ansible-basics">2 - The Ansible Basics</h1>
 <h2 id="ansible-core-ansible-core-basics-objective">Objective</h2>
-<p>In this exercise, we are going to explore the Ansible command line utility <code>ansible-inventory</code> to learn how to work with inventory files, using the utility <code>ansible</code> to run commands on hosts in the inventory file and getting help by the <code>ansible-doc</code> utility.<br />
+<p>In this exercise, we are going to explore the Ansible command line utility <code>ansible-inventory</code> to learn how to work with inventory files, using the utility <code>ansible</code> to run commands on hosts in the inventory file and using the <code>ansible-inventory</code> utility.<br />
 The goal is to familiarize yourself with some of the different cli tools Ansible provides and how it can be used to enrich your Ansible experience.</p>
 <p>This exercise will cover</p>
 <ul>
@@ -2226,115 +2226,149 @@ The goal is to familiarize yourself with some of the different cli tools Ansible
 <li>Listing modules and getting help when trying to use them</li>
 </ul>
 <h2 id="ansible-core-ansible-core-basics-guide">Guide</h2>
-<h3 id="ansible-core-ansible-core-basics-step-1-check-the-infrastructure">Step 1 - Check the infrastructure</h3>
+<h3 id="ansible-core-ansible-core-basics-step-1-check-and-create-ansible-configuration">Step 1 - Check and create Ansible configuration</h3>
+<p>Ansible can be configured in multiple ways, changes can be made and used in a configuration file which will be searched for in the following order:</p>
+<ol>
+<li><code>ANSIBLE_CONFIG</code> (environment variable if set)</li>
+<li><code>ansible.cfg</code> (in the current directory)</li>
+<li><code>~/.ansible.cfg</code> (in the home directory)</li>
+<li><code>/etc/ansible/ansible.cfg</code></li>
+</ol>
+<p>Ansible will process the above list and use the first file found, all others are ignored. For additional information (and a possibility to create a <em>sample</em> file with all available options and explanation for every parameter), <a href="https://docs.ansible.com/ansible/latest/reference_appendices/config.html" target="_blank">take a look at the documentation</a>.</p>
+<p>You will create all Ansible <em>content</em> in a separate folder (this makes it easy to <em>version-control</em> it if necessary).<br />
+On your control host <strong>ansible-1</strong>, create a directory called <code>ansible-files</code> in your home directory and change directories into it:</p>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#ansible-core-ansible-core-basics-__codelineno-0-1"></a><span class="gp">[student@ansible-1 ~]$ </span>mkdir<span class="w"> </span>ansible-files
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#ansible-core-ansible-core-basics-__codelineno-0-2"></a><span class="gp">[student@ansible-1 ~]$ </span><span class="nb">cd</span><span class="w"> </span>ansible-files/
+</code></pre></div>
+<p>In this folder, create the file <code>ansible.cfg</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#ansible-core-ansible-core-basics-__codelineno-1-1"></a><span class="go">touch ansible.cfg</span>
+</code></pre></div>
+<p>Add the following content to the file:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#ansible-core-ansible-core-basics-__codelineno-2-1"></a><span class="k">[defaults]</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#ansible-core-ansible-core-basics-__codelineno-2-2"></a><span class="na">inventory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">~/lab_inventory/hosts</span>
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If you don't use a configuration file which specifies the inventory file, you will always have to provide the path to it, when running Ansible!</p>
+</div>
+<p>With the small configuration above, you will be able to do all exercises without having to provide the path to the inventory file. If you don't create the file with the <code>inventory</code> parameter, you have to use <code>-i ~/lab_inventory/hosts</code> with every playbook or ad-hoc run.</p>
+<p>Run the following command to take a look at all parameters with the current value (default values are highlighted in <em>green</em>, changed values are <em>yellow</em>)</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#ansible-core-ansible-core-basics-__codelineno-3-1"></a><span class="go">ansible-config dump</span>
+</code></pre></div>
+<p>Use <code>:q</code> to exit.</p>
+<div class="admonition success">
+<p class="admonition-title">Success</p>
+<p>Using a small configuration file in every single Ansible project is highly recommended!</p>
+</div>
+<h3 id="ansible-core-ansible-core-basics-step-2-check-the-managed-nodes">Step 2 - Check the managed nodes</h3>
 <p>The Ansible <em>master nodes</em> by default communicates via <abbr title="Secure Shell">SSH</abbr> with all <em>managed hosts</em>. As we are automating Linux hosts, this is fine and we need to make sure that we can reach every node with <abbr title="Secure Shell">SSH</abbr>.<br />
 If you intend to automate hosts that can't be reached with the default method, e.g. Windows hosts, network infrastructure nodes, firewall hosts and so on, you need to instruct Ansible to use another communication method. In most cases, this is very easy and only requires setting a certain variable. But, let's focus on automating Linux nodes first.</p>
 <p>You can reach all your <em>managed nodes</em> (the hosts that you want to automate) with <em>password-less <abbr title="Secure Shell">SSH</abbr></em>, you won't need to enter a password (or a user) when connecting to the nodes.</p>
 <p>Try it out, <abbr title="Secure Shell">SSH</abbr> to <code>node1</code>:</p>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#ansible-core-ansible-core-basics-__codelineno-0-1"></a><span class="gp">[student1@ansible-1 ~]$ </span>ssh<span class="w"> </span>node1
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#ansible-core-ansible-core-basics-__codelineno-0-2"></a><span class="gp">[ec2-user@node1 ~]$</span>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#ansible-core-ansible-core-basics-__codelineno-4-1"></a><span class="gp">[student1@ansible-1 ~]$ </span>ssh<span class="w"> </span>node1
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#ansible-core-ansible-core-basics-__codelineno-4-2"></a><span class="gp">[ec2-user@node1 ~]$</span>
 </code></pre></div>
 <p>As you can see, you are now the user <code>ec2-user</code> on <code>node1</code>. Leave <code>node1</code> again:</p>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#ansible-core-ansible-core-basics-__codelineno-1-1"></a><span class="gp">[ec-user@node1 ~]$ </span><span class="nb">exit</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#ansible-core-ansible-core-basics-__codelineno-1-2"></a><span class="gp">[student1@ansible-1 ~]$</span>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#ansible-core-ansible-core-basics-__codelineno-5-1"></a><span class="gp">[ec-user@node1 ~]$ </span><span class="nb">exit</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#ansible-core-ansible-core-basics-__codelineno-5-2"></a><span class="gp">[student1@ansible-1 ~]$</span>
 </code></pre></div>
 <p>You can also connect to <code>node2</code> and <code>node3</code> with the same method. When you are finished, make sure you are back on your Ansible Control node (<code>ansible-1</code>), only here you can execute Ansible commands (as the Ansible binary is only installed on the Controller, Ansible works <em>agent-less</em>).</p>
-<h3 id="ansible-core-ansible-core-basics-step-2-work-with-your-inventory">Step 2 - Work with your Inventory</h3>
+<h3 id="ansible-core-ansible-core-basics-step-3-work-with-your-inventory">Step 3 - Work with your Inventory</h3>
 <p>An inventory file is a text file that specifies the nodes that will be managed by the control machine. The nodes to be managed may include a list of hostnames and/or IP addresses of those nodes. The inventory file allows for nodes to be organized into groups by declaring a host group name within square brackets ([ ]).</p>
 <p>To use the <code>ansible-inventory</code> command for host management, you need to provide an inventory file which defines a list of hosts to be managed from the control node.<br />
 In this lab, the inventory is provided by your instructor. The inventory file is an <code>ini</code> formatted file listing your hosts, sorted in groups, additionally providing some variables. It looks like:</p>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#ansible-core-ansible-core-basics-__codelineno-2-1"></a><span class="k">[web]</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#ansible-core-ansible-core-basics-__codelineno-2-2"></a><span class="na">node1 ansible_host</span><span class="o">=</span><span class="s">&lt;X.X.X.X&gt;</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#ansible-core-ansible-core-basics-__codelineno-2-3"></a><span class="na">node2 ansible_host</span><span class="o">=</span><span class="s">&lt;Y.Y.Y.Y&gt;</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#ansible-core-ansible-core-basics-__codelineno-2-4"></a><span class="na">node3 ansible_host</span><span class="o">=</span><span class="s">&lt;Z.Z.Z.Z&gt;</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#ansible-core-ansible-core-basics-__codelineno-2-5"></a>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#ansible-core-ansible-core-basics-__codelineno-2-6"></a><span class="k">[control]</span>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#ansible-core-ansible-core-basics-__codelineno-2-7"></a><span class="na">ansible-1 ansible_host</span><span class="o">=</span><span class="s">44.55.66.77</span>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#ansible-core-ansible-core-basics-__codelineno-6-1"></a><span class="k">[web]</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#ansible-core-ansible-core-basics-__codelineno-6-2"></a><span class="na">node1 ansible_host</span><span class="o">=</span><span class="s">&lt;X.X.X.X&gt;</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#ansible-core-ansible-core-basics-__codelineno-6-3"></a><span class="na">node2 ansible_host</span><span class="o">=</span><span class="s">&lt;Y.Y.Y.Y&gt;</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#ansible-core-ansible-core-basics-__codelineno-6-4"></a><span class="na">node3 ansible_host</span><span class="o">=</span><span class="s">&lt;Z.Z.Z.Z&gt;</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#ansible-core-ansible-core-basics-__codelineno-6-5"></a>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#ansible-core-ansible-core-basics-__codelineno-6-6"></a><span class="k">[control]</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#ansible-core-ansible-core-basics-__codelineno-6-7"></a><span class="na">ansible-1 ansible_host</span><span class="o">=</span><span class="s">44.55.66.77</span>
 </code></pre></div>
 <p>Ansible is already configured to use the inventory specific to your environment. We will show you in the next step how that is done. For now, we will execute some simple commands to work with the inventory.</p>
 <p>To reference all the inventory hosts, you supply a pattern to the <code>ansible-inventory</code> command. The <code>--list</code> option can be useful for displaying all the hosts that are part of an inventory file including what groups they are associated with.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="ansible-core-ansible-core-basics-__tabbed_1_1" name="ansible-core-ansible-core-basics-__tabbed_1" type="radio" /><input id="ansible-core-ansible-core-basics-__tabbed_1_2" name="ansible-core-ansible-core-basics-__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="ansible-core-ansible-core-basics-__tabbed_1_1">Ansible</label><label for="ansible-core-ansible-core-basics-__tabbed_1_2">Navigator</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#ansible-core-ansible-core-basics-__codelineno-3-1"></a><span class="gp">[student@ansible-1 ~]$ </span>ansible-inventory<span class="w"> </span>--list
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#ansible-core-ansible-core-basics-__codelineno-3-2"></a><span class="go">{</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#ansible-core-ansible-core-basics-__codelineno-3-3"></a><span class="go">    &quot;_meta&quot;: {</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#ansible-core-ansible-core-basics-__codelineno-3-4"></a><span class="go">        &quot;hostvars&quot;: {</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#ansible-core-ansible-core-basics-__codelineno-3-5"></a><span class="go">            &quot;ansible-1&quot;: {</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#ansible-core-ansible-core-basics-__codelineno-3-6"></a><span class="go">                &quot;ansible_host&quot;: &quot;3.236.186.92&quot;</span>
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#ansible-core-ansible-core-basics-__codelineno-3-7"></a><span class="go">            },</span>
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#ansible-core-ansible-core-basics-__codelineno-3-8"></a><span class="go">            &quot;node1&quot;: {</span>
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#ansible-core-ansible-core-basics-__codelineno-3-9"></a><span class="go">                &quot;ansible_host&quot;: &quot;3.239.234.187&quot;</span>
-<a id="__codelineno-3-10" name="__codelineno-3-10" href="#ansible-core-ansible-core-basics-__codelineno-3-10"></a><span class="go">            },</span>
-<a id="__codelineno-3-11" name="__codelineno-3-11" href="#ansible-core-ansible-core-basics-__codelineno-3-11"></a><span class="go">            &quot;node2&quot;: {</span>
-<a id="__codelineno-3-12" name="__codelineno-3-12" href="#ansible-core-ansible-core-basics-__codelineno-3-12"></a><span class="go">                &quot;ansible_host&quot;: &quot;75.101.228.151&quot;</span>
-<a id="__codelineno-3-13" name="__codelineno-3-13" href="#ansible-core-ansible-core-basics-__codelineno-3-13"></a><span class="go">            },</span>
-<a id="__codelineno-3-14" name="__codelineno-3-14" href="#ansible-core-ansible-core-basics-__codelineno-3-14"></a><span class="go">            &quot;node3&quot;: {</span>
-<a id="__codelineno-3-15" name="__codelineno-3-15" href="#ansible-core-ansible-core-basics-__codelineno-3-15"></a><span class="go">                &quot;ansible_host&quot;: &quot;100.27.38.142&quot;</span>
-<a id="__codelineno-3-16" name="__codelineno-3-16" href="#ansible-core-ansible-core-basics-__codelineno-3-16"></a><span class="go">            }</span>
-<a id="__codelineno-3-17" name="__codelineno-3-17" href="#ansible-core-ansible-core-basics-__codelineno-3-17"></a><span class="go">        }</span>
-<a id="__codelineno-3-18" name="__codelineno-3-18" href="#ansible-core-ansible-core-basics-__codelineno-3-18"></a><span class="go">    },</span>
-<a id="__codelineno-3-19" name="__codelineno-3-19" href="#ansible-core-ansible-core-basics-__codelineno-3-19"></a><span class="go">    &quot;all&quot;: {</span>
-<a id="__codelineno-3-20" name="__codelineno-3-20" href="#ansible-core-ansible-core-basics-__codelineno-3-20"></a><span class="go">        &quot;children&quot;: [</span>
-<a id="__codelineno-3-21" name="__codelineno-3-21" href="#ansible-core-ansible-core-basics-__codelineno-3-21"></a><span class="go">            &quot;control&quot;,</span>
-<a id="__codelineno-3-22" name="__codelineno-3-22" href="#ansible-core-ansible-core-basics-__codelineno-3-22"></a><span class="go">            &quot;ungrouped&quot;,</span>
-<a id="__codelineno-3-23" name="__codelineno-3-23" href="#ansible-core-ansible-core-basics-__codelineno-3-23"></a><span class="go">            &quot;web&quot;</span>
-<a id="__codelineno-3-24" name="__codelineno-3-24" href="#ansible-core-ansible-core-basics-__codelineno-3-24"></a><span class="go">        ]</span>
-<a id="__codelineno-3-25" name="__codelineno-3-25" href="#ansible-core-ansible-core-basics-__codelineno-3-25"></a><span class="go">    },</span>
-<a id="__codelineno-3-26" name="__codelineno-3-26" href="#ansible-core-ansible-core-basics-__codelineno-3-26"></a><span class="go">    &quot;control&quot;: {</span>
-<a id="__codelineno-3-27" name="__codelineno-3-27" href="#ansible-core-ansible-core-basics-__codelineno-3-27"></a><span class="go">        &quot;hosts&quot;: [</span>
-<a id="__codelineno-3-28" name="__codelineno-3-28" href="#ansible-core-ansible-core-basics-__codelineno-3-28"></a><span class="go">            &quot;ansible-1&quot;</span>
-<a id="__codelineno-3-29" name="__codelineno-3-29" href="#ansible-core-ansible-core-basics-__codelineno-3-29"></a><span class="go">        ]</span>
-<a id="__codelineno-3-30" name="__codelineno-3-30" href="#ansible-core-ansible-core-basics-__codelineno-3-30"></a><span class="go">    },</span>
-<a id="__codelineno-3-31" name="__codelineno-3-31" href="#ansible-core-ansible-core-basics-__codelineno-3-31"></a><span class="go">    &quot;web&quot;: {</span>
-<a id="__codelineno-3-32" name="__codelineno-3-32" href="#ansible-core-ansible-core-basics-__codelineno-3-32"></a><span class="go">        &quot;hosts&quot;: [</span>
-<a id="__codelineno-3-33" name="__codelineno-3-33" href="#ansible-core-ansible-core-basics-__codelineno-3-33"></a><span class="go">            &quot;node1&quot;,</span>
-<a id="__codelineno-3-34" name="__codelineno-3-34" href="#ansible-core-ansible-core-basics-__codelineno-3-34"></a><span class="go">            &quot;node2&quot;,</span>
-<a id="__codelineno-3-35" name="__codelineno-3-35" href="#ansible-core-ansible-core-basics-__codelineno-3-35"></a><span class="go">            &quot;node3&quot;</span>
-<a id="__codelineno-3-36" name="__codelineno-3-36" href="#ansible-core-ansible-core-basics-__codelineno-3-36"></a><span class="go">        ]</span>
-<a id="__codelineno-3-37" name="__codelineno-3-37" href="#ansible-core-ansible-core-basics-__codelineno-3-37"></a><span class="go">    }</span>
-<a id="__codelineno-3-38" name="__codelineno-3-38" href="#ansible-core-ansible-core-basics-__codelineno-3-38"></a><span class="go">}</span>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#ansible-core-ansible-core-basics-__codelineno-7-1"></a><span class="gp">[student@ansible-1 ~]$ </span>ansible-inventory<span class="w"> </span>--list
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#ansible-core-ansible-core-basics-__codelineno-7-2"></a><span class="go">{</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#ansible-core-ansible-core-basics-__codelineno-7-3"></a><span class="go">    &quot;_meta&quot;: {</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#ansible-core-ansible-core-basics-__codelineno-7-4"></a><span class="go">        &quot;hostvars&quot;: {</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#ansible-core-ansible-core-basics-__codelineno-7-5"></a><span class="go">            &quot;ansible-1&quot;: {</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#ansible-core-ansible-core-basics-__codelineno-7-6"></a><span class="go">                &quot;ansible_host&quot;: &quot;3.236.186.92&quot;</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#ansible-core-ansible-core-basics-__codelineno-7-7"></a><span class="go">            },</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#ansible-core-ansible-core-basics-__codelineno-7-8"></a><span class="go">            &quot;node1&quot;: {</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#ansible-core-ansible-core-basics-__codelineno-7-9"></a><span class="go">                &quot;ansible_host&quot;: &quot;3.239.234.187&quot;</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#ansible-core-ansible-core-basics-__codelineno-7-10"></a><span class="go">            },</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#ansible-core-ansible-core-basics-__codelineno-7-11"></a><span class="go">            &quot;node2&quot;: {</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#ansible-core-ansible-core-basics-__codelineno-7-12"></a><span class="go">                &quot;ansible_host&quot;: &quot;75.101.228.151&quot;</span>
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#ansible-core-ansible-core-basics-__codelineno-7-13"></a><span class="go">            },</span>
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#ansible-core-ansible-core-basics-__codelineno-7-14"></a><span class="go">            &quot;node3&quot;: {</span>
+<a id="__codelineno-7-15" name="__codelineno-7-15" href="#ansible-core-ansible-core-basics-__codelineno-7-15"></a><span class="go">                &quot;ansible_host&quot;: &quot;100.27.38.142&quot;</span>
+<a id="__codelineno-7-16" name="__codelineno-7-16" href="#ansible-core-ansible-core-basics-__codelineno-7-16"></a><span class="go">            }</span>
+<a id="__codelineno-7-17" name="__codelineno-7-17" href="#ansible-core-ansible-core-basics-__codelineno-7-17"></a><span class="go">        }</span>
+<a id="__codelineno-7-18" name="__codelineno-7-18" href="#ansible-core-ansible-core-basics-__codelineno-7-18"></a><span class="go">    },</span>
+<a id="__codelineno-7-19" name="__codelineno-7-19" href="#ansible-core-ansible-core-basics-__codelineno-7-19"></a><span class="go">    &quot;all&quot;: {</span>
+<a id="__codelineno-7-20" name="__codelineno-7-20" href="#ansible-core-ansible-core-basics-__codelineno-7-20"></a><span class="go">        &quot;children&quot;: [</span>
+<a id="__codelineno-7-21" name="__codelineno-7-21" href="#ansible-core-ansible-core-basics-__codelineno-7-21"></a><span class="go">            &quot;control&quot;,</span>
+<a id="__codelineno-7-22" name="__codelineno-7-22" href="#ansible-core-ansible-core-basics-__codelineno-7-22"></a><span class="go">            &quot;ungrouped&quot;,</span>
+<a id="__codelineno-7-23" name="__codelineno-7-23" href="#ansible-core-ansible-core-basics-__codelineno-7-23"></a><span class="go">            &quot;web&quot;</span>
+<a id="__codelineno-7-24" name="__codelineno-7-24" href="#ansible-core-ansible-core-basics-__codelineno-7-24"></a><span class="go">        ]</span>
+<a id="__codelineno-7-25" name="__codelineno-7-25" href="#ansible-core-ansible-core-basics-__codelineno-7-25"></a><span class="go">    },</span>
+<a id="__codelineno-7-26" name="__codelineno-7-26" href="#ansible-core-ansible-core-basics-__codelineno-7-26"></a><span class="go">    &quot;control&quot;: {</span>
+<a id="__codelineno-7-27" name="__codelineno-7-27" href="#ansible-core-ansible-core-basics-__codelineno-7-27"></a><span class="go">        &quot;hosts&quot;: [</span>
+<a id="__codelineno-7-28" name="__codelineno-7-28" href="#ansible-core-ansible-core-basics-__codelineno-7-28"></a><span class="go">            &quot;ansible-1&quot;</span>
+<a id="__codelineno-7-29" name="__codelineno-7-29" href="#ansible-core-ansible-core-basics-__codelineno-7-29"></a><span class="go">        ]</span>
+<a id="__codelineno-7-30" name="__codelineno-7-30" href="#ansible-core-ansible-core-basics-__codelineno-7-30"></a><span class="go">    },</span>
+<a id="__codelineno-7-31" name="__codelineno-7-31" href="#ansible-core-ansible-core-basics-__codelineno-7-31"></a><span class="go">    &quot;web&quot;: {</span>
+<a id="__codelineno-7-32" name="__codelineno-7-32" href="#ansible-core-ansible-core-basics-__codelineno-7-32"></a><span class="go">        &quot;hosts&quot;: [</span>
+<a id="__codelineno-7-33" name="__codelineno-7-33" href="#ansible-core-ansible-core-basics-__codelineno-7-33"></a><span class="go">            &quot;node1&quot;,</span>
+<a id="__codelineno-7-34" name="__codelineno-7-34" href="#ansible-core-ansible-core-basics-__codelineno-7-34"></a><span class="go">            &quot;node2&quot;,</span>
+<a id="__codelineno-7-35" name="__codelineno-7-35" href="#ansible-core-ansible-core-basics-__codelineno-7-35"></a><span class="go">            &quot;node3&quot;</span>
+<a id="__codelineno-7-36" name="__codelineno-7-36" href="#ansible-core-ansible-core-basics-__codelineno-7-36"></a><span class="go">        ]</span>
+<a id="__codelineno-7-37" name="__codelineno-7-37" href="#ansible-core-ansible-core-basics-__codelineno-7-37"></a><span class="go">    }</span>
+<a id="__codelineno-7-38" name="__codelineno-7-38" href="#ansible-core-ansible-core-basics-__codelineno-7-38"></a><span class="go">}</span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#ansible-core-ansible-core-basics-__codelineno-4-1"></a><span class="gp">[student@ansible-1 ~]$ </span>ansible-navigator<span class="w"> </span>inventory<span class="w"> </span>--list<span class="w"> </span>-m<span class="w"> </span>stdout
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#ansible-core-ansible-core-basics-__codelineno-4-2"></a><span class="go">{</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#ansible-core-ansible-core-basics-__codelineno-4-3"></a><span class="go">    &quot;_meta&quot;: {</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#ansible-core-ansible-core-basics-__codelineno-4-4"></a><span class="go">        &quot;hostvars&quot;: {</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#ansible-core-ansible-core-basics-__codelineno-4-5"></a><span class="go">            &quot;ansible-1&quot;: {</span>
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#ansible-core-ansible-core-basics-__codelineno-4-6"></a><span class="go">                &quot;ansible_connection&quot;: &quot;local&quot;</span>
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#ansible-core-ansible-core-basics-__codelineno-4-7"></a><span class="go">            },</span>
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#ansible-core-ansible-core-basics-__codelineno-4-8"></a><span class="go">            &quot;node1&quot;: {</span>
-<a id="__codelineno-4-9" name="__codelineno-4-9" href="#ansible-core-ansible-core-basics-__codelineno-4-9"></a><span class="go">                &quot;ansible_host&quot;: &quot;node1.example.com&quot;</span>
-<a id="__codelineno-4-10" name="__codelineno-4-10" href="#ansible-core-ansible-core-basics-__codelineno-4-10"></a><span class="go">            },</span>
-<a id="__codelineno-4-11" name="__codelineno-4-11" href="#ansible-core-ansible-core-basics-__codelineno-4-11"></a><span class="go">            &quot;node2&quot;: {</span>
-<a id="__codelineno-4-12" name="__codelineno-4-12" href="#ansible-core-ansible-core-basics-__codelineno-4-12"></a><span class="go">                &quot;ansible_host&quot;: &quot;node2.example.com&quot;</span>
-<a id="__codelineno-4-13" name="__codelineno-4-13" href="#ansible-core-ansible-core-basics-__codelineno-4-13"></a><span class="go">            },</span>
-<a id="__codelineno-4-14" name="__codelineno-4-14" href="#ansible-core-ansible-core-basics-__codelineno-4-14"></a><span class="go">            &quot;node3&quot;: {</span>
-<a id="__codelineno-4-15" name="__codelineno-4-15" href="#ansible-core-ansible-core-basics-__codelineno-4-15"></a><span class="go">                &quot;ansible_host&quot;: &quot;node3.example.com&quot;</span>
-<a id="__codelineno-4-16" name="__codelineno-4-16" href="#ansible-core-ansible-core-basics-__codelineno-4-16"></a><span class="go">            }</span>
-<a id="__codelineno-4-17" name="__codelineno-4-17" href="#ansible-core-ansible-core-basics-__codelineno-4-17"></a><span class="go">        }</span>
-<a id="__codelineno-4-18" name="__codelineno-4-18" href="#ansible-core-ansible-core-basics-__codelineno-4-18"></a><span class="go">    },</span>
-<a id="__codelineno-4-19" name="__codelineno-4-19" href="#ansible-core-ansible-core-basics-__codelineno-4-19"></a><span class="go">    &quot;all&quot;: {</span>
-<a id="__codelineno-4-20" name="__codelineno-4-20" href="#ansible-core-ansible-core-basics-__codelineno-4-20"></a><span class="go">        &quot;children&quot;: [</span>
-<a id="__codelineno-4-21" name="__codelineno-4-21" href="#ansible-core-ansible-core-basics-__codelineno-4-21"></a><span class="go">            &quot;control&quot;,</span>
-<a id="__codelineno-4-22" name="__codelineno-4-22" href="#ansible-core-ansible-core-basics-__codelineno-4-22"></a><span class="go">            &quot;ungrouped&quot;,</span>
-<a id="__codelineno-4-23" name="__codelineno-4-23" href="#ansible-core-ansible-core-basics-__codelineno-4-23"></a><span class="go">            &quot;web&quot;</span>
-<a id="__codelineno-4-24" name="__codelineno-4-24" href="#ansible-core-ansible-core-basics-__codelineno-4-24"></a><span class="go">        ]</span>
-<a id="__codelineno-4-25" name="__codelineno-4-25" href="#ansible-core-ansible-core-basics-__codelineno-4-25"></a><span class="go">    },</span>
-<a id="__codelineno-4-26" name="__codelineno-4-26" href="#ansible-core-ansible-core-basics-__codelineno-4-26"></a><span class="go">    &quot;control&quot;: {</span>
-<a id="__codelineno-4-27" name="__codelineno-4-27" href="#ansible-core-ansible-core-basics-__codelineno-4-27"></a><span class="go">        &quot;hosts&quot;: [</span>
-<a id="__codelineno-4-28" name="__codelineno-4-28" href="#ansible-core-ansible-core-basics-__codelineno-4-28"></a><span class="go">            &quot;ansible-1&quot;</span>
-<a id="__codelineno-4-29" name="__codelineno-4-29" href="#ansible-core-ansible-core-basics-__codelineno-4-29"></a><span class="go">        ]</span>
-<a id="__codelineno-4-30" name="__codelineno-4-30" href="#ansible-core-ansible-core-basics-__codelineno-4-30"></a><span class="go">    },</span>
-<a id="__codelineno-4-31" name="__codelineno-4-31" href="#ansible-core-ansible-core-basics-__codelineno-4-31"></a><span class="go">    &quot;web&quot;: {</span>
-<a id="__codelineno-4-32" name="__codelineno-4-32" href="#ansible-core-ansible-core-basics-__codelineno-4-32"></a><span class="go">        &quot;hosts&quot;: [</span>
-<a id="__codelineno-4-33" name="__codelineno-4-33" href="#ansible-core-ansible-core-basics-__codelineno-4-33"></a><span class="go">            &quot;node1&quot;,</span>
-<a id="__codelineno-4-34" name="__codelineno-4-34" href="#ansible-core-ansible-core-basics-__codelineno-4-34"></a><span class="go">            &quot;node2&quot;,</span>
-<a id="__codelineno-4-35" name="__codelineno-4-35" href="#ansible-core-ansible-core-basics-__codelineno-4-35"></a><span class="go">            &quot;node3&quot;</span>
-<a id="__codelineno-4-36" name="__codelineno-4-36" href="#ansible-core-ansible-core-basics-__codelineno-4-36"></a><span class="go">        ]</span>
-<a id="__codelineno-4-37" name="__codelineno-4-37" href="#ansible-core-ansible-core-basics-__codelineno-4-37"></a><span class="go">    }</span>
-<a id="__codelineno-4-38" name="__codelineno-4-38" href="#ansible-core-ansible-core-basics-__codelineno-4-38"></a><span class="go">}</span>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#ansible-core-ansible-core-basics-__codelineno-8-1"></a><span class="gp">[student@ansible-1 ~]$ </span>ansible-navigator<span class="w"> </span>inventory<span class="w"> </span>--list<span class="w"> </span>-m<span class="w"> </span>stdout
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#ansible-core-ansible-core-basics-__codelineno-8-2"></a><span class="go">{</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#ansible-core-ansible-core-basics-__codelineno-8-3"></a><span class="go">    &quot;_meta&quot;: {</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#ansible-core-ansible-core-basics-__codelineno-8-4"></a><span class="go">        &quot;hostvars&quot;: {</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#ansible-core-ansible-core-basics-__codelineno-8-5"></a><span class="go">            &quot;ansible-1&quot;: {</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#ansible-core-ansible-core-basics-__codelineno-8-6"></a><span class="go">                &quot;ansible_connection&quot;: &quot;local&quot;</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#ansible-core-ansible-core-basics-__codelineno-8-7"></a><span class="go">            },</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#ansible-core-ansible-core-basics-__codelineno-8-8"></a><span class="go">            &quot;node1&quot;: {</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#ansible-core-ansible-core-basics-__codelineno-8-9"></a><span class="go">                &quot;ansible_host&quot;: &quot;node1.example.com&quot;</span>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#ansible-core-ansible-core-basics-__codelineno-8-10"></a><span class="go">            },</span>
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#ansible-core-ansible-core-basics-__codelineno-8-11"></a><span class="go">            &quot;node2&quot;: {</span>
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#ansible-core-ansible-core-basics-__codelineno-8-12"></a><span class="go">                &quot;ansible_host&quot;: &quot;node2.example.com&quot;</span>
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#ansible-core-ansible-core-basics-__codelineno-8-13"></a><span class="go">            },</span>
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#ansible-core-ansible-core-basics-__codelineno-8-14"></a><span class="go">            &quot;node3&quot;: {</span>
+<a id="__codelineno-8-15" name="__codelineno-8-15" href="#ansible-core-ansible-core-basics-__codelineno-8-15"></a><span class="go">                &quot;ansible_host&quot;: &quot;node3.example.com&quot;</span>
+<a id="__codelineno-8-16" name="__codelineno-8-16" href="#ansible-core-ansible-core-basics-__codelineno-8-16"></a><span class="go">            }</span>
+<a id="__codelineno-8-17" name="__codelineno-8-17" href="#ansible-core-ansible-core-basics-__codelineno-8-17"></a><span class="go">        }</span>
+<a id="__codelineno-8-18" name="__codelineno-8-18" href="#ansible-core-ansible-core-basics-__codelineno-8-18"></a><span class="go">    },</span>
+<a id="__codelineno-8-19" name="__codelineno-8-19" href="#ansible-core-ansible-core-basics-__codelineno-8-19"></a><span class="go">    &quot;all&quot;: {</span>
+<a id="__codelineno-8-20" name="__codelineno-8-20" href="#ansible-core-ansible-core-basics-__codelineno-8-20"></a><span class="go">        &quot;children&quot;: [</span>
+<a id="__codelineno-8-21" name="__codelineno-8-21" href="#ansible-core-ansible-core-basics-__codelineno-8-21"></a><span class="go">            &quot;control&quot;,</span>
+<a id="__codelineno-8-22" name="__codelineno-8-22" href="#ansible-core-ansible-core-basics-__codelineno-8-22"></a><span class="go">            &quot;ungrouped&quot;,</span>
+<a id="__codelineno-8-23" name="__codelineno-8-23" href="#ansible-core-ansible-core-basics-__codelineno-8-23"></a><span class="go">            &quot;web&quot;</span>
+<a id="__codelineno-8-24" name="__codelineno-8-24" href="#ansible-core-ansible-core-basics-__codelineno-8-24"></a><span class="go">        ]</span>
+<a id="__codelineno-8-25" name="__codelineno-8-25" href="#ansible-core-ansible-core-basics-__codelineno-8-25"></a><span class="go">    },</span>
+<a id="__codelineno-8-26" name="__codelineno-8-26" href="#ansible-core-ansible-core-basics-__codelineno-8-26"></a><span class="go">    &quot;control&quot;: {</span>
+<a id="__codelineno-8-27" name="__codelineno-8-27" href="#ansible-core-ansible-core-basics-__codelineno-8-27"></a><span class="go">        &quot;hosts&quot;: [</span>
+<a id="__codelineno-8-28" name="__codelineno-8-28" href="#ansible-core-ansible-core-basics-__codelineno-8-28"></a><span class="go">            &quot;ansible-1&quot;</span>
+<a id="__codelineno-8-29" name="__codelineno-8-29" href="#ansible-core-ansible-core-basics-__codelineno-8-29"></a><span class="go">        ]</span>
+<a id="__codelineno-8-30" name="__codelineno-8-30" href="#ansible-core-ansible-core-basics-__codelineno-8-30"></a><span class="go">    },</span>
+<a id="__codelineno-8-31" name="__codelineno-8-31" href="#ansible-core-ansible-core-basics-__codelineno-8-31"></a><span class="go">    &quot;web&quot;: {</span>
+<a id="__codelineno-8-32" name="__codelineno-8-32" href="#ansible-core-ansible-core-basics-__codelineno-8-32"></a><span class="go">        &quot;hosts&quot;: [</span>
+<a id="__codelineno-8-33" name="__codelineno-8-33" href="#ansible-core-ansible-core-basics-__codelineno-8-33"></a><span class="go">            &quot;node1&quot;,</span>
+<a id="__codelineno-8-34" name="__codelineno-8-34" href="#ansible-core-ansible-core-basics-__codelineno-8-34"></a><span class="go">            &quot;node2&quot;,</span>
+<a id="__codelineno-8-35" name="__codelineno-8-35" href="#ansible-core-ansible-core-basics-__codelineno-8-35"></a><span class="go">            &quot;node3&quot;</span>
+<a id="__codelineno-8-36" name="__codelineno-8-36" href="#ansible-core-ansible-core-basics-__codelineno-8-36"></a><span class="go">        ]</span>
+<a id="__codelineno-8-37" name="__codelineno-8-37" href="#ansible-core-ansible-core-basics-__codelineno-8-37"></a><span class="go">    }</span>
+<a id="__codelineno-8-38" name="__codelineno-8-38" href="#ansible-core-ansible-core-basics-__codelineno-8-38"></a><span class="go">}</span>
 </code></pre></div>
 </div>
 </div>
@@ -2343,27 +2377,27 @@ In this lab, the inventory is provided by your instructor. The inventory file is
 <div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="ansible-core-ansible-core-basics-__tabbed_2_1" name="ansible-core-ansible-core-basics-__tabbed_2" type="radio" /><input id="ansible-core-ansible-core-basics-__tabbed_2_2" name="ansible-core-ansible-core-basics-__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="ansible-core-ansible-core-basics-__tabbed_2_1">Ansible</label><label for="ansible-core-ansible-core-basics-__tabbed_2_2">Navigator</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#ansible-core-ansible-core-basics-__codelineno-5-1"></a><span class="gp">[student1@ansible-1 ~]$ </span>ansible-inventory<span class="w"> </span>--graph
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#ansible-core-ansible-core-basics-__codelineno-5-2"></a><span class="go">@all:</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#ansible-core-ansible-core-basics-__codelineno-5-3"></a><span class="go">|--@control:</span>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#ansible-core-ansible-core-basics-__codelineno-5-4"></a><span class="go">|  |--ansible-1</span>
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#ansible-core-ansible-core-basics-__codelineno-5-5"></a><span class="go">|--@ungrouped:</span>
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#ansible-core-ansible-core-basics-__codelineno-5-6"></a><span class="go">|--@web:</span>
-<a id="__codelineno-5-7" name="__codelineno-5-7" href="#ansible-core-ansible-core-basics-__codelineno-5-7"></a><span class="go">|  |--node1</span>
-<a id="__codelineno-5-8" name="__codelineno-5-8" href="#ansible-core-ansible-core-basics-__codelineno-5-8"></a><span class="go">|  |--node2</span>
-<a id="__codelineno-5-9" name="__codelineno-5-9" href="#ansible-core-ansible-core-basics-__codelineno-5-9"></a><span class="go">|  |--node3</span>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#ansible-core-ansible-core-basics-__codelineno-9-1"></a><span class="gp">[student1@ansible-1 ~]$ </span>ansible-inventory<span class="w"> </span>--graph
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#ansible-core-ansible-core-basics-__codelineno-9-2"></a><span class="go">@all:</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#ansible-core-ansible-core-basics-__codelineno-9-3"></a><span class="go">|--@control:</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#ansible-core-ansible-core-basics-__codelineno-9-4"></a><span class="go">|  |--ansible-1</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#ansible-core-ansible-core-basics-__codelineno-9-5"></a><span class="go">|--@ungrouped:</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#ansible-core-ansible-core-basics-__codelineno-9-6"></a><span class="go">|--@web:</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#ansible-core-ansible-core-basics-__codelineno-9-7"></a><span class="go">|  |--node1</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#ansible-core-ansible-core-basics-__codelineno-9-8"></a><span class="go">|  |--node2</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#ansible-core-ansible-core-basics-__codelineno-9-9"></a><span class="go">|  |--node3</span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#ansible-core-ansible-core-basics-__codelineno-6-1"></a><span class="gp">[student1@ansible-1 ~]$ </span>ansible-navigator<span class="w"> </span>inventory<span class="w"> </span>--graph<span class="w"> </span>-m<span class="w"> </span>stdout
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#ansible-core-ansible-core-basics-__codelineno-6-2"></a><span class="go">@all:</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#ansible-core-ansible-core-basics-__codelineno-6-3"></a><span class="go">|--@control:</span>
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#ansible-core-ansible-core-basics-__codelineno-6-4"></a><span class="go">|  |--ansible-1</span>
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#ansible-core-ansible-core-basics-__codelineno-6-5"></a><span class="go">|--@ungrouped:</span>
-<a id="__codelineno-6-6" name="__codelineno-6-6" href="#ansible-core-ansible-core-basics-__codelineno-6-6"></a><span class="go">|--@web:</span>
-<a id="__codelineno-6-7" name="__codelineno-6-7" href="#ansible-core-ansible-core-basics-__codelineno-6-7"></a><span class="go">|  |--node1</span>
-<a id="__codelineno-6-8" name="__codelineno-6-8" href="#ansible-core-ansible-core-basics-__codelineno-6-8"></a><span class="go">|  |--node2</span>
-<a id="__codelineno-6-9" name="__codelineno-6-9" href="#ansible-core-ansible-core-basics-__codelineno-6-9"></a><span class="go">|  |--node3</span>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#ansible-core-ansible-core-basics-__codelineno-10-1"></a><span class="gp">[student1@ansible-1 ~]$ </span>ansible-navigator<span class="w"> </span>inventory<span class="w"> </span>--graph<span class="w"> </span>-m<span class="w"> </span>stdout
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#ansible-core-ansible-core-basics-__codelineno-10-2"></a><span class="go">@all:</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#ansible-core-ansible-core-basics-__codelineno-10-3"></a><span class="go">|--@control:</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#ansible-core-ansible-core-basics-__codelineno-10-4"></a><span class="go">|  |--ansible-1</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#ansible-core-ansible-core-basics-__codelineno-10-5"></a><span class="go">|--@ungrouped:</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#ansible-core-ansible-core-basics-__codelineno-10-6"></a><span class="go">|--@web:</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#ansible-core-ansible-core-basics-__codelineno-10-7"></a><span class="go">|  |--node1</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#ansible-core-ansible-core-basics-__codelineno-10-8"></a><span class="go">|  |--node2</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#ansible-core-ansible-core-basics-__codelineno-10-9"></a><span class="go">|  |--node3</span>
 </code></pre></div>
 </div>
 </div>
@@ -2374,15 +2408,15 @@ In this lab, the inventory is provided by your instructor. The inventory file is
 <div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="ansible-core-ansible-core-basics-__tabbed_3_1" name="ansible-core-ansible-core-basics-__tabbed_3" type="radio" /><input id="ansible-core-ansible-core-basics-__tabbed_3_2" name="ansible-core-ansible-core-basics-__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="ansible-core-ansible-core-basics-__tabbed_3_1">Ansible</label><label for="ansible-core-ansible-core-basics-__tabbed_3_2">Navigator</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#ansible-core-ansible-core-basics-__codelineno-7-1"></a><span class="gp">[student@ansible-1 ~]$ </span>ansible-inventory<span class="w"> </span>--graph<span class="w"> </span>web
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#ansible-core-ansible-core-basics-__codelineno-7-2"></a><span class="gp">[student@ansible-1 ~]$ </span>ansible-inventory<span class="w"> </span>--graph<span class="w"> </span>control
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#ansible-core-ansible-core-basics-__codelineno-7-3"></a><span class="gp">[student@ansible-1 ~]$ </span>ansible-inventory<span class="w"> </span>--host<span class="w"> </span>node1
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#ansible-core-ansible-core-basics-__codelineno-11-1"></a><span class="gp">[student@ansible-1 ~]$ </span>ansible-inventory<span class="w"> </span>--graph<span class="w"> </span>web
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#ansible-core-ansible-core-basics-__codelineno-11-2"></a><span class="gp">[student@ansible-1 ~]$ </span>ansible-inventory<span class="w"> </span>--graph<span class="w"> </span>control
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#ansible-core-ansible-core-basics-__codelineno-11-3"></a><span class="gp">[student@ansible-1 ~]$ </span>ansible-inventory<span class="w"> </span>--host<span class="w"> </span>node1
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#ansible-core-ansible-core-basics-__codelineno-8-1"></a><span class="gp">[student@ansible-1 ~]$ </span>ansible-navigator<span class="w"> </span>inventory<span class="w"> </span>--graph<span class="w"> </span>web<span class="w"> </span>-m<span class="w"> </span>stdout
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#ansible-core-ansible-core-basics-__codelineno-8-2"></a><span class="gp">[student@ansible-1 ~]$ </span>ansible-navigator<span class="w"> </span>inventory<span class="w"> </span>--graph<span class="w"> </span>control<span class="w"> </span>-m<span class="w"> </span>stdout
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#ansible-core-ansible-core-basics-__codelineno-8-3"></a><span class="gp">[student@ansible-1 ~]$ </span>ansible-navigator<span class="w"> </span>inventory<span class="w"> </span>--host<span class="w"> </span>node1<span class="w"> </span>-m<span class="w"> </span>stdout
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#ansible-core-ansible-core-basics-__codelineno-12-1"></a><span class="gp">[student@ansible-1 ~]$ </span>ansible-navigator<span class="w"> </span>inventory<span class="w"> </span>--graph<span class="w"> </span>web<span class="w"> </span>-m<span class="w"> </span>stdout
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#ansible-core-ansible-core-basics-__codelineno-12-2"></a><span class="gp">[student@ansible-1 ~]$ </span>ansible-navigator<span class="w"> </span>inventory<span class="w"> </span>--graph<span class="w"> </span>control<span class="w"> </span>-m<span class="w"> </span>stdout
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#ansible-core-ansible-core-basics-__codelineno-12-3"></a><span class="gp">[student@ansible-1 ~]$ </span>ansible-navigator<span class="w"> </span>inventory<span class="w"> </span>--host<span class="w"> </span>node1<span class="w"> </span>-m<span class="w"> </span>stdout
 </code></pre></div>
 </div>
 </div>
@@ -2391,126 +2425,126 @@ In this lab, the inventory is provided by your instructor. The inventory file is
 <p class="admonition-title">Tip</p>
 <p>The inventory can contain more data.</p>
 </div>
-<h3 id="ansible-core-ansible-core-basics-step-3-use-the-inventory-with-ad-hoc-commands">Step 3 - Use the inventory with ad-hoc commands</h3>
+<h3 id="ansible-core-ansible-core-basics-step-4-use-the-inventory-with-ad-hoc-commands">Step 4 - Use the inventory with ad-hoc commands</h3>
 <p>An Ansible ad hoc command uses the <code>ansible</code> command-line tool to automate a single task on one or more managed nodes. Ad hoc commands are quick and easy, but they are not reusable. So why learn about ad hoc commands first? Ad hoc commands demonstrate the simplicity and power of Ansible. The concepts you learn here will port over directly to the playbook language.</p>
 <p>Ad hoc commands are great for tasks you repeat rarely. For example, if you want to power off all the machines in your lab for Christmas vacation, you could execute a quick one-liner in Ansible without writing a playbook. An ad hoc command looks like this:</p>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#ansible-core-ansible-core-basics-__codelineno-9-1"></a><span class="go">ansible [pattern] -m [module] -a &quot;[module options]&quot;</span>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#ansible-core-ansible-core-basics-__codelineno-13-1"></a><span class="go">ansible [pattern] -m [module] -a &quot;[module options]&quot;</span>
 </code></pre></div>
 <p>Ad hoc commands can be used perfectly to check if all hosts in your inventory are reachable. Ansible offers the <em>ping</em> module for that (this is not a real ICMP ping, though). Let's try to reach all hosts of the <em>web</em> group:</p>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#ansible-core-ansible-core-basics-__codelineno-10-1"></a><span class="gp">[student@ansible-1 ~]$ </span>ansible<span class="w"> </span>web<span class="w"> </span>-m<span class="w"> </span>ping
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#ansible-core-ansible-core-basics-__codelineno-10-2"></a><span class="go">node2 | SUCCESS =&gt; {</span>
-<a id="__codelineno-10-3" name="__codelineno-10-3" href="#ansible-core-ansible-core-basics-__codelineno-10-3"></a><span class="go">    &quot;ansible_facts&quot;: {</span>
-<a id="__codelineno-10-4" name="__codelineno-10-4" href="#ansible-core-ansible-core-basics-__codelineno-10-4"></a><span class="go">        &quot;discovered_interpreter_python&quot;: &quot;/usr/libexec/platform-python&quot;</span>
-<a id="__codelineno-10-5" name="__codelineno-10-5" href="#ansible-core-ansible-core-basics-__codelineno-10-5"></a><span class="go">    },</span>
-<a id="__codelineno-10-6" name="__codelineno-10-6" href="#ansible-core-ansible-core-basics-__codelineno-10-6"></a><span class="go">    &quot;changed&quot;: false,</span>
-<a id="__codelineno-10-7" name="__codelineno-10-7" href="#ansible-core-ansible-core-basics-__codelineno-10-7"></a><span class="go">    &quot;ping&quot;: &quot;pong&quot;</span>
-<a id="__codelineno-10-8" name="__codelineno-10-8" href="#ansible-core-ansible-core-basics-__codelineno-10-8"></a><span class="go">}</span>
-<a id="__codelineno-10-9" name="__codelineno-10-9" href="#ansible-core-ansible-core-basics-__codelineno-10-9"></a><span class="go">node3 | SUCCESS =&gt; {</span>
-<a id="__codelineno-10-10" name="__codelineno-10-10" href="#ansible-core-ansible-core-basics-__codelineno-10-10"></a><span class="go">    &quot;ansible_facts&quot;: {</span>
-<a id="__codelineno-10-11" name="__codelineno-10-11" href="#ansible-core-ansible-core-basics-__codelineno-10-11"></a><span class="go">        &quot;discovered_interpreter_python&quot;: &quot;/usr/libexec/platform-python&quot;</span>
-<a id="__codelineno-10-12" name="__codelineno-10-12" href="#ansible-core-ansible-core-basics-__codelineno-10-12"></a><span class="go">    },</span>
-<a id="__codelineno-10-13" name="__codelineno-10-13" href="#ansible-core-ansible-core-basics-__codelineno-10-13"></a><span class="go">    &quot;changed&quot;: false,</span>
-<a id="__codelineno-10-14" name="__codelineno-10-14" href="#ansible-core-ansible-core-basics-__codelineno-10-14"></a><span class="go">    &quot;ping&quot;: &quot;pong&quot;</span>
-<a id="__codelineno-10-15" name="__codelineno-10-15" href="#ansible-core-ansible-core-basics-__codelineno-10-15"></a><span class="go">}</span>
-<a id="__codelineno-10-16" name="__codelineno-10-16" href="#ansible-core-ansible-core-basics-__codelineno-10-16"></a><span class="go">node1 | SUCCESS =&gt; {</span>
-<a id="__codelineno-10-17" name="__codelineno-10-17" href="#ansible-core-ansible-core-basics-__codelineno-10-17"></a><span class="go">    &quot;ansible_facts&quot;: {</span>
-<a id="__codelineno-10-18" name="__codelineno-10-18" href="#ansible-core-ansible-core-basics-__codelineno-10-18"></a><span class="go">        &quot;discovered_interpreter_python&quot;: &quot;/usr/libexec/platform-python&quot;</span>
-<a id="__codelineno-10-19" name="__codelineno-10-19" href="#ansible-core-ansible-core-basics-__codelineno-10-19"></a><span class="go">    },</span>
-<a id="__codelineno-10-20" name="__codelineno-10-20" href="#ansible-core-ansible-core-basics-__codelineno-10-20"></a><span class="go">    &quot;changed&quot;: false,</span>
-<a id="__codelineno-10-21" name="__codelineno-10-21" href="#ansible-core-ansible-core-basics-__codelineno-10-21"></a><span class="go">    &quot;ping&quot;: &quot;pong&quot;</span>
-<a id="__codelineno-10-22" name="__codelineno-10-22" href="#ansible-core-ansible-core-basics-__codelineno-10-22"></a><span class="go">}</span>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#ansible-core-ansible-core-basics-__codelineno-14-1"></a><span class="gp">[student@ansible-1 ~]$ </span>ansible<span class="w"> </span>web<span class="w"> </span>-m<span class="w"> </span>ping
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#ansible-core-ansible-core-basics-__codelineno-14-2"></a><span class="go">node2 | SUCCESS =&gt; {</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#ansible-core-ansible-core-basics-__codelineno-14-3"></a><span class="go">    &quot;ansible_facts&quot;: {</span>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#ansible-core-ansible-core-basics-__codelineno-14-4"></a><span class="go">        &quot;discovered_interpreter_python&quot;: &quot;/usr/libexec/platform-python&quot;</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#ansible-core-ansible-core-basics-__codelineno-14-5"></a><span class="go">    },</span>
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#ansible-core-ansible-core-basics-__codelineno-14-6"></a><span class="go">    &quot;changed&quot;: false,</span>
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#ansible-core-ansible-core-basics-__codelineno-14-7"></a><span class="go">    &quot;ping&quot;: &quot;pong&quot;</span>
+<a id="__codelineno-14-8" name="__codelineno-14-8" href="#ansible-core-ansible-core-basics-__codelineno-14-8"></a><span class="go">}</span>
+<a id="__codelineno-14-9" name="__codelineno-14-9" href="#ansible-core-ansible-core-basics-__codelineno-14-9"></a><span class="go">node3 | SUCCESS =&gt; {</span>
+<a id="__codelineno-14-10" name="__codelineno-14-10" href="#ansible-core-ansible-core-basics-__codelineno-14-10"></a><span class="go">    &quot;ansible_facts&quot;: {</span>
+<a id="__codelineno-14-11" name="__codelineno-14-11" href="#ansible-core-ansible-core-basics-__codelineno-14-11"></a><span class="go">        &quot;discovered_interpreter_python&quot;: &quot;/usr/libexec/platform-python&quot;</span>
+<a id="__codelineno-14-12" name="__codelineno-14-12" href="#ansible-core-ansible-core-basics-__codelineno-14-12"></a><span class="go">    },</span>
+<a id="__codelineno-14-13" name="__codelineno-14-13" href="#ansible-core-ansible-core-basics-__codelineno-14-13"></a><span class="go">    &quot;changed&quot;: false,</span>
+<a id="__codelineno-14-14" name="__codelineno-14-14" href="#ansible-core-ansible-core-basics-__codelineno-14-14"></a><span class="go">    &quot;ping&quot;: &quot;pong&quot;</span>
+<a id="__codelineno-14-15" name="__codelineno-14-15" href="#ansible-core-ansible-core-basics-__codelineno-14-15"></a><span class="go">}</span>
+<a id="__codelineno-14-16" name="__codelineno-14-16" href="#ansible-core-ansible-core-basics-__codelineno-14-16"></a><span class="go">node1 | SUCCESS =&gt; {</span>
+<a id="__codelineno-14-17" name="__codelineno-14-17" href="#ansible-core-ansible-core-basics-__codelineno-14-17"></a><span class="go">    &quot;ansible_facts&quot;: {</span>
+<a id="__codelineno-14-18" name="__codelineno-14-18" href="#ansible-core-ansible-core-basics-__codelineno-14-18"></a><span class="go">        &quot;discovered_interpreter_python&quot;: &quot;/usr/libexec/platform-python&quot;</span>
+<a id="__codelineno-14-19" name="__codelineno-14-19" href="#ansible-core-ansible-core-basics-__codelineno-14-19"></a><span class="go">    },</span>
+<a id="__codelineno-14-20" name="__codelineno-14-20" href="#ansible-core-ansible-core-basics-__codelineno-14-20"></a><span class="go">    &quot;changed&quot;: false,</span>
+<a id="__codelineno-14-21" name="__codelineno-14-21" href="#ansible-core-ansible-core-basics-__codelineno-14-21"></a><span class="go">    &quot;ping&quot;: &quot;pong&quot;</span>
+<a id="__codelineno-14-22" name="__codelineno-14-22" href="#ansible-core-ansible-core-basics-__codelineno-14-22"></a><span class="go">}</span>
 </code></pre></div>
 <p>Success! All three nodes are reachable, we get a <em>pong</em> back, we proved that we can establish a <abbr title="Secure Shell">SSH</abbr> connection and that the node(s) have a usable Python interpreter.</p>
 <p>Try to run the same ad hoc command against the <em>control</em> group.  </p>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#ansible-core-ansible-core-basics-__codelineno-11-1"></a><span class="gp">[student@ansible-1 ~]$ </span>ansible<span class="w"> </span>control<span class="w"> </span>-m<span class="w"> </span>ping
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#ansible-core-ansible-core-basics-__codelineno-11-2"></a><span class="go">ansible-1 | SUCCESS =&gt; {</span>
-<a id="__codelineno-11-3" name="__codelineno-11-3" href="#ansible-core-ansible-core-basics-__codelineno-11-3"></a><span class="go">    &quot;ansible_facts&quot;: {</span>
-<a id="__codelineno-11-4" name="__codelineno-11-4" href="#ansible-core-ansible-core-basics-__codelineno-11-4"></a><span class="go">        &quot;discovered_interpreter_python&quot;: &quot;/usr/libexec/platform-python&quot;</span>
-<a id="__codelineno-11-5" name="__codelineno-11-5" href="#ansible-core-ansible-core-basics-__codelineno-11-5"></a><span class="go">    },</span>
-<a id="__codelineno-11-6" name="__codelineno-11-6" href="#ansible-core-ansible-core-basics-__codelineno-11-6"></a><span class="go">    &quot;changed&quot;: false,</span>
-<a id="__codelineno-11-7" name="__codelineno-11-7" href="#ansible-core-ansible-core-basics-__codelineno-11-7"></a><span class="go">    &quot;ping&quot;: &quot;pong&quot;</span>
-<a id="__codelineno-11-8" name="__codelineno-11-8" href="#ansible-core-ansible-core-basics-__codelineno-11-8"></a><span class="go">}</span>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#ansible-core-ansible-core-basics-__codelineno-15-1"></a><span class="gp">[student@ansible-1 ~]$ </span>ansible<span class="w"> </span>control<span class="w"> </span>-m<span class="w"> </span>ping
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#ansible-core-ansible-core-basics-__codelineno-15-2"></a><span class="go">ansible-1 | SUCCESS =&gt; {</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#ansible-core-ansible-core-basics-__codelineno-15-3"></a><span class="go">    &quot;ansible_facts&quot;: {</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#ansible-core-ansible-core-basics-__codelineno-15-4"></a><span class="go">        &quot;discovered_interpreter_python&quot;: &quot;/usr/libexec/platform-python&quot;</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#ansible-core-ansible-core-basics-__codelineno-15-5"></a><span class="go">    },</span>
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#ansible-core-ansible-core-basics-__codelineno-15-6"></a><span class="go">    &quot;changed&quot;: false,</span>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#ansible-core-ansible-core-basics-__codelineno-15-7"></a><span class="go">    &quot;ping&quot;: &quot;pong&quot;</span>
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#ansible-core-ansible-core-basics-__codelineno-15-8"></a><span class="go">}</span>
 </code></pre></div>
 <p>Let's play around with ad hoc commands a bit more. You can use every <em>module</em> that Ansible provides with ad hoc commands, we will learn more about <em>modules</em> later today. By default, Ansible will use the <em>command</em> module, you can send every linux command you want to all managed nodes, the arguments are provided with the <code>-a</code> parameter:</p>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#ansible-core-ansible-core-basics-__codelineno-12-1"></a><span class="gp">[student@ansible-1 ~]$ </span>ansible<span class="w"> </span>web<span class="w"> </span>-m<span class="w"> </span><span class="nb">command</span><span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;cat /etc/os-release&quot;</span>
-<a id="__codelineno-12-2" name="__codelineno-12-2" href="#ansible-core-ansible-core-basics-__codelineno-12-2"></a><span class="go">node2 | CHANGED | rc=0 &gt;&gt;</span>
-<a id="__codelineno-12-3" name="__codelineno-12-3" href="#ansible-core-ansible-core-basics-__codelineno-12-3"></a><span class="go">NAME=&quot;Red Hat Enterprise Linux&quot;</span>
-<a id="__codelineno-12-4" name="__codelineno-12-4" href="#ansible-core-ansible-core-basics-__codelineno-12-4"></a><span class="go">VERSION=&quot;8.5 (Ootpa)&quot;</span>
-<a id="__codelineno-12-5" name="__codelineno-12-5" href="#ansible-core-ansible-core-basics-__codelineno-12-5"></a><span class="go">ID=&quot;rhel&quot;</span>
-<a id="__codelineno-12-6" name="__codelineno-12-6" href="#ansible-core-ansible-core-basics-__codelineno-12-6"></a><span class="go">ID_LIKE=&quot;fedora&quot;</span>
-<a id="__codelineno-12-7" name="__codelineno-12-7" href="#ansible-core-ansible-core-basics-__codelineno-12-7"></a><span class="go">VERSION_ID=&quot;8.5&quot;</span>
-<a id="__codelineno-12-8" name="__codelineno-12-8" href="#ansible-core-ansible-core-basics-__codelineno-12-8"></a><span class="go">PLATFORM_ID=&quot;platform:el8&quot;</span>
-<a id="__codelineno-12-9" name="__codelineno-12-9" href="#ansible-core-ansible-core-basics-__codelineno-12-9"></a><span class="go">PRETTY_NAME=&quot;Red Hat Enterprise Linux 8.5 (Ootpa)&quot;</span>
-<a id="__codelineno-12-10" name="__codelineno-12-10" href="#ansible-core-ansible-core-basics-__codelineno-12-10"></a><span class="go">ANSI_COLOR=&quot;0;31&quot;</span>
-<a id="__codelineno-12-11" name="__codelineno-12-11" href="#ansible-core-ansible-core-basics-__codelineno-12-11"></a><span class="go">CPE_NAME=&quot;cpe:/o:redhat:enterprise_linux:8::baseos&quot;</span>
-<a id="__codelineno-12-12" name="__codelineno-12-12" href="#ansible-core-ansible-core-basics-__codelineno-12-12"></a><span class="go">HOME_URL=&quot;https://www.redhat.com/&quot;</span>
-<a id="__codelineno-12-13" name="__codelineno-12-13" href="#ansible-core-ansible-core-basics-__codelineno-12-13"></a><span class="go">DOCUMENTATION_URL=&quot;https://access.redhat.com/documentation/red_hat_enterprise_linux/8/&quot;</span>
-<a id="__codelineno-12-14" name="__codelineno-12-14" href="#ansible-core-ansible-core-basics-__codelineno-12-14"></a><span class="go">BUG_REPORT_URL=&quot;https://bugzilla.redhat.com/&quot;</span>
-<a id="__codelineno-12-15" name="__codelineno-12-15" href="#ansible-core-ansible-core-basics-__codelineno-12-15"></a>
-<a id="__codelineno-12-16" name="__codelineno-12-16" href="#ansible-core-ansible-core-basics-__codelineno-12-16"></a><span class="go">REDHAT_BUGZILLA_PRODUCT=&quot;Red Hat Enterprise Linux 8&quot;</span>
-<a id="__codelineno-12-17" name="__codelineno-12-17" href="#ansible-core-ansible-core-basics-__codelineno-12-17"></a><span class="go">REDHAT_BUGZILLA_PRODUCT_VERSION=8.5</span>
-<a id="__codelineno-12-18" name="__codelineno-12-18" href="#ansible-core-ansible-core-basics-__codelineno-12-18"></a><span class="go">REDHAT_SUPPORT_PRODUCT=&quot;Red Hat Enterprise Linux&quot;</span>
-<a id="__codelineno-12-19" name="__codelineno-12-19" href="#ansible-core-ansible-core-basics-__codelineno-12-19"></a><span class="go">REDHAT_SUPPORT_PRODUCT_VERSION=&quot;8.5&quot;</span>
-<a id="__codelineno-12-20" name="__codelineno-12-20" href="#ansible-core-ansible-core-basics-__codelineno-12-20"></a><span class="go">node3 | CHANGED | rc=0 &gt;&gt;</span>
-<a id="__codelineno-12-21" name="__codelineno-12-21" href="#ansible-core-ansible-core-basics-__codelineno-12-21"></a><span class="go">NAME=&quot;Red Hat Enterprise Linux&quot;</span>
-<a id="__codelineno-12-22" name="__codelineno-12-22" href="#ansible-core-ansible-core-basics-__codelineno-12-22"></a><span class="go">VERSION=&quot;8.5 (Ootpa)&quot;</span>
-<a id="__codelineno-12-23" name="__codelineno-12-23" href="#ansible-core-ansible-core-basics-__codelineno-12-23"></a><span class="go">ID=&quot;rhel&quot;</span>
-<a id="__codelineno-12-24" name="__codelineno-12-24" href="#ansible-core-ansible-core-basics-__codelineno-12-24"></a><span class="go">ID_LIKE=&quot;fedora&quot;</span>
-<a id="__codelineno-12-25" name="__codelineno-12-25" href="#ansible-core-ansible-core-basics-__codelineno-12-25"></a><span class="go">VERSION_ID=&quot;8.5&quot;</span>
-<a id="__codelineno-12-26" name="__codelineno-12-26" href="#ansible-core-ansible-core-basics-__codelineno-12-26"></a><span class="go">PLATFORM_ID=&quot;platform:el8&quot;</span>
-<a id="__codelineno-12-27" name="__codelineno-12-27" href="#ansible-core-ansible-core-basics-__codelineno-12-27"></a><span class="go">PRETTY_NAME=&quot;Red Hat Enterprise Linux 8.5 (Ootpa)&quot;</span>
-<a id="__codelineno-12-28" name="__codelineno-12-28" href="#ansible-core-ansible-core-basics-__codelineno-12-28"></a><span class="go">ANSI_COLOR=&quot;0;31&quot;</span>
-<a id="__codelineno-12-29" name="__codelineno-12-29" href="#ansible-core-ansible-core-basics-__codelineno-12-29"></a><span class="go">CPE_NAME=&quot;cpe:/o:redhat:enterprise_linux:8::baseos&quot;</span>
-<a id="__codelineno-12-30" name="__codelineno-12-30" href="#ansible-core-ansible-core-basics-__codelineno-12-30"></a><span class="go">HOME_URL=&quot;https://www.redhat.com/&quot;</span>
-<a id="__codelineno-12-31" name="__codelineno-12-31" href="#ansible-core-ansible-core-basics-__codelineno-12-31"></a><span class="go">DOCUMENTATION_URL=&quot;https://access.redhat.com/documentation/red_hat_enterprise_linux/8/&quot;</span>
-<a id="__codelineno-12-32" name="__codelineno-12-32" href="#ansible-core-ansible-core-basics-__codelineno-12-32"></a><span class="go">BUG_REPORT_URL=&quot;https://bugzilla.redhat.com/&quot;</span>
-<a id="__codelineno-12-33" name="__codelineno-12-33" href="#ansible-core-ansible-core-basics-__codelineno-12-33"></a>
-<a id="__codelineno-12-34" name="__codelineno-12-34" href="#ansible-core-ansible-core-basics-__codelineno-12-34"></a><span class="go">REDHAT_BUGZILLA_PRODUCT=&quot;Red Hat Enterprise Linux 8&quot;</span>
-<a id="__codelineno-12-35" name="__codelineno-12-35" href="#ansible-core-ansible-core-basics-__codelineno-12-35"></a><span class="go">REDHAT_BUGZILLA_PRODUCT_VERSION=8.5</span>
-<a id="__codelineno-12-36" name="__codelineno-12-36" href="#ansible-core-ansible-core-basics-__codelineno-12-36"></a><span class="go">REDHAT_SUPPORT_PRODUCT=&quot;Red Hat Enterprise Linux&quot;</span>
-<a id="__codelineno-12-37" name="__codelineno-12-37" href="#ansible-core-ansible-core-basics-__codelineno-12-37"></a><span class="go">REDHAT_SUPPORT_PRODUCT_VERSION=&quot;8.5&quot;</span>
-<a id="__codelineno-12-38" name="__codelineno-12-38" href="#ansible-core-ansible-core-basics-__codelineno-12-38"></a><span class="go">node1 | CHANGED | rc=0 &gt;&gt;</span>
-<a id="__codelineno-12-39" name="__codelineno-12-39" href="#ansible-core-ansible-core-basics-__codelineno-12-39"></a><span class="go">NAME=&quot;Red Hat Enterprise Linux&quot;</span>
-<a id="__codelineno-12-40" name="__codelineno-12-40" href="#ansible-core-ansible-core-basics-__codelineno-12-40"></a><span class="go">VERSION=&quot;8.5 (Ootpa)&quot;</span>
-<a id="__codelineno-12-41" name="__codelineno-12-41" href="#ansible-core-ansible-core-basics-__codelineno-12-41"></a><span class="go">ID=&quot;rhel&quot;</span>
-<a id="__codelineno-12-42" name="__codelineno-12-42" href="#ansible-core-ansible-core-basics-__codelineno-12-42"></a><span class="go">ID_LIKE=&quot;fedora&quot;</span>
-<a id="__codelineno-12-43" name="__codelineno-12-43" href="#ansible-core-ansible-core-basics-__codelineno-12-43"></a><span class="go">VERSION_ID=&quot;8.5&quot;</span>
-<a id="__codelineno-12-44" name="__codelineno-12-44" href="#ansible-core-ansible-core-basics-__codelineno-12-44"></a><span class="go">PLATFORM_ID=&quot;platform:el8&quot;</span>
-<a id="__codelineno-12-45" name="__codelineno-12-45" href="#ansible-core-ansible-core-basics-__codelineno-12-45"></a><span class="go">PRETTY_NAME=&quot;Red Hat Enterprise Linux 8.5 (Ootpa)&quot;</span>
-<a id="__codelineno-12-46" name="__codelineno-12-46" href="#ansible-core-ansible-core-basics-__codelineno-12-46"></a><span class="go">ANSI_COLOR=&quot;0;31&quot;</span>
-<a id="__codelineno-12-47" name="__codelineno-12-47" href="#ansible-core-ansible-core-basics-__codelineno-12-47"></a><span class="go">CPE_NAME=&quot;cpe:/o:redhat:enterprise_linux:8::baseos&quot;</span>
-<a id="__codelineno-12-48" name="__codelineno-12-48" href="#ansible-core-ansible-core-basics-__codelineno-12-48"></a><span class="go">HOME_URL=&quot;https://www.redhat.com/&quot;</span>
-<a id="__codelineno-12-49" name="__codelineno-12-49" href="#ansible-core-ansible-core-basics-__codelineno-12-49"></a><span class="go">DOCUMENTATION_URL=&quot;https://access.redhat.com/documentation/red_hat_enterprise_linux/8/&quot;</span>
-<a id="__codelineno-12-50" name="__codelineno-12-50" href="#ansible-core-ansible-core-basics-__codelineno-12-50"></a><span class="go">BUG_REPORT_URL=&quot;https://bugzilla.redhat.com/&quot;</span>
-<a id="__codelineno-12-51" name="__codelineno-12-51" href="#ansible-core-ansible-core-basics-__codelineno-12-51"></a>
-<a id="__codelineno-12-52" name="__codelineno-12-52" href="#ansible-core-ansible-core-basics-__codelineno-12-52"></a><span class="go">REDHAT_BUGZILLA_PRODUCT=&quot;Red Hat Enterprise Linux 8&quot;</span>
-<a id="__codelineno-12-53" name="__codelineno-12-53" href="#ansible-core-ansible-core-basics-__codelineno-12-53"></a><span class="go">REDHAT_BUGZILLA_PRODUCT_VERSION=8.5</span>
-<a id="__codelineno-12-54" name="__codelineno-12-54" href="#ansible-core-ansible-core-basics-__codelineno-12-54"></a><span class="go">REDHAT_SUPPORT_PRODUCT=&quot;Red Hat Enterprise Linux&quot;</span>
-<a id="__codelineno-12-55" name="__codelineno-12-55" href="#ansible-core-ansible-core-basics-__codelineno-12-55"></a><span class="go">REDHAT_SUPPORT_PRODUCT_VERSION=&quot;8.5&quot;</span>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#ansible-core-ansible-core-basics-__codelineno-16-1"></a><span class="gp">[student@ansible-1 ~]$ </span>ansible<span class="w"> </span>web<span class="w"> </span>-m<span class="w"> </span><span class="nb">command</span><span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;cat /etc/os-release&quot;</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#ansible-core-ansible-core-basics-__codelineno-16-2"></a><span class="go">node2 | CHANGED | rc=0 &gt;&gt;</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#ansible-core-ansible-core-basics-__codelineno-16-3"></a><span class="go">NAME=&quot;Red Hat Enterprise Linux&quot;</span>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#ansible-core-ansible-core-basics-__codelineno-16-4"></a><span class="go">VERSION=&quot;8.5 (Ootpa)&quot;</span>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#ansible-core-ansible-core-basics-__codelineno-16-5"></a><span class="go">ID=&quot;rhel&quot;</span>
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#ansible-core-ansible-core-basics-__codelineno-16-6"></a><span class="go">ID_LIKE=&quot;fedora&quot;</span>
+<a id="__codelineno-16-7" name="__codelineno-16-7" href="#ansible-core-ansible-core-basics-__codelineno-16-7"></a><span class="go">VERSION_ID=&quot;8.5&quot;</span>
+<a id="__codelineno-16-8" name="__codelineno-16-8" href="#ansible-core-ansible-core-basics-__codelineno-16-8"></a><span class="go">PLATFORM_ID=&quot;platform:el8&quot;</span>
+<a id="__codelineno-16-9" name="__codelineno-16-9" href="#ansible-core-ansible-core-basics-__codelineno-16-9"></a><span class="go">PRETTY_NAME=&quot;Red Hat Enterprise Linux 8.5 (Ootpa)&quot;</span>
+<a id="__codelineno-16-10" name="__codelineno-16-10" href="#ansible-core-ansible-core-basics-__codelineno-16-10"></a><span class="go">ANSI_COLOR=&quot;0;31&quot;</span>
+<a id="__codelineno-16-11" name="__codelineno-16-11" href="#ansible-core-ansible-core-basics-__codelineno-16-11"></a><span class="go">CPE_NAME=&quot;cpe:/o:redhat:enterprise_linux:8::baseos&quot;</span>
+<a id="__codelineno-16-12" name="__codelineno-16-12" href="#ansible-core-ansible-core-basics-__codelineno-16-12"></a><span class="go">HOME_URL=&quot;https://www.redhat.com/&quot;</span>
+<a id="__codelineno-16-13" name="__codelineno-16-13" href="#ansible-core-ansible-core-basics-__codelineno-16-13"></a><span class="go">DOCUMENTATION_URL=&quot;https://access.redhat.com/documentation/red_hat_enterprise_linux/8/&quot;</span>
+<a id="__codelineno-16-14" name="__codelineno-16-14" href="#ansible-core-ansible-core-basics-__codelineno-16-14"></a><span class="go">BUG_REPORT_URL=&quot;https://bugzilla.redhat.com/&quot;</span>
+<a id="__codelineno-16-15" name="__codelineno-16-15" href="#ansible-core-ansible-core-basics-__codelineno-16-15"></a>
+<a id="__codelineno-16-16" name="__codelineno-16-16" href="#ansible-core-ansible-core-basics-__codelineno-16-16"></a><span class="go">REDHAT_BUGZILLA_PRODUCT=&quot;Red Hat Enterprise Linux 8&quot;</span>
+<a id="__codelineno-16-17" name="__codelineno-16-17" href="#ansible-core-ansible-core-basics-__codelineno-16-17"></a><span class="go">REDHAT_BUGZILLA_PRODUCT_VERSION=8.5</span>
+<a id="__codelineno-16-18" name="__codelineno-16-18" href="#ansible-core-ansible-core-basics-__codelineno-16-18"></a><span class="go">REDHAT_SUPPORT_PRODUCT=&quot;Red Hat Enterprise Linux&quot;</span>
+<a id="__codelineno-16-19" name="__codelineno-16-19" href="#ansible-core-ansible-core-basics-__codelineno-16-19"></a><span class="go">REDHAT_SUPPORT_PRODUCT_VERSION=&quot;8.5&quot;</span>
+<a id="__codelineno-16-20" name="__codelineno-16-20" href="#ansible-core-ansible-core-basics-__codelineno-16-20"></a><span class="go">node3 | CHANGED | rc=0 &gt;&gt;</span>
+<a id="__codelineno-16-21" name="__codelineno-16-21" href="#ansible-core-ansible-core-basics-__codelineno-16-21"></a><span class="go">NAME=&quot;Red Hat Enterprise Linux&quot;</span>
+<a id="__codelineno-16-22" name="__codelineno-16-22" href="#ansible-core-ansible-core-basics-__codelineno-16-22"></a><span class="go">VERSION=&quot;8.5 (Ootpa)&quot;</span>
+<a id="__codelineno-16-23" name="__codelineno-16-23" href="#ansible-core-ansible-core-basics-__codelineno-16-23"></a><span class="go">ID=&quot;rhel&quot;</span>
+<a id="__codelineno-16-24" name="__codelineno-16-24" href="#ansible-core-ansible-core-basics-__codelineno-16-24"></a><span class="go">ID_LIKE=&quot;fedora&quot;</span>
+<a id="__codelineno-16-25" name="__codelineno-16-25" href="#ansible-core-ansible-core-basics-__codelineno-16-25"></a><span class="go">VERSION_ID=&quot;8.5&quot;</span>
+<a id="__codelineno-16-26" name="__codelineno-16-26" href="#ansible-core-ansible-core-basics-__codelineno-16-26"></a><span class="go">PLATFORM_ID=&quot;platform:el8&quot;</span>
+<a id="__codelineno-16-27" name="__codelineno-16-27" href="#ansible-core-ansible-core-basics-__codelineno-16-27"></a><span class="go">PRETTY_NAME=&quot;Red Hat Enterprise Linux 8.5 (Ootpa)&quot;</span>
+<a id="__codelineno-16-28" name="__codelineno-16-28" href="#ansible-core-ansible-core-basics-__codelineno-16-28"></a><span class="go">ANSI_COLOR=&quot;0;31&quot;</span>
+<a id="__codelineno-16-29" name="__codelineno-16-29" href="#ansible-core-ansible-core-basics-__codelineno-16-29"></a><span class="go">CPE_NAME=&quot;cpe:/o:redhat:enterprise_linux:8::baseos&quot;</span>
+<a id="__codelineno-16-30" name="__codelineno-16-30" href="#ansible-core-ansible-core-basics-__codelineno-16-30"></a><span class="go">HOME_URL=&quot;https://www.redhat.com/&quot;</span>
+<a id="__codelineno-16-31" name="__codelineno-16-31" href="#ansible-core-ansible-core-basics-__codelineno-16-31"></a><span class="go">DOCUMENTATION_URL=&quot;https://access.redhat.com/documentation/red_hat_enterprise_linux/8/&quot;</span>
+<a id="__codelineno-16-32" name="__codelineno-16-32" href="#ansible-core-ansible-core-basics-__codelineno-16-32"></a><span class="go">BUG_REPORT_URL=&quot;https://bugzilla.redhat.com/&quot;</span>
+<a id="__codelineno-16-33" name="__codelineno-16-33" href="#ansible-core-ansible-core-basics-__codelineno-16-33"></a>
+<a id="__codelineno-16-34" name="__codelineno-16-34" href="#ansible-core-ansible-core-basics-__codelineno-16-34"></a><span class="go">REDHAT_BUGZILLA_PRODUCT=&quot;Red Hat Enterprise Linux 8&quot;</span>
+<a id="__codelineno-16-35" name="__codelineno-16-35" href="#ansible-core-ansible-core-basics-__codelineno-16-35"></a><span class="go">REDHAT_BUGZILLA_PRODUCT_VERSION=8.5</span>
+<a id="__codelineno-16-36" name="__codelineno-16-36" href="#ansible-core-ansible-core-basics-__codelineno-16-36"></a><span class="go">REDHAT_SUPPORT_PRODUCT=&quot;Red Hat Enterprise Linux&quot;</span>
+<a id="__codelineno-16-37" name="__codelineno-16-37" href="#ansible-core-ansible-core-basics-__codelineno-16-37"></a><span class="go">REDHAT_SUPPORT_PRODUCT_VERSION=&quot;8.5&quot;</span>
+<a id="__codelineno-16-38" name="__codelineno-16-38" href="#ansible-core-ansible-core-basics-__codelineno-16-38"></a><span class="go">node1 | CHANGED | rc=0 &gt;&gt;</span>
+<a id="__codelineno-16-39" name="__codelineno-16-39" href="#ansible-core-ansible-core-basics-__codelineno-16-39"></a><span class="go">NAME=&quot;Red Hat Enterprise Linux&quot;</span>
+<a id="__codelineno-16-40" name="__codelineno-16-40" href="#ansible-core-ansible-core-basics-__codelineno-16-40"></a><span class="go">VERSION=&quot;8.5 (Ootpa)&quot;</span>
+<a id="__codelineno-16-41" name="__codelineno-16-41" href="#ansible-core-ansible-core-basics-__codelineno-16-41"></a><span class="go">ID=&quot;rhel&quot;</span>
+<a id="__codelineno-16-42" name="__codelineno-16-42" href="#ansible-core-ansible-core-basics-__codelineno-16-42"></a><span class="go">ID_LIKE=&quot;fedora&quot;</span>
+<a id="__codelineno-16-43" name="__codelineno-16-43" href="#ansible-core-ansible-core-basics-__codelineno-16-43"></a><span class="go">VERSION_ID=&quot;8.5&quot;</span>
+<a id="__codelineno-16-44" name="__codelineno-16-44" href="#ansible-core-ansible-core-basics-__codelineno-16-44"></a><span class="go">PLATFORM_ID=&quot;platform:el8&quot;</span>
+<a id="__codelineno-16-45" name="__codelineno-16-45" href="#ansible-core-ansible-core-basics-__codelineno-16-45"></a><span class="go">PRETTY_NAME=&quot;Red Hat Enterprise Linux 8.5 (Ootpa)&quot;</span>
+<a id="__codelineno-16-46" name="__codelineno-16-46" href="#ansible-core-ansible-core-basics-__codelineno-16-46"></a><span class="go">ANSI_COLOR=&quot;0;31&quot;</span>
+<a id="__codelineno-16-47" name="__codelineno-16-47" href="#ansible-core-ansible-core-basics-__codelineno-16-47"></a><span class="go">CPE_NAME=&quot;cpe:/o:redhat:enterprise_linux:8::baseos&quot;</span>
+<a id="__codelineno-16-48" name="__codelineno-16-48" href="#ansible-core-ansible-core-basics-__codelineno-16-48"></a><span class="go">HOME_URL=&quot;https://www.redhat.com/&quot;</span>
+<a id="__codelineno-16-49" name="__codelineno-16-49" href="#ansible-core-ansible-core-basics-__codelineno-16-49"></a><span class="go">DOCUMENTATION_URL=&quot;https://access.redhat.com/documentation/red_hat_enterprise_linux/8/&quot;</span>
+<a id="__codelineno-16-50" name="__codelineno-16-50" href="#ansible-core-ansible-core-basics-__codelineno-16-50"></a><span class="go">BUG_REPORT_URL=&quot;https://bugzilla.redhat.com/&quot;</span>
+<a id="__codelineno-16-51" name="__codelineno-16-51" href="#ansible-core-ansible-core-basics-__codelineno-16-51"></a>
+<a id="__codelineno-16-52" name="__codelineno-16-52" href="#ansible-core-ansible-core-basics-__codelineno-16-52"></a><span class="go">REDHAT_BUGZILLA_PRODUCT=&quot;Red Hat Enterprise Linux 8&quot;</span>
+<a id="__codelineno-16-53" name="__codelineno-16-53" href="#ansible-core-ansible-core-basics-__codelineno-16-53"></a><span class="go">REDHAT_BUGZILLA_PRODUCT_VERSION=8.5</span>
+<a id="__codelineno-16-54" name="__codelineno-16-54" href="#ansible-core-ansible-core-basics-__codelineno-16-54"></a><span class="go">REDHAT_SUPPORT_PRODUCT=&quot;Red Hat Enterprise Linux&quot;</span>
+<a id="__codelineno-16-55" name="__codelineno-16-55" href="#ansible-core-ansible-core-basics-__codelineno-16-55"></a><span class="go">REDHAT_SUPPORT_PRODUCT_VERSION=&quot;8.5&quot;</span>
 </code></pre></div>
 <p>You can shorten the command and leave out <code>-m command</code> as this module is used by default:</p>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#ansible-core-ansible-core-basics-__codelineno-13-1"></a><span class="gp">[student@ansible-1 ~]$ </span>ansible<span class="w"> </span>control<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;uname -a&quot;</span>
-<a id="__codelineno-13-2" name="__codelineno-13-2" href="#ansible-core-ansible-core-basics-__codelineno-13-2"></a><span class="go">ansible-1 | CHANGED | rc=0 &gt;&gt;</span>
-<a id="__codelineno-13-3" name="__codelineno-13-3" href="#ansible-core-ansible-core-basics-__codelineno-13-3"></a><span class="go">Linux ansible-1.example.com 4.18.0-348.12.2.el8_5.x86_64 #1 SMP Mon Jan 17 07:06:06 EST 2022 x86_64 x86_64 x86_64 GNU/Linux</span>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#ansible-core-ansible-core-basics-__codelineno-17-1"></a><span class="gp">[student@ansible-1 ~]$ </span>ansible<span class="w"> </span>control<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;uname -a&quot;</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#ansible-core-ansible-core-basics-__codelineno-17-2"></a><span class="go">ansible-1 | CHANGED | rc=0 &gt;&gt;</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#ansible-core-ansible-core-basics-__codelineno-17-3"></a><span class="go">Linux ansible-1.example.com 4.18.0-348.12.2.el8_5.x86_64 #1 SMP Mon Jan 17 07:06:06 EST 2022 x86_64 x86_64 x86_64 GNU/Linux</span>
 </code></pre></div>
 <p>Ad hoc command are very useful to gather information about your managed nodes, the <em>setup</em> module is used. Try that against one host alone (so you won't get overwhelmed with output):</p>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#ansible-core-ansible-core-basics-__codelineno-14-1"></a><span class="gp">[student@ansible-1 ~]$ </span>ansible<span class="w"> </span>node1<span class="w"> </span>-m<span class="w"> </span>setup
-<a id="__codelineno-14-2" name="__codelineno-14-2" href="#ansible-core-ansible-core-basics-__codelineno-14-2"></a><span class="go">node1 | SUCCESS =&gt; {</span>
-<a id="__codelineno-14-3" name="__codelineno-14-3" href="#ansible-core-ansible-core-basics-__codelineno-14-3"></a><span class="go">    &quot;ansible_facts&quot;: {</span>
-<a id="__codelineno-14-4" name="__codelineno-14-4" href="#ansible-core-ansible-core-basics-__codelineno-14-4"></a><span class="go">        &quot;ansible_all_ipv4_addresses&quot;: [</span>
-<a id="__codelineno-14-5" name="__codelineno-14-5" href="#ansible-core-ansible-core-basics-__codelineno-14-5"></a><span class="go">            &quot;172.16.9.82&quot;</span>
-<a id="__codelineno-14-6" name="__codelineno-14-6" href="#ansible-core-ansible-core-basics-__codelineno-14-6"></a><span class="go">        ],</span>
-<a id="__codelineno-14-7" name="__codelineno-14-7" href="#ansible-core-ansible-core-basics-__codelineno-14-7"></a><span class="go">        &quot;ansible_all_ipv6_addresses&quot;: [</span>
-<a id="__codelineno-14-8" name="__codelineno-14-8" href="#ansible-core-ansible-core-basics-__codelineno-14-8"></a><span class="go">            &quot;fe80::a4:bff:fea5:6d70&quot;</span>
-<a id="__codelineno-14-9" name="__codelineno-14-9" href="#ansible-core-ansible-core-basics-__codelineno-14-9"></a><span class="go">        ],</span>
-<a id="__codelineno-14-10" name="__codelineno-14-10" href="#ansible-core-ansible-core-basics-__codelineno-14-10"></a><span class="go">        &quot;ansible_apparmor&quot;: {</span>
-<a id="__codelineno-14-11" name="__codelineno-14-11" href="#ansible-core-ansible-core-basics-__codelineno-14-11"></a><span class="go">            &quot;status&quot;: &quot;disabled&quot;</span>
-<a id="__codelineno-14-12" name="__codelineno-14-12" href="#ansible-core-ansible-core-basics-__codelineno-14-12"></a><span class="go">        },</span>
-<a id="__codelineno-14-13" name="__codelineno-14-13" href="#ansible-core-ansible-core-basics-__codelineno-14-13"></a><span class="go">        &quot;ansible_architecture&quot;: &quot;x86_64&quot;,</span>
-<a id="__codelineno-14-14" name="__codelineno-14-14" href="#ansible-core-ansible-core-basics-__codelineno-14-14"></a><span class="go">        &quot;ansible_bios_date&quot;: &quot;10/16/2017&quot;,</span>
-<a id="__codelineno-14-15" name="__codelineno-14-15" href="#ansible-core-ansible-core-basics-__codelineno-14-15"></a><span class="go">        &quot;ansible_bios_vendor&quot;: &quot;Amazon EC2&quot;,</span>
-<a id="__codelineno-14-16" name="__codelineno-14-16" href="#ansible-core-ansible-core-basics-__codelineno-14-16"></a><span class="go">        &quot;ansible_bios_version&quot;: &quot;1.0&quot;,</span>
-<a id="__codelineno-14-17" name="__codelineno-14-17" href="#ansible-core-ansible-core-basics-__codelineno-14-17"></a><span class="go">...</span>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#ansible-core-ansible-core-basics-__codelineno-18-1"></a><span class="gp">[student@ansible-1 ~]$ </span>ansible<span class="w"> </span>node1<span class="w"> </span>-m<span class="w"> </span>setup
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#ansible-core-ansible-core-basics-__codelineno-18-2"></a><span class="go">node1 | SUCCESS =&gt; {</span>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#ansible-core-ansible-core-basics-__codelineno-18-3"></a><span class="go">    &quot;ansible_facts&quot;: {</span>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#ansible-core-ansible-core-basics-__codelineno-18-4"></a><span class="go">        &quot;ansible_all_ipv4_addresses&quot;: [</span>
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#ansible-core-ansible-core-basics-__codelineno-18-5"></a><span class="go">            &quot;172.16.9.82&quot;</span>
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#ansible-core-ansible-core-basics-__codelineno-18-6"></a><span class="go">        ],</span>
+<a id="__codelineno-18-7" name="__codelineno-18-7" href="#ansible-core-ansible-core-basics-__codelineno-18-7"></a><span class="go">        &quot;ansible_all_ipv6_addresses&quot;: [</span>
+<a id="__codelineno-18-8" name="__codelineno-18-8" href="#ansible-core-ansible-core-basics-__codelineno-18-8"></a><span class="go">            &quot;fe80::a4:bff:fea5:6d70&quot;</span>
+<a id="__codelineno-18-9" name="__codelineno-18-9" href="#ansible-core-ansible-core-basics-__codelineno-18-9"></a><span class="go">        ],</span>
+<a id="__codelineno-18-10" name="__codelineno-18-10" href="#ansible-core-ansible-core-basics-__codelineno-18-10"></a><span class="go">        &quot;ansible_apparmor&quot;: {</span>
+<a id="__codelineno-18-11" name="__codelineno-18-11" href="#ansible-core-ansible-core-basics-__codelineno-18-11"></a><span class="go">            &quot;status&quot;: &quot;disabled&quot;</span>
+<a id="__codelineno-18-12" name="__codelineno-18-12" href="#ansible-core-ansible-core-basics-__codelineno-18-12"></a><span class="go">        },</span>
+<a id="__codelineno-18-13" name="__codelineno-18-13" href="#ansible-core-ansible-core-basics-__codelineno-18-13"></a><span class="go">        &quot;ansible_architecture&quot;: &quot;x86_64&quot;,</span>
+<a id="__codelineno-18-14" name="__codelineno-18-14" href="#ansible-core-ansible-core-basics-__codelineno-18-14"></a><span class="go">        &quot;ansible_bios_date&quot;: &quot;10/16/2017&quot;,</span>
+<a id="__codelineno-18-15" name="__codelineno-18-15" href="#ansible-core-ansible-core-basics-__codelineno-18-15"></a><span class="go">        &quot;ansible_bios_vendor&quot;: &quot;Amazon EC2&quot;,</span>
+<a id="__codelineno-18-16" name="__codelineno-18-16" href="#ansible-core-ansible-core-basics-__codelineno-18-16"></a><span class="go">        &quot;ansible_bios_version&quot;: &quot;1.0&quot;,</span>
+<a id="__codelineno-18-17" name="__codelineno-18-17" href="#ansible-core-ansible-core-basics-__codelineno-18-17"></a><span class="go">...</span>
 </code></pre></div>
 <p>You will get loads of useful information and you can use every bit as variables in your playbooks later on! We will use facts in a later exercise again.</p>
 <!-- markdownlint-disable --></section><section class="print-page" id="ansible-core-ansible-core-playbook"><h1 id="ansible-core-ansible-core-playbook-3-writing-your-first-playbook">3 - Writing your first Playbook</h1>
@@ -2575,7 +2609,7 @@ In this lab, the inventory is provided by your instructor. The inventory file is
 <p>There is a <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html" target="_blank">best practice Guide</a> on the preferred directory structures for playbooks.  We strongly encourage you to read and understand these practices as you develop your Ansible skills.<br />
 That said, our playbook today is very basic and creating a complex structure will just confuse things.</p>
 <p>Instead, we are going to create a very simple directory structure for our playbook, and add just a couple of files to it.</p>
-<p>On your control host <strong>ansible-1</strong>, create a directory called <code>ansible-files</code> in your home directory and change directories into it:</p>
+<p>If you haven't done this already, on your control host <strong>ansible-1</strong>, create a directory called <code>ansible-files</code> in your home directory and change directories into it:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#ansible-core-ansible-core-playbook-__codelineno-0-1"></a><span class="gp">[student@ansible-1 ~]$ </span>mkdir<span class="w"> </span>ansible-files
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#ansible-core-ansible-core-playbook-__codelineno-0-2"></a><span class="gp">[student@ansible-1 ~]$ </span><span class="nb">cd</span><span class="w"> </span>ansible-files/
 </code></pre></div>
