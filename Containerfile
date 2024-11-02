@@ -13,6 +13,7 @@ COPY .git .git
 # Copy documentation source files to working directory
 COPY docs docs
 COPY mkdocs.yml .
+COPY includes includes
 # Build new documentation
 RUN mkdocs build
 
