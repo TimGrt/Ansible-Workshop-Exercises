@@ -1,4 +1,4 @@
-FROM python:3.12-alpine AS builder
+FROM python:3.13-alpine AS builder
 WORKDIR /tmp
 # Copy Python packages/dependencies file
 COPY requirements.txt .
@@ -13,6 +13,7 @@ COPY .git .git
 # Copy documentation source files to working directory
 COPY docs docs
 COPY mkdocs.yml .
+COPY includes includes
 # Build new documentation
 RUN mkdocs build
 
