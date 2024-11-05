@@ -242,7 +242,7 @@ Achieve the following tasks:
 
 Filters let you transform JSON data into YAML data, split a URL to extract the hostname, get the SHA1 hash of a string, add or multiply integers, and much more. You can use the Ansible-specific filters documented [here](https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html){:target="_blank"} to manipulate your data, or use any of the standard filters shipped with [Jinja2](https://jinja.palletsprojects.com/en/3.0.x/templates/#builtin-filters){:target="_blank"}.
 
-Create a new role which utilizes an [Ansible ACI module](https://docs.ansible.com/ansible/latest/collections/cisco/aci/index.html){:target="_blank"} that can manage contract resources (*vz:BrCP*). Get all contracts of the **common** tenant and output a list with only the contract names.
+Create a new role which utilizes an [Ansible ACI module](https://docs.ansible.com/ansible/latest/collections/cisco/aci/index.html){:target="_blank"} that can manage/query contract resources (*vz:BrCP*). Get all contracts of the **common** tenant and output a list with only the contract names.
 
 ![Contracts of common tenant](apic-common-contracts.png)
 
@@ -252,21 +252,24 @@ Dealing with network devices often means dealing with large JSON objects and you
 
 The Ansible module you will be using returns a JSON output like the following:
 
+!!! tip
+    Open the annotations (click on the multiple :material-plus-circle: icons) for further explanation of the different JSON objects and what they mean in the ACI context.
+
 ```json hl_lines="22 36" linenums="1"
-  "changed": false,
-  "current": [
-    {
-      "fvTenant": {
-        "attributes": {
+{
+  "current": [ // (1)!
+    { // (2)!
+      "fvTenant": { // (3)!
+        "attributes": { // (4)!
           "annotation": "",
           "childAction": "",
           "descr": "",
           "dn": "uni/tn-common",
           "extMngdBy": "",
           "lcOwn": "local",
-          "modTs": "2022-04-16T13:54:30.664+00:00",
+          "modTs": "2024-11-02T16:06:04.547+00:00",
           "monPolDn": "uni/tn-common/monepg-default",
-          "name": "common",
+          "name": "common", // (5)!
           "nameAlias": "",
           "ownerKey": "",
           "ownerTag": "",
@@ -274,108 +277,142 @@ The Ansible module you will be using returns a JSON output like the following:
           "uid": "0",
           "userdom": "all"
         },
-        "children": [
-            {
-              "vzBrCP": {
-                "attributes": {
-                  "accessPrivilege": "USER",
-                  "annotation": "",
-                  "childAction": "",
-                  "configIssues": "",
-                  "descr": "",
-                  "extMngdBy": "",
-                  "intent": "install",
-                  "lcOwn": "local",
-                  "modTs": "2022-04-16T13:54:30.664+00:00",
-                  "monPolDn": "uni/tn-common/monepg-default",
-                  "name": "default",
-                  "nameAlias": "",
-                  "ownerKey": "",
-                  "ownerTag": "",
-                  "prio": "unspecified",
-                  "reevaluateAll": "no",
-                  "rn": "brc-default",
-                  "scope": "context",
-                  "status": "",
-                  "targetDscp": "unspecified",
-                  "uid": "0",
-                  "userdom": "all"
-                },
-                "children": [
-                  {
-                    "vzSubj": {
-                      "attributes": {
-                        "accessPrivilege": "USER",
-                        "annotation": "",
-                        "childAction": "",
-                        "configIssues": "",
-                        "consMatchT": "AtleastOne",
-                        "descr": "",
-                        "extMngdBy": "",
-                        "lcOwn": "local",
-                        "modTs": "2022-04-16T13:54:30.664+00:00",
-                        "monPolDn": "uni/tn-common/monepg-default",
-                        "name": "default",
-                        "nameAlias": "",
-                        "prio": "unspecified",
-                        "provMatchT": "AtleastOne",
-                        "revFltPorts": "yes",
-                        "rn": "subj-default",
-                        "status": "",
-                        "targetDscp": "unspecified",
-                        "uid": "0",
-                        "userdom": "all"
-                      },
-                      "children": [
-                        {
-                          "vzRsSubjFiltAtt": {
-                            "attributes": {
-                              "accessPrivilege": "USER",
-                              "action": "permit",
-                              "annotation": "",
-                              "childAction": "",
-                              "directives": "",
-                              "extMngdBy": "",
-                              "forceResolve": "yes",
-                              "lcOwn": "local",
-                              "modTs": "2022-04-16T13:54:30.664+00:00",
-                              "monPolDn": "uni/tn-common/monepg-default",
-                              "priorityOverride": "default",
-                              "rType": "mo",
-                              "rn": "rssubjFiltAtt-default",
-                              "state": "formed",
-                              "stateQual": "none",
-                              "status": "",
-                              "tCl": "vzFilter",
-                              "tContextDn": "",
-                              "tDn": "uni/tn-common/flt-default",
-                              "tRn": "flt-default",
-                              "tType": "name",
-                              "tnVzFilterName": "default",
-                              "uid": "0",
-                              "userdom": "all"
-                            }
+        "children": [ // (6)!
+          {
+            "vzBrCP": { // (7)!
+              "attributes": { // (8)!
+                "accessPrivilege": "USER",
+                "annotation": "",
+                "childAction": "",
+                "configIssues": "",
+                "descr": "",
+                "extMngdBy": "",
+                "intent": "install",
+                "lcOwn": "local",
+                "modTs": "2024-11-02T16:06:04.547+00:00",
+                "monPolDn": "uni/tn-common/monepg-default",
+                "name": "default", // (9)!
+                "nameAlias": "",
+                "ownerKey": "",
+                "ownerTag": "",
+                "prio": "unspecified",
+                "reevaluateAll": "no",
+                "rn": "brc-default",
+                "scope": "context",
+                "status": "",
+                "targetDscp": "unspecified",
+                "uid": "0",
+                "userdom": "all"
+              },
+              "children": [ // (10)!
+                {
+                  "vzSubj": {
+                    "attributes": {
+                      "accessPrivilege": "USER",
+                      "annotation": "",
+                      "childAction": "",
+                      "configIssues": "",
+                      "consMatchT": "AtleastOne",
+                      "descr": "",
+                      "extMngdBy": "",
+                      "lcOwn": "local",
+                      "modTs": "2024-11-02T16:06:04.547+00:00",
+                      "monPolDn": "uni/tn-common/monepg-default",
+                      "name": "default",
+                      "nameAlias": "",
+                      "prio": "unspecified",
+                      "provMatchT": "AtleastOne",
+                      "revFltPorts": "yes",
+                      "rn": "subj-default",
+                      "status": "",
+                      "targetDscp": "unspecified",
+                      "uid": "0",
+                      "userdom": "all"
+                    },
+                    "children": [
+                      {
+                        "vzRsSubjFiltAtt": {
+                          "attributes": {
+                            "accessPrivilege": "USER",
+                            "action": "permit",
+                            "annotation": "",
+                            "childAction": "",
+                            "directives": "",
+                            "extMngdBy": "",
+                            "forceResolve": "yes",
+                            "lcOwn": "local",
+                            "modTs": "2024-11-02T16:06:04.547+00:00",
+                            "monPolDn": "uni/tn-common/monepg-default",
+                            "priorityOverride": "default",
+                            "rType": "mo",
+                            "rn": "rssubjFiltAtt-default",
+                            "state": "formed",
+                            "stateQual": "none",
+                            "status": "",
+                            "tCl": "vzFilter",
+                            "tContextDn": "",
+                            "tDn": "uni/tn-common/flt-default",
+                            "tRn": "flt-default",
+                            "tType": "name",
+                            "tnVzFilterName": "default",
+                            "uid": "0",
+                            "userdom": "all"
                           }
                         }
-                      ]
-                    }
+                      }
+                    ]
                   }
-                ]
-              }
+                }
+              ]
             }
-          ]
-        }
+          }
+        ]
       }
-    ],
-    "failed": false
-  }
+    }
+  ]
 }
 ```
 
-The highlighted lines show the **list** of contracts and the name of the contract-**element**. You need to traverse the JSON object until you reach the key you want to get. In JSON, *list*-objects are encapsulated with square brackets (start with *[* and end with *]*), dictionary objects with curly brackets (start with *{* and end with *}*).  
+1. The key `current` is a **list**, it shows the existing configuration from the APIC after the module has finished.
+2. Here starts the first list **item** of the `current` list, the list item contains another **key-value-pair**, therefore it is a **dictionary**.  
+   You are at `current[0]`.
+3. The key `fvTenant` is a **dictionary** containing the keys `attributes` (line 5) and `children` (line 22).  
+   You are at `current[0]['fvTenant']`.
+4. The key `attributes` contains **key-value-pairs** which describe the tenant.  
+   You are at `current[0]['fvTenant']['attributes']`.
+5. This **key** contains the *name* of the tenant as its **value**.  
+   You are at `current[0]['fvTenant']['attributes']['name']`.
+6. The `children` key is a **list** containing all *contract* objects. **This is the list that we want as it contains all contract names!** Remember, the list may contain multiple items (contracts), you only want to retrieve the name of every list item.  
+   You are at `current[0]['fvTenant']['children']`.
+7. This is the **first list item** of the `children` list, it is the first (and in this example only) contract object.  
+   You are at `current[0]['fvTenant']['children']['vzBrCP']`.
+8. The key `attributes` contains **key-value-pairs** which describe the contract this time.  
+   You are at `current[0]['fvTenant']['children'][0]['vzBrCP']['attributes']`.
+9. This **key** contains the *name* of the contract as its **value**.  
+   You are at `current[0]['fvTenant']['children'][0]['vzBrCP']['attributes']['name']`.
+10. The **list** `children` contains subjects (*vzSubj*), which are the highest level object in contracts and contain all the filters that determine what traffic flows between the EPGs. **You can ignore this list and all other key-value-pairs, lists or dictionaries in it**.  
+   You are at `current[0]['fvTenant']['children'][0]['vzBrCP']['children']`.
 
-Observing the above output, you can see that multiple list objects are within the complete JSON object. The value of the *key* `current` is a list, every list item of this key is a tenant (with multiple *key-value* pairs which can also be dictionaries or lists).
+??? tip "Get the JSON content and store it locally for easier debugging!"
 
+    Copy the following task and add it **after** the one where you retrieved the contracts of the *common* tenant. The task expects that you [*registered*](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_variables.html#registering-variables){:target="_blank"} the output to the variable `common_contracts`!
+
+    ```yaml
+    - name: Write output to file for easier debugging, removing all keys with Ansible-specific content
+      ansible.builtin.copy:
+        content: "{{ common_contracts | ansible.utils.remove_keys(target=['changed', 'failed']) | to_nice_json(indent=2) }}"
+        dest: "{{ playbook_dir }}/common-contracts.json"
+        mode: "0644"
+    ```
+
+    This task will store the JSON output to the file `common-contracts.json` in your playbook directory. The used filters (`remove_keys` and `to_nice_json`) clean and beautify the content a bit.
+
+    Your VScode editor shows where you are in the JSON file. You can see the path at the top of the file, with the cursor on the `name` key of the *default* contract, the path will look like this:
+    <figure markdown="span">
+      ![VScode Editor with JSON path](vscode-editor-json-path.png)
+    </figure>
+
+Observing the output above, you can see that multiple list objects are within the complete JSON object. The value of the *key* `current` is a list, every list item of this key is a tenant (with multiple *key-value* pairs which can also be dictionaries or lists).  
 If you filter for a single tenant (by providing the tenant name) when using the module, the list `current` only has one element. Lists (in Python, which Ansible is based on) start at element *0*, the second list element is *1* and so on.
 
 The resulting output in your playbook-run should look something like this (considering that the *common* tenant only has one contract):
