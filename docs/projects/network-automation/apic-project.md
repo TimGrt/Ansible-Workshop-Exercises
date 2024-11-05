@@ -385,7 +385,7 @@ The Ansible module you will be using returns a JSON output like the following:
 6. The `children` key is a **list** containing all *contract* objects. **This is the list that we want as it contains all contract names!** Remember, the list may contain multiple items (contracts), you only want to retrieve the name of every list item.  
    You are at `current[0]['fvTenant']['children']`.
 7. This is the **first list item** of the `children` list, it is the first (and in this example only) contract object.  
-   You are at `current[0]['fvTenant']['children']['vzBrCP']`.
+   You are at `current[0]['fvTenant']['children'][0]['vzBrCP']`.
 8. The key `attributes` contains **key-value-pairs** which describe the contract this time.  
    You are at `current[0]['fvTenant']['children'][0]['vzBrCP']['attributes']`.
 9. This **key** contains the *name* of the contract as its **value**.  
@@ -428,7 +428,7 @@ ok: [demo-aci-host] => {
 
 !!! tip
     There are multiple ways to achieve the desired solution, try around!  
-    Dealing with large JSON objects and outputting it to stdout may result in not being able to scroll back far enough to see the start of your task or playbook.  
+    Dealing with large JSON objects and outputting it to stdout may result in not being able to scroll back far enough in your VScode terminal to see the start of your task or playbook.  
     You can adjust the [VScode configuration](red-hat-demo-environment.md#terminal-scrollback) yourself.
 
 Achieve the following tasks:
