@@ -1,6 +1,6 @@
 # Local Demo Environment
 
-You can also do all exercises in a *local* development environment, if no Red Hat Demo environment is available. All you need is a Linxu VM or WSL instance with internet access, your development environment must meet the following requirements.
+You can also do all exercises in a *local* development environment, if no Red Hat Demo environment is available. All you need is a Linux VM or WSL instance with internet access, your development environment must meet the following requirements.
 
 * Python 3.9+ (if you want to use the `ansible-navigator` Python 3.10+ is required!)
 
@@ -69,7 +69,7 @@ pip3 install ansible-core==2.16.8
     With 2.17+, the decision was made to not support such old Python versions anymore (which is understandable as in currently Q3 2024, even Python 3.7 is already EOL), but this obviously has implications on automating older distributions.  
     **For now, use the *older* 2.16.x (or *ansible 9* if you installed the complete package), as this is *supported*/tested until 2025.**
 
-The playbook for deploying the Workshop environment is hosted in Gihub, you'll need the *Git* client to clone the project. In most Linux distributions, the Git client is already installed, otherwise install it with the following command, here for a Debian/Ubuntu distribution:
+The playbook for deploying the Workshop environment is hosted in Github, you'll need the *Git* client to clone the project. In most Linux distributions, the Git client is already installed, otherwise install it with the following command, here for a Debian/Ubuntu distribution:
 
 ```console
 sudo apt install git
