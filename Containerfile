@@ -22,4 +22,4 @@ RUN adduser -D static
 USER static
 WORKDIR /home/static
 COPY --from=builder /tmp/site .
-CMD ["busybox", "httpd", "-f", "-v", "-p", "80"]
+CMD ["busybox", "httpd", "-f", "-v", "-p", "8080"]

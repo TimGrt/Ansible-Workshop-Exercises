@@ -50,7 +50,7 @@ docker build -t ansible-workshop-exercises .
 Run a container from the previously build image, the webserver is available at Port 8080:
 
 ```bash
-docker run -d -p 8080:80/tcp --name workshop ansible-workshop-exercises
+docker run -d -p 8080:8080/tcp --name workshop ansible-workshop-exercises
 ```
 
 ## Development
