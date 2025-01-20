@@ -1800,7 +1800,7 @@ Click on <em>File</em> in the top menu bar, click on <em>Preferences</em> and op
 Click on <em>File</em> in the top menu bar, click on <em>Preferences</em> and open <em>Settings</em>. Search for <code>scrollback</code> and adjust the number to 10000 in the second configuration parameter (<em>Terminal &gt; Integrated: Scrollback</em>).</p>
 <p><img alt="Terminal Scrollback configuration" src="../demo-environment/images/TerminalScrollback.png" /></p>
 <!-- markdownlint-disable --></section><section class="print-page" id="demo-environment-local-demo-environment"><h1 id="demo-environment-local-demo-environment-local-demo-environment">Local Demo Environment</h1>
-<p>You can also do all exercises in a <em>local</em> development environment, if no Red Hat Demo environment is available. All you need is a Linxu VM or WSL instance with internet access, your development environment must meet the following requirements.</p>
+<p>You can also do all exercises in a <em>local</em> development environment, if no Red Hat Demo environment is available. All you need is a Linux VM or WSL instance with internet access, your development environment must meet the following requirements.</p>
 <ul>
 <li>Python 3.9+ (if you want to use the <code>ansible-navigator</code> Python 3.10+ is required!)</li>
 </ul>
@@ -1879,7 +1879,7 @@ With many older distributions, the default Python version is Python3.6 or even o
 With 2.17+, the decision was made to not support such old Python versions anymore (which is understandable as in currently Q3 2024, even Python 3.7 is already EOL), but this obviously has implications on automating older distributions.<br />
 <strong>For now, use the <em>older</em> 2.16.x (or <em>ansible 9</em> if you installed the complete package), as this is <em>supported</em>/tested until 2025.</strong></p>
 </details>
-<p>The playbook for deploying the Workshop environment is hosted in Gihub, you'll need the <em>Git</em> client to clone the project. In most Linux distributions, the Git client is already installed, otherwise install it with the following command, here for a Debian/Ubuntu distribution:</p>
+<p>The playbook for deploying the Workshop environment is hosted in Github, you'll need the <em>Git</em> client to clone the project. In most Linux distributions, the Git client is already installed, otherwise install it with the following command, here for a Debian/Ubuntu distribution:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#demo-environment-local-demo-environment-__codelineno-1-1"></a><span class="go">sudo apt install git</span>
 </code></pre></div>
 <p>To make sure your WSL distribution can start services in the managed node containers, run the following command:</p>
