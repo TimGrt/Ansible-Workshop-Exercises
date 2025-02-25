@@ -8,11 +8,13 @@ th, td {
 
 .md-typeset__table {
   line-height: 1;
+  min-width: 80%;
 }
 
 .md-typeset__table table:not([class]) {
   font-size: .74rem;
   border-right: none;
+  display: table;
 }
 
 .md-typeset__table table:not([class]) td,

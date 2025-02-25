@@ -1,3 +1,9 @@
+---
+pdf: true
+covers:
+  front: ./docs/assets/pdf/ansible-aap-cover.html.j2
+---
+
 # 2 - Inventory & Ad-hoc commands
 
 ## Objective

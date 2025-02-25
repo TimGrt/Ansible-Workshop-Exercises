@@ -1,6 +1,6 @@
 # Overview
 
-This section shows tools in the Ansible world which will become more and more relevant in the upcoming future. This includes:
+This section shows tools in the Ansible world which will become more and more relevant in the upcoming future or are a more advanced topic. This includes:
 
 * Ansible Navigator
 * Execution Environments

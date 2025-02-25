@@ -1,4 +1,4 @@
-FROM python:3.13-alpine AS builder
+FROM docker.io/library/python:3.13-alpine AS builder
 WORKDIR /tmp
 # Copy Python packages/dependencies file
 COPY requirements.txt .
@@ -14,8 +14,8 @@ COPY .git .git
 COPY docs docs
 COPY mkdocs.yml .
 COPY includes includes
-# Build new documentation
-RUN mkdocs build
+# Build new documentation without PDF file generation as this needs a special base image
+RUN MKDOCS_EXPORTER_PDF_ENABLED=false mkdocs build
 
 FROM busybox
 RUN adduser -D static

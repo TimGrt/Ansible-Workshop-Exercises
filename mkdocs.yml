@@ -1,16 +1,17 @@
 # MkDocs configuration file
 site_name: Ansible Workshop
-copyright: Copyright &copy; Tim Grützmacher 2024
+copyright: Copyright &copy; Tim Grützmacher 2025
 extra:
   social:
-    - icon: fontawesome/brands/gitlab
-      link: https://gitlab.ccloud.ninja/tgruetzmacher/ansible-workshop-exercises
-      name: Project in Gitlab
+    - icon: simple/githubactions
+      link: https://github.com/TimGrt/Ansible-Workshop-Exercises/actions
+      name: CI/CD Pipelines
     - icon: fontawesome/brands/docker
-      link: https://github.com/TimGrt/Ansible-Workshop-Exercises/blob/main/Dockerfile
+      link: https://github.com/TimGrt/Ansible-Workshop-Exercises/blob/main/Containerfile
       name: Container Definition
 extra_css:
   - assets/stylesheets/tables.css
+  - assets/stylesheets/pdf.scss
 extra_javascript:
   - assets/javascripts/extra/refresh-on-toggle-dark-light.js
   - assets/javascripts/extra/tablesort.min.js
@@ -42,7 +43,7 @@ markdown_extensions:
         - includes/abbreviations.md
       base_path:
         - .
-        -  docs/ansible-core/snippets
+        - docs/ansible-core/snippets
         - docs/automation-platform/snippets
         - docs/projects/cloud-automation/snippets
         - docs/projects/linux-automation/snippets
@@ -52,8 +53,6 @@ markdown_extensions:
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
   - tables
-  - toc:
-      title: On this page
 plugins:
   - search:
       lang: en
@@ -64,13 +63,21 @@ plugins:
       enabled: !ENV [ENABLED_GIT_REVISION_DATE, True]
       fallback_to_build_date: true
       locale: en
-  - print-site:
-      add_cover_page: true
-      add_print_site_banner: true
-      cover_page_template: "docs/assets/pdf/cover-page.tpl"
-      enabled: !ENV [ENABLED_PRINT_SITE, True]
-      print_page_title: ""
-      print_site_banner_template: "docs/assets/pdf/print-banner.tpl"
+  - exporter:
+      buttons:
+        - title: View as PDF
+          icon: material-file-pdf-box
+          enabled: !!python/name:mkdocs_exporter.formats.pdf.buttons.download.enabled
+          attributes:
+            target: _blank
+            href: !!python/name:mkdocs_exporter.formats.pdf.buttons.download.href
+      formats:
+        pdf:
+          covers:
+            back: docs/assets/pdf/back-cover.html.j2
+          enabled: !ENV [MKDOCS_EXPORTER_PDF_ENABLED, true]
+          explicit: true
+          concurrency: 16
 theme:
   name: material
   custom_dir: docs/assets/overrides
@@ -115,31 +122,31 @@ nav:
     - demo-environment/editor-alternatives.md
   - "Ansible Basics":
     - ansible-basics-overview.md
-    - ansible-core/ansible-core-intro.md
-    - ansible-core/ansible-core-basics.md
-    - ansible-core/ansible-core-playbook.md
-    - ansible-core/ansible-core-variables.md
-    - ansible-core/ansible-core-conditionals.md
-    - ansible-core/ansible-core-loops.md
-    - ansible-core/ansible-core-handlers.md
-    - ansible-core/ansible-core-templates.md
-    - ansible-core/ansible-core-roles.md
+    - "1 - Lab environment": ansible-core/ansible-core-intro.md
+    - "2 - Ansible Basics": ansible-core/ansible-core-basics.md
+    - "3 - Playbooks": ansible-core/ansible-core-playbook.md
+    - "4 - Variables": ansible-core/ansible-core-variables.md
+    - "5 - Conditionals": ansible-core/ansible-core-conditionals.md
+    - "6 - Loops": ansible-core/ansible-core-loops.md
+    - "7 - Handlers": ansible-core/ansible-core-handlers.md
+    - "8 - Templates": ansible-core/ansible-core-templates.md
+    - "9 - Roles": ansible-core/ansible-core-roles.md
     - ansible-core/ansible-core-supplemental.md
   - "Automation Platform":
     - automation-platform-overview.md
-    - automation-platform/automation-platform-intro.md
-    - automation-platform/automation-platform-inventory.md
-    - automation-platform/automation-platform-projects.md
-    - automation-platform/automation-platform-surveys.md
-    - automation-platform/automation-platform-rbac.md
-    - automation-platform/automation-platform-workflows.md
-    - automation-platform/automation-platform-wrapup.md
+    - "1 - AAP Introduction": automation-platform/automation-platform-intro.md
+    - "2 - Inventory & Ad-hoc commands": automation-platform/automation-platform-inventory.md
+    - "3 - Projects & Job Templates": automation-platform/automation-platform-projects.md
+    - "4 - Surveys": automation-platform/automation-platform-surveys.md
+    - "5 - Role-based access control": automation-platform/automation-platform-rbac.md
+    - "6 - Workflows": automation-platform/automation-platform-workflows.md
+    - "7 - AAP Wrap up": automation-platform/automation-platform-wrapup.md
   - "Projects":
     - projects/projects-overview.md
-    - projects/linux-automation/grafana-project.md
-    - projects/network-automation/apic-project.md
-    - projects/cloud-automation/aws-project.md
-    - projects/dcim-ipam-automation/netbox-project.md
-  - "Ansible Future":
-    - ansible-future-overview.md
+    - "Project - Linux automation": projects/linux-automation/grafana-project.md
+    - "Project - Network automation": projects/network-automation/apic-project.md
+    - "Project - Cloud automation": projects/cloud-automation/aws-project.md
+    - "Project - DCIM automation": projects/dcim-ipam-automation/netbox-project.md
+  - "Ansible Advanced":
+    - ansible-advanced-overview.md
     - ansible-navigator/ansible-navigator.md
