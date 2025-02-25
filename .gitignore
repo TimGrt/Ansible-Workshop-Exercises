@@ -1,3 +1,4 @@
+.ansible/
 ve-mkdocs-dev/
 # Build folder when running 'mkdocs build'
 site/
