@@ -1,3 +1,9 @@
+---
+pdf: true
+covers:
+  front: ./docs/assets/pdf/ansible-projects-cover.html.j2
+---
+
 # Project - DCIM Automation
 
 **D**ata**c**enter **I**nventory **M**anagement and IP Address Management are indispensable in today's large data centers. NetBox offers both functions including a versatile API.

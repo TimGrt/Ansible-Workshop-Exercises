@@ -1,3 +1,9 @@
+---
+pdf: true
+covers:
+  front: ./docs/assets/pdf/ansible-projects-cover.html.j2
+---
+
 # Project - AWS Automation
 
 Automating Cloud infrastructure is getting more and more important. Tools like *Terraform* are well suited for provisioning infrastructure in public cloud environments.  

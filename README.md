@@ -31,7 +31,7 @@ podman build -t ansible-workshop-exercises .
 Run a container from the previously build image, the webserver is available at Port 8080:
 
 ```bash
-podman run -d -p 8080:80/tcp --name workshop ansible-workshop-exercises
+podman run -d -p 8080:8080/tcp --name workshop ansible-workshop-exercises
 ```
 
 Get the **public** IP address of *node2* from the lab inventory, suffix with Port 8080 and open the exercises in the browser.

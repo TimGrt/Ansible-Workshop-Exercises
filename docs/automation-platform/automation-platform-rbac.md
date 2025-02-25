@@ -1,3 +1,9 @@
+---
+pdf: true
+covers:
+  front: ./docs/assets/pdf/ansible-aap-cover.html.j2
+---
+
 # 5 - Role-based access control
 
 ## Objective

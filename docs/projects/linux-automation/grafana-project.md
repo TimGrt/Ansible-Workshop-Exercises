@@ -1,3 +1,9 @@
+---
+pdf: true
+covers:
+  front: ./docs/assets/pdf/ansible-projects-cover.html.j2
+---
+
 # Project - Linux automation
 
 To further enhance your Ansible skills, let's deploy the monitoring tool *Grafana* to one of the nodes in the demo environment.

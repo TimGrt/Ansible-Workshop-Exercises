@@ -1,3 +1,9 @@
+---
+pdf: true
+covers:
+  front: ./docs/assets/pdf/ansible-projects-cover.html.j2
+---
+
 # Project - Network automation
 
 Although the (historical) focus of Ansible was Linux automation, it is very strong with automating network as well.  

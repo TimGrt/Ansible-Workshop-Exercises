@@ -1,3 +1,9 @@
+---
+pdf: true
+covers:
+  front: ./docs/assets/pdf/ansible-core-cover.html.j2
+---
+
 # 6 - Run tasks multiple times
 
 ## Objective

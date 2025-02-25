@@ -1,3 +1,9 @@
+---
+pdf: true
+covers:
+  front: ./docs/assets/pdf/ansible-core-cover.html.j2
+---
+
 # 8 - Templating with Jinja2
 
 ## Objective

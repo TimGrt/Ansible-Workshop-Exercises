@@ -1,8 +1,14 @@
+---
+pdf: true
+covers:
+  front: ./docs/assets/pdf/ansible-aap-cover.html.j2
+---
+
 # 4 - Surveys
 
 ## Objective
 
-Demonstrate the use of Ansible Automation controller [survey feature](https://docs.ansible.com/automation-controller/latest/html/userguide/job_templates.html#surveys). Surveys set extra variables for the playbook similar to ‘Prompt for Extra Variables’ does, but in a user-friendly question and answer way. Surveys also allow for validation of user input.
+Demonstrate the use of Ansible Automation controller [survey feature](https://docs.ansible.com/automation-controller/latest/html/userguide/job_templates.html#surveys){:target="_blank"}. Surveys set extra variables for the playbook similar to ‘Prompt for Extra Variables’ does, but in a user-friendly question and answer way. Surveys also allow for validation of user input.
 
 ## Guide
 

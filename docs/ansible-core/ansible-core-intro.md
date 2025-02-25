@@ -1,3 +1,9 @@
+---
+pdf: true
+covers:
+  front: ./docs/assets/pdf/ansible-core-cover.html.j2
+---
+
 # 1 - Check the Prerequisites
 
 ## Objective

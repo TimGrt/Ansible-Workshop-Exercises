@@ -1,3 +1,9 @@
+---
+pdf: true
+covers:
+  front: ./docs/assets/pdf/ansible-advanced-cover.html.j2
+---
+
 # Ansible Navigator
 
 ## Objective
