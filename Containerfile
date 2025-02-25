@@ -1,4 +1,4 @@
-FROM docker.io/ubuntu:22.04 AS builder
+FROM docker.io/ubuntu:24.04 AS builder
 WORKDIR /tmp
 # Install Git executable for git-revision-date-localized-plugin
 RUN apt-get update \
@@ -10,7 +10,7 @@ RUN apt-get update \
 # Copy Python packages/dependencies file
 COPY requirements.txt .
 # Install Python dependencies
-RUN python3 -m pip install --no-cache-dir -r requirements.txt
+RUN python3 -m pip install --no-cache-dir -r requirements.txt --break-system-packages
 # Install headless browser for PDF file generation
 RUN playwright install chromium --with-deps
 # Copy .git folder for git-revision-date-localized-plugin
