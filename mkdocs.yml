@@ -63,6 +63,7 @@ plugins:
       fallback_to_build_date: true
       locale: en
   - exporter:
+    # This plugin requires playwright! For testing, deactivate if necessary
       buttons:
         - title: View as PDF
           icon: material-file-pdf-box

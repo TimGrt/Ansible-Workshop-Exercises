@@ -20,6 +20,9 @@ make all
 
 Running without specifying a target displays a *help* message.
 
+> NOTE: For certain pages, PDF file generation is activated. This requires Ubuntu with *playwright* installed!  
+> You can test without this, use the command provided when running `make all` or `make serve`.
+
 ### Delete development environment
 
 When you are done with your work, run the *Makefile* with the `clean` target:
