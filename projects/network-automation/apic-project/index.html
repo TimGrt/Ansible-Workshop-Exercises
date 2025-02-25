@@ -1,259 +1,123 @@
-
-<!doctype html>
-<html lang="en" class="no-js">
-  <head>
-    
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width,initial-scale=1">
-      
-      
-      
-      
-        <link rel="prev" href="../../linux-automation/grafana-project/">
-      
-      
-        <link rel="next" href="../../cloud-automation/aws-project/">
-      
-      
-      <link rel="icon" href="../../../assets/images/ansible-logo-black.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
-    
-    
-      
-        <title>Project - Network automation - Ansible Workshop</title>
-      
-    
-    
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.0253249f.min.css">
-      
-        
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
-      
-      
-  
-  
-    
-    
-  
-  
-  <style>:root{--md-admonition-icon--example:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.25 12a.75.75 0 0 1-.22.53l-2.75 2.75a.75.75 0 0 1-1.06-1.06L7.44 12 5.22 9.78a.75.75 0 1 1 1.06-1.06l2.75 2.75c.141.14.22.331.22.53m2 2a.75.75 0 0 0 0 1.5h5a.75.75 0 0 0 0-1.5z"/><path d="M0 4.75C0 3.784.784 3 1.75 3h20.5c.966 0 1.75.784 1.75 1.75v14.5A1.75 1.75 0 0 1 22.25 21H1.75A1.75 1.75 0 0 1 0 19.25Zm1.75-.25a.25.25 0 0 0-.25.25v14.5c0 .138.112.25.25.25h20.5a.25.25 0 0 0 .25-.25V4.75a.25.25 0 0 0-.25-.25Z"/></svg>');}</style>
-
-
-
-    
-    
-      
-    
-    
-      
-        
-        
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
-        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
-      
-    
-    
-      <link rel="stylesheet" href="../../../css/print-site-enum-headings1.css">
-    
-      <link rel="stylesheet" href="../../../css/print-site-enum-headings2.css">
-    
-      <link rel="stylesheet" href="../../../css/print-site-enum-headings3.css">
-    
-      <link rel="stylesheet" href="../../../css/print-site-enum-headings4.css">
-    
-      <link rel="stylesheet" href="../../../css/print-site-enum-headings5.css">
-    
-      <link rel="stylesheet" href="../../../css/print-site-enum-headings6.css">
-    
-      <link rel="stylesheet" href="../../../css/print-site.css">
-    
-      <link rel="stylesheet" href="../../../css/print-site-material.css">
-    
-      <link rel="stylesheet" href="../../../assets/stylesheets/tables.css">
-    
-    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
-    
-      
-
-    
-    
-    
-  </head>
-  
-  
-    
-    
-      
-    
-    
-    
-    
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="light-blue" data-md-color-accent="indigo">
-  
-    
-    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
-    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
-    <label class="md-overlay" for="__drawer"></label>
-    <div data-md-component="skip">
-      
-        
-        <a href="#project-network-automation" class="md-skip">
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="../../linux-automation/grafana-project/" rel="prev"/>
+<link href="../../cloud-automation/aws-project/" rel="next"/>
+<link href="../../../assets/images/ansible-logo-black.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.6.5" name="generator"/>
+<title>Project - Network automation - Ansible Workshop</title>
+<link href="../../../assets/stylesheets/main.8608ea7d.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.06af60db.min.css" rel="stylesheet"/>
+<style>:root{--md-admonition-icon--example:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.25 12a.75.75 0 0 1-.22.53l-2.75 2.75a.75.75 0 0 1-1.06-1.06L7.44 12 5.22 9.78a.75.75 0 1 1 1.06-1.06l2.75 2.75c.141.14.22.331.22.53m2 2a.75.75 0 0 0 0 1.5h5a.75.75 0 0 0 0-1.5z"/><path d="M0 4.75C0 3.784.784 3 1.75 3h20.5c.966 0 1.75.784 1.75 1.75v14.5A1.75 1.75 0 0 1 22.25 21H1.75A1.75 1.75 0 0 1 0 19.25Zm1.75-.25a.25.25 0 0 0-.25.25v14.5c0 .138.112.25.25.25h20.5a.25.25 0 0 0 .25-.25V4.75a.25.25 0 0 0-.25-.25Z"/></svg>');}</style>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../../../assets/stylesheets/tables.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<body data-md-color-accent="indigo" data-md-color-primary="light-blue" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#project-network-automation">
           Skip to content
         </a>
-      
-    </div>
-    <div data-md-component="announce">
-      
-        <aside class="md-banner">
-          <div class="md-banner__inner md-grid md-typeset">
-            
-            
-  <!-- Add announcement here, including arbitrary HTML -->
-  <!-- <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v9.5A1.75 1.75 0 0 1 14.25 14H8.061l-2.574 2.573A1.458 1.458 0 0 1 3 15.543V14H1.75A1.75 1.75 0 0 1 0 12.25v-9.5C0 1.784.784 1 1.75 1M1.5 2.75v9.5c0 .138.112.25.25.25h2a.75.75 0 0 1 .75.75v2.19l2.72-2.72a.75.75 0 0 1 .53-.22h6.5a.25.25 0 0 0 .25-.25v-9.5a.25.25 0 0 0-.25-.25H1.75a.25.25 0 0 0-.25.25"/><path d="M22.5 8.75a.25.25 0 0 0-.25-.25h-3.5a.75.75 0 0 1 0-1.5h3.5c.966 0 1.75.784 1.75 1.75v9.5A1.75 1.75 0 0 1 22.25 20H21v1.543a1.457 1.457 0 0 1-2.487 1.03L15.939 20H10.75A1.75 1.75 0 0 1 9 18.25v-1.465a.75.75 0 0 1 1.5 0v1.465c0 .138.112.25.25.25h5.5a.75.75 0 0 1 .53.22l2.72 2.72v-2.19a.75.75 0 0 1 .75-.75h2a.25.25 0 0 0 .25-.25z"/></svg></span> &nbsp;The current Workshop URL: <b><a href="https://demo.redhat.com/workshop/pm6xgd" target="_blank">https://demo.redhat.com/workshop/pm6xgd</a></b> -->
-
-          </div>
-          
-        </aside>
-      
-    </div>
-    
-    
-      
-
+</div>
+<div data-md-component="announce">
+<aside class="md-banner">
+<div class="md-banner__inner md-grid md-typeset">
+<!-- Add announcement here, including arbitrary HTML -->
+<!-- <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v9.5A1.75 1.75 0 0 1 14.25 14H8.061l-2.574 2.573A1.458 1.458 0 0 1 3 15.543V14H1.75A1.75 1.75 0 0 1 0 12.25v-9.5C0 1.784.784 1 1.75 1M1.5 2.75v9.5c0 .138.112.25.25.25h2a.75.75 0 0 1 .75.75v2.19l2.72-2.72a.75.75 0 0 1 .53-.22h6.5a.25.25 0 0 0 .25-.25v-9.5a.25.25 0 0 0-.25-.25H1.75a.25.25 0 0 0-.25.25"/><path d="M22.5 8.75a.25.25 0 0 0-.25-.25h-3.5a.75.75 0 0 1 0-1.5h3.5c.966 0 1.75.784 1.75 1.75v9.5A1.75 1.75 0 0 1 22.25 20H21v1.543a1.457 1.457 0 0 1-2.487 1.03L15.939 20H10.75A1.75 1.75 0 0 1 9 18.25v-1.465a.75.75 0 0 1 1.5 0v1.465c0 .138.112.25.25.25h5.5a.75.75 0 0 1 .53.22l2.72 2.72v-2.19a.75.75 0 0 1 .75-.75h2a.25.25 0 0 0 .25-.25z"/></svg></span> &nbsp;The current Workshop URL: <b><a href="https://demo.redhat.com/workshop/pm6xgd" target="_blank">https://demo.redhat.com/workshop/pm6xgd</a></b> -->
+</div>
+</aside>
+</div>
 <header class="md-header" data-md-component="header">
-  <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../.." title="Ansible Workshop" class="md-header__button md-logo" aria-label="Ansible Workshop" data-md-component="logo">
-      
-  <img src="../../../assets/images/ansible-logo-black.png" alt="logo">
-
-    </a>
-    <label class="md-header__button md-icon" for="__drawer">
-      
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
-    </label>
-    <div class="md-header__title" data-md-component="header-title">
-      <div class="md-header__ellipsis">
-        <div class="md-header__topic">
-          <span class="md-ellipsis">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="Ansible Workshop" class="md-header__button md-logo" data-md-component="logo" href="../../.." title="Ansible Workshop">
+<img alt="logo" src="../../../assets/images/ansible-logo-black.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
             Ansible Workshop
           </span>
-        </div>
-        <div class="md-header__topic" data-md-component="header-topic">
-          <span class="md-ellipsis">
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
             
               Project - Network automation
             
           </span>
-        </div>
-      </div>
-    </div>
-    
-      
-        <form class="md-header__option" data-md-component="palette">
-  
-    
-    
-    
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="light-blue" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
-    
-      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
-      </label>
-    
-  
-    
-    
-    
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="grey" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
-    
-      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
-      </label>
-    
-  
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="" data-md-color-primary="light-blue" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="" data-md-color-primary="grey" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"></path></svg>
+</label>
 </form>
-      
-    
-    
-      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
-    
-    
-    
-      <label class="md-header__button md-icon" for="__search">
-        
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-      </label>
-      <div class="md-search" data-md-component="search" role="dialog">
-  <label class="md-search__overlay" for="__search"></label>
-  <div class="md-search__inner" role="search">
-    <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
-      <label class="md-search__icon md-icon" for="__search">
-        
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-        
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
-      </label>
-      <nav class="md-search__options" aria-label="Search">
-        
-        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
-          
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-        </button>
-      </nav>
-      
-        <div class="md-search__suggest" data-md-component="search-suggest"></div>
-      
-    </form>
-    <div class="md-search__output">
-      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="search-result">
-          <div class="md-search-result__meta">
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
             Initializing search
           </div>
-          <ol class="md-search-result__list" role="presentation"></ol>
-        </div>
-      </div>
-    </div>
-  </div>
+<ol class="md-search-result__list" role="presentation"></ol>
 </div>
-    
-    
-      <div class="md-header__source">
-        <a href="https://github.com/TimGrt/Ansible-Workshop-Exercises" title="Go to repository" class="md-source" data-md-component="source">
-  <div class="md-source__icon md-icon">
-    
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
-  </div>
-  <div class="md-source__repository">
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/TimGrt/Ansible-Workshop-Exercises" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 496 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
     timgrt/ansible-workshop-exercises
   </div>
 </a>
-      </div>
-    
-  </nav>
-  
+</div>
+</nav>
 </header>
-    
-    <div class="md-container" data-md-component="container">
-      
-      
-        
-          
-            
-<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
-  <div class="md-grid">
-    <ul class="md-tabs__list">
-      
-        
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../../.." class="md-tabs__link">
+<div class="md-container" data-md-component="container">
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
           
   
     
@@ -261,19 +125,9 @@
   Workshop Overview
 
         </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../../../ansible-basics-overview/" class="md-tabs__link">
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../ansible-basics-overview/">
           
   
     
@@ -281,19 +135,9 @@
   Ansible Basics
 
         </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../../../automation-platform-overview/" class="md-tabs__link">
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../automation-platform-overview/">
           
   
     
@@ -301,21 +145,9 @@
   Automation Platform
 
         </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-    
-  
-  
-    
-    
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../../projects-overview/" class="md-tabs__link">
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../../projects-overview/">
           
   
     
@@ -323,1260 +155,529 @@
   Projects
 
         </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../../../ansible-future-overview/" class="md-tabs__link">
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../ansible-advanced-overview/">
           
   
     
   
-  Ansible Future
+  Ansible Advanced
 
         </a>
-      </li>
-    
-  
-
-      
-    </ul>
-  </div>
+</li>
+</ul>
+</div>
 </nav>
-          
-        
-      
-      <main class="md-main" data-md-component="main">
-        <div class="md-main__inner md-grid">
-          
-            
-              
-              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    
-
-
-  
-
-
-<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
-  <label class="md-nav__title" for="__drawer">
-    <a href="../../.." title="Ansible Workshop" class="md-nav__button md-logo" aria-label="Ansible Workshop" data-md-component="logo">
-      
-  <img src="../../../assets/images/ansible-logo-black.png" alt="logo">
-
-    </a>
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Ansible Workshop" class="md-nav__button md-logo" data-md-component="logo" href="../../.." title="Ansible Workshop">
+<img alt="logo" src="../../../assets/images/ansible-logo-black.png"/>
+</a>
     Ansible Workshop
   </label>
-  
-    <div class="md-nav__source">
-      <a href="https://github.com/TimGrt/Ansible-Workshop-Exercises" title="Go to repository" class="md-source" data-md-component="source">
-  <div class="md-source__icon md-icon">
-    
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
-  </div>
-  <div class="md-source__repository">
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/TimGrt/Ansible-Workshop-Exercises" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 496 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
     timgrt/ansible-workshop-exercises
   </div>
 </a>
-    </div>
-  
-  <ul class="md-nav__list" data-md-scrollfix>
-    
-      
-      
-  
-  
-  
-  
-    
-    
-      
-        
-          
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
-        
-          
-          
-          <div class="md-nav__link md-nav__container">
-            <a href="../../.." class="md-nav__link ">
-              
-  
-  <span class="md-ellipsis">
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
     Workshop Overview
+    
   </span>
-  
-
-            </a>
-            
-              
-              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="0">
-                <span class="md-nav__icon md-icon"></span>
-              </label>
-            
-          </div>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_1">
-            <span class="md-nav__icon md-icon"></span>
+</a>
+<label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="false" aria-labelledby="__nav_1_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_1">
+<span class="md-nav__icon md-icon"></span>
             Workshop Overview
           </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../demo-environment/red-hat-demo-environment/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../demo-environment/red-hat-demo-environment/">
+<span class="md-ellipsis">
     RedHat Demo Environment
+    
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../demo-environment/local-demo-environment/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../demo-environment/local-demo-environment/">
+<span class="md-ellipsis">
     Local Demo Environment
+    
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../demo-environment/editor-alternatives/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../demo-environment/editor-alternatives/">
+<span class="md-ellipsis">
     Editor Alternatives
+    
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
-        
-          
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
-            
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+<span class="md-ellipsis">
     Ansible Basics
+    
   </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2">
-            <span class="md-nav__icon md-icon"></span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
             Ansible Basics
           </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../ansible-basics-overview/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../ansible-basics-overview/">
+<span class="md-ellipsis">
     Overview
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../ansible-core/ansible-core-intro/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    1 - Check the Prerequisites
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../ansible-core/ansible-core-basics/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    2 - The Ansible Basics
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../ansible-core/ansible-core-playbook/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    3 - Writing your first Playbook
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../ansible-core/ansible-core-variables/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    4 - Using Variables
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../ansible-core/ansible-core-conditionals/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    5 - Work with conditionals
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../ansible-core/ansible-core-loops/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    6 - Run tasks multiple times
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../ansible-core/ansible-core-handlers/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    7 - Trigger changes with Handlers
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../ansible-core/ansible-core-templates/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    8 - Templating with Jinja2
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../ansible-core/ansible-core-roles/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    9 - Reusability with Roles
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../ansible-core/ansible-core-supplemental/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Bonus exercises
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
     
-      
-      
-  
-  
-  
-  
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../ansible-core/ansible-core-intro/">
+<span class="md-ellipsis">
+    1 - Lab environment
     
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../ansible-core/ansible-core-basics/">
+<span class="md-ellipsis">
+    2 - Ansible Basics
     
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../ansible-core/ansible-core-playbook/">
+<span class="md-ellipsis">
+    3 - Playbooks
     
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../ansible-core/ansible-core-variables/">
+<span class="md-ellipsis">
+    4 - Variables
     
-      
-      
-        
-      
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../ansible-core/ansible-core-conditionals/">
+<span class="md-ellipsis">
+    5 - Conditionals
     
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../ansible-core/ansible-core-loops/">
+<span class="md-ellipsis">
+    6 - Loops
     
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
-        
-          
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
-            
-  
-  <span class="md-ellipsis">
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../ansible-core/ansible-core-handlers/">
+<span class="md-ellipsis">
+    7 - Handlers
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../ansible-core/ansible-core-templates/">
+<span class="md-ellipsis">
+    8 - Templates
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../ansible-core/ansible-core-roles/">
+<span class="md-ellipsis">
+    9 - Roles
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../ansible-core/ansible-core-supplemental/">
+<span class="md-ellipsis">
+    Ansible core supplemental
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+<span class="md-ellipsis">
     Automation Platform
+    
   </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3">
-            <span class="md-nav__icon md-icon"></span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
             Automation Platform
           </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../automation-platform-overview/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../automation-platform-overview/">
+<span class="md-ellipsis">
     Overview
+    
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../automation-platform/automation-platform-intro/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../automation-platform/automation-platform-intro/">
+<span class="md-ellipsis">
     1 - AAP Introduction
+    
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../automation-platform/automation-platform-inventory/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../automation-platform/automation-platform-inventory/">
+<span class="md-ellipsis">
     2 - Inventory &amp; Ad-hoc commands
+    
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../automation-platform/automation-platform-projects/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../automation-platform/automation-platform-projects/">
+<span class="md-ellipsis">
     3 - Projects &amp; Job Templates
+    
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../automation-platform/automation-platform-surveys/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../automation-platform/automation-platform-surveys/">
+<span class="md-ellipsis">
     4 - Surveys
+    
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../automation-platform/automation-platform-rbac/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../automation-platform/automation-platform-rbac/">
+<span class="md-ellipsis">
     5 - Role-based access control
+    
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../automation-platform/automation-platform-workflows/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../automation-platform/automation-platform-workflows/">
+<span class="md-ellipsis">
     6 - Workflows
+    
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../automation-platform/automation-platform-wrapup/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../automation-platform/automation-platform-wrapup/">
+<span class="md-ellipsis">
     7 - AAP Wrap up
+    
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-    
-  
-  
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-      
-        
-        
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
-        
-          
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
-            
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+<span class="md-ellipsis">
     Projects
+    
   </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_4">
-            <span class="md-nav__icon md-icon"></span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_4_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
             Projects
           </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../projects-overview/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../projects-overview/">
+<span class="md-ellipsis">
     Overview
+    
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../linux-automation/grafana-project/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../linux-automation/grafana-project/">
+<span class="md-ellipsis">
     Project - Linux automation
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
     
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Project - Network automation
   </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        
-  
-  <span class="md-ellipsis">
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
     Project - Network automation
-  </span>
-  
-
-      </a>
-      
-        
-
-  
-
-<nav class="md-nav md-nav--secondary" aria-label="On this page">
-  
-  
-  
     
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    Project - Network automation
+    
+  </span>
+</a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
     </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#objective" class="md-nav__link">
-    <span class="md-ellipsis">
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#objective">
+<span class="md-ellipsis">
       Objective
     </span>
-  </a>
-  
+</a>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#guide" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#guide">
+<span class="md-ellipsis">
       Guide
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Guide">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#step-1-prepare-project" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Guide" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-1-prepare-project">
+<span class="md-ellipsis">
       Step 1 - Prepare project
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#step-2-inventory-and-playbook" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-2-inventory-and-playbook">
+<span class="md-ellipsis">
       Step 2 - Inventory and playbook
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#step-3-create-a-new-tenant" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-3-create-a-new-tenant">
+<span class="md-ellipsis">
       Step 3 - Create a new tenant
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#step-4-ap-creation-and-epgs" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-4-ap-creation-and-epgs">
+<span class="md-ellipsis">
       Step 4 - AP creation and EPGs
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#step-5-roles-and-encryption" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-5-roles-and-encryption">
+<span class="md-ellipsis">
       Step 5 - Roles and encryption
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#step-6-use-filters-to-manipulate-data" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-6-use-filters-to-manipulate-data">
+<span class="md-ellipsis">
       Step 6 - Use filters to manipulate data
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
+</ul>
 </nav>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../cloud-automation/aws-project/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Project - AWS Automation
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../cloud-automation/aws-project/">
+<span class="md-ellipsis">
+    Project - Cloud automation
+    
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../dcim-ipam-automation/netbox-project/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Project - DCIM Automation
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../dcim-ipam-automation/netbox-project/">
+<span class="md-ellipsis">
+    Project - DCIM automation
+    
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+<span class="md-ellipsis">
+    Ansible Advanced
     
-      
-      
-  
-  
-  
-  
-    
-    
-      
-        
-      
-        
-      
-    
-    
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
-        
-          
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
-            
-  
-  <span class="md-ellipsis">
-    Ansible Future
   </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+            Ansible Advanced
           </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5">
-            <span class="md-nav__icon md-icon"></span>
-            Ansible Future
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../ansible-future-overview/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../ansible-advanced-overview/">
+<span class="md-ellipsis">
     Overview
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../ansible-navigator/ansible-navigator/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Ansible Navigator
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
     
-  </ul>
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../ansible-navigator/ansible-navigator/">
+<span class="md-ellipsis">
+    Ansible navigator
+    
+  </span>
+</a>
+</li>
+</ul>
 </nav>
-                  </div>
-                </div>
-              </div>
-            
-            
-              
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    
-
-  
-
-<nav class="md-nav md-nav--secondary" aria-label="On this page">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
     </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#objective" class="md-nav__link">
-    <span class="md-ellipsis">
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#objective">
+<span class="md-ellipsis">
       Objective
     </span>
-  </a>
-  
+</a>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#guide" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#guide">
+<span class="md-ellipsis">
       Guide
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Guide">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#step-1-prepare-project" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="Guide" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-1-prepare-project">
+<span class="md-ellipsis">
       Step 1 - Prepare project
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#step-2-inventory-and-playbook" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-2-inventory-and-playbook">
+<span class="md-ellipsis">
       Step 2 - Inventory and playbook
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#step-3-create-a-new-tenant" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-3-create-a-new-tenant">
+<span class="md-ellipsis">
       Step 3 - Create a new tenant
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#step-4-ap-creation-and-epgs" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-4-ap-creation-and-epgs">
+<span class="md-ellipsis">
       Step 4 - AP creation and EPGs
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#step-5-roles-and-encryption" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-5-roles-and-encryption">
+<span class="md-ellipsis">
       Step 5 - Roles and encryption
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#step-6-use-filters-to-manipulate-data" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-6-use-filters-to-manipulate-data">
+<span class="md-ellipsis">
       Step 6 - Use filters to manipulate data
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
+</ul>
 </nav>
-                  </div>
-                </div>
-              </div>
-            
-          
-          
-            <div class="md-content" data-md-component="content">
-              <article class="md-content__inner md-typeset">
-                
-
-
-    <a href="../../../print_page/" title="Print Site" class="md-content__button md-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2m-9.5 8.5c0 .8-.7 1.5-1.5 1.5H7v2H5.5V9H8c.8 0 1.5.7 1.5 1.5zm5 2c0 .8-.7 1.5-1.5 1.5h-2.5V9H13c.8 0 1.5.7 1.5 1.5zm4-3H17v1h1.5V13H17v2h-1.5V9h3zm-6.5 0h1v3h-1zm-5 0h1v1H7z"/></svg>
-    </a>
-
-
-
-                  
-
-  
-  
-
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset"><a class="md-content__button md-icon" href="index.pdf" target="_blank" title="View as PDF"><html><body><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2m-9.5 8.5c0 .8-.7 1.5-1.5 1.5H7v2H5.5V9H8c.8 0 1.5.7 1.5 1.5zm5 2c0 .8-.7 1.5-1.5 1.5h-2.5V9H13c.8 0 1.5.7 1.5 1.5zm4-3H17v1h1.5V13H17v2h-1.5V9h3zm-6.5 0h1v3h-1zm-5 0h1v1H7z"></path></svg></body></html></a>
 
 <h1 id="project-network-automation">Project - Network automation</h1>
-<p>Although the (historical) focus of Ansible was Linux automation, it is very strong with automating network as well.<br />
+<p>Although the (historical) focus of Ansible was Linux automation, it is very strong with automating network as well.<br/>
 Ansible collections support a wide range of vendors, device types, and actions, so you can manage your entire network with a single automation tool. With Ansible, you can:</p>
 <ul>
 <li>Automate repetitive tasks to speed routine network changes and free up your time for more strategic work</li>
@@ -1586,55 +687,55 @@ Ansible collections support a wide range of vendors, device types, and actions, 
 <li>Communicate securely with network hardware over <abbr title="Secure Shell">SSH</abbr> or <abbr title="Hypertext Transfer Protocol Secure">HTTPS</abbr></li>
 </ul>
 <h2 id="objective">Objective</h2>
-<p>Get to know network automation with Ansible.<br />
-Network automation uses the basic Ansible concepts, but there are some differences in how the network modules work.<br />
+<p>Get to know network automation with Ansible.<br/>
+Network automation uses the basic Ansible concepts, but there are some differences in how the network modules work.<br/>
 Unlike most Ansible modules, network modules do not run on the managed nodes. From a user’s point of view, network modules work like any other modules. They work with ad hoc commands, playbooks, and roles. Behind the scenes, however, network modules use a different methodology than the other (Linux/Unix and Windows) modules use. Ansible is written and executed in Python. Because the majority of network devices can not run Python, the Ansible network modules are executed on the Ansible control node.</p>
 <h2 id="guide">Guide</h2>
-<p>You will execute some automation tasks against Cisco <abbr title="Application Centric Infrastructure">ACI</abbr>. The Cisco Application Centric Infrastructure allows application requirements to define the network. This architecture simplifies, optimizes, and accelerates the entire application deployment life cycle.<br />
+<p>You will execute some automation tasks against Cisco <abbr title="Application Centric Infrastructure">ACI</abbr>. The Cisco Application Centric Infrastructure allows application requirements to define the network. This architecture simplifies, optimizes, and accelerates the entire application deployment life cycle.<br/>
 The Application Policy Infrastructure Controller manages the scalable <abbr title="Application Centric Infrastructure">ACI</abbr> multi-tenant fabric. The <abbr title="Application Policy Infrastructure Controller">APIC</abbr> provides a unified point of automation and management, policy programming, application deployment, and health monitoring for the fabric. The <abbr title="Application Policy Infrastructure Controller">APIC</abbr>, which is implemented as a replicated synchronized clustered controller, optimizes performance, supports any application anywhere, and provides unified operation of the physical and virtual infrastructure.</p>
 <p>The <abbr title="Application Policy Infrastructure Controller">APIC</abbr> enables network administrators to easily define the optimal network for applications. Data center operators can clearly see how applications consume network resources, easily isolate and troubleshoot application and infrastructure problems, and monitor and profile resource usage patterns.</p>
 <p>The Cisco Application Policy Infrastructure Controller <abbr title="Application Programming Interface">API</abbr> enables applications to directly connect with a secure, shared, high-performance resource pool that includes network, compute, and storage capabilities.</p>
 <h3 id="step-1-prepare-project">Step 1 - Prepare project</h3>
 <p>Create a new project folder in your home directory:</p>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="gp">[student@ansible-1 ~]$ </span>mkdir<span class="w"> </span>aci-automation
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-0-1" id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="gp">[student@ansible-1 ~]$ </span>mkdir<span class="w"> </span>aci-automation
 </code></pre></div>
 <p>We will be using a Cisco <abbr title="Application Centric Infrastructure">ACI</abbr> Sandbox available online.</p>
-<p><img alt="Cisco APIC overview" src="../images/apic-quickstart.png" /></p>
+<p><img alt="Cisco APIC overview" src="../images/apic-quickstart.png"/></p>
 <p>Open a new browser tab and go to <a href="https://sandboxapicdc.cisco.com/#" target="_blank">https://sandboxapicdc.cisco.com/#</a>.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>The credentials for accessing the <a href="https://sandboxapicdc.cisco.com/#" target="_blank">Cisco Sandbox</a> are shown below, you can copy the content by using the symbol on the right of the code block.</p>
 </div>
 <p>Username:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>admin
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-1-1" id="__codelineno-1-1" name="__codelineno-1-1"></a>admin
 </code></pre></div>
 <p>Password:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>!v3G@!4@Y
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-2-1" id="__codelineno-2-1" name="__codelineno-2-1"></a>!v3G@!4@Y
 </code></pre></div>
 <p>Today, you might need additional Ansible modules. In the first part of the workshop, we only used a handful of modules which are all included in the <code>ansible-core</code> binary. With <em>ansible-core</em> only 69 of the most used modules are included:</p>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="gp">[student@ansible-1 ~]$ </span>ansible-doc<span class="w"> </span>-l
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="go">add_host               Add a host (and alternatively a group) to the ansible-playbook in-memory inventory  </span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="go">apt                    Manages apt-packages  </span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="go">apt_key                Add or remove an apt key  </span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="go">apt_repository         Add and remove APT repositories  </span>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="go">assemble               Assemble configuration files from fragments  </span>
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="go">assert                 Asserts given expressions are true  </span>
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="go">async_status           Obtain status of asynchronous task  </span>
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="go">blockinfile            Insert/update/remove a text block surrounded by marker lines  </span>
-<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="go">command                Execute commands on targets  </span>
-<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="go">copy                   Copy files to remote locations</span>
-<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="go">...</span>
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-3-1" id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="gp">[student@ansible-1 ~]$ </span>ansible-doc<span class="w"> </span>-l
+<a href="#__codelineno-3-2" id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="go">add_host               Add a host (and alternatively a group) to the ansible-playbook in-memory inventory  </span>
+<a href="#__codelineno-3-3" id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="go">apt                    Manages apt-packages  </span>
+<a href="#__codelineno-3-4" id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="go">apt_key                Add or remove an apt key  </span>
+<a href="#__codelineno-3-5" id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="go">apt_repository         Add and remove APT repositories  </span>
+<a href="#__codelineno-3-6" id="__codelineno-3-6" name="__codelineno-3-6"></a><span class="go">assemble               Assemble configuration files from fragments  </span>
+<a href="#__codelineno-3-7" id="__codelineno-3-7" name="__codelineno-3-7"></a><span class="go">assert                 Asserts given expressions are true  </span>
+<a href="#__codelineno-3-8" id="__codelineno-3-8" name="__codelineno-3-8"></a><span class="go">async_status           Obtain status of asynchronous task  </span>
+<a href="#__codelineno-3-9" id="__codelineno-3-9" name="__codelineno-3-9"></a><span class="go">blockinfile            Insert/update/remove a text block surrounded by marker lines  </span>
+<a href="#__codelineno-3-10" id="__codelineno-3-10" name="__codelineno-3-10"></a><span class="go">command                Execute commands on targets  </span>
+<a href="#__codelineno-3-11" id="__codelineno-3-11" name="__codelineno-3-11"></a><span class="go">copy                   Copy files to remote locations</span>
+<a href="#__codelineno-3-12" id="__codelineno-3-12" name="__codelineno-3-12"></a><span class="go">...</span>
 </code></pre></div>
 <p>Additional modules are installed through <em>collections</em>, search the <a href="https://docs.ansible.com/ansible/latest/collections/index.html" target="_blank">Collection Index</a> in the Ansible documentation for a module or use the search field.</p>
-<p><img alt="Ansible documentation" src="../images/ansible-docs.png" /></p>
+<p><img alt="Ansible documentation" src="../images/ansible-docs.png"/></p>
 <p>If, for example, you want to create an <abbr title="Eleastic Compute Cloud">EC2</abbr> instance in <abbr title="Amazon Web Services">AWS</abbr>, you will need the module <code>amazon.aws.ec2_instance</code>. To get the module, you'll need the collection <code>aws</code> of the provider <code>amazon</code>. Download the collection with the <code>ansible-galaxy</code> utility:</p>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="gp">[student@ansible-1 ~]$ </span>ansible-galaxy<span class="w"> </span>collection<span class="w"> </span>install<span class="w"> </span>amazon.aws
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="go">Starting galaxy collection install process</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="go">Process install dependency map</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="go">Starting collection install process</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="go">Downloading https://galaxy.ansible.com/download/amazon-aws-3.2.0.tar.gz to /home/student/.ansible/tmp/ansible-local-55382m3kkt4we/tmp7b2kxag4/amazon-aws-3.2.0-3itpmahr</span>
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="go">Installing &#39;amazon.aws:3.2.0&#39; to &#39;/home/student/.ansible/collections/ansible_collections/amazon/aws&#39;</span>
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="go">amazon.aws:3.2.0 was installed successfully</span>
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-4-1" id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="gp">[student@ansible-1 ~]$ </span>ansible-galaxy<span class="w"> </span>collection<span class="w"> </span>install<span class="w"> </span>amazon.aws
+<a href="#__codelineno-4-2" id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="go">Starting galaxy collection install process</span>
+<a href="#__codelineno-4-3" id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="go">Process install dependency map</span>
+<a href="#__codelineno-4-4" id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="go">Starting collection install process</span>
+<a href="#__codelineno-4-5" id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="go">Downloading https://galaxy.ansible.com/download/amazon-aws-3.2.0.tar.gz to /home/student/.ansible/tmp/ansible-local-55382m3kkt4we/tmp7b2kxag4/amazon-aws-3.2.0-3itpmahr</span>
+<a href="#__codelineno-4-6" id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="go">Installing 'amazon.aws:3.2.0' to '/home/student/.ansible/collections/ansible_collections/amazon/aws'</span>
+<a href="#__codelineno-4-7" id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="go">amazon.aws:3.2.0 was installed successfully</span>
 </code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -1642,17 +743,17 @@ The Application Policy Infrastructure Controller manages the scalable <abbr titl
 </div>
 <p>Achieve the following tasks:</p>
 <ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Find appropriate collection for Cisco <abbr title="Application Centric Infrastructure">ACI</abbr> automation in the documentation</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Collection installed</li>
+<li class="task-list-item"><label class="task-list-control"><input checked="" disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> Find appropriate collection for Cisco <abbr title="Application Centric Infrastructure">ACI</abbr> automation in the documentation</li>
+<li class="task-list-item"><label class="task-list-control"><input checked="" disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> Collection installed</li>
 </ul>
 <p>You can view the installed collections with this command:</p>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="gp">[student@ansible-1 aci-automation]$ </span>ansible-galaxy<span class="w"> </span>collection<span class="w"> </span>list
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="gp"># </span>/home/student/.ansible/collections/ansible_collections
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="go">Collection        Version</span>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="go">----------------- -------</span>
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="go">ansible.posix     1.4.0  </span>
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="go">community.docker  2.7.0  </span>
-<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="go">community.general 5.3.0</span>
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-5-1" id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="gp">[student@ansible-1 aci-automation]$ </span>ansible-galaxy<span class="w"> </span>collection<span class="w"> </span>list
+<a href="#__codelineno-5-2" id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="gp"># </span>/home/student/.ansible/collections/ansible_collections
+<a href="#__codelineno-5-3" id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="go">Collection        Version</span>
+<a href="#__codelineno-5-4" id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="go">----------------- -------</span>
+<a href="#__codelineno-5-5" id="__codelineno-5-5" name="__codelineno-5-5"></a><span class="go">ansible.posix     1.4.0  </span>
+<a href="#__codelineno-5-6" id="__codelineno-5-6" name="__codelineno-5-6"></a><span class="go">community.docker  2.7.0  </span>
+<a href="#__codelineno-5-7" id="__codelineno-5-7" name="__codelineno-5-7"></a><span class="go">community.general 5.3.0</span>
 </code></pre></div>
 <details class="note">
 <summary>Note</summary>
@@ -1660,44 +761,44 @@ The Application Policy Infrastructure Controller manages the scalable <abbr titl
 </details>
 <h3 id="step-2-inventory-and-playbook">Step 2 - Inventory and playbook</h3>
 <p>Within your newly created project folder, create an inventory file and a playbook file (the name of the files are up to you).</p>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="gp">[student@ansible-1 aci-automation]$ </span>touch<span class="w"> </span>inventory.ini
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="gp">[student@ansible-1 aci-automation]$ </span>touch<span class="w"> </span>playbook.yml
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-6-1" id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="gp">[student@ansible-1 aci-automation]$ </span>touch<span class="w"> </span>inventory.ini
+<a href="#__codelineno-6-2" id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="gp">[student@ansible-1 aci-automation]$ </span>touch<span class="w"> </span>playbook.yml
 </code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>By default, Ansible will try to communicate via <abbr title="Secure Shell">SSH</abbr>. <strong>This will not work!</strong><br />
-You have to instruct Ansible to communicate with the <abbr title="Application Policy Infrastructure Controller">APIC</abbr> <abbr title="Representational State Transfer">REST</abbr> Interface, the <abbr title="Application Centric Infrastructure">ACI</abbr> modules do not run on the network devices or controller, they need to run on the Ansible control node <strong>locally</strong>!<br />
+<p>By default, Ansible will try to communicate via <abbr title="Secure Shell">SSH</abbr>. <strong>This will not work!</strong><br/>
+You have to instruct Ansible to communicate with the <abbr title="Application Policy Infrastructure Controller">APIC</abbr> <abbr title="Representational State Transfer">REST</abbr> Interface, the <abbr title="Application Centric Infrastructure">ACI</abbr> modules do not run on the network devices or controller, they need to run on the Ansible control node <strong>locally</strong>!<br/>
 Add the necessary parameters to your inventory file!</p>
 </div>
-<p>Use the same credentials for <abbr title="Application Programming Interface">API</abbr> communication as for the login to the <abbr title="Application Policy Infrastructure Controller">APIC</abbr> <abbr title="User Interface">UI</abbr>.<br />
-The <abbr title="Application Programming Interface">API</abbr> endpoint (<em>host</em>) for the <abbr title="Application Centric Infrastructure">ACI</abbr> modules uses the <abbr title="Uniform Resource Locator">URL</abbr> of the sandbox, you won't need the prefix <code>https://</code>.<br />
+<p>Use the same credentials for <abbr title="Application Programming Interface">API</abbr> communication as for the login to the <abbr title="Application Policy Infrastructure Controller">APIC</abbr> <abbr title="User Interface">UI</abbr>.<br/>
+The <abbr title="Application Programming Interface">API</abbr> endpoint (<em>host</em>) for the <abbr title="Application Centric Infrastructure">ACI</abbr> modules uses the <abbr title="Uniform Resource Locator">URL</abbr> of the sandbox, you won't need the prefix <code>https://</code>.<br/>
 The documentation provides an <a href="https://docs.ansible.com/ansible/9/scenario_guides/guide_aci.html#aci-guide" target="_blank">extensive Guide</a> for <abbr title="Application Centric Infrastructure">ACI</abbr> automation, which also describes how to <a href="https://docs.ansible.com/ansible/9/scenario_guides/guide_aci.html#using-the-local-connection-method" target="_blank">setup communication with <abbr title="Application Policy Infrastructure Controller">APIC</abbr></a>.</p>
-<p>Testing the successful communication with the <abbr title="Application Programming Interface">API</abbr> could be done by querying <abbr title="Application Centric Infrastructure">ACI</abbr> system information with the <code>aci_system</code> module. Create your playbook and add a task, utilizing this module. Fill all necessary parameter.<br />
+<p>Testing the successful communication with the <abbr title="Application Programming Interface">API</abbr> could be done by querying <abbr title="Application Centric Infrastructure">ACI</abbr> system information with the <code>aci_system</code> module. Create your playbook and add a task, utilizing this module. Fill all necessary parameter.<br/>
 Run your playbook, if it returns a green <em>ok</em> status, communication is established.</p>
 <p>For now, the gathered system information about the <abbr title="Application Centric Infrastructure">ACI</abbr> system is not relevant for us, still, you could store the output in a variable and output it with an appropriate module, if you are curious.</p>
 <p>Achieve the following tasks:</p>
 <ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Inventory and playbook created</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Use variables where possible (and useful)</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Successful communication with <abbr title="Application Policy Infrastructure Controller">APIC</abbr> established</li>
+<li class="task-list-item"><label class="task-list-control"><input checked="" disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> Inventory and playbook created</li>
+<li class="task-list-item"><label class="task-list-control"><input checked="" disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> Use variables where possible (and useful)</li>
+<li class="task-list-item"><label class="task-list-control"><input checked="" disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> Successful communication with <abbr title="Application Policy Infrastructure Controller">APIC</abbr> established</li>
 </ul>
 <p>You may encounter the following error messages:</p>
 <div class="admonition failure">
 <p class="admonition-title">Failure</p>
 <p>Expect an error message complaining about certification verification:</p>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="go">Connection failed for https://sandboxapicdc.cisco.com/api/aaaLogin.json. Request failed: &lt;urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1131)&gt;</span>
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-7-1" id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="go">Connection failed for https://sandboxapicdc.cisco.com/api/aaaLogin.json. Request failed: &lt;urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1131)&gt;</span>
 </code></pre></div>
 </div>
 <p>If you see an error message like above, you can disable certificate validation for your task:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nt">validate_certs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-8-1" id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="nt">validate_certs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 </code></pre></div>
 <p>For a production environment this is obviously <strong>not recommended</strong>!</p>
 <div class="admonition failure">
 <p class="admonition-title">Failure</p>
 <p>If you see one of the following error messages, ensure that the Sandbox is available:</p>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="go">Connection failed for https://sandboxapicdc.cisco.com/api/aaaLogin.json. Connection failure: The read operation timed out</span>
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-9-1" id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="go">Connection failed for https://sandboxapicdc.cisco.com/api/aaaLogin.json. Connection failure: The read operation timed out</span>
 </code></pre></div>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="go">Authentication failed: -1 Unable to parse output as JSON, see &#39;raw&#39; output. Expecting value: line 1 column 1 (char 0)&quot;, &quot;raw&quot;: &quot;&lt;html&gt;\r\n&lt;head&gt;&lt;title&gt;502 Bad Gateway&lt;/title&gt;&lt;/head&gt;\r\n&lt;body bgcolor=\&quot;white\&quot;&gt;\r\n&lt;center&gt;&lt;h1&gt;502 Bad Gateway&lt;/h1&gt;&lt;/center&gt;\r\n&lt;hr&gt;&lt;center&gt;nginx/1.13.12&lt;/center&gt;\r\n&lt;/body&gt;\r\n&lt;/html&gt;\r\n</span>
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-10-1" id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="go">Authentication failed: -1 Unable to parse output as JSON, see 'raw' output. Expecting value: line 1 column 1 (char 0)", "raw": "&lt;html&gt;\r\n&lt;head&gt;&lt;title&gt;502 Bad Gateway&lt;/title&gt;&lt;/head&gt;\r\n&lt;body bgcolor=\"white\"&gt;\r\n&lt;center&gt;&lt;h1&gt;502 Bad Gateway&lt;/h1&gt;&lt;/center&gt;\r\n&lt;hr&gt;&lt;center&gt;nginx/1.13.12&lt;/center&gt;\r\n&lt;/body&gt;\r\n&lt;/html&gt;\r\n</span>
 </code></pre></div>
 <p>Try to reload the <abbr title="Application Policy Infrastructure Controller">APIC</abbr> browser tab.</p>
 </div>
@@ -1705,12 +806,12 @@ Run your playbook, if it returns a green <em>ok</em> status, communication is es
 <h3 id="step-3-create-a-new-tenant">Step 3 - Create a new tenant</h3>
 <p>The <abbr title="Application Policy Infrastructure Controller">APIC</abbr> manages the scalable <abbr title="Application Centric Infrastructure">ACI</abbr> multi-tenant fabric. A <em>multi-tenant</em> environment or <em>multi-tenancy</em> data centres handle segregation of traffic between multiple tenants and ensure privacy and security between tenant data.</p>
 <p>The goal is to create a new tenant within the <abbr title="Application Policy Infrastructure Controller">APIC</abbr> controller with Ansible. The tenant should have a recognizable name e.g. <code>demo-tenant-&lt;initials&gt;</code>. Add the tenant description <code>Workshop tenant</code>.</p>
-<p><img alt="Demo Tenant in APIC UI" src="../images/apic-demo-tenant.png" /></p>
+<p><img alt="Demo Tenant in APIC UI" src="../images/apic-demo-tenant.png"/></p>
 <p>Observe the tenant and it's annotation in the <abbr title="Application Policy Infrastructure Controller">APIC</abbr> <abbr title="User Interface">UI</abbr>.</p>
 <p>Achieve the following tasks:</p>
 <ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Tenant created</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Inspected tenant in the <abbr title="User Interface">UI</abbr></li>
+<li class="task-list-item"><label class="task-list-control"><input checked="" disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> Tenant created</li>
+<li class="task-list-item"><label class="task-list-control"><input checked="" disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> Inspected tenant in the <abbr title="User Interface">UI</abbr></li>
 </ul>
 <h3 id="step-4-ap-creation-and-epgs">Step 4 - <abbr title="Application Profile">AP</abbr> creation and <abbr title="End Point Groups">EPGs</abbr></h3>
 <p>Now, that we have our own custom tenant, lets fill it with content. Create an Application profile and add multiple end point groups.
@@ -1771,15 +872,15 @@ The <em><abbr title="End Point Groups">EPGs</abbr></em> should have the followin
 <p>Observe the tenant in the <abbr title="Application Policy Infrastructure Controller">APIC</abbr> <abbr title="User Interface">UI</abbr>.</p>
 <p>Achieve the following tasks:</p>
 <ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Application profile created</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <abbr title="End Point Groups">EPGs</abbr> created</li>
+<li class="task-list-item"><label class="task-list-control"><input checked="" disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> Application profile created</li>
+<li class="task-list-item"><label class="task-list-control"><input checked="" disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> <abbr title="End Point Groups">EPGs</abbr> created</li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>No communication between the different <abbr title="End Point Groups">EPGs</abbr> is established yet, this would be achieved with <em>contracts</em>. By now, you are experienced enough with creating objects in <abbr title="Application Centric Infrastructure">ACI</abbr> with Ansible, let's skip the contracts creation.</p>
 </div>
 <h3 id="step-5-roles-and-encryption">Step 5 - Roles and encryption</h3>
-<p>Now that you can execute automated tasks against the <abbr title="Application Centric Infrastructure">ACI</abbr>, let's re-format the project and use some Ansible best-practices.<br />
+<p>Now that you can execute automated tasks against the <abbr title="Application Centric Infrastructure">ACI</abbr>, let's re-format the project and use some Ansible best-practices.<br/>
 All Ansible projects should use the role structure, if your project does not already uses it, now is the time to rearrange your content. Create a <code>roles</code> folder and an appropriately named sub-folder for the tenant creation with all necessary folder and files.  </p>
 <p>Your tasks using the Ansible <abbr title="Application Centric Infrastructure">ACI</abbr> module(s) require username and password, at least the password should be encrypted. Ansible Vault encrypts variables and files so you can protect sensitive content rather than leaving it visible as plaintext in playbooks or roles, take a look at the <a href="https://docs.ansible.com/ansible/latest/user_guide/vault.html#vault" target="_blank">Ansible Vault documentation</a> for further information.
 Encrypt the <abbr title="Application Policy Infrastructure Controller">APIC</abbr> credentials and re-run your playbook.</p>
@@ -1789,20 +890,20 @@ Encrypt the <abbr title="Application Policy Infrastructure Controller">APIC</abb
 </div>
 <p>Achieve the following tasks:</p>
 <ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Project uses Ansible role structure</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <abbr title="Application Policy Infrastructure Controller">APIC</abbr> credentials are vault-encrypted</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Playbook references role, tasks are executed</li>
+<li class="task-list-item"><label class="task-list-control"><input checked="" disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> Project uses Ansible role structure</li>
+<li class="task-list-item"><label class="task-list-control"><input checked="" disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> <abbr title="Application Policy Infrastructure Controller">APIC</abbr> credentials are vault-encrypted</li>
+<li class="task-list-item"><label class="task-list-control"><input checked="" disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> Playbook references role, tasks are executed</li>
 </ul>
 <h3 id="step-6-use-filters-to-manipulate-data">Step 6 - Use filters to manipulate data</h3>
 <p>Filters let you transform <abbr title="JavaScript Object Notation">JSON</abbr> data into <abbr title="YAML Ain't Markup Language">YAML</abbr> data, split a <abbr title="Uniform Resource Locator">URL</abbr> to extract the hostname, get the SHA1 hash of a string, add or multiply integers, and much more. You can use the Ansible-specific filters documented <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html" target="_blank">here</a> to manipulate your data, or use any of the standard filters shipped with <a href="https://jinja.palletsprojects.com/en/3.0.x/templates/#builtin-filters" target="_blank">Jinja2</a>.</p>
 <p>Create a new role which utilizes an <a href="https://docs.ansible.com/ansible/latest/collections/cisco/aci/index.html" target="_blank">Ansible <abbr title="Application Centric Infrastructure">ACI</abbr> module</a> that can manage/query contract resources (<em>vz:BrCP</em>). Get all contracts of the <strong>common</strong> tenant and output a list with only the contract names.</p>
-<p><img alt="Contracts of common tenant" src="../images/apic-common-contracts.png" /></p>
+<p><img alt="Contracts of common tenant" src="../images/apic-common-contracts.png"/></p>
 <p>The <em>common</em> tenant has at least one contract (<em>default</em>).</p>
 <p>Dealing with network devices often means dealing with large <abbr title="JavaScript Object Notation">JSON</abbr> objects and you have to <em>filter</em> the output to your needs. Browse the <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html" target="_blank">Ansible filter documentation</a> for a suitable filter.</p>
 <p>The Ansible module you will be using returns a <abbr title="JavaScript Object Notation">JSON</abbr> output like the following:</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>Open the annotations (click on the multiple <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 13h-4v4h-2v-4H7v-2h4V7h2v4h4m-5-9A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2"/></svg></span> icons) for further explanation of the different <abbr title="JavaScript Object Notation">JSON</abbr> objects and what they mean in the <abbr title="Application Centric Infrastructure">ACI</abbr> context.</p>
+<p>Open the annotations (click on the multiple <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 13h-4v4h-2v-4H7v-2h4V7h2v4h4m-5-9A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2"></path></svg></span> icons) for further explanation of the different <abbr title="JavaScript Object Notation">JSON</abbr> objects and what they mean in the <abbr title="Application Centric Infrastructure">ACI</abbr> context.</p>
 </div>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">  1</a></span>
 <span class="normal"><a href="#__codelineno-11-2">  2</a></span>
@@ -1919,106 +1020,106 @@ Encrypt the <abbr title="Application Policy Infrastructure Controller">APIC</abb
 <span class="normal"><a href="#__codelineno-11-113">113</a></span>
 <span class="normal"><a href="#__codelineno-11-114">114</a></span>
 <span class="normal"><a href="#__codelineno-11-115">115</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="p">{</span>
-<a id="__codelineno-11-2" name="__codelineno-11-2"></a><span class="w">  </span><span class="nt">&quot;current&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="c1">// (1)!</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2"></a><span class="w">  </span><span class="nt">"current"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="c1">// (1)!</span>
 <a id="__codelineno-11-3" name="__codelineno-11-3"></a><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="c1">// (2)!</span>
-<a id="__codelineno-11-4" name="__codelineno-11-4"></a><span class="w">      </span><span class="nt">&quot;fvTenant&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// (3)!</span>
-<a id="__codelineno-11-5" name="__codelineno-11-5"></a><span class="w">        </span><span class="nt">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// (4)!</span>
-<a id="__codelineno-11-6" name="__codelineno-11-6"></a><span class="w">          </span><span class="nt">&quot;annotation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-7" name="__codelineno-11-7"></a><span class="w">          </span><span class="nt">&quot;childAction&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-8" name="__codelineno-11-8"></a><span class="w">          </span><span class="nt">&quot;descr&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-9" name="__codelineno-11-9"></a><span class="w">          </span><span class="nt">&quot;dn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uni/tn-common&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-10" name="__codelineno-11-10"></a><span class="w">          </span><span class="nt">&quot;extMngdBy&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-11" name="__codelineno-11-11"></a><span class="w">          </span><span class="nt">&quot;lcOwn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;local&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-12" name="__codelineno-11-12"></a><span class="w">          </span><span class="nt">&quot;modTs&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-11-02T16:06:04.547+00:00&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-13" name="__codelineno-11-13"></a><span class="w">          </span><span class="nt">&quot;monPolDn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uni/tn-common/monepg-default&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-14" name="__codelineno-11-14"></a><span class="w">          </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;common&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1">// (5)!</span>
-<a id="__codelineno-11-15" name="__codelineno-11-15"></a><span class="w">          </span><span class="nt">&quot;nameAlias&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-16" name="__codelineno-11-16"></a><span class="w">          </span><span class="nt">&quot;ownerKey&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-17" name="__codelineno-11-17"></a><span class="w">          </span><span class="nt">&quot;ownerTag&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-18" name="__codelineno-11-18"></a><span class="w">          </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-19" name="__codelineno-11-19"></a><span class="w">          </span><span class="nt">&quot;uid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-20" name="__codelineno-11-20"></a><span class="w">          </span><span class="nt">&quot;userdom&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;all&quot;</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4"></a><span class="w">      </span><span class="nt">"fvTenant"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// (3)!</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5"></a><span class="w">        </span><span class="nt">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// (4)!</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6"></a><span class="w">          </span><span class="nt">"annotation"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7"></a><span class="w">          </span><span class="nt">"childAction"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8"></a><span class="w">          </span><span class="nt">"descr"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
+<a id="__codelineno-11-9" name="__codelineno-11-9"></a><span class="w">          </span><span class="nt">"dn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"uni/tn-common"</span><span class="p">,</span>
+<a id="__codelineno-11-10" name="__codelineno-11-10"></a><span class="w">          </span><span class="nt">"extMngdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
+<a id="__codelineno-11-11" name="__codelineno-11-11"></a><span class="w">          </span><span class="nt">"lcOwn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"local"</span><span class="p">,</span>
+<a id="__codelineno-11-12" name="__codelineno-11-12"></a><span class="w">          </span><span class="nt">"modTs"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-11-02T16:06:04.547+00:00"</span><span class="p">,</span>
+<a id="__codelineno-11-13" name="__codelineno-11-13"></a><span class="w">          </span><span class="nt">"monPolDn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"uni/tn-common/monepg-default"</span><span class="p">,</span>
+<a id="__codelineno-11-14" name="__codelineno-11-14"></a><span class="w">          </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"common"</span><span class="p">,</span><span class="w"> </span><span class="c1">// (5)!</span>
+<a id="__codelineno-11-15" name="__codelineno-11-15"></a><span class="w">          </span><span class="nt">"nameAlias"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
+<a id="__codelineno-11-16" name="__codelineno-11-16"></a><span class="w">          </span><span class="nt">"ownerKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
+<a id="__codelineno-11-17" name="__codelineno-11-17"></a><span class="w">          </span><span class="nt">"ownerTag"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
+<a id="__codelineno-11-18" name="__codelineno-11-18"></a><span class="w">          </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
+<a id="__codelineno-11-19" name="__codelineno-11-19"></a><span class="w">          </span><span class="nt">"uid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span>
+<a id="__codelineno-11-20" name="__codelineno-11-20"></a><span class="w">          </span><span class="nt">"userdom"</span><span class="p">:</span><span class="w"> </span><span class="s2">"all"</span>
 <a id="__codelineno-11-21" name="__codelineno-11-21"></a><span class="w">        </span><span class="p">},</span>
-<a id="__codelineno-11-22" name="__codelineno-11-22"></a><span class="hll"><span class="w">        </span><span class="nt">&quot;children&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="c1">// (6)!</span>
+<a id="__codelineno-11-22" name="__codelineno-11-22"></a><span class="hll"><span class="w">        </span><span class="nt">"children"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="c1">// (6)!</span>
 </span><a id="__codelineno-11-23" name="__codelineno-11-23"></a><span class="w">          </span><span class="p">{</span>
-<a id="__codelineno-11-24" name="__codelineno-11-24"></a><span class="w">            </span><span class="nt">&quot;vzBrCP&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// (7)!</span>
-<a id="__codelineno-11-25" name="__codelineno-11-25"></a><span class="w">              </span><span class="nt">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// (8)!</span>
-<a id="__codelineno-11-26" name="__codelineno-11-26"></a><span class="w">                </span><span class="nt">&quot;accessPrivilege&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;USER&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-27" name="__codelineno-11-27"></a><span class="w">                </span><span class="nt">&quot;annotation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-28" name="__codelineno-11-28"></a><span class="w">                </span><span class="nt">&quot;childAction&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-29" name="__codelineno-11-29"></a><span class="w">                </span><span class="nt">&quot;configIssues&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-30" name="__codelineno-11-30"></a><span class="w">                </span><span class="nt">&quot;descr&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-31" name="__codelineno-11-31"></a><span class="w">                </span><span class="nt">&quot;extMngdBy&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-32" name="__codelineno-11-32"></a><span class="w">                </span><span class="nt">&quot;intent&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;install&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-33" name="__codelineno-11-33"></a><span class="w">                </span><span class="nt">&quot;lcOwn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;local&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-34" name="__codelineno-11-34"></a><span class="w">                </span><span class="nt">&quot;modTs&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-11-02T16:06:04.547+00:00&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-35" name="__codelineno-11-35"></a><span class="w">                </span><span class="nt">&quot;monPolDn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uni/tn-common/monepg-default&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-36" name="__codelineno-11-36"></a><span class="hll"><span class="w">                </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;default&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1">// (9)!</span>
-</span><a id="__codelineno-11-37" name="__codelineno-11-37"></a><span class="w">                </span><span class="nt">&quot;nameAlias&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-38" name="__codelineno-11-38"></a><span class="w">                </span><span class="nt">&quot;ownerKey&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-39" name="__codelineno-11-39"></a><span class="w">                </span><span class="nt">&quot;ownerTag&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-40" name="__codelineno-11-40"></a><span class="w">                </span><span class="nt">&quot;prio&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;unspecified&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-41" name="__codelineno-11-41"></a><span class="w">                </span><span class="nt">&quot;reevaluateAll&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;no&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-42" name="__codelineno-11-42"></a><span class="w">                </span><span class="nt">&quot;rn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;brc-default&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-43" name="__codelineno-11-43"></a><span class="w">                </span><span class="nt">&quot;scope&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;context&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-44" name="__codelineno-11-44"></a><span class="w">                </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-45" name="__codelineno-11-45"></a><span class="w">                </span><span class="nt">&quot;targetDscp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;unspecified&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-46" name="__codelineno-11-46"></a><span class="w">                </span><span class="nt">&quot;uid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-47" name="__codelineno-11-47"></a><span class="w">                </span><span class="nt">&quot;userdom&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;all&quot;</span>
+<a id="__codelineno-11-24" name="__codelineno-11-24"></a><span class="w">            </span><span class="nt">"vzBrCP"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// (7)!</span>
+<a id="__codelineno-11-25" name="__codelineno-11-25"></a><span class="w">              </span><span class="nt">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// (8)!</span>
+<a id="__codelineno-11-26" name="__codelineno-11-26"></a><span class="w">                </span><span class="nt">"accessPrivilege"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USER"</span><span class="p">,</span>
+<a id="__codelineno-11-27" name="__codelineno-11-27"></a><span class="w">                </span><span class="nt">"annotation"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
+<a id="__codelineno-11-28" name="__codelineno-11-28"></a><span class="w">                </span><span class="nt">"childAction"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
+<a id="__codelineno-11-29" name="__codelineno-11-29"></a><span class="w">                </span><span class="nt">"configIssues"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
+<a id="__codelineno-11-30" name="__codelineno-11-30"></a><span class="w">                </span><span class="nt">"descr"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
+<a id="__codelineno-11-31" name="__codelineno-11-31"></a><span class="w">                </span><span class="nt">"extMngdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
+<a id="__codelineno-11-32" name="__codelineno-11-32"></a><span class="w">                </span><span class="nt">"intent"</span><span class="p">:</span><span class="w"> </span><span class="s2">"install"</span><span class="p">,</span>
+<a id="__codelineno-11-33" name="__codelineno-11-33"></a><span class="w">                </span><span class="nt">"lcOwn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"local"</span><span class="p">,</span>
+<a id="__codelineno-11-34" name="__codelineno-11-34"></a><span class="w">                </span><span class="nt">"modTs"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-11-02T16:06:04.547+00:00"</span><span class="p">,</span>
+<a id="__codelineno-11-35" name="__codelineno-11-35"></a><span class="w">                </span><span class="nt">"monPolDn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"uni/tn-common/monepg-default"</span><span class="p">,</span>
+<a id="__codelineno-11-36" name="__codelineno-11-36"></a><span class="hll"><span class="w">                </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"default"</span><span class="p">,</span><span class="w"> </span><span class="c1">// (9)!</span>
+</span><a id="__codelineno-11-37" name="__codelineno-11-37"></a><span class="w">                </span><span class="nt">"nameAlias"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
+<a id="__codelineno-11-38" name="__codelineno-11-38"></a><span class="w">                </span><span class="nt">"ownerKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
+<a id="__codelineno-11-39" name="__codelineno-11-39"></a><span class="w">                </span><span class="nt">"ownerTag"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
+<a id="__codelineno-11-40" name="__codelineno-11-40"></a><span class="w">                </span><span class="nt">"prio"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unspecified"</span><span class="p">,</span>
+<a id="__codelineno-11-41" name="__codelineno-11-41"></a><span class="w">                </span><span class="nt">"reevaluateAll"</span><span class="p">:</span><span class="w"> </span><span class="s2">"no"</span><span class="p">,</span>
+<a id="__codelineno-11-42" name="__codelineno-11-42"></a><span class="w">                </span><span class="nt">"rn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"brc-default"</span><span class="p">,</span>
+<a id="__codelineno-11-43" name="__codelineno-11-43"></a><span class="w">                </span><span class="nt">"scope"</span><span class="p">:</span><span class="w"> </span><span class="s2">"context"</span><span class="p">,</span>
+<a id="__codelineno-11-44" name="__codelineno-11-44"></a><span class="w">                </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
+<a id="__codelineno-11-45" name="__codelineno-11-45"></a><span class="w">                </span><span class="nt">"targetDscp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unspecified"</span><span class="p">,</span>
+<a id="__codelineno-11-46" name="__codelineno-11-46"></a><span class="w">                </span><span class="nt">"uid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span>
+<a id="__codelineno-11-47" name="__codelineno-11-47"></a><span class="w">                </span><span class="nt">"userdom"</span><span class="p">:</span><span class="w"> </span><span class="s2">"all"</span>
 <a id="__codelineno-11-48" name="__codelineno-11-48"></a><span class="w">              </span><span class="p">},</span>
-<a id="__codelineno-11-49" name="__codelineno-11-49"></a><span class="w">              </span><span class="nt">&quot;children&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="c1">// (10)!</span>
+<a id="__codelineno-11-49" name="__codelineno-11-49"></a><span class="w">              </span><span class="nt">"children"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="c1">// (10)!</span>
 <a id="__codelineno-11-50" name="__codelineno-11-50"></a><span class="w">                </span><span class="p">{</span>
-<a id="__codelineno-11-51" name="__codelineno-11-51"></a><span class="w">                  </span><span class="nt">&quot;vzSubj&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-11-52" name="__codelineno-11-52"></a><span class="w">                    </span><span class="nt">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-11-53" name="__codelineno-11-53"></a><span class="w">                      </span><span class="nt">&quot;accessPrivilege&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;USER&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-54" name="__codelineno-11-54"></a><span class="w">                      </span><span class="nt">&quot;annotation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-55" name="__codelineno-11-55"></a><span class="w">                      </span><span class="nt">&quot;childAction&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-56" name="__codelineno-11-56"></a><span class="w">                      </span><span class="nt">&quot;configIssues&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-57" name="__codelineno-11-57"></a><span class="w">                      </span><span class="nt">&quot;consMatchT&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AtleastOne&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-58" name="__codelineno-11-58"></a><span class="w">                      </span><span class="nt">&quot;descr&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-59" name="__codelineno-11-59"></a><span class="w">                      </span><span class="nt">&quot;extMngdBy&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-60" name="__codelineno-11-60"></a><span class="w">                      </span><span class="nt">&quot;lcOwn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;local&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-61" name="__codelineno-11-61"></a><span class="w">                      </span><span class="nt">&quot;modTs&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-11-02T16:06:04.547+00:00&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-62" name="__codelineno-11-62"></a><span class="w">                      </span><span class="nt">&quot;monPolDn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uni/tn-common/monepg-default&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-63" name="__codelineno-11-63"></a><span class="w">                      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;default&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-64" name="__codelineno-11-64"></a><span class="w">                      </span><span class="nt">&quot;nameAlias&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-65" name="__codelineno-11-65"></a><span class="w">                      </span><span class="nt">&quot;prio&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;unspecified&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-66" name="__codelineno-11-66"></a><span class="w">                      </span><span class="nt">&quot;provMatchT&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AtleastOne&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-67" name="__codelineno-11-67"></a><span class="w">                      </span><span class="nt">&quot;revFltPorts&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;yes&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-68" name="__codelineno-11-68"></a><span class="w">                      </span><span class="nt">&quot;rn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;subj-default&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-69" name="__codelineno-11-69"></a><span class="w">                      </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-70" name="__codelineno-11-70"></a><span class="w">                      </span><span class="nt">&quot;targetDscp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;unspecified&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-71" name="__codelineno-11-71"></a><span class="w">                      </span><span class="nt">&quot;uid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-72" name="__codelineno-11-72"></a><span class="w">                      </span><span class="nt">&quot;userdom&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;all&quot;</span>
+<a id="__codelineno-11-51" name="__codelineno-11-51"></a><span class="w">                  </span><span class="nt">"vzSubj"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-11-52" name="__codelineno-11-52"></a><span class="w">                    </span><span class="nt">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-11-53" name="__codelineno-11-53"></a><span class="w">                      </span><span class="nt">"accessPrivilege"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USER"</span><span class="p">,</span>
+<a id="__codelineno-11-54" name="__codelineno-11-54"></a><span class="w">                      </span><span class="nt">"annotation"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
+<a id="__codelineno-11-55" name="__codelineno-11-55"></a><span class="w">                      </span><span class="nt">"childAction"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
+<a id="__codelineno-11-56" name="__codelineno-11-56"></a><span class="w">                      </span><span class="nt">"configIssues"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
+<a id="__codelineno-11-57" name="__codelineno-11-57"></a><span class="w">                      </span><span class="nt">"consMatchT"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AtleastOne"</span><span class="p">,</span>
+<a id="__codelineno-11-58" name="__codelineno-11-58"></a><span class="w">                      </span><span class="nt">"descr"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
+<a id="__codelineno-11-59" name="__codelineno-11-59"></a><span class="w">                      </span><span class="nt">"extMngdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
+<a id="__codelineno-11-60" name="__codelineno-11-60"></a><span class="w">                      </span><span class="nt">"lcOwn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"local"</span><span class="p">,</span>
+<a id="__codelineno-11-61" name="__codelineno-11-61"></a><span class="w">                      </span><span class="nt">"modTs"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-11-02T16:06:04.547+00:00"</span><span class="p">,</span>
+<a id="__codelineno-11-62" name="__codelineno-11-62"></a><span class="w">                      </span><span class="nt">"monPolDn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"uni/tn-common/monepg-default"</span><span class="p">,</span>
+<a id="__codelineno-11-63" name="__codelineno-11-63"></a><span class="w">                      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"default"</span><span class="p">,</span>
+<a id="__codelineno-11-64" name="__codelineno-11-64"></a><span class="w">                      </span><span class="nt">"nameAlias"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
+<a id="__codelineno-11-65" name="__codelineno-11-65"></a><span class="w">                      </span><span class="nt">"prio"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unspecified"</span><span class="p">,</span>
+<a id="__codelineno-11-66" name="__codelineno-11-66"></a><span class="w">                      </span><span class="nt">"provMatchT"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AtleastOne"</span><span class="p">,</span>
+<a id="__codelineno-11-67" name="__codelineno-11-67"></a><span class="w">                      </span><span class="nt">"revFltPorts"</span><span class="p">:</span><span class="w"> </span><span class="s2">"yes"</span><span class="p">,</span>
+<a id="__codelineno-11-68" name="__codelineno-11-68"></a><span class="w">                      </span><span class="nt">"rn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subj-default"</span><span class="p">,</span>
+<a id="__codelineno-11-69" name="__codelineno-11-69"></a><span class="w">                      </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
+<a id="__codelineno-11-70" name="__codelineno-11-70"></a><span class="w">                      </span><span class="nt">"targetDscp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unspecified"</span><span class="p">,</span>
+<a id="__codelineno-11-71" name="__codelineno-11-71"></a><span class="w">                      </span><span class="nt">"uid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span>
+<a id="__codelineno-11-72" name="__codelineno-11-72"></a><span class="w">                      </span><span class="nt">"userdom"</span><span class="p">:</span><span class="w"> </span><span class="s2">"all"</span>
 <a id="__codelineno-11-73" name="__codelineno-11-73"></a><span class="w">                    </span><span class="p">},</span>
-<a id="__codelineno-11-74" name="__codelineno-11-74"></a><span class="w">                    </span><span class="nt">&quot;children&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-11-74" name="__codelineno-11-74"></a><span class="w">                    </span><span class="nt">"children"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <a id="__codelineno-11-75" name="__codelineno-11-75"></a><span class="w">                      </span><span class="p">{</span>
-<a id="__codelineno-11-76" name="__codelineno-11-76"></a><span class="w">                        </span><span class="nt">&quot;vzRsSubjFiltAtt&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-11-77" name="__codelineno-11-77"></a><span class="w">                          </span><span class="nt">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-11-78" name="__codelineno-11-78"></a><span class="w">                            </span><span class="nt">&quot;accessPrivilege&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;USER&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-79" name="__codelineno-11-79"></a><span class="w">                            </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;permit&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-80" name="__codelineno-11-80"></a><span class="w">                            </span><span class="nt">&quot;annotation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-81" name="__codelineno-11-81"></a><span class="w">                            </span><span class="nt">&quot;childAction&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-82" name="__codelineno-11-82"></a><span class="w">                            </span><span class="nt">&quot;directives&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-83" name="__codelineno-11-83"></a><span class="w">                            </span><span class="nt">&quot;extMngdBy&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-84" name="__codelineno-11-84"></a><span class="w">                            </span><span class="nt">&quot;forceResolve&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;yes&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-85" name="__codelineno-11-85"></a><span class="w">                            </span><span class="nt">&quot;lcOwn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;local&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-86" name="__codelineno-11-86"></a><span class="w">                            </span><span class="nt">&quot;modTs&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-11-02T16:06:04.547+00:00&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-87" name="__codelineno-11-87"></a><span class="w">                            </span><span class="nt">&quot;monPolDn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uni/tn-common/monepg-default&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-88" name="__codelineno-11-88"></a><span class="w">                            </span><span class="nt">&quot;priorityOverride&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;default&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-89" name="__codelineno-11-89"></a><span class="w">                            </span><span class="nt">&quot;rType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mo&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-90" name="__codelineno-11-90"></a><span class="w">                            </span><span class="nt">&quot;rn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rssubjFiltAtt-default&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-91" name="__codelineno-11-91"></a><span class="w">                            </span><span class="nt">&quot;state&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;formed&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-92" name="__codelineno-11-92"></a><span class="w">                            </span><span class="nt">&quot;stateQual&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;none&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-93" name="__codelineno-11-93"></a><span class="w">                            </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-94" name="__codelineno-11-94"></a><span class="w">                            </span><span class="nt">&quot;tCl&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;vzFilter&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-95" name="__codelineno-11-95"></a><span class="w">                            </span><span class="nt">&quot;tContextDn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-96" name="__codelineno-11-96"></a><span class="w">                            </span><span class="nt">&quot;tDn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uni/tn-common/flt-default&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-97" name="__codelineno-11-97"></a><span class="w">                            </span><span class="nt">&quot;tRn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;flt-default&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-98" name="__codelineno-11-98"></a><span class="w">                            </span><span class="nt">&quot;tType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;name&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-99" name="__codelineno-11-99"></a><span class="w">                            </span><span class="nt">&quot;tnVzFilterName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;default&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-100" name="__codelineno-11-100"></a><span class="w">                            </span><span class="nt">&quot;uid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-101" name="__codelineno-11-101"></a><span class="w">                            </span><span class="nt">&quot;userdom&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;all&quot;</span>
+<a id="__codelineno-11-76" name="__codelineno-11-76"></a><span class="w">                        </span><span class="nt">"vzRsSubjFiltAtt"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-11-77" name="__codelineno-11-77"></a><span class="w">                          </span><span class="nt">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-11-78" name="__codelineno-11-78"></a><span class="w">                            </span><span class="nt">"accessPrivilege"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USER"</span><span class="p">,</span>
+<a id="__codelineno-11-79" name="__codelineno-11-79"></a><span class="w">                            </span><span class="nt">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"permit"</span><span class="p">,</span>
+<a id="__codelineno-11-80" name="__codelineno-11-80"></a><span class="w">                            </span><span class="nt">"annotation"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
+<a id="__codelineno-11-81" name="__codelineno-11-81"></a><span class="w">                            </span><span class="nt">"childAction"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
+<a id="__codelineno-11-82" name="__codelineno-11-82"></a><span class="w">                            </span><span class="nt">"directives"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
+<a id="__codelineno-11-83" name="__codelineno-11-83"></a><span class="w">                            </span><span class="nt">"extMngdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
+<a id="__codelineno-11-84" name="__codelineno-11-84"></a><span class="w">                            </span><span class="nt">"forceResolve"</span><span class="p">:</span><span class="w"> </span><span class="s2">"yes"</span><span class="p">,</span>
+<a id="__codelineno-11-85" name="__codelineno-11-85"></a><span class="w">                            </span><span class="nt">"lcOwn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"local"</span><span class="p">,</span>
+<a id="__codelineno-11-86" name="__codelineno-11-86"></a><span class="w">                            </span><span class="nt">"modTs"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-11-02T16:06:04.547+00:00"</span><span class="p">,</span>
+<a id="__codelineno-11-87" name="__codelineno-11-87"></a><span class="w">                            </span><span class="nt">"monPolDn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"uni/tn-common/monepg-default"</span><span class="p">,</span>
+<a id="__codelineno-11-88" name="__codelineno-11-88"></a><span class="w">                            </span><span class="nt">"priorityOverride"</span><span class="p">:</span><span class="w"> </span><span class="s2">"default"</span><span class="p">,</span>
+<a id="__codelineno-11-89" name="__codelineno-11-89"></a><span class="w">                            </span><span class="nt">"rType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mo"</span><span class="p">,</span>
+<a id="__codelineno-11-90" name="__codelineno-11-90"></a><span class="w">                            </span><span class="nt">"rn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rssubjFiltAtt-default"</span><span class="p">,</span>
+<a id="__codelineno-11-91" name="__codelineno-11-91"></a><span class="w">                            </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"formed"</span><span class="p">,</span>
+<a id="__codelineno-11-92" name="__codelineno-11-92"></a><span class="w">                            </span><span class="nt">"stateQual"</span><span class="p">:</span><span class="w"> </span><span class="s2">"none"</span><span class="p">,</span>
+<a id="__codelineno-11-93" name="__codelineno-11-93"></a><span class="w">                            </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
+<a id="__codelineno-11-94" name="__codelineno-11-94"></a><span class="w">                            </span><span class="nt">"tCl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"vzFilter"</span><span class="p">,</span>
+<a id="__codelineno-11-95" name="__codelineno-11-95"></a><span class="w">                            </span><span class="nt">"tContextDn"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
+<a id="__codelineno-11-96" name="__codelineno-11-96"></a><span class="w">                            </span><span class="nt">"tDn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"uni/tn-common/flt-default"</span><span class="p">,</span>
+<a id="__codelineno-11-97" name="__codelineno-11-97"></a><span class="w">                            </span><span class="nt">"tRn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"flt-default"</span><span class="p">,</span>
+<a id="__codelineno-11-98" name="__codelineno-11-98"></a><span class="w">                            </span><span class="nt">"tType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"name"</span><span class="p">,</span>
+<a id="__codelineno-11-99" name="__codelineno-11-99"></a><span class="w">                            </span><span class="nt">"tnVzFilterName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"default"</span><span class="p">,</span>
+<a id="__codelineno-11-100" name="__codelineno-11-100"></a><span class="w">                            </span><span class="nt">"uid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span>
+<a id="__codelineno-11-101" name="__codelineno-11-101"></a><span class="w">                            </span><span class="nt">"userdom"</span><span class="p">:</span><span class="w"> </span><span class="s2">"all"</span>
 <a id="__codelineno-11-102" name="__codelineno-11-102"></a><span class="w">                          </span><span class="p">}</span>
 <a id="__codelineno-11-103" name="__codelineno-11-103"></a><span class="w">                        </span><span class="p">}</span>
 <a id="__codelineno-11-104" name="__codelineno-11-104"></a><span class="w">                      </span><span class="p">}</span>
@@ -2036,61 +1137,61 @@ Encrypt the <abbr title="Application Policy Infrastructure Controller">APIC</abb
 </code></pre></div></td></tr></table></div>
 <ol>
 <li>The key <code>current</code> is a <strong>list</strong>, it shows the existing configuration from the <abbr title="Application Policy Infrastructure Controller">APIC</abbr> after the module has finished.</li>
-<li>Here starts the first list <strong>item</strong> of the <code>current</code> list, the list item contains another <strong>key-value-pair</strong>, therefore it is a <strong>dictionary</strong>.<br />
+<li>Here starts the first list <strong>item</strong> of the <code>current</code> list, the list item contains another <strong>key-value-pair</strong>, therefore it is a <strong>dictionary</strong>.<br/>
    You are at <code>current[0]</code>.</li>
-<li>The key <code>fvTenant</code> is a <strong>dictionary</strong> containing the keys <code>attributes</code> (line 5) and <code>children</code> (line 22).<br />
+<li>The key <code>fvTenant</code> is a <strong>dictionary</strong> containing the keys <code>attributes</code> (line 5) and <code>children</code> (line 22).<br/>
    You are at <code>current[0]['fvTenant']</code>.</li>
-<li>The key <code>attributes</code> contains <strong>key-value-pairs</strong> which describe the tenant.<br />
+<li>The key <code>attributes</code> contains <strong>key-value-pairs</strong> which describe the tenant.<br/>
    You are at <code>current[0]['fvTenant']['attributes']</code>.</li>
-<li>This <strong>key</strong> contains the <em>name</em> of the tenant as its <strong>value</strong>.<br />
+<li>This <strong>key</strong> contains the <em>name</em> of the tenant as its <strong>value</strong>.<br/>
    You are at <code>current[0]['fvTenant']['attributes']['name']</code>.</li>
-<li>The <code>children</code> key is a <strong>list</strong> containing all <em>contract</em> objects. <strong>This is the list that we want as it contains all contract names!</strong> Remember, the list may contain multiple items (contracts), you only want to retrieve the name of every list item.<br />
+<li>The <code>children</code> key is a <strong>list</strong> containing all <em>contract</em> objects. <strong>This is the list that we want as it contains all contract names!</strong> Remember, the list may contain multiple items (contracts), you only want to retrieve the name of every list item.<br/>
    You are at <code>current[0]['fvTenant']['children']</code>.</li>
-<li>This is the <strong>first list item</strong> of the <code>children</code> list, it is the first (and in this example only) contract object.<br />
+<li>This is the <strong>first list item</strong> of the <code>children</code> list, it is the first (and in this example only) contract object.<br/>
    You are at <code>current[0]['fvTenant']['children'][0]['vzBrCP']</code>.</li>
-<li>The key <code>attributes</code> contains <strong>key-value-pairs</strong> which describe the contract this time.<br />
+<li>The key <code>attributes</code> contains <strong>key-value-pairs</strong> which describe the contract this time.<br/>
    You are at <code>current[0]['fvTenant']['children'][0]['vzBrCP']['attributes']</code>.</li>
-<li>This <strong>key</strong> contains the <em>name</em> of the contract as its <strong>value</strong>.<br />
+<li>This <strong>key</strong> contains the <em>name</em> of the contract as its <strong>value</strong>.<br/>
    You are at <code>current[0]['fvTenant']['children'][0]['vzBrCP']['attributes']['name']</code>.</li>
-<li>The <strong>list</strong> <code>children</code> contains subjects (<em>vzSubj</em>), which are the highest level object in contracts and contain all the filters that determine what traffic flows between the <abbr title="End Point Groups">EPGs</abbr>. <strong>You can ignore this list and all other key-value-pairs, lists or dictionaries in it</strong>.<br />
+<li>The <strong>list</strong> <code>children</code> contains subjects (<em>vzSubj</em>), which are the highest level object in contracts and contain all the filters that determine what traffic flows between the <abbr title="End Point Groups">EPGs</abbr>. <strong>You can ignore this list and all other key-value-pairs, lists or dictionaries in it</strong>.<br/>
    You are at <code>current[0]['fvTenant']['children'][0]['vzBrCP']['children']</code>.</li>
 </ol>
 <details class="tip">
 <summary>Get the <abbr title="JavaScript Object Notation">JSON</abbr> content and store it locally for easier debugging!</summary>
 <p>Copy the following task and add it <strong>after</strong> the one where you retrieved the contracts of the <em>common</em> tenant. The task expects that you <a href="https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_variables.html#registering-variables" target="_blank"><em>registered</em></a> the output to the variable <code>common_contracts</code>!</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Write output to file for easier debugging, removing all keys with Ansible-specific content</span>
-<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">  </span><span class="nt">ansible.builtin.copy</span><span class="p">:</span>
-<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">    </span><span class="nt">content</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">common_contracts</span><span class="nv"> </span><span class="s">|</span><span class="nv"> </span><span class="s">ansible.utils.remove_keys(target=[&#39;changed&#39;,</span><span class="nv"> </span><span class="s">&#39;failed&#39;])</span><span class="nv"> </span><span class="s">|</span><span class="nv"> </span><span class="s">to_nice_json(indent=2)</span><span class="nv"> </span><span class="s">}}&quot;</span>
-<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">    </span><span class="nt">dest</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">playbook_dir</span><span class="nv"> </span><span class="s">}}/common-contracts.json&quot;</span>
-<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="w">    </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0644&quot;</span>
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-12-1" id="__codelineno-12-1" name="__codelineno-12-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Write output to file for easier debugging, removing all keys with Ansible-specific content</span>
+<a href="#__codelineno-12-2" id="__codelineno-12-2" name="__codelineno-12-2"></a><span class="w">  </span><span class="nt">ansible.builtin.copy</span><span class="p">:</span>
+<a href="#__codelineno-12-3" id="__codelineno-12-3" name="__codelineno-12-3"></a><span class="w">    </span><span class="nt">content</span><span class="p">:</span><span class="w"> </span><span class="s">"{{</span><span class="nv"> </span><span class="s">common_contracts</span><span class="nv"> </span><span class="s">|</span><span class="nv"> </span><span class="s">ansible.utils.remove_keys(target=['changed',</span><span class="nv"> </span><span class="s">'failed'])</span><span class="nv"> </span><span class="s">|</span><span class="nv"> </span><span class="s">to_nice_json(indent=2)</span><span class="nv"> </span><span class="s">}}"</span>
+<a href="#__codelineno-12-4" id="__codelineno-12-4" name="__codelineno-12-4"></a><span class="w">    </span><span class="nt">dest</span><span class="p">:</span><span class="w"> </span><span class="s">"{{</span><span class="nv"> </span><span class="s">playbook_dir</span><span class="nv"> </span><span class="s">}}/common-contracts.json"</span>
+<a href="#__codelineno-12-5" id="__codelineno-12-5" name="__codelineno-12-5"></a><span class="w">    </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="s">"0644"</span>
 </code></pre></div>
 <p>This task will store the <abbr title="JavaScript Object Notation">JSON</abbr> output to the file <code>common-contracts.json</code> in your playbook directory. The used filters (<code>remove_keys</code> and <code>to_nice_json</code>) clean and beautify the content a bit.</p>
 <p>Your VScode editor shows where you are in the <abbr title="JavaScript Object Notation">JSON</abbr> file. You can see the path at the top of the file, with the cursor on the <code>name</code> key of the <em>default</em> contract, the path will look like this:
 <figure markdown="span">
-  <img alt="VScode Editor with JSON path" src="../images/vscode-editor-json-path.png" />
+<img alt="VScode Editor with JSON path" src="../images/vscode-editor-json-path.png"/>
 </figure></p>
 </details>
-<p>Observing the output above, you can see that multiple list objects are within the complete <abbr title="JavaScript Object Notation">JSON</abbr> object. The value of the <em>key</em> <code>current</code> is a list, every list item of this key is a tenant (with multiple <em>key-value</em> pairs which can also be dictionaries or lists).<br />
+<p>Observing the output above, you can see that multiple list objects are within the complete <abbr title="JavaScript Object Notation">JSON</abbr> object. The value of the <em>key</em> <code>current</code> is a list, every list item of this key is a tenant (with multiple <em>key-value</em> pairs which can also be dictionaries or lists).<br/>
 If you filter for a single tenant (by providing the tenant name) when using the module, the list <code>current</code> only has one element. Lists (in Python, which Ansible is based on) start at element <em>0</em>, the second list element is <em>1</em> and so on.</p>
 <p>The resulting output in your playbook-run should look something like this (considering that the <em>common</em> tenant only has one contract):</p>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="go">TASK [aci-contract : Output list of contract names of Tenant &#39;common&#39;] ********</span>
-<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="go">ok: [demo-aci-host] =&gt; {</span>
-<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="go">    &quot;msg&quot;: [</span>
-<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="go">        &quot;default&quot;</span>
-<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="go">    ]</span>
-<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="go">}</span>
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-13-1" id="__codelineno-13-1" name="__codelineno-13-1"></a><span class="go">TASK [aci-contract : Output list of contract names of Tenant 'common'] ********</span>
+<a href="#__codelineno-13-2" id="__codelineno-13-2" name="__codelineno-13-2"></a><span class="go">ok: [demo-aci-host] =&gt; {</span>
+<a href="#__codelineno-13-3" id="__codelineno-13-3" name="__codelineno-13-3"></a><span class="go">    "msg": [</span>
+<a href="#__codelineno-13-4" id="__codelineno-13-4" name="__codelineno-13-4"></a><span class="go">        "default"</span>
+<a href="#__codelineno-13-5" id="__codelineno-13-5" name="__codelineno-13-5"></a><span class="go">    ]</span>
+<a href="#__codelineno-13-6" id="__codelineno-13-6" name="__codelineno-13-6"></a><span class="go">}</span>
 </code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>There are multiple ways to achieve the desired solution, try around!<br />
-Dealing with large <abbr title="JavaScript Object Notation">JSON</abbr> objects and outputting it to stdout may result in not being able to scroll back far enough in your VScode terminal to see the start of your task or playbook.<br />
+<p>There are multiple ways to achieve the desired solution, try around!<br/>
+Dealing with large <abbr title="JavaScript Object Notation">JSON</abbr> objects and outputting it to stdout may result in not being able to scroll back far enough in your VScode terminal to see the start of your task or playbook.<br/>
 You can adjust the <a href="../../../demo-environment/red-hat-demo-environment/#terminal-scrollback">VScode configuration</a> yourself.</p>
 </div>
 <p>Achieve the following tasks:</p>
 <ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> New role for contract handling created</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Playbook runs both roles</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Playbook outputs list of all contracts for <em>common</em> tenant</li>
+<li class="task-list-item"><label class="task-list-control"><input checked="" disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> New role for contract handling created</li>
+<li class="task-list-item"><label class="task-list-control"><input checked="" disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> Playbook runs both roles</li>
+<li class="task-list-item"><label class="task-list-control"><input checked="" disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> Playbook outputs list of all contracts for <em>common</em> tenant</li>
 </ul>
 <details class="tip">
 <summary>If you struggle to find a solution, here are some hints. (Try without them first!)</summary>
@@ -2102,122 +1203,62 @@ You can adjust the <a href="../../../demo-environment/red-hat-demo-environment/#
 <li>Store the module output in a variable (register).  </li>
 <li>Use the <code>json_query</code> filter. The filter is part of the <code>community.general</code> collection.  </li>
 <li>You need to install a Python package for the filter, run <code>pip3.9 install jmespath</code> (if your Ansible uses Python3.9, run <code>ansible --version</code> to find out)</li>
-<li>Traversing the <abbr title="JavaScript Object Notation">JSON</abbr> object can be achieved by <code>current[0].fvTenant.children...</code>  </li>
+<li>Traversing the <abbr title="JavaScript Object Notation">JSON</abbr> object can be achieved by <code>current[0].fvTenant.children...</code> </li>
 <li>Output to stdout can be achieved with the debug module.</li>
 </ul>
 </details>
+
 <!-- markdownlint-disable -->
-
-
-
-
-
-
-
-  
-    
-  
-  
-
-
-  <aside class="md-source-file">
-    
-      
-  <span class="md-source-file__fact">
-    <span class="md-icon" title="Last update">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
-    </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 5, 2024</span>
-  </span>
-
-    
-    
-    
-    
-  </aside>
-
-
-
-
-
-                
-
-              </article>
-            </div>
-          
-          
+<aside class="md-source-file">
+<span class="md-source-file__fact">
+<span class="md-icon" title="Last update">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 25, 2025</span>
+</span>
+</aside>
+</article>
+</div>
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
-        </div>
-        
-          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
   Back to top
 </button>
-        
-      </main>
-      
-        <footer class="md-footer">
-  
-  <div class="md-footer-meta md-typeset">
-    <div class="md-footer-meta__inner md-grid">
-      <div class="md-copyright">
-  
-    <div class="md-copyright__highlight">
-      Copyright &copy; Tim Grützmacher 2024
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © Tim Grützmacher 2025
     </div>
   
   
     Made with
-    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
       Material for MkDocs
     </a>
-  
 </div>
-      
-        <div class="md-social">
-  
-    
-    
-    
-    
-    <a href="https://gitlab.ccloud.ninja/tgruetzmacher/ansible-workshop-exercises" target="_blank" rel="noopener" title="Project in Gitlab" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="m503.5 204.6-.7-1.8-69.7-181.78c-1.4-3.57-3.9-6.59-7.2-8.64-2.4-1.55-5.1-2.515-8-2.81s-5.7.083-8.4 1.11c-2.7 1.02-5.1 2.66-7.1 4.78-1.9 2.12-3.3 4.67-4.1 7.44l-47 144H160.8l-47.1-144c-.8-2.77-2.2-5.31-4.1-7.43-2-2.12-4.4-3.75-7.1-4.77a18.1 18.1 0 0 0-8.38-1.113 18.4 18.4 0 0 0-8.04 2.793 18.1 18.1 0 0 0-7.16 8.64L9.267 202.8l-.724 1.8a129.57 129.57 0 0 0-3.52 82c7.747 26.9 24.047 50.7 46.447 67.6l.27.2.59.4 105.97 79.5 52.6 39.7 32 24.2c3.7 1.9 8.3 4.3 13 4.3s9.3-2.4 13-4.3l32-24.2 52.6-39.7 106.7-79.9.3-.3c22.4-16.9 38.7-40.6 45.6-67.5 8.6-27 7.4-55.8-2.6-82"/></svg>
-    </a>
-  
-    
-    
-    
-    
-    <a href="https://github.com/TimGrt/Ansible-Workshop-Exercises/blob/main/Dockerfile" target="_blank" rel="noopener" title="Container Definition" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M349.9 236.3h-66.1v-59.4h66.1zm0-204.3h-66.1v60.7h66.1zm78.2 144.8H362v59.4h66.1zm-156.3-72.1h-66.1v60.1h66.1zm78.1 0h-66.1v60.1h66.1zm276.8 100c-14.4-9.7-47.6-13.2-73.1-8.4-3.3-24-16.7-44.9-41.1-63.7l-14-9.3-9.3 14c-18.4 27.8-23.4 73.6-3.7 103.8-8.7 4.7-25.8 11.1-48.4 10.7H2.4c-8.7 50.8 5.8 116.8 44 162.1 37.1 43.9 92.7 66.2 165.4 66.2 157.4 0 273.9-72.5 328.4-204.2 21.4.4 67.6.1 91.3-45.2 1.5-2.5 6.6-13.2 8.5-17.1zm-511.1-27.9h-66v59.4h66.1v-59.4zm78.1 0h-66.1v59.4h66.1zm78.1 0h-66.1v59.4h66.1zm-78.1-72.1h-66.1v60.1h66.1z"/></svg>
-    </a>
-  
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/TimGrt/Ansible-Workshop-Exercises/actions" rel="noopener" target="_blank" title="CI/CD Pipelines">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10.984 13.836a.5.5 0 0 1-.353-.146l-.745-.743a.5.5 0 1 1 .706-.708l.392.391 1.181-1.18a.5.5 0 0 1 .708.707l-1.535 1.533a.5.5 0 0 1-.354.146m9.353-.147 1.534-1.532a.5.5 0 0 0-.707-.707l-1.181 1.18-.392-.391a.5.5 0 1 0-.706.708l.746.743a.497.497 0 0 0 .706-.001M4.527 7.452l2.557-1.585A1 1 0 0 0 7.09 4.17L4.533 2.56A1 1 0 0 0 3 3.406v3.196a1.001 1.001 0 0 0 1.527.85m2.03-2.436L4 6.602V3.406zM24 12.5c0 1.93-1.57 3.5-3.5 3.5a3.5 3.5 0 0 1-3.46-3h-2.08a3.5 3.5 0 0 1-3.46 3 3.5 3.5 0 0 1-3.46-3h-.558c-.972 0-1.85-.399-2.482-1.042V17c0 1.654 1.346 3 3 3h.04c.244-1.693 1.7-3 3.46-3 1.93 0 3.5 1.57 3.5 3.5S13.43 24 11.5 24a3.5 3.5 0 0 1-3.46-3H8c-2.206 0-4-1.794-4-4V9.899A5.01 5.01 0 0 1 0 5c0-2.757 2.243-5 5-5s5 2.243 5 5a5.005 5.005 0 0 1-4.952 4.998A2.48 2.48 0 0 0 7.482 12h.558c.244-1.693 1.7-3 3.46-3a3.5 3.5 0 0 1 3.46 3h2.08a3.5 3.5 0 0 1 3.46-3c1.93 0 3.5 1.57 3.5 3.5m-15 8c0 1.378 1.122 2.5 2.5 2.5s2.5-1.122 2.5-2.5-1.122-2.5-2.5-2.5S9 19.122 9 20.5M5 9c2.206 0 4-1.794 4-4S7.206 1 5 1 1 2.794 1 5s1.794 4 4 4m9 3.5c0-1.378-1.122-2.5-2.5-2.5S9 11.122 9 12.5s1.122 2.5 2.5 2.5 2.5-1.122 2.5-2.5m9 0c0-1.378-1.122-2.5-2.5-2.5S18 11.122 18 12.5s1.122 2.5 2.5 2.5 2.5-1.122 2.5-2.5m-13 8a.5.5 0 1 0 1 0 .5.5 0 0 0-1 0m2 0a.5.5 0 1 0 1 0 .5.5 0 0 0-1 0m12 0c0 1.93-1.57 3.5-3.5 3.5a3.5 3.5 0 0 1-3.46-3.002q-.01.003-.021.005l-.506.017h-.017a.5.5 0 0 1-.016-.999l.506-.017c.018-.002.035.006.052.007A3.5 3.5 0 0 1 20.5 17c1.93 0 3.5 1.57 3.5 3.5m-1 0c0-1.378-1.122-2.5-2.5-2.5S18 19.122 18 20.5s1.122 2.5 2.5 2.5 2.5-1.122 2.5-2.5"></path></svg>
+</a>
+<a class="md-social__link" href="https://github.com/TimGrt/Ansible-Workshop-Exercises/blob/main/Containerfile" rel="noopener" target="_blank" title="Container Definition">
+<svg viewbox="0 0 640 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M349.9 236.3h-66.1v-59.4h66.1zm0-204.3h-66.1v60.7h66.1zm78.2 144.8H362v59.4h66.1zm-156.3-72.1h-66.1v60.1h66.1zm78.1 0h-66.1v60.1h66.1zm276.8 100c-14.4-9.7-47.6-13.2-73.1-8.4-3.3-24-16.7-44.9-41.1-63.7l-14-9.3-9.3 14c-18.4 27.8-23.4 73.6-3.7 103.8-8.7 4.7-25.8 11.1-48.4 10.7H2.4c-8.7 50.8 5.8 116.8 44 162.1 37.1 43.9 92.7 66.2 165.4 66.2 157.4 0 273.9-72.5 328.4-204.2 21.4.4 67.6.1 91.3-45.2 1.5-2.5 6.6-13.2 8.5-17.1zm-511.1-27.9h-66v59.4h66.1v-59.4zm78.1 0h-66.1v59.4h66.1zm78.1 0h-66.1v59.4h66.1zm-78.1-72.1h-66.1v60.1h66.1z"></path></svg>
+</a>
 </div>
-      
-    </div>
-  </div>
+</div>
+</div>
 </footer>
-      
-    </div>
-    <div class="md-dialog" data-md-component="dialog">
-      <div class="md-dialog__inner md-typeset"></div>
-    </div>
-    
-    
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.annotate", "content.code.copy", "navigation.indexes", "navigation.instant", "navigation.sections", "navigation.tabs", "navigation.top", "search.highlight", "search.suggest"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
-    
-    
-      <script src="../../../assets/javascripts/bundle.83f73b43.min.js"></script>
-      
-        <script src="../../../js/print-site.js"></script>
-      
-        <script src="../../../assets/javascripts/extra/refresh-on-toggle-dark-light.js"></script>
-      
-        <script src="../../../assets/javascripts/extra/tablesort.min.js"></script>
-      
-        <script src="../../../assets/javascripts/extra/tablesort.js"></script>
-      
-    
-  </body>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.annotate", "content.code.copy", "navigation.indexes", "navigation.instant", "navigation.sections", "navigation.tabs", "navigation.top", "search.highlight", "search.suggest"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+<script src="../../../assets/javascripts/bundle.f1b6f286.min.js"></script>
+<script src="../../../assets/javascripts/extra/refresh-on-toggle-dark-light.js"></script>
+<script src="../../../assets/javascripts/extra/tablesort.min.js"></script>
+<script src="../../../assets/javascripts/extra/tablesort.js"></script>
+</body>
 </html>
