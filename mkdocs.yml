@@ -11,7 +11,6 @@ extra:
       name: Container Definition
 extra_css:
   - assets/stylesheets/tables.css
-  - assets/stylesheets/pdf.scss
 extra_javascript:
   - assets/javascripts/extra/refresh-on-toggle-dark-light.js
   - assets/javascripts/extra/tablesort.min.js
@@ -78,6 +77,8 @@ plugins:
           enabled: !ENV [MKDOCS_EXPORTER_PDF_ENABLED, true]
           explicit: true
           concurrency: 16
+          stylesheets:
+            - docs/assets/stylesheets/pdf.scss
 theme:
   name: material
   custom_dir: docs/assets/overrides
