@@ -96,13 +96,15 @@ Type in the provided password to connect.
 
   ![login vs code](images/vscode_login.png)
 
-Clicking on `File` &#8594; `Open Folder...` in the menu bar and open your *home directory* in Visual Studio Code (this folder should already be shown in the *Open Folder* pop-up and called `/home/student`. This will reload your browser window.
+In the menu bar of VS Code, click on `File` &#8594; `Open Folder...` and open your *home directory* in Visual Studio Code (this folder should already be shown in the *Open Folder* pop-up and called `/home/student`. This will reload your browser window.
+
+  ![open folder vs code](images/vscode_open_folder.png)
 
 ### Step 2 - Using the Terminal
 
 Open a terminal in Visual Studio Code:
 
-  ![picture of new terminal](images/vscode-new-terminal.png)
+  ![picture of new terminal](images/vscode_new_terminal.png)
 
 Navigate to the `lab_inventory` directory on the Ansible control node terminal.
 
