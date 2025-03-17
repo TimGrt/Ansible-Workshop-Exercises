@@ -34,9 +34,9 @@ Understand the playbook and the output:
 * The `loop` keyword lists the actual user names. Those replace the `{{ item }}` during the actual execution of the playbook.
 * During execution the task is only listed once, but there are three changes listed underneath it.
 
-### Step 2 - Loops over hashes
+### Step 2 - Loop complex lists
 
-As mentioned loops can also be over lists of hashes (multiple key-value-pairs in every list item). Imagine that the users should be assigned to different additional groups:
+Sometimes, your list items contain multiple key-value-pairs. Imagine that the users should be assigned to different additional groups, your list may look like this:
 
 ```yaml
 - username: dev_user
@@ -52,7 +52,7 @@ The `user` module has the optional parameter `groups` which defines the group (o
 ??? note "Hint"
     By default, the user is **removed** from all other groups. Use the module parameter `append: true` to modify this.
 
-Let's rewrite the playbook to create the users with additional user rights:
+Let's rewrite the playbook to create the users and also add them to specific groups:
 
 ```yaml
 --8<-- "loops-step2-loop-users.yml"
@@ -151,7 +151,7 @@ Afterwards, verify that the user `prod_user` was indeed created on `node1` using
 
 Up to now, we always provided the list to loop in the *loop* keyword directly, most of the times you will provide the list with a variable.
 
-```yaml
+```yaml linenums="1"
 --8<-- "loops-step3-special-variables-playbook.yml"
 ```
 

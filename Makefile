@@ -14,7 +14,7 @@ VENV_NAME?=ve-mkdocs-dev
 PYTHON=${VENV_NAME}/bin/python
 
 help:  ## Display this help
-	@awk 'BEGIN {FS = ":.*##"; printf "This \033[34mMakefile\033[0m sets up a development environment for the \033[34mAnsible Best Practice Guide\033[0m.\n\nUsage:\n  make \033[34m<target>\033[0m\n\nTargets:\n"} /^[a-zA-Z_-]+:.*?##/ { printf "  \033[34m%-10s\033[0m %s\n", $$1, $$2 }' $(MAKEFILE_LIST)
+	@awk 'BEGIN {FS = ":.*##"; printf "This \033[34mMakefile\033[0m sets up a development environment for the \033[34mAnsible Workshop Exercises Guide\033[0m.\n\nUsage:\n  make \033[34m<target>\033[0m\n\nTargets:\n"} /^[a-zA-Z_-]+:.*?##/ { printf "  \033[34m%-10s\033[0m %s\n", $$1, $$2 }' $(MAKEFILE_LIST)
 
 all: venv hooks serve  ## Runs all targets
 

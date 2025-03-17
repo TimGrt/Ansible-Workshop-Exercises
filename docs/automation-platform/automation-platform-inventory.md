@@ -120,7 +120,12 @@ As you see, this time it worked. For tasks that have to run as `root` you need t
 
 ### Challenge Lab: Ad Hoc Commands
 
-Okay, a small challenge: Run an ad hoc to make sure the package "tmux" is installed on all hosts. If unsure, consult the documentation either via the web UI as shown above or by running `ansible-doc yum` on your Automation controller control host.
+Okay, a small challenge: Run an ad hoc to make sure the package "tmux" is installed on all hosts. If unsure, consult the documentation either via the web UI as shown above or by running `ansible-doc yum` on the CLI of your Ansible control host.
+
+!!! tip
+    The *Arguments* you want to provide for your desired module need to be provided as key-value-pairs separated with `=` (the same way as you would do on the [command-line](https://docs.ansible.com/ansible/latest/command_guide/intro_adhoc.html){:target="_blank"}), multiple arguments need to be separated by *whitespace* or *comma*.
+
+    ![Ad-hoc arguments](ad_hoc_arguments.png)
 
 ??? success "Solution"
 
@@ -143,10 +148,10 @@ Previously, we used the generic `package` module to install packages on the targ
 
 * At the bottom of the page, click the **Edit** button.
 
-* In the textarea *Ansible Modules Allowed for Ad Hoc Jobs*, add `"package",` (in between `mount` and `ping` to keep the alphabatical order).
+* In the text area *Ansible Modules Allowed for Ad Hoc Jobs*, add `"package",` (in between `mount` and `ping` to keep the alphabatical order).
 
 !!! warning
-    The textarea contains a JSON list! Ensure to use quotation marks and end the line with comma to keep the valid list structure.
+    The text area contains a JSON list! Ensure to use quotation marks and end the line with comma to keep the valid list structure.
 
 * After adding the module to the list, scroll down to the bottom of the page and click the **Save** button.
 

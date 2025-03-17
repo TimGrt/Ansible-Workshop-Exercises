@@ -3,7 +3,8 @@
   hosts: node1
   become: true
   handlers:
-    - name: Motd_changed
+    - name: Output info about MOTD
+      listen: motd_changed_handler
       ansible.builtin.debug:
         msg: "The Message of the Day was updated! SSH to node1 and check the content."
   tasks:
@@ -14,3 +15,11 @@
         owner: root
         group: root
         mode: "0644"
+
+    - name: Add script to /etc/profile.d for MOTD
+      ansible.builtin.copy:
+        content: cat /etc/motd
+        dest: /etc/profile.d/motd.sh
+        owner: root
+        group: root
+        mode: "0755"

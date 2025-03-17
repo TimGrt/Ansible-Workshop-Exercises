@@ -8,7 +8,7 @@ covers:
 
 ## Objective
 
-This exercise will cover Jinja2 templating. Ansible uses Jinja2 templating to modify files before they are distributed to managed hosts. Jinja2 is one of the most used template engines for Python, take a look at the [documentation](https://jinja.palletsprojects.com/){:target="_blank"} for additional information.
+This exercise will cover Jinja2 templating. Ansible uses Jinja2 templating to modify files before they are distributed to managed hosts. Jinja2 is one of the most used templating engines for Python, take a look at the [documentation](https://jinja.palletsprojects.com/){:target="_blank"} for additional information.
 
 ## Guide
 
