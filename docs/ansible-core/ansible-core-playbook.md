@@ -140,13 +140,13 @@ To run your playbook, use the `ansible-playbook <playbook>` command as follows:
     ```
 
 !!! tip
-    The existing `/etc/ansible/ansible.cfg` file provides the location of your inventory file. If this was not set within your `ansible.cfg` file, the command to run the playbook would be:
+    The existing `ansible.cfg` file (which you created previously) provides the location of your inventory file. If this was not set within your `ansible.cfg` file, the command to run the playbook would be:
 
     ```bash
     ansible-playbook -i /home/student/lab_inventory/hosts apache.yml
     ```
 
-    The configuration file does set some more parameters, take a look. If you want to know which config file is used and where it is stored, run `ansible --version`. The output shows the currently used config file.
+    If you want to know which config file is used, run `ansible --version` and observe the output.
 
 Once the playbook has completed, connect to `node1` via SSH to make sure Apache has been installed:
 
@@ -313,15 +313,15 @@ Then create the file `~/ansible-files/files/web.html` on the control node:
 </body>
 ```
 
-In a previous example, you used Ansible’s `copy` module to write text supplied on the command line into a file. Now you’ll use the module in your playbook to copy a file.
+Now, you’ll use Ansible's `copy` module in your playbook to *copy* a file from your controller to the managed node(s).
 
-On the control node as your student user edit the file `~/ansible-files/apache.yml` and add a new task utilizing the `copy` module. It should now look like this:
+On the control node, as your student user, edit the file `~/ansible-files/apache.yml` and add a new task utilizing the `copy` module. It should now look like this:
 
 ```yaml
 --8<-- "playbook-step5-apache.yml"
 ```
 
-What does this new copy task do? The new task uses the `copy` module and defines the source and destination options for the copy operation as parameters.
+What does this new copy task do? The new task uses the `copy` module and defines the source and destination options for the copy operation as parameters, as well as setting permissions and owner of the resulting file.
 
 Run your extended Playbook:
 
@@ -345,7 +345,7 @@ Run your extended Playbook:
 
 While the above, shows the simplicity of applying changes to a particular host. What about if you want to set changes to many hosts? This is where you'll notice the real power of Ansible as it applies the same set of tasks reliably to many hosts.
 
-* So what about changing the apache.yml Playbook to run on `node1` **and** `node2` **and** `node3`?
+> All right, what about changing the `apache.yml` playbook to run on `node1` **and** `node2` **and** `node3`?
 
 As you might remember, the inventory lists all nodes as members of the group `web`:
 
