@@ -124,7 +124,7 @@ nav:
     - demo-environment/editor-alternatives.md
   - "Ansible Basics":
     - ansible-basics-overview.md
-    - "1 - Lab environment": ansible-core/ansible-core-intro.md
+    - "1 - Check prerequisites": ansible-core/ansible-core-intro.md
     - "2 - Ansible Basics": ansible-core/ansible-core-basics.md
     - "3 - Playbooks": ansible-core/ansible-core-playbook.md
     - "4 - Variables": ansible-core/ansible-core-variables.md
