@@ -7,7 +7,6 @@
       ansible.builtin.setup:
         filter:
           - '*family'
-      register: setup_output
 
     - name: Output variable content
       ansible.builtin.debug:
