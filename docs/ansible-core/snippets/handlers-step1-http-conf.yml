@@ -3,7 +3,8 @@
   hosts: web
   become: true
   handlers:
-    - name: Restart_apache
+    - name: Restart Apache service
+      listen: restart_apache_handler
       ansible.builtin.service:
         name: httpd
         state: restarted
@@ -16,4 +17,4 @@
         owner: apache
         group: apache
       notify:
-        - Restart_apache
+        - restart_apache_handler
