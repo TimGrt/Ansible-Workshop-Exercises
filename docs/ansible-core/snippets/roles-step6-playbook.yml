@@ -7,7 +7,7 @@
       ansible.builtin.debug:
         msg: "Beginning web server configuration."
   post_tasks:
-    - name: Output info before all roles are executed
+    - name: Output info after all roles are executed
       ansible.builtin.debug:
         msg: "Web server has been configured."
   roles:
