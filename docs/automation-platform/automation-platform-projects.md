@@ -63,7 +63,7 @@ A playbook to install the Apache web server has already been committed to the di
 ```
 
 !!! tip
-    Note the difference to other playbooks you might have written\! Most importantly there is no `become` and `hosts` is set to `all`.
+    Note the difference to other playbooks you might have written\! Most importantly there is no `become` set, this has to be done later in the Job template!
 
 To configure and use this repository as a **Source Control Management (SCM)** system in automation controller you have to create a **Project** that uses the repository
 
