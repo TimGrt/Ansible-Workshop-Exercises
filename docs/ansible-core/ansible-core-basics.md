@@ -45,12 +45,14 @@ In this folder, create the file `ansible.cfg`:
 touch ansible.cfg
 ```
 
-Add the following content to the file:
+Open the file by clicking on it in the *Explorer* tab and add the following content to the file, it will be saved automatically:
 
 ```ini
 [defaults]
 inventory = ~/lab_inventory/hosts
 ```
+
+You could also open the file with *vi* (or *vim*), go into *insert mode* by using ++i++ and paste in the content with right-click. Afterwards, use ++esc++ to leave the insert mode and save the file with `:wq`.
 
 !!! warning
     If you don't use a configuration file which specifies the inventory file, you will always have to provide the path to it, when running Ansible!
