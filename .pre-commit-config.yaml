@@ -20,12 +20,12 @@ repos:
       - id: markdownlint
         name: Lint Markdown files
   - repo: https://github.com/ansible-community/ansible-lint
-    rev: v25.1.3
+    rev: v25.4.0
     hooks:
       - id: ansible-lint
         name: Run ansible-lint on Workshop examples
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.31.3
+    rev: 0.33.0
     hooks:
       - id: check-github-workflows
   - repo: https://github.com/codespell-project/codespell
