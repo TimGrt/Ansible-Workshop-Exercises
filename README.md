@@ -2,55 +2,23 @@
 
 This repository contains all exercise descriptions for my Ansible Workshop, utilizing the Red Hat demo environment. The Workshop is inspired by the [Red Hat Training course for Ansible](https://github.com/ansible/workshops), but adds additional exercises and more descriptions for a multi-day workshop.
 The exercises are build with MkDocs and published to [Github pages](https://timgrt.github.io/Ansible-Workshop-Exercises).
-A Dockerfile is included to build a container image which publishes the exercises as a Webserver.
 
 [![Markdown Lint](https://github.com/TimGrt/Ansible-Best-Practices/actions/workflows/ci.yml/badge.svg)](https://github.com/TimGrt/Ansible-Best-Practices/actions/workflows/ci.yml) [![Deploy MkDocs to Github pages](https://github.com/TimGrt/Ansible-Workshop-Exercises/actions/workflows/cd.yml/badge.svg)](https://github.com/TimGrt/Ansible-Workshop-Exercises/actions/workflows/cd.yml) [![Built with Material for MkDocs](https://img.shields.io/badge/Material_for_MkDocs-526CFE?logo=MaterialForMkDocs&logoColor=white)](https://squidfunk.github.io/mkdocs-material/)
 
-## Podman
+## Manual build
 
-During a Workshop, the page published to Github pages was not accessible by the attendees because it was blocked by firewall policies. In that case, deploy the container with the exercises on a host in the lab environment. Use *node2*, as this one is accessible from the internet on Port 8080.
+A *Containerfile* is provided which bundles all requirements and displays the resulting content in a webserver.
 
-SSH to *node2*, install *git* and *podman*:
+Clone the project and change into the base directory, afterwards build the image:
 
 ```bash
-sudo dnf install -y @container-tools git
+podman build -t ansible-workshop-exercise-guide .
 ```
 
-Clone the repository:
+Start a container from the image, the webserver is available at Port 8080:
 
 ```bash
-git clone https://github.com/TimGrt/Ansible-Workshop-Exercises.git
-```
-
-Change into the cloned directory and build the container image:
-
-```bash
-podman build -t ansible-workshop-exercises .
-```
-
-Run a container from the previously build image, the webserver is available at Port 8080:
-
-```bash
-podman run -d -p 8080:8080/tcp --name workshop ansible-workshop-exercises
-```
-
-Get the **public** IP address of *node2* from the lab inventory, suffix with Port 8080 and open the exercises in the browser.
-
-> NOTE: During the exercises, Apache is started on *node2* on Port 8080. If you intend to do the exercises for demonstration purposes, this will fail as the Port is occupied.
-
-## Docker
-
-For the sake of completion, here is how to build and run everything with Docker.
-Build the container image:
-
-```bash
-docker build -t ansible-workshop-exercises .
-```
-
-Run a container from the previously build image, the webserver is available at Port 8080:
-
-```bash
-docker run -d -p 8080:8080/tcp --name workshop ansible-workshop-exercises
+podman run -d -p 8080:8080/tcp --name ansible-workshop ansible-workshop-exercise-guide
 ```
 
 ## Development
