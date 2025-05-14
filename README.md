@@ -23,4 +23,4 @@ podman run -d -p 8080:8080/tcp --name ansible-workshop ansible-workshop-exercise
 
 ## Development
 
-We document our Coding Guidelines in the [Contributing Guidelines](https://github.com/TimGrt/Ansible-Best-Practices/blob/main/.github/CONTRIBUTING.md), this document also includes instructions on how the setup a development environment.
+We document our Coding Guidelines in the [Contributing Guidelines](https://github.com/TimGrt/Ansible-Workshop-Exercises/blob/main/.github/CONTRIBUTING.md), this document also includes instructions on how the setup a development environment.
