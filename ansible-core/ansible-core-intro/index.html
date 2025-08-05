@@ -30,7 +30,7 @@
 <aside class="md-banner">
 <div class="md-banner__inner md-grid md-typeset">
 <!-- Add announcement here, including arbitrary HTML -->
-<!-- <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v9.5A1.75 1.75 0 0 1 14.25 14H8.061l-2.574 2.573A1.458 1.458 0 0 1 3 15.543V14H1.75A1.75 1.75 0 0 1 0 12.25v-9.5C0 1.784.784 1 1.75 1M1.5 2.75v9.5c0 .138.112.25.25.25h2a.75.75 0 0 1 .75.75v2.19l2.72-2.72a.75.75 0 0 1 .53-.22h6.5a.25.25 0 0 0 .25-.25v-9.5a.25.25 0 0 0-.25-.25H1.75a.25.25 0 0 0-.25.25"/><path d="M22.5 8.75a.25.25 0 0 0-.25-.25h-3.5a.75.75 0 0 1 0-1.5h3.5c.966 0 1.75.784 1.75 1.75v9.5A1.75 1.75 0 0 1 22.25 20H21v1.543a1.457 1.457 0 0 1-2.487 1.03L15.939 20H10.75A1.75 1.75 0 0 1 9 18.25v-1.465a.75.75 0 0 1 1.5 0v1.465c0 .138.112.25.25.25h5.5a.75.75 0 0 1 .53.22l2.72 2.72v-2.19a.75.75 0 0 1 .75-.75h2a.25.25 0 0 0 .25-.25z"/></svg></span> &nbsp;The current Workshop URL: <b><a href="https://demo.redhat.com/workshop/pm6xgd" target="_blank">https://demo.redhat.com/workshop/pm6xgd</a></b> -->
+<span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v9.5A1.75 1.75 0 0 1 14.25 14H8.061l-2.574 2.573A1.458 1.458 0 0 1 3 15.543V14H1.75A1.75 1.75 0 0 1 0 12.25v-9.5C0 1.784.784 1 1.75 1M1.5 2.75v9.5c0 .138.112.25.25.25h2a.75.75 0 0 1 .75.75v2.19l2.72-2.72a.75.75 0 0 1 .53-.22h6.5a.25.25 0 0 0 .25-.25v-9.5a.25.25 0 0 0-.25-.25H1.75a.25.25 0 0 0-.25.25"></path><path d="M22.5 8.75a.25.25 0 0 0-.25-.25h-3.5a.75.75 0 0 1 0-1.5h3.5c.966 0 1.75.784 1.75 1.75v9.5A1.75 1.75 0 0 1 22.25 20H21v1.543a1.457 1.457 0 0 1-2.487 1.03L15.939 20H10.75A1.75 1.75 0 0 1 9 18.25v-1.465a.75.75 0 0 1 1.5 0v1.465c0 .138.112.25.25.25h5.5a.75.75 0 0 1 .53.22l2.72 2.72v-2.19a.75.75 0 0 1 .75-.75h2a.25.25 0 0 0 .25-.25z"></path></svg></span>  The current Workshop URL: <b><a href="https://catalog.partner.demo.redhat.com/workshop/c88ytg" target="_blank">https://catalog.partner.demo.redhat.com/workshop/c88ytg</a></b>
 </div>
 </aside>
 </div>
@@ -663,12 +663,12 @@
 <p>These first few lab exercises will be exploring the command-line utilities of the Ansible Automation Platform.  This includes</p>
 <ul>
 <li><a href="https://docs.ansible.com/core.html" target="_blank">ansible-core</a> - the base executable that provides the framework, language and functions that underpin the Ansible Automation Platform.  It also includes various cli tools like <code>ansible</code>, <code>ansible-playbook</code> and <code>ansible-doc</code>.  Ansible Core acts as the bridge between the upstream community with the free and open source Ansible and connects it to the downstream enterprise automation offering from Red Hat, the Ansible Automation Platform.</li>
-<li><a href="https://github.com/ansible/ansible-navigator" target="_blank">ansible-navigator</a> - a command line utility and text-based user interface (TUI) for running and developing Ansible automation content.</li>
-<li><a href="https://docs.ansible.com/automation-controller/latest/html/userguide/execution_environments.html" target="_blank">Execution Environments</a> - not specifically covered in this workshop (day 1) because the built-in Ansible Execution Environments already included all the Red Hat supported collections which includes all the collections we use for this workshop.  Execution Environments are container images that can be utilized as Ansible execution.</li>
-<li><a href="https://github.com/ansible/ansible-builder" target="_blank">ansible-builder</a> - not specifically covered in this workshop, <code>ansible-builder</code> is a command line utility to automate the process of building Execution Environments.</li>
+<li><a href="https://github.com/ansible/ansible-navigator" target="_blank">ansible-navigator</a> - a command line utility and text-based user interface (TUI) for running and developing Ansible automation content, especially for running Execution Environments. We won't cover this tool specifically in the first day, but you can always do all exercises with the Navigator if you want to.</li>
 </ul>
-<p>If you need more information on new Ansible Automation Platform components bookmark this landing page <a href="https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.4" target="_blank">https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.4</a></p>
-<p>We will be using especially the <em>ansible-core</em> executable and the <abbr title="Command-Line Interface">CLI</abbr> tools it provides, as currently (Q1/2023) it is still the main interface to interact with Ansible.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>We will be using especially the <em>ansible-core</em> executable and the <abbr title="Command-Line Interface">CLI</abbr> tools it provides, as currently (Q3/2025) it is still the main interface to interact with Ansible.</p>
+</div>
 <p>In the (near) future this will be replaced/supplemented by the <em>Ansible Navigator</em>, which on the one hand brings more useful additional features and in the end serves a much greater purpose than just be a drop in replacement or alias to the currently used Ansible utilities. It requires a broader introduction and explanation regarding the use of containers and collections, which we will discuss on workshop day 3.<br/>
 Still, although we will be using the <em>ansible-core</em> executable in all exercises, it is shown how to also achieve everything using the <code>ansible-navigator</code> utility in a separate tab.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio"/><input id="__tabbed_1_2" name="__tabbed_1" type="radio"/><div class="tabbed-labels"><label for="__tabbed_1_1">Ansible</label><label for="__tabbed_1_2">Navigator</label></div>
@@ -782,7 +782,7 @@ If you want to use the tool the same way as with the normal <em>ansible-playbook
 <span class="md-icon" title="Last update">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
 </span>
-<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 17, 2025 09:36:08">March 17, 2025</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 5, 2025 07:45:33">August 5, 2025</span>
 </span>
 </aside>
 </article>
