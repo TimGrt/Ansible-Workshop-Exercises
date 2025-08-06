@@ -22,9 +22,9 @@ With the introduction of Ansible Automation Platform 2, several new key componen
 
 What do you find within an execution environment?
 
-* RHEL UBI 8
-* Ansible 2.9 or Ansible Core 2.11
-* Python 3.8
+* Base Image (RHEL UBI, Fedora, ...)
+* Ansible (-Core) and ansible-runner
+* Python 3
 * Any content Collections
 * Collection python or binary dependencies.
 

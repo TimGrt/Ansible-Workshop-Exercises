@@ -68,35 +68,32 @@ The playbook `main.yml` deploys the template:
 
 There is of course more then one way to accomplish this, but for the purposes of this lab, we will use Ansible automation controller.
 
-Within **Resources** -> **Inventories** and select 'Workshop Inventory'.
+Navigate to **Automation Execution → Infrastructure → Inventories**. Select 'Workshop Inventory' and complete the following:
 
-Within the **Groups** tab, click the **Add** button and create a new inventory group labeled `Webserver` and click **Save**.
-
-Within the **Details** tab of the `Webserver` group, click on **Edit**. Within the **Variables** textbox define a variable labeled `stage` with the value `dev` and click **Save**.
+* Go to the Groups tab, click **Create group**, and create a new group labeled Webserver. Click **Create group**.
+* In the Webserver group, click **Edit group** and define the following variable:
 
 ```yaml
 ---
 stage: dev
 ```
 
-Within the **Details** tab of the `Webserver` inventory, click the **Hosts** tab, click the **Add** button and **Add existing host**. Select `node1`, `node2`, `node3` as the hosts to be part of the `Webserver` inventory.
+Within the **Details** tab of the `Webserver` inventory, click the **Hosts** tab, click the **Add existing host** button. Select `node1`, `node2`, `node3` as the hosts to be part of the `Webserver` inventory.
 
-Within **Resources** -> **Inventories**, select the `Workshop` Inventory. Click on the `Hosts` tab and click on `node2`.  Click on `Edit` and add the `stage: prod` variable in the **Variables** window. This overrides the inventory variable due to order of operations of how the variables are accessed during playbook execution.
+Within **Automation Execution → Infrastructure → Inventories**, select the `Workshop` Inventory. Click on the `Hosts` tab and click on `node2`.  Click on `Edit` and add the `stage: prod` variable in the **Variables** window. This overrides the inventory variable due to order of operations of how the variables are accessed during playbook execution.
 
-Within the **Variables** textbox define a variable labeled `stage` with the value of `prod` and click **Save**.
+Within the **Variables** textbox define a variable labeled `stage` with the value of `prod` and click **Save host**.
 
 ```yaml
----
-ansible_host: <IP_of_node2>
+ansible_host: node2.example.com
 stage: prod
 ```
 
-!!! tip
-    Make sure to keep the three dashes that mark the YAML start and the `ansible_host` line in place\!
+![edit host](images/edit_host.png)
 
 ### Create the Template
 
-Within **Resources** -> **Templates**, select the **Add** button and **Add job template** as follows:
+Within **Automation Execution → Templates**, select the **Create template** button and **Create job template** as follows:
 
 | Parameter             | Value                                                                      |
 | --------------------- | -------------------------------------------------------------------------- |
@@ -111,7 +108,9 @@ Within **Resources** -> **Templates**, select the **Add** button and **Add job t
 | Variables             | `dev_content: "default dev content", prod_content: "default prod content"` |
 | Options               | :material-checkbox-outline: Privilege Escalation                           |
 
-Click **Save**.
+Click **Create job template**.
+
+![web_content_job_template](images/web_content_job_template.png)
 
 Run the template by clicking the **Launch** button.
 
@@ -129,7 +128,7 @@ This time we use the power of Ansible to check the results: execute uri to get t
 Execute the playbook:
 
 ``` { .console .no-copy }
-[student@ansible-1 ~]$ ansible-playbook check_url.yml
+[student@ansible-1 ~]$ ansible-navigator run check_url.yml -m stdout
 ```
 
 Snippet of output:
@@ -150,7 +149,7 @@ ok: [node3] => {
 ### Add Survey
 
 * Add a Survey to the template to allow changing the variables `dev_content` and `prod_content`.
-* In the Template, click the **Survey** tab and click the **Add** button.
+* In the Template, click the **Survey** tab and click the **Create survey question** button.
 * Fill out the following information:
 
 | Parameter            | Value                                      |
@@ -159,8 +158,7 @@ ok: [node3] => {
 | Answer Variable Name | `dev_content`                              |
 | Answer Type          | `Text`                                     |
 
-* Click **Save**
-* Click the **Add** button
+* Click **Create survey question**
 
 In the same fashion add a second **Survey Question**
 
@@ -170,25 +168,22 @@ In the same fashion add a second **Survey Question**
 | Answer Variable Name | `prod_content`                              |
 | Answer Type          | `Text`                                     |
 
-* Click **Save**
-* Click the toggle to turn the Survey questions to **On**
-
-* Click **Preview** for the Survey
+* Click **Create survey question**
+* Click the toggle **Survey disabled** to enable the Survey questions.
 
 * Add permissions to the team `Web Content` so the template **Create Web Content** can be executed by `wweb`.
-* Within the **Resources** -> **Templates**, click **Create Web Content** and add **Access** to the user `wweb` the ability to execute the template.
-    * **Select a Resource Type** -> click **Users**, click **Next**.
-    * **Select Items from List** -> select the checkbox `wweb`, click **Next**.
-    * **Select Roles to Apply** -> select the checkbox **Execute** and click **Save**.
-
+* Within the **Automation Execution** -> **Templates**, click **Create Web Content** select the  **User Access** tab and **Add roles**  to add the user `wweb` the ability to execute the template.
+    * **Select user(s)** -> select the checkbox `wweb`, click **Next**.
+    * **Select roles to apply** -> select the checkbox **JobTemplate Execute** and click **Next**.
+    * **Review** -> click **Finish**.
 * Run the survey as user `wweb`
     * Logout of the user `admin` of your Ansible automation controller.
-    * Login as `wweb` and go to **Resources** -> **Templates** and run the **Create Web Content** template.
+    * Login as `wweb` and go to **Automation execution** -> **Templates** and run the **Create Web Content** template.
 
 Check the results again from your automation controller host. We will use the dedicated `uri` module within an Ansible playbook. As arguments it needs the actual URL and a flag to output the body in the results.
 
 ``` { .console .no-copy }
-[student@ansible-1 ~]$ ansible-playbook check_url.yml
+[student@ansible-1 ~]$ ansible-navigator run check_url.yml -m stdout
 ```
 
 ### Solution

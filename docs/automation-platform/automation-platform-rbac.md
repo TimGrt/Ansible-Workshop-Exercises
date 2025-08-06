@@ -14,20 +14,16 @@ You have already learned how Ansible automation controller separates credentials
 
 ### Ansible automation controller users
 
-There are three types of automation controller users:
+There are three types of users in Ansible Automation Controller:
 
-* **Normal User**: Have read and write access limited to the inventory and projects for which that user has been granted the appropriate roles and privileges.
-
-* **System Auditor**: Auditors implicitly inherit the read-only capability for all objects within the automation controller environment.
-
-* **System Administrator**: Has admin, read, and write privileges over the entire automation controller installation.
+* **Normal User**: Has read and write access limited to assigned inventories and projects.
+* **Ansible Automation Platform Auditor**: Read-only access to all objects within the automation controller environment.
+* **Ansible Automation Platform Administrator**: Full admin privileges over the entire automation controller installation.
 
 Let’s create a user:
 
-* In the automation controller menu under **Access** click **Users**
-
-* Click the **Add** button
-
+* Navigate to **Access Management -> Users**.
+* Click the **Create user** button.
 * Fill in the values for the new user:
 
 | Parameter        | Value              |
@@ -39,9 +35,10 @@ Let’s create a user:
 | First Name       | `Werner`           |
 | Last Name        | `Web`              |
 | Organization     | `Default`          |
-| User Type        | `Normal User`      |
 
-* Click **Save**
+* Click **Create user**.
+
+![create user](images/create_user.png)
 
 ### Ansible automation controller teams
 
@@ -49,25 +46,17 @@ A Team is a subdivision of an organization with associated users, projects, cred
 
 Create a Team:
 
-* In the menu go to **Access → Teams**
-
-* Click the **Add** button and create a team named `Web Content` within the `Default` Organization.
-
-* Click **Save**
+* Navigate to **Access Management -> Teams**.
+* Click the **Create team** button and create a team named `Web Content` within the `Default` organization.
+* Click **Create team**.
 
 Add a user to the team:
 
-* Click on the team `Web Content` and click the **Access** tab and click **Add**.
+* Select the `Web Content` team.
+* Go to the **Users** tab and click **Add users**.
+* In the **Add users** window, choose **wweb**, then click **Add users**.
 
-* Within the **Select a Resource Type** window, click on the **Users** resource type and click **Next**.
-
-* Within the **Select Items from List**, select the checkbox next to the `wweb` user and click **Next**.
-
-* Within the **Select Roles to Apply**, select **Member** as the role to apply to the `wweb` user.
-
-Click **Save**.
-
-Permissions allow to read, modify, and administer projects, inventories, and other automation controller elements. Permissions can be set for different resources.
+![add user](images/add_user.png)
 
 ### Granting permissions
 
@@ -75,34 +64,30 @@ To allow users or teams to actually do something, you have to set permissions. T
 
 Add the permission to use the `Create index.html` template:
 
-* Within **Resources** -> **Templates**, select `Create index.html`.
-
-* Select **Access** tab from the menu and click **Add**.
-
-* Within the **Select a Resource Type** window, click on the **Users** resource type and click **Next**.
-
-* Within the **Select Items from List**, select the checkbox next to the `wweb` user and click **Next**.
-
-* Within the **Select Roles to Apply**, select **Read** and **Execute** as the roles to apply to the `wweb` user.
-
-* Click **Save**
+* Navigate to **Automation Execution -> Templates**.
+* Select the template `Create index.html`.
+* Click the **User Access** tab.
+* Click **Add roles**
+* Select the `wweb` user and click **Next**.
+* Choose the roles **JobTemplate Admin** and/or **JobTemplate Execute**, depending on the required level of access, click **Next**.
+* Review the selections and click **Finish**.
 
 ### Test permissions
 
 Now log out of automation controller’s web UI and in again as the **wweb** user.
 
-* Go to the **Templates** view, you should notice for wweb only the `Create
-  index.html` template is listed. He is allowed to view and launch, but not to edit the Template (no Edit button available).
-
-* Run the Job Template by clicking the rocket icon. Enter the values for the survey questions and launch the job.
-
+* Navigate to **Templates**. You should only see the `Create index.html` template listed. He is allowed to view and launch, but not to edit the Template (no Edit button available).
+* Run the job by clicking the rocket icon. Enter the required values for the survey questions and launch the job.
 * In the following **Jobs** view have a good look around, note that there where changes to the host (as expected).
 
-Check the result: execute `curl` again on the control host to pull the content of the webserver on `node1` (you could of course check `node2` and `node3`, too):
+In the **Automation Execution → Infrastructure → Inventories → Workshop Inventory**, select the Hosts tab and select **node1** and click **Run Command**:
 
-``` { .console .no-copy }
-[student@ansible-1 ~]$ curl http://node1
-```
+* Within the Details window, select Module command, in Arguments type `curl http://node1` and click Next.
+* Within the Execution Environment window, select `Default execution environment` and click Next.
+* Within the Credential window, select `Workshop Credentials` and click Next.
+* Review your inputs and click Finish.
+
+Verify that the output result is as expected.
 
 Just recall what you have just done: You enabled a restricted user to run an Ansible playbook
 

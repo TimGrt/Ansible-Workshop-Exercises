@@ -11,8 +11,8 @@ covers:
 Explore and understand the lab environment.  This exercise will cover
 
 * Locating and understanding:
-    * Ansible Automation Controller [**Inventory**](https://docs.ansible.com/automation-controller/latest/html/userguide/inventories.html){:target="_blank"}
-    * Ansible Automation Controller [**Credentials**](https://docs.ansible.com/automation-controller/latest/html/userguide/credentials.html){:target="_blank"}
+    * Ansible Automation Controller [**Inventory**](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/using_automation_execution/controller-inventories){:target="_blank"}
+    * Ansible Automation Controller [**Credentials**](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/using_automation_execution/controller-credentials){:target="_blank"}
 
 * Running ad hoc commands via the Ansible Automation Controller web UI
 
@@ -22,30 +22,19 @@ Explore and understand the lab environment.  This exercise will cover
 
 The first thing we need is an inventory of your managed hosts. This is the equivalent of an inventory file in Ansible Engine. There is a lot more to it (like dynamic inventories) but let’s start with the basics.
 
-* You should already have the web UI open, if not: Point your browser to the URL you were given, similar to `https://demo.redhat.com/workshop/pm6xgd` (the *workshop ID* will be different) and log in as `admin`. The password will be provided by the instructor.
+You should already have the web UI open, if not: Point your browser to the URL you were given, similar to `https://controller.6rr99.sandbox2326.opentlc.com` (the current workshop ID will be different) and log in as `admin`. The password will be provided by the instructor.
 
-There will be one inventory, the **Workshop Inventory**. Click the **Workshop Inventory** then click the **Hosts** button
+In the left pane, navigate to **Automation Execution → Infrastructure → Inventories** in the web UI, and select *Workshop Inventory*. This one has four hosts in it, separated into two distinct *groups*. You can view them by clicking the respective tabs.
 
-The inventory information at `~/lab_inventory/hosts` was pre-loaded into the Ansible Automation controller Inventory as part of the provisioning process.
+To view **all** hosts, from **all** inventories (there may be multiple or even dozens of different inventories), navigate to **Automation Execution → Infrastructure → Hosts**
 
-``` { .ini .no-copy }
-[web]
-node1 ansible_host=node1.example.com
-node2 ansible_host=node2.example.com
-node3 ansible_host=node3.example.com
-
-[control]
-ansible-1 ansible_host=ansible-1.example.com
-```
-
-!!! warning
-    In your inventory the IP addresses will be different, do not copy the values above!
+![Hosts overview](images/hosts.png)
 
 ### Examine Machine Credentials
 
-Now we will examine the credentials to access our managed hosts from Automation controller.  As part of the provisioning process for this Ansible Workshop the **Workshop Credential** has already been setup.
+Now we will examine the credentials to access our managed hosts from Automation controller. These **Machine credentials** are essential for establishing secure SSH connections to managed hosts.
 
-In the **Resources** menu choose **Credentials**. Now click on the **Workshop Credential**.
+ Navigate to **Automation Execution → Infrastructure → Credentials** and select *Workshop Credentials*.
 
 Note the following information:
 
@@ -55,49 +44,54 @@ Note the following information:
 | <nobr>Username</nobr>        | `ec2-user`  | The user which matches our command-line Ansible inventory username for the other Linux nodes                                                                   |
 | <nobr>SSH Private Key</nobr> | `Encrypted` | Note that you can't actually examine the SSH private key once someone hands it over to Ansible Automation controller |
 
+Automation controller supports over 30 different credential types for various automation tasks. Here are a few common ones:
+
+* **Network Credentials:** For managing network devices.
+* **Source Control Credentials:** For accessing source control systems.
+* **Amazon Web Services (AWS) Credentials:** For integrating with AWS services.
+
+Additionally, you can create your own custom credential types if needed!
+
 ### Run Ad Hoc commands
 
 It is possible to run run ad hoc commands from Ansible Automation controller as well.
 
 !!! tip
     **Ensure** that all hosts are available and can be included in automation jobs.  
-    Got to **Resources → Hosts** and move the slider on the right to **On** for all hosts.
+    The slider on the right of every host should be blue (enabled) for all hosts.
 
-* In the web UI go to **Resources → Inventories → Workshop Inventory**
+* In the web UI go to **Automation Execution → Infrastructure → Inventories** and select *Workshop Inventory*
 
 * Click the **Hosts** tab to change into the hosts view and select the three hosts *node1* to *node3* by ticking the boxes to the left of the host entries.
 
 * Click **Run Command** button. In the next screen you have to specify the ad hoc command.
 
-Within the **Details** window, select **Module** `ping` and click **Next**.
+Within this window, select **Module** `ping` and click **Next**.
 
 Within the **Execution Environment** window, select **Default execution environment** and click **Next**.
 
-Within the **Machine Credential** window, select **Workshop Credentials** and click **Launch**.
+Within the **Machine Credential** window, select **Workshop Credentials** and click **Finish**.
 
 !!! tip
     The output of the results is displayed once the command has completed.
 
 The simple **ping** module doesn’t need options. For other modules you need to supply the command to run as an argument. Try the **command** module to find the userid of the executing user using an ad hoc command.
 
-* In the web UI go to **Resources → Inventories → Workshop Inventory**
+* In the web UI go to **Automation Execution → Infrastructure → Inventories** and select *Workshop Inventory*
 
 * Click the **Hosts** tab to change into the hosts view and select the three hosts by ticking the boxes to the left of the host entries.
 
 * Click **Run Command** button. In the next screen you have to specify the ad hoc command.
 
-Within the **Details** window, select **Module** `command`, in **Arguments** type `id` and click **Next**.
+Select **Module** `command`, in **Arguments** type `id` and click **Next**.
 
 Within the **Execution Environment** window, select **Default execution environment** and click **Next**.
 
 Within the **Machine Credential** window, select **Workshop Credentials** and click **Launch**.
 
-!!! tip
-    After choosing the module to run, Ansible Automation Controller will provide a link to the docs page for the module when clicking the question mark next to "Arguments". This is handy, give it a try.
-
 How about trying to get some secret information from the system? Try to print out `/etc/shadow`.
 
-* In the web UI go to **Resources → Inventories → Workshop Inventory**
+* In the web UI go to **Automation Execution → Infrastructure → Inventories** and select *Workshop Inventory*.
 
 * Click the **Hosts** tab to change into the hosts view and select the three hosts by ticking the boxes to the left of the host entries.
 
@@ -114,9 +108,9 @@ Within the **Machine Credential** window, select **Workshop Credentials** and cl
 
 Oops, the last one didn’t went well, all red.
 
-Re-run the last ad hoc command but this time check the checkbox labeled **Enable privilege escalation**.
+Re-run the last ad hoc command but this time check the checkbox labeled **Privilege escalation**.
 
-As you see, this time it worked. For tasks that have to run as `root` you need to escalate the privileges. This is the same as the **become: yes** used in your Ansible Playbooks.
+As you see, this time it worked. For tasks that have to run as `root` you need to escalate the privileges. This is the same as the **become: true** used in your Ansible Playbooks.
 
 ### Challenge Lab: Ad Hoc Commands
 
@@ -129,7 +123,7 @@ Okay, a small challenge: Run an ad hoc to make sure the package "tmux" is instal
 
 ??? success "Solution"
 
-    * In the Web UI go to **Resources → Inventories → Workshop Inventory**.  
+    * In the Web UI go to **Automation Execution → Infrastructure → Inventories** and select *Workshop Inventory*.  
     * Click the **Hosts** tab to change into the hosts view and select the three hosts by ticking the boxes to the left of the host entries.
     * Click **Run Command** button. In the next screen you have to specify the ad hoc command.
     * Within the **Details** window, select **Module** `yum`, in **Arguments** type `name=tmux`, check **Enable privilege escalation** and click **Next**.
@@ -144,14 +138,13 @@ Okay, a small challenge: Run an ad hoc to make sure the package "tmux" is instal
 The previous Challenge Lab made use of the `yum` module, this module only makes sense on *older* Fedora-based systems like RHEL 7 or RHEL 8 hosts.  
 Previously, we used the generic `package` module to install packages on the target systems. Let's add this module to the list of modules which can be used with ad-hoc commands.  
 
-* In the web UI go to **Settings**. In the Tab *Jobs* click on **Jobs settings**.
-
-* At the bottom of the page, click the **Edit** button.
+* In the web UI go to **Settings → Jobs**.
+* In this **Jobs settings** windows, click the **Edit** button in the top right.
 
 * In the text area *Ansible Modules Allowed for Ad Hoc Jobs*, add `"package",` (in between `mount` and `ping` to keep the alphabatical order).
 
 !!! warning
-    The text area contains a JSON list! Ensure to use quotation marks and end the line with comma to keep the valid list structure.
+    The text area contains a list! Ensure that it is a valid YAML (or JSON) list structure!
 
 * After adding the module to the list, scroll down to the bottom of the page and click the **Save** button.
 

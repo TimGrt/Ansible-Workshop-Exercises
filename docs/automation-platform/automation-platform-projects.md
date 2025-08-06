@@ -69,7 +69,7 @@ To configure and use this repository as a **Source Control Management (SCM)** sy
 
 ### Create the Project
 
-* Go to **Resources → Projects** click the **Add** button. Fill in the form:
+* **Automation Execution → Projects**, click the **Create Project** button. Fill in the form:
 
 | Parameter                      | Value                           |
 | ------------------------------ | ------------------------------- |
@@ -85,9 +85,11 @@ To configure and use this repository as a **Source Control Management (SCM)** sy
 | Source Control URL | `https://github.com/ansible/workshop-examples.git`                                                                                                          |
 | Options            | Select **Clean**, **Delete** and **Update Revision on Launch** to request a fresh copy of the repository and to update the repository when launching a job. |
 
-* Click **SAVE**
+* Click **Create project**
 
-The new project will be synced automatically after creation. But you can also do this manually: Sync the Project again with the Git repository by going to the **Projects** view and clicking the circular arrow **Sync Project** icon to the right of the Project.
+The new project will be synced automatically after creation. But you can also do this manually: Sync the Project again with the Git repository by going to the **Projects** view and clicking the circular arrow **Sync Project** icon in the top right corner.
+
+![Project Sync](images/project_sync.png)
 
 After starting the sync job, go to the **Jobs** view: there is a new job for the update of the Git repository.
 
@@ -103,10 +105,10 @@ A job template is a definition and set of parameters for running an Ansible job.
 
 * **What** playbook to use?
 
-Okay, let’s just do that: Go to the **Resources -> Templates** view, click the **Add** button and choose **Add job template**.
+Okay, let’s just do that: To create a Job Template, go to the **Automation Execution -> Templates** view,click the **Create template** button and choose **Create job template**.
 
 !!! tip
-    Remember that you can often click on magnifying glasses to get an overview of options to pick to fill in fields.
+    Remember that you can often click on the question mark with a circle to get more details about the field.
 
 | Parameter             | Value                                            |
 | --------------------- | ------------------------------------------------ |
@@ -120,12 +122,12 @@ Okay, let’s just do that: Go to the **Resources -> Templates** view, click the
 | Limit                 | `web`                                            |
 | Options               | :material-checkbox-outline: Privilege Escalation |
 
-* Click **Save**
+* Click **Create job template**
 
-You can start the job by directly clicking the blue **Launch** button, or by clicking on the rocket in the Job Templates overview. After launching the Job Template, you are automatically brought to the job overview where you can follow the playbook execution in real time:
+You can start the job by directly clicking the blue **Launch template** button, or by clicking on the rocket in the Job Templates overview. After launching the Job Template, you are automatically brought to the job overview where you can follow the playbook execution in real time.
 
 Job Details
-![job details](images/job_details.png)
+![job details](images/template_details.png)
 
 Job Run
 ![job_run](images/job_run.png)
@@ -155,11 +157,12 @@ You have already been through all the steps needed, so try this for yourself.
 
 ??? success "Solution"
 
-    * Go to **Resources →  Inventories** → **Workshop Inventory**
-    * In the **Hosts** view select `node1`, `node2`, `node3` and click **Run Command**
+    * Go to **Automation Execution → Infrastructure →  Inventories** → **Workshop Inventory**
+    * In the **Automation Execution → Infrastructure → Inventories → Workshop Inventory**, select the **Hosts** tab and select `node1`, `node2`, `node3` and click **Run Command**
     * Within the **Details** window, select **Module** `command`, in **Arguments** type `systemctl status httpd` and click **Next**.
     * Within the **Execution Environment** window, select **Default execution environment** and click **Next**.
-    * Within the **Machine Credential** window, select **Workshop Credential** and click **Launch**.
+    * Within the **Credential** window, select **Workshop Credentials** and click **Next**.
+    * Review your inputs and click **Finish**.
 
     !!! info
         The output of the results is displayed once the command has completed.
