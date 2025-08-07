@@ -18,9 +18,9 @@ The following exercise will provide an Ansible automation controller overview in
 
 ## Guide
 
-### Why Ansible automation controller?
+### What is Ansible Automation Platform (AAP)?
 
-Automation controller is a web-based UI that provides an enterprise solution for IT automation. It
+Ansible Automation Platform (AAP) is a comprehensive automation solution that provides a scalable framework for automating tasks across IT environments. It integrates various components, including automation controller, Event-Driven Ansible and automation hub offering users a unified platform for managing, executing, and orchestrating automation workflows.
 
 * has a user-friendly dashboard.
 * complements Ansible, adding automation, visual management, and monitoring capabilities.
@@ -29,6 +29,14 @@ Automation controller is a web-based UI that provides an enterprise solution for
 * graphically manages or synchronizes inventories with a wide variety of sources.
 * has a RESTful API.
 * And much more...
+
+Some additional infos and tools of the Automation Platform offering from Red Hat include:
+
+* [Execution Environments](https://docs.ansible.com/automation-controller/latest/html/userguide/execution_environments.html){:target="_blank"} - not specifically covered in this workshop (day 1) because the built-in Ansible Execution Environments already included all the Red Hat supported collections which includes all the collections we use for this workshop.  Execution Environments are container images that can be utilized as Ansible execution.
+* [ansible-builder](https://github.com/ansible/ansible-builder){:target="_blank"} - not specifically covered in this workshop, `ansible-builder` is a command line utility to automate the process of building Execution Environments.
+* [ansible-navigator](https://github.com/ansible/ansible-navigator){:target="_blank"} - a command line utility and text-based user interface (TUI) for running and developing Ansible automation content, especially for running Execution Environments. We won't cover this tool specifically in the first day, but you can always do all exercises with the Navigator if you want to.
+
+If you need more information on new Ansible Automation Platform components bookmark this landing page [https://red.ht/AAP-20](https://red.ht/AAP-20){:target="_blank"}
 
 ### Your Ansible automation controller lab environment
 
@@ -45,39 +53,32 @@ The Ansible automation controller provided in this lab is individually setup for
 
 ### Dashboard
 
-Let's have a first look at the automation controller: Point your browser to the URL you were given, similar to `https://demo.redhat.com/workshop/pm6xgd` (the  current workshop ID will be different) and log in as `admin`. The password will be provided by the instructor.
+The **automation controller** is a key component of Ansible Automation Platform. It offers a web-based interface that provides a centralized point to manage, monitor, and control automation.  
+Let's have a first look at the **automation controller**: Point your browser to the URL you were given, similar to `https://controller.6rr99.sandbox2326.opentlc.com` (the current workshop ID will be different) and log in as `admin`. The password will be provided by the instructor.
 
-The web UI of automation controller greets you with a dashboard with a graph showing:
+The controller’s dashboard offers a real-time view of recent job activity, managed hosts and hands-on quick starts to get you started as quickly as possible with Ansible Automation Platform.
 
-* recent job activity
-* the number of managed hosts
-* quick pointers to lists of hosts with problems.
+![Ansible automation controller dashboard](images/aap25-dashboard.png)
 
-The dashboard also displays real time data about the execution of tasks completed in playbooks.
-
-![Ansible automation controller dashboard](images/controller_dashboard.jpg)
-
-### Concepts
+### Core Concepts
 
 Before we dive further into using Ansible automation controller, you should get familiar with some concepts and naming conventions.
 
 #### Projects
 
-Projects are logical collections of Ansible playbooks in Ansible automation controller. These playbooks either reside on the Ansible automation controller instance, or in a source code version control system supported by automation controller.
+Logical collections of Ansible assets such as collections, roles and playbooks stored in a version control system.
 
 #### Inventories
 
-An Inventory is a collection of hosts against which jobs may be launched, the same as an Ansible inventory file. Inventories are divided into groups and these groups contain the actual hosts. Groups may be populated manually, by entering host names into automation controller, from one of Ansible Automation controller’s supported cloud providers or through dynamic inventory scripts.
+Collections of hosts against which automation tasks are run. Inventories can be manually defined or dynamically synchronized.
 
 #### Credentials
 
-Credentials are utilized by automation controller for authentication when launching Jobs against machines, synchronizing with inventory sources, and importing project content from a version control system. Credential configuration can be found in the Settings.
+Credentials are utilized by automation controller for authentication when launching Jobs against machines, synchronizing with inventory sources, and importing project content from a version control system and much more.
 
-automation controller credentials are imported and stored encrypted in automation controller, and are not retrievable in plain text on the command line by any user. You can grant users and teams the ability to use these credentials, without actually exposing the credential to the user.
+#### Job Templates
 
-#### Templates
-
-A job template is a definition and set of parameters for running an Ansible job. Job templates are useful to execute the same job many times. Job templates also encourage the reuse of Ansible playbook content and collaboration between teams. To execute a job, automation Controller requires that you first create a job template.
+Defined sets of parameters that allow for the consistent execution of automation jobs from an Ansible playbook.
 
 #### Jobs
 

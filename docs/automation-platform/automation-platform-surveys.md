@@ -8,7 +8,7 @@ covers:
 
 ## Objective
 
-Demonstrate the use of Ansible Automation controller [survey feature](https://docs.ansible.com/automation-controller/latest/html/userguide/job_templates.html#surveys){:target="_blank"}. Surveys set extra variables for the playbook similar to ‘Prompt for Extra Variables’ does, but in a user-friendly question and answer way. Surveys also allow for validation of user input.
+Demonstrate the use of Ansible Automation controller [survey feature](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/using_automation_execution/controller-job-templates#controller-surveys-in-job-templates){:target="_blank"}. Surveys set extra variables for the playbook similar to ‘Prompt for Extra Variables’ does, but in a user-friendly question and answer way. Surveys also allow for validation of user input.
 
 ## Guide
 
@@ -46,7 +46,7 @@ Now you create a new Template that includes a survey.
 
 #### Create Template
 
-* Go to **Resources → Templates**, click the **Add** button and choose **Add job template**
+* Go to **Automation Execution → Templates**, click the **Create template** button, and choose **Create job template**.
 
 * Fill out the following information:
 
@@ -62,14 +62,14 @@ Now you create a new Template that includes a survey.
 | Limit                 | `web`                                            |
 | Options               | :material-checkbox-outline: Privilege Escalation |
 
-* Click **Save**
+* Click **Create job template**.
 
 !!! warning
     **Do not run the template yet!**
 
 #### Add the Survey
 
-* In the Template, click the **Survey** tab and click the **Add** button.
+* In the Template, click the **Survey** tab, then click **Create survey question**.
 
 * Fill out the following information:
 
@@ -79,10 +79,10 @@ Now you create a new Template that includes a survey.
 | Answer Variable Name | `first_line` |
 | Answer Type          | `Text`       |
 
-* Click **Save**
-* Click the **Add** button
+![Survey Q1](images/survey_q1.png)
 
-In the same fashion add a second **Survey Question**
+* Click **Create survey question**.
+* Click **Create survey question** to create a second **Survey Question**
 
 | Parameter            | Value         |
 | -------------------- | ------------- |
@@ -90,14 +90,20 @@ In the same fashion add a second **Survey Question**
 | Answer Variable Name | `second_line` |
 | Answer Type          | `Text`        |
 
-* Click **Save**
-* Click the toggle to turn the Survey questions to **On**
+![Survey Q2](images/survey_q2.png)
+
+* Click **Create survey question**.
+* Enable the survey by toggling the **Survey disabled** button to the **On** posiiton.
 
 ### Launch the Template
 
-Now launch **Create index.html** job template by selecting the **Details** tab and clicking the **Launch** button.
+Now, launch the **Create index.html** job template by clicking the **Launch template** button.
 
-Before the actual launch the survey will ask for **First Line** and **Second Line**. Fill in some text and click **Next**. The **Preview** window shows the values, if all is good run the Job by clicking **Launch**.
+Before the actual launch the survey will ask for **First Line** and **Second Line**. Fill in some text and click **Next**. The **Preview** window shows the values, if all is good run the Job by clicking **Finish**.
+
+![Survey Launch](images/survey_launch.png)
+
+![Survey Review](images/survey_review.png)
 
 After the job has completed, check the Apache homepage. In the SSH console on the control host, execute `curl` against `node1`:
 
