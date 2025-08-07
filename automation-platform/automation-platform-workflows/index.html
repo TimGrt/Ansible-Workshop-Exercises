@@ -705,7 +705,7 @@
 
 <h1 id="6-workflows">6 - Workflows</h1>
 <h2 id="objective">Objective</h2>
-<p>The basic idea of a workflow is to link multiple Job Templates together. They may or may not share inventory, playbooks or even permissions. The links can be conditional:</p>
+<p>The basic idea of a <em>workflow</em> is to link multiple Job Templates together. They may or may not share inventory, playbooks or even permissions. The links can be conditional:</p>
 <ul>
 <li>if job template A succeeds, job template B is automatically executed afterwards</li>
 <li>but in case of failure, job template C will be run.</li>
@@ -717,17 +717,18 @@
 <h3 id="lab-scenario">Lab scenario</h3>
 <p>You have two departments in your organization:</p>
 <ul>
-<li>The web operations team that is developing playbooks in their own Git branch named <code>webops</code></li>
-<li>The web developers team that is developing playbooks in their own Git branch named <code>webdev</code>.</li>
+<li><strong>Web operations team:</strong> developing playbooks in their Git branch <code>webops</code>.</li>
+<li><strong>Web developers team:</strong> working in their branch <code>webdev</code>.</li>
 </ul>
 <p>When there is a new Node.js server to deploy, two things need to happen:</p>
 <h4 id="web-operations-team">Web operations team</h4>
 <ul>
-<li><code>httpd</code>, <code>firewalld</code>, and <code>node.js</code> need to be installed, <code>SELinux</code> settings configured, the firewall needs to be opened, and <code>httpd</code> and <code>node.js</code> should get started.</li>
+<li>Install <code>httpd</code>, <code>firewalld</code>, and <code>node.js</code>.</li>
+<li>Configure <code>SELinux</code> settings, open the firewall, and start <code>httpd</code> and <code>node.js</code>.</li>
 </ul>
 <h4 id="web-developers-team">Web developers team</h4>
 <ul>
-<li>The most recent version of the web application needs to be deployed and <code>node.js</code> needs to be restarted.</li>
+<li>Deploy the latest version of the web application and restart <code>node.js</code>.</li>
 </ul>
 <p>In other words, the Web operations team prepares a server for application deployment, and the Web developers team deploys the application on the server.</p>
 <hr/>
@@ -742,7 +743,7 @@
 <p class="admonition-title">Warning</p>
 <p>If you are still logged in as user <strong>wweb</strong>, log out of and log in as user <strong>admin</strong>.</p>
 </div>
-<p>Within <strong>Resources</strong> -&gt; <strong>Projects</strong>, click the <strong>Add</strong> button to create a project for the web operations team. Fill out the form as follows:</p>
+<p>Within <strong>Automation Execution → Projects</strong>, click <strong>Create Project</strong> to set up the web operations team’s project: Fill out the form as follows:</p>
 <table>
 <thead>
 <tr>
@@ -781,8 +782,8 @@
 </tr>
 </tbody>
 </table>
-<p>Click <strong>Save</strong></p>
-<p>Within <strong>Resources</strong> -&gt; <strong>Projects</strong>, click the <strong>Add</strong> button to create a project for the web developers team. Fill out the form as follows:</p>
+<p>Click <strong>Create project</strong>.</p>
+<p>Repeat the process to set up the <strong>Webdev Git Repo</strong>, using the branch <code>webdev</code>. Fill out the form as follows:</p>
 <table>
 <thead>
 <tr>
@@ -821,10 +822,10 @@
 </tr>
 </tbody>
 </table>
-<p>Click <strong>Save</strong></p>
+<p>Click <strong>Create project</strong>.</p>
 <h3 id="set-up-job-templates">Set up job templates</h3>
 <p>Now you have to create two Job Templates like you would for "normal" Jobs.</p>
-<p>Within <strong>Resources</strong> -&gt; <strong>Templates</strong>, click the <strong>Add</strong> button and choose <strong>Add job template</strong>:</p>
+<p>Within <strong>Automation Execution → Templates → Create template → Create job template</strong>, fill out the form with the following values:</p>
 <table>
 <thead>
 <tr>
@@ -859,7 +860,7 @@
 </tr>
 <tr>
 <td>Credentials</td>
-<td><code>Workshop Credential</code></td>
+<td><code>Workshop Credentials</code></td>
 </tr>
 <tr>
 <td>Limit</td>
@@ -871,9 +872,9 @@
 </tr>
 </tbody>
 </table>
-<p>Click <strong>Save</strong></p>
-<hr/>
-<p>Within <strong>Resources</strong> -&gt; <strong>Templates</strong>, click the <strong>Add</strong> button and choose <strong>Add job template</strong>:</p>
+<p>Click <strong>Create job template</strong>.</p>
+<p><img alt="create_template_webops" src="../images/create_template_webops.png"/></p>
+<p>Click <strong>Create job template</strong>, and then repeat the process for the <strong>Node.js Deploy</strong> template, changing the project to <strong>Webdev Git Repo</strong> and the playbook to <code>rhel/webdev/install_node_app.yml</code>.</p>
 <table>
 <thead>
 <tr>
@@ -908,7 +909,7 @@
 </tr>
 <tr>
 <td>Credentials</td>
-<td><code>Workshop Credential</code></td>
+<td><code>Workshop Credentials</code></td>
 </tr>
 <tr>
 <td>Limit</td>
@@ -920,14 +921,14 @@
 </tr>
 </tbody>
 </table>
-<p>Click <strong>Save</strong></p>
+<p>Click <strong>Create job template</strong>.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>If you want to know what the Ansible Playbooks look like, check out the Github <abbr title="Uniform Resource Locator">URL</abbr> and switch to the appropriate branches.</p>
 </div>
 <h3 id="set-up-the-workflow">Set up the workflow</h3>
-<p>Workflows are configured in the <strong>Templates</strong> view, you might have noticed you can choose between <strong>Add job template</strong> and <strong>Add workflow template</strong> when adding a template.</p>
-<p>Within <strong>Resources</strong> -&gt; <strong>Templates</strong>, click the <strong>Add</strong> button and choose <strong>Add workflow template</strong>:</p>
+<p>Workflows are configured in the <strong>Templates</strong> view, you might have noticed you can choose between <strong>Create job template</strong> and <strong>Create workflow job template</strong> when adding a template.</p>
+<p>Within <strong>Automation Execution → Templates → Create template → Create workflow job template</strong>, fill in the details:</p>
 <table>
 <thead>
 <tr>
@@ -946,48 +947,34 @@
 </tr>
 </tbody>
 </table>
-<p>Click <strong>Save</strong></p>
-<p>After saving the template the <strong>Workflow Visualizer</strong> opens to allow you to build a workflow. You can later open the <strong>Workflow Visualizer</strong> again by using the button on the template details page and selecting <strong>Visualizer</strong> from the menu.</p>
-<p><img alt="start" src="../images/start.png"/></p>
-<p>Click on the <strong>Start</strong> button, an <strong>Add Node</strong> window opens. Assign an action to the node, via node     type by selecting <strong>Job Template</strong>.</p>
-<p>Select the <strong>Web App Deploy</strong> job template and click <strong>Save</strong>.</p>
-<p><img alt="Add Node" src="../images/add_node.png"/></p>
-<p>A new node is shown, connected to the <strong>START</strong> button with the name of the job template. Hover the mouse pointer over the node, you’ll see options to add a node (+), view node details (i), edit the node (pencil), link to an available node (chain), and delete the node (trash bin).</p>
-<p><img alt="workflow node" src="../images/workflow_node.png"/></p>
-<p>Hover over the node and click the (+) sign to add a new node.</p>
-<ul>
-<li>For the <strong>Run Type</strong> select <strong>On Success</strong> (default) and click <strong>Next</strong>.</li>
-</ul>
+<p>Click <strong>Create workflow job template</strong> to open the <strong>Workflow Visualizer</strong>.</p>
+<p><img alt="add_step" src="../images/visualizer_add_step.png"/></p>
+<p>Click the <strong>Add Step</strong> button and assign the <strong>Web App Deploy</strong> job template to the first node. Add a second node by clicking the 3 dot sign, selecting the "Add step and link"  and assign the <strong>Node.js Deploy</strong> template with the <strong>Run on success</strong> status type. Select <strong>Next</strong> and <strong>Finish</strong> to complete the workflow.</p>
+<p><img alt="app_deploy" src="../images/visualizer_add_step_app_deploy.png"/></p>
+<p><img alt="add_link" src="../images/visualizer_add_step_add_link.png"/></p>
+<p><img alt="add_nodejs" src="../images/visualizer_add_step_nodejs.png"/></p>
+<p>Click <strong>Save</strong> to finalize the workflow.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>The run type allows for more complex workflows. You could lay out different execution paths for successful and for failed playbook runs.</p>
 </div>
-<ul>
-<li>For <strong>Node Type</strong> select <strong>Job Template</strong> (default) and choose the <strong>Node.js Deploy</strong> job template.
-Click <strong>Save</strong>.</li>
-</ul>
-<p><img alt="Add Nodejs" src="../images/add_node_nodejs.png"/></p>
-<p>Click <strong>Save</strong> in the top right corner of the <strong>Visualizier</strong> view.</p>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>The <strong>Visualizer</strong> has options for setting up more advanced workflows, please refer to the documentation.</p>
-</div>
+<p><img alt="overview" src="../images/visualizer_overview.png"/></p>
 <h3 id="launch-workflow">Launch workflow</h3>
-<p>From within the <strong>Deploy Webapp Server</strong> Details page, <strong>Launch</strong> the workflow.</p>
-<p><img alt="launch" src="../images/launch.png"/></p>
-<p>Note how the workflow run is shown in the Jobs &gt; Deploy Webapp Server Output. In contrast to a normal job template job execution, there is no playbook output when the job completes but the time to complete the job is displayed. If you want to look at the actual playbook run, hover over the node you wish to see the details on and click it. Within the Details view of the job, select the <strong>Output</strong> menu to see the playbook output. If you want to get back the <strong>Output</strong> view of the <strong>Deploy WebappServer</strong> workflow, under Views -&gt; Jobs -&gt; <strong>XX - Deploy Webapp Server</strong> will take you back to the Output overview.</p>
+<p>Within the <strong>Deploy Webapp Server</strong> template, click <strong>Launch template</strong>.</p>
+<p><img alt="launch_template" src="../images/launch_template.png"/></p>
+<p>Once the workflow completes, verify the result.</p>
+<ul>
+<li>Go to <strong>Automation Execution → Infrastructure → Inventories → Workshop Inventory</strong>.</li>
+<li>Select the Hosts tab and select <code>node1</code> and click <strong>Run Command</strong>.</li>
+<li>Within the Details window, select Module <code>command</code>, in Arguments type <code>curl http://node1/nodejs</code> and click Next.</li>
+<li>Within the Execution Environment window, select <code>Default execution environment</code> and click Next.</li>
+<li>Within the Credential window, select <code>Workshop Credentials</code> and click Next.</li>
+</ul>
+<p>Review your inputs and click Finish.</p>
+<p>Verify that the output result shows <code>Hello World</code></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><code>XX</code> is the number of the job run.</p>
-</div>
-<p><img alt="jobs view of workflow" src="../images/job_workflow.png"/></p>
-<p>After the job was finished, check if everything worked fine: from your control host run the following curl command against <code>node1</code>, <code>node2</code> and <code>node3</code>. The output of each curl command should be <code>Hello World</code>.</p>
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-0-1" id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>curl<span class="w"> </span>http://nodeX/nodejs
-<a href="#__codelineno-0-2" id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="go">Hello World</span>
-</code></pre></div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><code>X</code> should be replaced with the appropriate number of the node you are checking.</p>
 </div>
 
 <!-- markdownlint-disable -->
@@ -996,7 +983,7 @@ Click <strong>Save</strong>.</li>
 <span class="md-icon" title="Last update">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
 </span>
-<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 25, 2025 08:52:17">February 25, 2025</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 6, 2025 07:57:10">August 6, 2025</span>
 </span>
 </aside>
 </article>

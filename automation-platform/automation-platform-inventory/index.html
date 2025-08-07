@@ -674,8 +674,8 @@
 <li>
 <p>Locating and understanding:</p>
 <ul>
-<li>Ansible Automation Controller <a href="https://docs.ansible.com/automation-controller/latest/html/userguide/inventories.html" target="_blank"><strong>Inventory</strong></a></li>
-<li>Ansible Automation Controller <a href="https://docs.ansible.com/automation-controller/latest/html/userguide/credentials.html" target="_blank"><strong>Credentials</strong></a></li>
+<li>Ansible Automation Controller <a href="https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/using_automation_execution/controller-inventories" target="_blank"><strong>Inventory</strong></a></li>
+<li>Ansible Automation Controller <a href="https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/using_automation_execution/controller-credentials" target="_blank"><strong>Credentials</strong></a></li>
 </ul>
 </li>
 <li>
@@ -685,26 +685,13 @@
 <h2 id="guide">Guide</h2>
 <h3 id="examine-an-inventory">Examine an Inventory</h3>
 <p>The first thing we need is an inventory of your managed hosts. This is the equivalent of an inventory file in Ansible Engine. There is a lot more to it (like dynamic inventories) but let’s start with the basics.</p>
-<ul>
-<li>You should already have the web <abbr title="User Interface">UI</abbr> open, if not: Point your browser to the <abbr title="Uniform Resource Locator">URL</abbr> you were given, similar to <code>https://demo.redhat.com/workshop/pm6xgd</code> (the <em>workshop ID</em> will be different) and log in as <code>admin</code>. The password will be provided by the instructor.</li>
-</ul>
-<p>There will be one inventory, the <strong>Workshop Inventory</strong>. Click the <strong>Workshop Inventory</strong> then click the <strong>Hosts</strong> button</p>
-<p>The inventory information at <code>~/lab_inventory/hosts</code> was pre-loaded into the Ansible Automation controller Inventory as part of the provisioning process.</p>
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-0-1" id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="k">[web]</span>
-<a href="#__codelineno-0-2" id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="na">node1 ansible_host</span><span class="o">=</span><span class="s">node1.example.com</span>
-<a href="#__codelineno-0-3" id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="na">node2 ansible_host</span><span class="o">=</span><span class="s">node2.example.com</span>
-<a href="#__codelineno-0-4" id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="na">node3 ansible_host</span><span class="o">=</span><span class="s">node3.example.com</span>
-<a href="#__codelineno-0-5" id="__codelineno-0-5" name="__codelineno-0-5"></a>
-<a href="#__codelineno-0-6" id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="k">[control]</span>
-<a href="#__codelineno-0-7" id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="na">ansible-1 ansible_host</span><span class="o">=</span><span class="s">ansible-1.example.com</span>
-</code></pre></div>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>In your inventory the IP addresses will be different, do not copy the values above!</p>
-</div>
+<p>You should already have the web <abbr title="User Interface">UI</abbr> open, if not: Point your browser to the <abbr title="Uniform Resource Locator">URL</abbr> you were given, similar to <code>https://controller.6rr99.sandbox2326.opentlc.com</code> (the current workshop ID will be different) and log in as <code>admin</code>. The password will be provided by the instructor.</p>
+<p>In the left pane, navigate to <strong>Automation Execution → Infrastructure → Inventories</strong> in the web <abbr title="User Interface">UI</abbr>, and select <em>Workshop Inventory</em>. This one has four hosts in it, separated into two distinct <em>groups</em>. You can view them by clicking the respective tabs.</p>
+<p>To view <strong>all</strong> hosts, from <strong>all</strong> inventories (there may be multiple or even dozens of different inventories), navigate to <strong>Automation Execution → Infrastructure → Hosts</strong></p>
+<p><img alt="Hosts overview" src="../images/hosts.png"/></p>
 <h3 id="examine-machine-credentials">Examine Machine Credentials</h3>
-<p>Now we will examine the credentials to access our managed hosts from Automation controller.  As part of the provisioning process for this Ansible Workshop the <strong>Workshop Credential</strong> has already been setup.</p>
-<p>In the <strong>Resources</strong> menu choose <strong>Credentials</strong>. Now click on the <strong>Workshop Credential</strong>.</p>
+<p>Now we will examine the credentials to access our managed hosts from Automation controller. These <strong>Machine credentials</strong> are essential for establishing secure <abbr title="Secure Shell">SSH</abbr> connections to managed hosts.</p>
+<p>Navigate to <strong>Automation Execution → Infrastructure → Credentials</strong> and select <em>Workshop Credentials</em>.</p>
 <p>Note the following information:</p>
 <table>
 <thead>
@@ -732,16 +719,23 @@
 </tr>
 </tbody>
 </table>
+<p>Automation controller supports over 30 different credential types for various automation tasks. Here are a few common ones:</p>
+<ul>
+<li><strong>Network Credentials:</strong> For managing network devices.</li>
+<li><strong>Source Control Credentials:</strong> For accessing source control systems.</li>
+<li><strong>Amazon Web Services (<abbr title="Amazon Web Services">AWS</abbr>) Credentials:</strong> For integrating with <abbr title="Amazon Web Services">AWS</abbr> services.</li>
+</ul>
+<p>Additionally, you can create your own custom credential types if needed!</p>
 <h3 id="run-ad-hoc-commands">Run Ad Hoc commands</h3>
 <p>It is possible to run run ad hoc commands from Ansible Automation controller as well.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p><strong>Ensure</strong> that all hosts are available and can be included in automation jobs.<br/>
-Got to <strong>Resources → Hosts</strong> and move the slider on the right to <strong>On</strong> for all hosts.</p>
+The slider on the right of every host should be blue (enabled) for all hosts.</p>
 </div>
 <ul>
 <li>
-<p>In the web <abbr title="User Interface">UI</abbr> go to <strong>Resources → Inventories → Workshop Inventory</strong></p>
+<p>In the web <abbr title="User Interface">UI</abbr> go to <strong>Automation Execution → Infrastructure → Inventories</strong> and select <em>Workshop Inventory</em></p>
 </li>
 <li>
 <p>Click the <strong>Hosts</strong> tab to change into the hosts view and select the three hosts <em>node1</em> to <em>node3</em> by ticking the boxes to the left of the host entries.</p>
@@ -750,9 +744,9 @@ Got to <strong>Resources → Hosts</strong> and move the slider on the right to 
 <p>Click <strong>Run Command</strong> button. In the next screen you have to specify the ad hoc command.</p>
 </li>
 </ul>
-<p>Within the <strong>Details</strong> window, select <strong>Module</strong> <code>ping</code> and click <strong>Next</strong>.</p>
+<p>Within this window, select <strong>Module</strong> <code>ping</code> and click <strong>Next</strong>.</p>
 <p>Within the <strong>Execution Environment</strong> window, select <strong>Default execution environment</strong> and click <strong>Next</strong>.</p>
-<p>Within the <strong>Machine Credential</strong> window, select <strong>Workshop Credentials</strong> and click <strong>Launch</strong>.</p>
+<p>Within the <strong>Machine Credential</strong> window, select <strong>Workshop Credentials</strong> and click <strong>Finish</strong>.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>The output of the results is displayed once the command has completed.</p>
@@ -760,7 +754,7 @@ Got to <strong>Resources → Hosts</strong> and move the slider on the right to 
 <p>The simple <strong>ping</strong> module doesn’t need options. For other modules you need to supply the command to run as an argument. Try the <strong>command</strong> module to find the userid of the executing user using an ad hoc command.</p>
 <ul>
 <li>
-<p>In the web <abbr title="User Interface">UI</abbr> go to <strong>Resources → Inventories → Workshop Inventory</strong></p>
+<p>In the web <abbr title="User Interface">UI</abbr> go to <strong>Automation Execution → Infrastructure → Inventories</strong> and select <em>Workshop Inventory</em></p>
 </li>
 <li>
 <p>Click the <strong>Hosts</strong> tab to change into the hosts view and select the three hosts by ticking the boxes to the left of the host entries.</p>
@@ -769,17 +763,13 @@ Got to <strong>Resources → Hosts</strong> and move the slider on the right to 
 <p>Click <strong>Run Command</strong> button. In the next screen you have to specify the ad hoc command.</p>
 </li>
 </ul>
-<p>Within the <strong>Details</strong> window, select <strong>Module</strong> <code>command</code>, in <strong>Arguments</strong> type <code>id</code> and click <strong>Next</strong>.</p>
+<p>Select <strong>Module</strong> <code>command</code>, in <strong>Arguments</strong> type <code>id</code> and click <strong>Next</strong>.</p>
 <p>Within the <strong>Execution Environment</strong> window, select <strong>Default execution environment</strong> and click <strong>Next</strong>.</p>
 <p>Within the <strong>Machine Credential</strong> window, select <strong>Workshop Credentials</strong> and click <strong>Launch</strong>.</p>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>After choosing the module to run, Ansible Automation Controller will provide a link to the docs page for the module when clicking the question mark next to "Arguments". This is handy, give it a try.</p>
-</div>
 <p>How about trying to get some secret information from the system? Try to print out <code>/etc/shadow</code>.</p>
 <ul>
 <li>
-<p>In the web <abbr title="User Interface">UI</abbr> go to <strong>Resources → Inventories → Workshop Inventory</strong></p>
+<p>In the web <abbr title="User Interface">UI</abbr> go to <strong>Automation Execution → Infrastructure → Inventories</strong> and select <em>Workshop Inventory</em>.</p>
 </li>
 <li>
 <p>Click the <strong>Hosts</strong> tab to change into the hosts view and select the three hosts by ticking the boxes to the left of the host entries.</p>
@@ -796,8 +786,8 @@ Got to <strong>Resources → Hosts</strong> and move the slider on the right to 
 <p><strong>Expect an error!</strong></p>
 </div>
 <p>Oops, the last one didn’t went well, all red.</p>
-<p>Re-run the last ad hoc command but this time check the checkbox labeled <strong>Enable privilege escalation</strong>.</p>
-<p>As you see, this time it worked. For tasks that have to run as <code>root</code> you need to escalate the privileges. This is the same as the <strong>become: yes</strong> used in your Ansible Playbooks.</p>
+<p>Re-run the last ad hoc command but this time check the checkbox labeled <strong>Privilege escalation</strong>.</p>
+<p>As you see, this time it worked. For tasks that have to run as <code>root</code> you need to escalate the privileges. This is the same as the <strong>become: true</strong> used in your Ansible Playbooks.</p>
 <h3 id="challenge-lab-ad-hoc-commands">Challenge Lab: Ad Hoc Commands</h3>
 <p>Okay, a small challenge: Run an ad hoc to make sure the package "tmux" is installed on all hosts. If unsure, consult the documentation either via the web <abbr title="User Interface">UI</abbr> as shown above or by running <code>ansible-doc yum</code> on the <abbr title="Command-Line Interface">CLI</abbr> of your Ansible control host.</p>
 <div class="admonition tip">
@@ -808,7 +798,7 @@ Got to <strong>Resources → Hosts</strong> and move the slider on the right to 
 <details class="success">
 <summary>Solution</summary>
 <ul>
-<li>In the Web <abbr title="User Interface">UI</abbr> go to <strong>Resources → Inventories → Workshop Inventory</strong>.  </li>
+<li>In the Web <abbr title="User Interface">UI</abbr> go to <strong>Automation Execution → Infrastructure → Inventories</strong> and select <em>Workshop Inventory</em>.  </li>
 <li>Click the <strong>Hosts</strong> tab to change into the hosts view and select the three hosts by ticking the boxes to the left of the host entries.</li>
 <li>Click <strong>Run Command</strong> button. In the next screen you have to specify the ad hoc command.</li>
 <li>Within the <strong>Details</strong> window, select <strong>Module</strong> <code>yum</code>, in <strong>Arguments</strong> type <code>name=tmux</code>, check <strong>Enable privilege escalation</strong> and click <strong>Next</strong>.</li>
@@ -824,11 +814,9 @@ Got to <strong>Resources → Hosts</strong> and move the slider on the right to 
 <p>The previous Challenge Lab made use of the <code>yum</code> module, this module only makes sense on <em>older</em> Fedora-based systems like <abbr title="Red Hat Enterprise Linux">RHEL</abbr> 7 or <abbr title="Red Hat Enterprise Linux">RHEL</abbr> 8 hosts.<br/>
 Previously, we used the generic <code>package</code> module to install packages on the target systems. Let's add this module to the list of modules which can be used with ad-hoc commands.  </p>
 <ul>
+<li>In the web <abbr title="User Interface">UI</abbr> go to <strong>Settings → Jobs</strong>.</li>
 <li>
-<p>In the web <abbr title="User Interface">UI</abbr> go to <strong>Settings</strong>. In the Tab <em>Jobs</em> click on <strong>Jobs settings</strong>.</p>
-</li>
-<li>
-<p>At the bottom of the page, click the <strong>Edit</strong> button.</p>
+<p>In this <strong>Jobs settings</strong> windows, click the <strong>Edit</strong> button in the top right.</p>
 </li>
 <li>
 <p>In the text area <em>Ansible Modules Allowed for Ad Hoc Jobs</em>, add <code>"package",</code> (in between <code>mount</code> and <code>ping</code> to keep the alphabatical order).</p>
@@ -836,7 +824,7 @@ Previously, we used the generic <code>package</code> module to install packages 
 </ul>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>The text area contains a <abbr title="JavaScript Object Notation">JSON</abbr> list! Ensure to use quotation marks and end the line with comma to keep the valid list structure.</p>
+<p>The text area contains a list! Ensure that it is a valid <abbr title="YAML Ain't Markup Language">YAML</abbr> (or <abbr title="JavaScript Object Notation">JSON</abbr>) list structure!</p>
 </div>
 <ul>
 <li>After adding the module to the list, scroll down to the bottom of the page and click the <strong>Save</strong> button.</li>
@@ -849,7 +837,7 @@ Previously, we used the generic <code>package</code> module to install packages 
 <span class="md-icon" title="Last update">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
 </span>
-<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 17, 2025 09:22:58">March 17, 2025</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 6, 2025 07:57:10">August 6, 2025</span>
 </span>
 </aside>
 </article>

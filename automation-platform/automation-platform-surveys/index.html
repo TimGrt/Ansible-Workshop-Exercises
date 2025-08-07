@@ -677,7 +677,7 @@
 
 <h1 id="4-surveys">4 - Surveys</h1>
 <h2 id="objective">Objective</h2>
-<p>Demonstrate the use of Ansible Automation controller <a href="https://docs.ansible.com/automation-controller/latest/html/userguide/job_templates.html#surveys" target="_blank">survey feature</a>. Surveys set extra variables for the playbook similar to ‘Prompt for Extra Variables’ does, but in a user-friendly question and answer way. Surveys also allow for validation of user input.</p>
+<p>Demonstrate the use of Ansible Automation controller <a href="https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/using_automation_execution/controller-job-templates#controller-surveys-in-job-templates" target="_blank">survey feature</a>. Surveys set extra variables for the playbook similar to ‘Prompt for Extra Variables’ does, but in a user-friendly question and answer way. Surveys also allow for validation of user input.</p>
 <h2 id="guide">Guide</h2>
 <p>You have installed Apache on all hosts in the job you just ran. Now we’re going to extend on this:</p>
 <ul>
@@ -711,7 +711,7 @@
 <h4 id="create-template">Create Template</h4>
 <ul>
 <li>
-<p>Go to <strong>Resources → Templates</strong>, click the <strong>Add</strong> button and choose <strong>Add job template</strong></p>
+<p>Go to <strong>Automation Execution → Templates</strong>, click the <strong>Create template</strong> button, and choose <strong>Create job template</strong>.</p>
 </li>
 <li>
 <p>Fill out the following information:</p>
@@ -764,7 +764,7 @@
 </tbody>
 </table>
 <ul>
-<li>Click <strong>Save</strong></li>
+<li>Click <strong>Create job template</strong>.</li>
 </ul>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -773,7 +773,7 @@
 <h4 id="add-the-survey">Add the Survey</h4>
 <ul>
 <li>
-<p>In the Template, click the <strong>Survey</strong> tab and click the <strong>Add</strong> button.</p>
+<p>In the Template, click the <strong>Survey</strong> tab, then click <strong>Create survey question</strong>.</p>
 </li>
 <li>
 <p>Fill out the following information:</p>
@@ -801,11 +801,11 @@
 </tr>
 </tbody>
 </table>
+<p><img alt="Survey Q1" src="../images/survey_q1.png"/></p>
 <ul>
-<li>Click <strong>Save</strong></li>
-<li>Click the <strong>Add</strong> button</li>
+<li>Click <strong>Create survey question</strong>.</li>
+<li>Click <strong>Create survey question</strong> to create a second <strong>Survey Question</strong></li>
 </ul>
-<p>In the same fashion add a second <strong>Survey Question</strong></p>
 <table>
 <thead>
 <tr>
@@ -828,13 +828,16 @@
 </tr>
 </tbody>
 </table>
+<p><img alt="Survey Q2" src="../images/survey_q2.png"/></p>
 <ul>
-<li>Click <strong>Save</strong></li>
-<li>Click the toggle to turn the Survey questions to <strong>On</strong></li>
+<li>Click <strong>Create survey question</strong>.</li>
+<li>Enable the survey by toggling the <strong>Survey disabled</strong> button to the <strong>On</strong> posiiton.</li>
 </ul>
 <h3 id="launch-the-template">Launch the Template</h3>
-<p>Now launch <strong>Create index.html</strong> job template by selecting the <strong>Details</strong> tab and clicking the <strong>Launch</strong> button.</p>
-<p>Before the actual launch the survey will ask for <strong>First Line</strong> and <strong>Second Line</strong>. Fill in some text and click <strong>Next</strong>. The <strong>Preview</strong> window shows the values, if all is good run the Job by clicking <strong>Launch</strong>.</p>
+<p>Now, launch the <strong>Create index.html</strong> job template by clicking the <strong>Launch template</strong> button.</p>
+<p>Before the actual launch the survey will ask for <strong>First Line</strong> and <strong>Second Line</strong>. Fill in some text and click <strong>Next</strong>. The <strong>Preview</strong> window shows the values, if all is good run the Job by clicking <strong>Finish</strong>.</p>
+<p><img alt="Survey Launch" src="../images/survey_launch.png"/></p>
+<p><img alt="Survey Review" src="../images/survey_review.png"/></p>
 <p>After the job has completed, check the Apache homepage. In the <abbr title="Secure Shell">SSH</abbr> console on the control host, execute <code>curl</code> against <code>node1</code>:</p>
 <div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-0-1" id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="gp">[student1@ansible-1 ~]$ </span>curl<span class="w"> </span>http://node1
 <a href="#__codelineno-0-2" id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="go">&lt;body&gt;</span>
@@ -851,7 +854,7 @@
 <span class="md-icon" title="Last update">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
 </span>
-<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 25, 2025 08:52:17">February 25, 2025</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 6, 2025 07:57:10">August 6, 2025</span>
 </span>
 </aside>
 </article>

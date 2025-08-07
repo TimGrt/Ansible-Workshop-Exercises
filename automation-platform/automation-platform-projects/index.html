@@ -708,7 +708,7 @@
 <p>To configure and use this repository as a <strong>Source Control Management (SCM)</strong> system in automation controller you have to create a <strong>Project</strong> that uses the repository</p>
 <h3 id="create-the-project">Create the Project</h3>
 <ul>
-<li>Go to <strong>Resources → Projects</strong> click the <strong>Add</strong> button. Fill in the form:</li>
+<li><strong>Automation Execution → Projects</strong>, click the <strong>Create Project</strong> button. Fill in the form:</li>
 </ul>
 <table>
 <thead>
@@ -756,9 +756,10 @@
 </tbody>
 </table>
 <ul>
-<li>Click <strong>SAVE</strong></li>
+<li>Click <strong>Create project</strong></li>
 </ul>
-<p>The new project will be synced automatically after creation. But you can also do this manually: Sync the Project again with the Git repository by going to the <strong>Projects</strong> view and clicking the circular arrow <strong>Sync Project</strong> icon to the right of the Project.</p>
+<p>The new project will be synced automatically after creation. But you can also do this manually: Sync the Project again with the Git repository by going to the <strong>Projects</strong> view and clicking the circular arrow <strong>Sync Project</strong> icon in the top right corner.</p>
+<p><img alt="Project Sync" src="../images/project_sync.png"/></p>
 <p>After starting the sync job, go to the <strong>Jobs</strong> view: there is a new job for the update of the Git repository.</p>
 <h3 id="create-a-job-template-and-run-a-job">Create a Job Template and Run a Job</h3>
 <p>A job template is a definition and set of parameters for running an Ansible job. Job templates are useful to execute the same job many times. So before running an Ansible <strong>Job</strong> from automation controller you must create a <strong>Job Template</strong> that pulls together:</p>
@@ -776,10 +777,10 @@
 <p><strong>What</strong> playbook to use?</p>
 </li>
 </ul>
-<p>Okay, let’s just do that: Go to the <strong>Resources -&gt; Templates</strong> view, click the <strong>Add</strong> button and choose <strong>Add job template</strong>.</p>
+<p>Okay, let’s just do that: To create a Job Template, go to the <strong>Automation Execution -&gt; Templates</strong> view,click the <strong>Create template</strong> button and choose <strong>Create job template</strong>.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>Remember that you can often click on magnifying glasses to get an overview of options to pick to fill in fields.</p>
+<p>Remember that you can often click on the question mark with a circle to get more details about the field.</p>
 </div>
 <table>
 <thead>
@@ -828,11 +829,11 @@
 </tbody>
 </table>
 <ul>
-<li>Click <strong>Save</strong></li>
+<li>Click <strong>Create job template</strong></li>
 </ul>
-<p>You can start the job by directly clicking the blue <strong>Launch</strong> button, or by clicking on the rocket in the Job Templates overview. After launching the Job Template, you are automatically brought to the job overview where you can follow the playbook execution in real time:</p>
+<p>You can start the job by directly clicking the blue <strong>Launch template</strong> button, or by clicking on the rocket in the Job Templates overview. After launching the Job Template, you are automatically brought to the job overview where you can follow the playbook execution in real time.</p>
 <p>Job Details
-<img alt="job details" src="../images/job_details.png"/></p>
+<img alt="job details" src="../images/template_details.png"/></p>
 <p>Job Run
 <img alt="job_run" src="../images/job_run.png"/></p>
 <p>Since this might take some time, have a closer look at all the details provided:</p>
@@ -864,11 +865,12 @@
 <details class="success">
 <summary>Solution</summary>
 <ul>
-<li>Go to <strong>Resources →  Inventories</strong> → <strong>Workshop Inventory</strong></li>
-<li>In the <strong>Hosts</strong> view select <code>node1</code>, <code>node2</code>, <code>node3</code> and click <strong>Run Command</strong></li>
+<li>Go to <strong>Automation Execution → Infrastructure →  Inventories</strong> → <strong>Workshop Inventory</strong></li>
+<li>In the <strong>Automation Execution → Infrastructure → Inventories → Workshop Inventory</strong>, select the <strong>Hosts</strong> tab and select <code>node1</code>, <code>node2</code>, <code>node3</code> and click <strong>Run Command</strong></li>
 <li>Within the <strong>Details</strong> window, select <strong>Module</strong> <code>command</code>, in <strong>Arguments</strong> type <code>systemctl status httpd</code> and click <strong>Next</strong>.</li>
 <li>Within the <strong>Execution Environment</strong> window, select <strong>Default execution environment</strong> and click <strong>Next</strong>.</li>
-<li>Within the <strong>Machine Credential</strong> window, select <strong>Workshop Credential</strong> and click <strong>Launch</strong>.</li>
+<li>Within the <strong>Credential</strong> window, select <strong>Workshop Credentials</strong> and click <strong>Next</strong>.</li>
+<li>Review your inputs and click <strong>Finish</strong>.</li>
 </ul>
 <div class="admonition info">
 <p class="admonition-title">Info</p>
@@ -882,7 +884,7 @@
 <span class="md-icon" title="Last update">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
 </span>
-<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 17, 2025 09:22:58">March 17, 2025</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 6, 2025 07:57:10">August 6, 2025</span>
 </span>
 </aside>
 </article>

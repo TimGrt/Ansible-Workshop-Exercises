@@ -747,25 +747,23 @@
 </code></pre></div>
 <h3 id="prepare-inventory">Prepare Inventory</h3>
 <p>There is of course more then one way to accomplish this, but for the purposes of this lab, we will use Ansible automation controller.</p>
-<p>Within <strong>Resources</strong> -&gt; <strong>Inventories</strong> and select 'Workshop Inventory'.</p>
-<p>Within the <strong>Groups</strong> tab, click the <strong>Add</strong> button and create a new inventory group labeled <code>Webserver</code> and click <strong>Save</strong>.</p>
-<p>Within the <strong>Details</strong> tab of the <code>Webserver</code> group, click on <strong>Edit</strong>. Within the <strong>Variables</strong> textbox define a variable labeled <code>stage</code> with the value <code>dev</code> and click <strong>Save</strong>.</p>
+<p>Navigate to <strong>Automation Execution → Infrastructure → Inventories</strong>. Select 'Workshop Inventory' and complete the following:</p>
+<ul>
+<li>Go to the Groups tab, click <strong>Create group</strong>, and create a new group labeled Webserver. Click <strong>Create group</strong>.</li>
+<li>In the Webserver group, click <strong>Edit group</strong> and define the following variable:</li>
+</ul>
 <div class="highlight"><pre><span></span><code><a href="#__codelineno-3-1" id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="nn">---</span>
 <a href="#__codelineno-3-2" id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="nt">stage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dev</span>
 </code></pre></div>
-<p>Within the <strong>Details</strong> tab of the <code>Webserver</code> inventory, click the <strong>Hosts</strong> tab, click the <strong>Add</strong> button and <strong>Add existing host</strong>. Select <code>node1</code>, <code>node2</code>, <code>node3</code> as the hosts to be part of the <code>Webserver</code> inventory.</p>
-<p>Within <strong>Resources</strong> -&gt; <strong>Inventories</strong>, select the <code>Workshop</code> Inventory. Click on the <code>Hosts</code> tab and click on <code>node2</code>.  Click on <code>Edit</code> and add the <code>stage: prod</code> variable in the <strong>Variables</strong> window. This overrides the inventory variable due to order of operations of how the variables are accessed during playbook execution.</p>
-<p>Within the <strong>Variables</strong> textbox define a variable labeled <code>stage</code> with the value of <code>prod</code> and click <strong>Save</strong>.</p>
-<div class="highlight"><pre><span></span><code><a href="#__codelineno-4-1" id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="nn">---</span>
-<a href="#__codelineno-4-2" id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="nt">ansible_host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;IP_of_node2&gt;</span>
-<a href="#__codelineno-4-3" id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="nt">stage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prod</span>
+<p>Within the <strong>Details</strong> tab of the <code>Webserver</code> inventory, click the <strong>Hosts</strong> tab, click the <strong>Add existing host</strong> button. Select <code>node1</code>, <code>node2</code>, <code>node3</code> as the hosts to be part of the <code>Webserver</code> inventory.</p>
+<p>Within <strong>Automation Execution → Infrastructure → Inventories</strong>, select the <code>Workshop</code> Inventory. Click on the <code>Hosts</code> tab and click on <code>node2</code>.  Click on <code>Edit</code> and add the <code>stage: prod</code> variable in the <strong>Variables</strong> window. This overrides the inventory variable due to order of operations of how the variables are accessed during playbook execution.</p>
+<p>Within the <strong>Variables</strong> textbox define a variable labeled <code>stage</code> with the value of <code>prod</code> and click <strong>Save host</strong>.</p>
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-4-1" id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="nt">ansible_host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">node2.example.com</span>
+<a href="#__codelineno-4-2" id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="nt">stage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prod</span>
 </code></pre></div>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>Make sure to keep the three dashes that mark the <abbr title="YAML Ain't Markup Language">YAML</abbr> start and the <code>ansible_host</code> line in place!</p>
-</div>
+<p><img alt="edit host" src="../images/edit_host.png"/></p>
 <h3 id="create-the-template">Create the Template</h3>
-<p>Within <strong>Resources</strong> -&gt; <strong>Templates</strong>, select the <strong>Add</strong> button and <strong>Add job template</strong> as follows:</p>
+<p>Within <strong>Automation Execution → Templates</strong>, select the <strong>Create template</strong> button and <strong>Create job template</strong> as follows:</p>
 <table>
 <thead>
 <tr>
@@ -816,7 +814,8 @@
 </tr>
 </tbody>
 </table>
-<p>Click <strong>Save</strong>.</p>
+<p>Click <strong>Create job template</strong>.</p>
+<p><img alt="web_content_job_template" src="../images/web_content_job_template.png"/></p>
 <p>Run the template by clicking the <strong>Launch</strong> button.</p>
 <h3 id="check-the-results">Check the Results</h3>
 <p>This time we use the power of Ansible to check the results: execute uri to get the web content from each node, orchestrated by an Ansible playbook labeled <code>check_url.yml</code></p>
@@ -839,7 +838,7 @@
 <a href="#__codelineno-5-13" id="__codelineno-5-13" name="__codelineno-5-13"></a><span class="w">        </span><span class="nt">msg</span><span class="p">:</span><span class="w"> </span><span class="s">"{{</span><span class="nv"> </span><span class="s">uri_output.content</span><span class="nv"> </span><span class="s">}}"</span>
 </code></pre></div>
 <p>Execute the playbook:</p>
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-6-1" id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="gp">[student@ansible-1 ~]$ </span>ansible-playbook<span class="w"> </span>check_url.yml
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-6-1" id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="gp">[student@ansible-1 ~]$ </span>ansible-navigator<span class="w"> </span>run<span class="w"> </span>check_url.yml<span class="w"> </span>-m<span class="w"> </span>stdout
 </code></pre></div>
 <p>Snippet of output:</p>
 <div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-7-1" id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="go">TASK [debug] *******************************************************************</span>
@@ -856,7 +855,7 @@
 <h3 id="add-survey">Add Survey</h3>
 <ul>
 <li>Add a Survey to the template to allow changing the variables <code>dev_content</code> and <code>prod_content</code>.</li>
-<li>In the Template, click the <strong>Survey</strong> tab and click the <strong>Add</strong> button.</li>
+<li>In the Template, click the <strong>Survey</strong> tab and click the <strong>Create survey question</strong> button.</li>
 <li>Fill out the following information:</li>
 </ul>
 <table>
@@ -882,8 +881,7 @@
 </tbody>
 </table>
 <ul>
-<li>Click <strong>Save</strong></li>
-<li>Click the <strong>Add</strong> button</li>
+<li>Click <strong>Create survey question</strong></li>
 </ul>
 <p>In the same fashion add a second <strong>Survey Question</strong></p>
 <table>
@@ -909,34 +907,27 @@
 </tbody>
 </table>
 <ul>
-<li>Click <strong>Save</strong></li>
+<li>Click <strong>Create survey question</strong></li>
 <li>
-<p>Click the toggle to turn the Survey questions to <strong>On</strong></p>
-</li>
-<li>
-<p>Click <strong>Preview</strong> for the Survey</p>
+<p>Click the toggle <strong>Survey disabled</strong> to enable the Survey questions.</p>
 </li>
 <li>
 <p>Add permissions to the team <code>Web Content</code> so the template <strong>Create Web Content</strong> can be executed by <code>wweb</code>.</p>
 </li>
-<li>
-<p>Within the <strong>Resources</strong> -&gt; <strong>Templates</strong>, click <strong>Create Web Content</strong> and add <strong>Access</strong> to the user <code>wweb</code> the ability to execute the template.</p>
-<ul>
-<li><strong>Select a Resource Type</strong> -&gt; click <strong>Users</strong>, click <strong>Next</strong>.</li>
-<li><strong>Select Items from List</strong> -&gt; select the checkbox <code>wweb</code>, click <strong>Next</strong>.</li>
-<li><strong>Select Roles to Apply</strong> -&gt; select the checkbox <strong>Execute</strong> and click <strong>Save</strong>.</li>
+<li>Within the <strong>Automation Execution</strong> -&gt; <strong>Templates</strong>, click <strong>Create Web Content</strong> select the  <strong>User Access</strong> tab and <strong>Add roles</strong>  to add the user <code>wweb</code> the ability to execute the template.<ul>
+<li><strong>Select user(s)</strong> -&gt; select the checkbox <code>wweb</code>, click <strong>Next</strong>.</li>
+<li><strong>Select roles to apply</strong> -&gt; select the checkbox <strong>JobTemplate Execute</strong> and click <strong>Next</strong>.</li>
+<li><strong>Review</strong> -&gt; click <strong>Finish</strong>.</li>
 </ul>
 </li>
-<li>
-<p>Run the survey as user <code>wweb</code></p>
-<ul>
+<li>Run the survey as user <code>wweb</code><ul>
 <li>Logout of the user <code>admin</code> of your Ansible automation controller.</li>
-<li>Login as <code>wweb</code> and go to <strong>Resources</strong> -&gt; <strong>Templates</strong> and run the <strong>Create Web Content</strong> template.</li>
+<li>Login as <code>wweb</code> and go to <strong>Automation execution</strong> -&gt; <strong>Templates</strong> and run the <strong>Create Web Content</strong> template.</li>
 </ul>
 </li>
 </ul>
 <p>Check the results again from your automation controller host. We will use the dedicated <code>uri</code> module within an Ansible playbook. As arguments it needs the actual <abbr title="Uniform Resource Locator">URL</abbr> and a flag to output the body in the results.</p>
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-8-1" id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="gp">[student@ansible-1 ~]$ </span>ansible-playbook<span class="w"> </span>check_url.yml
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-8-1" id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="gp">[student@ansible-1 ~]$ </span>ansible-navigator<span class="w"> </span>run<span class="w"> </span>check_url.yml<span class="w"> </span>-m<span class="w"> </span>stdout
 </code></pre></div>
 <h3 id="solution">Solution</h3>
 <div class="admonition warning">
@@ -951,7 +942,7 @@
 <span class="md-icon" title="Last update">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
 </span>
-<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 25, 2025 08:52:17">February 25, 2025</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 6, 2025 07:57:10">August 6, 2025</span>
 </span>
 </aside>
 </article>
