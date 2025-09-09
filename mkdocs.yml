@@ -82,7 +82,8 @@ plugins:
             - docs/assets/stylesheets/pdf.scss
 theme:
   name: material
-  custom_dir: docs/assets/overrides
+  # Uncomment to announce the current workshop URL
+  # custom_dir: docs/assets/overrides
   icon:
     repo: fontawesome/brands/github
     admonition:

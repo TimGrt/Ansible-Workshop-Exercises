@@ -118,10 +118,10 @@ Within your newly created project folder, create a playbook file.
 !!! tip
     You have to instruct Ansible to communicate with the AWS API, per default Ansible would try to communicate via SSH. This will not work. Set the target of your playbook to your *local machine*.  
 
-The documentation provides an [extensive Guide](https://docs.ansible.com/ansible/latest/scenario_guides/guide_aci.html){:target="_blank"} for AWS automation which can help you setting up everything.
+The documentation provides an [extensive Guide](https://docs.ansible.com/ansible/latest/collections/amazon/aws/docsite/guide_aws.html){:target="_blank"} for AWS automation which can help you setting up everything.
 For successful communication with the AWS API, you need to authenticate yourself, this is where your previously created Access key is needed.  
 
-You can either specify your credentials as module arguments (you'll need to repeat them with **every** module) or as *environment variables*. The first variant would require you to set the credentials in variables (which need to be encrypted, this can be achieved with *ansible-vault*). Let's use the method with environment variables, this eases the first steps and is also applicable if you would run your playbook in the [Ansible Automation Platform](https://docs.ansible.com/automation-controller/latest/html/userguide/credentials.html#amazon-web-services){:target="_blank"}.
+You can either specify your credentials as module arguments (you'll need to repeat them with **every** module) or as *environment variables*. The first variant would require you to set the credentials in variables (which need to be encrypted, this can be achieved with *ansible-vault*). Let's use the method with environment variables, this eases the first steps and is also applicable if you would run your playbook in the [Ansible Automation Platform with the supported AWS credential type](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/using_automation_execution/controller-credentials#ref-controller-credential-aws){:target="_blank"}.
 
 Set the environment variables on the CLI:
 
