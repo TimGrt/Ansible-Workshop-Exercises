@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v5.0.0
+    rev: v6.0.0
     hooks:
       - id: check-merge-conflict
         name: Check for merge conflict markers
@@ -15,17 +15,17 @@ repos:
       - id: requirements-txt-fixer
         name: Sort entries in requirements.txt
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.44.0
+    rev: v0.45.0
     hooks:
       - id: markdownlint
         name: Lint Markdown files
   - repo: https://github.com/ansible-community/ansible-lint
-    rev: v25.4.0
+    rev: v25.8.2
     hooks:
       - id: ansible-lint
         name: Run ansible-lint on Workshop examples
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.33.0
+    rev: 0.33.3
     hooks:
       - id: check-github-workflows
   - repo: https://github.com/codespell-project/codespell
@@ -34,3 +34,9 @@ repos:
       - id: codespell
         name: Run codespell checker
         entry: codespell -L aci
+  - repo: https://github.com/AlexanderDokuchaev/md-dead-link-check
+    rev: "v1.2.0"
+    hooks:
+      - id: md-dead-link-check
+        name: Check external links
+        args: ['--config', '.config/md_dead_link_check.ini']
