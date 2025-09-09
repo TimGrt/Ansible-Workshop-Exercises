@@ -327,7 +327,7 @@ Note the following parameters within the `ansible-navigator.yml` file:
 * `inventories`: shows the location of the ansible inventory being used
 * `execution-environment`: where the default execution environment is set
 
-For a full listing of every configurable knob checkout the [documentation](https://ansible-navigator.readthedocs.io/en/latest/settings/){:target="_blank"}.
+For a full listing of every configurable knob checkout the [documentation](https://ansible.readthedocs.io/projects/navigator/settings/){:target="_blank"}.
 
 ### Step 3 - Running the Playbook
 

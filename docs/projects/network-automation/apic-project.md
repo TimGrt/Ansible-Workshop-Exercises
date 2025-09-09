@@ -246,7 +246,7 @@ Achieve the following tasks:
 
 ### Step 6 - Use filters to manipulate data
 
-Filters let you transform JSON data into YAML data, split a URL to extract the hostname, get the SHA1 hash of a string, add or multiply integers, and much more. You can use the Ansible-specific filters documented [here](https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html){:target="_blank"} to manipulate your data, or use any of the standard filters shipped with [Jinja2](https://jinja.palletsprojects.com/en/3.0.x/templates/#builtin-filters){:target="_blank"}.
+Filters let you transform JSON data into YAML data, split a URL to extract the hostname, get the SHA1 hash of a string, add or multiply integers, and much more. You can use the [Ansible-specific filter documentation](https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html){:target="_blank"} to manipulate your data, or use any of the standard filters shipped with [Jinja2](https://jinja.palletsprojects.com/en/3.0.x/templates/#builtin-filters){:target="_blank"}.
 
 Create a new role which utilizes an [Ansible ACI module](https://docs.ansible.com/ansible/latest/collections/cisco/aci/index.html){:target="_blank"} that can manage/query contract resources (*vz:BrCP*). Get all contracts of the **common** tenant and output a list with only the contract names.
 

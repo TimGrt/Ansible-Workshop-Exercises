@@ -32,7 +32,7 @@ Ansible Automation Platform (AAP) is a comprehensive automation solution that pr
 
 Some additional infos and tools of the Automation Platform offering from Red Hat include:
 
-* [Execution Environments](https://docs.ansible.com/automation-controller/latest/html/userguide/execution_environments.html){:target="_blank"} - not specifically covered in this workshop (day 1) because the built-in Ansible Execution Environments already included all the Red Hat supported collections which includes all the collections we use for this workshop.  Execution Environments are container images that can be utilized as Ansible execution.
+* [Execution Environments](https://docs.ansible.com/ansible/latest/getting_started_ee/introduction.html){:target="_blank"} - not specifically covered in this workshop (day 1) because the built-in Ansible Execution Environments already included all the Red Hat supported collections which includes all the collections we use for this workshop.  Execution Environments are container images that can be utilized as Ansible execution.
 * [ansible-builder](https://github.com/ansible/ansible-builder){:target="_blank"} - not specifically covered in this workshop, `ansible-builder` is a command line utility to automate the process of building Execution Environments.
 * [ansible-navigator](https://github.com/ansible/ansible-navigator){:target="_blank"} - a command line utility and text-based user interface (TUI) for running and developing Ansible automation content, especially for running Execution Environments. We won't cover this tool specifically in the first day, but you can always do all exercises with the Navigator if you want to.
 
