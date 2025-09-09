@@ -18,13 +18,13 @@ Let's break the initially working (password-less) SSH-connection in the lab envi
 Download a script using the next command. Copy the command by clicking the *copy* button on the right of the code block:
 
 ``` { .console .no-copy }
-wget -q https://raw.githubusercontent.com/TimGrt/prepare-redhat-demo-system/master/break-ssh.sh
+wget -q https://gist.githubusercontent.com/TimGrt/2c0b66873affd4710c90517cd9284bb6/raw/9cfffa586d1357a89ac0eacbb525d11e323abf62/break-ssh.sh
 ```
 
 After downloading the script to your home directory, execute it:
 
 ``` { .console .no-copy }
-[student@ansible-1 ~]$ wget -q https://raw.githubusercontent.com/TimGrt/prepare-redhat-demo-system/master/break-ssh.sh
+[student@ansible-1 ~]$ wget -q https://gist.githubusercontent.com/TimGrt/2c0b66873affd4710c90517cd9284bb6/raw/9cfffa586d1357a89ac0eacbb525d11e323abf62/break-ssh.sh
 [student@ansible-1 ~]$ sh break-ssh.sh
 [student@ansible-1 ~]$
 ```
@@ -34,19 +34,11 @@ After downloading the script to your home directory, execute it:
 !!! success
     The goal is to be able to communicate from *ansible-1* as `student` to the `ansible` user on all 3 managed nodes.
 
-We will need the (already present) SSH **public key** of user `student` on *ansible-1* (use your own, not this one!):
+Create your own SSH-Key-Pair, use this command:
 
 ``` { .console .no-copy }
-[student@ansible-1 ~]$ cat .ssh/id_rsa.pub
-ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCFeZ0j9HODBeDzP5aV5mkrsIGY1mvHTLjbCZIeHNpldIGETKflG6W0/
-...
+ssh-keygen -f ~/.ssh/ansible-key -P ""
 ```
-
-??? hint
-    If you want to create your own SSH-Key-Pair, use this command:
-    ``` { .console .no-copy }
-    ssh-keygen
-    ```
 
 Next, SSH to the *ec2-user* on *node1*.
 
