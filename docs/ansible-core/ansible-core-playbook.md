@@ -143,7 +143,7 @@ To run your playbook, use the `ansible-playbook <playbook>` command as follows:
     The existing `ansible.cfg` file (which you created previously) provides the location of your inventory file. If this was not set within your `ansible.cfg` file, the command to run the playbook would be:
 
     ```bash
-    ansible-playbook -i /home/student/lab_inventory/hosts apache.yml
+    ansible-playbook -i /home/student1/lab_inventory/hosts apache.yml
     ```
 
     If you want to know which config file is used, run `ansible --version` and observe the output.
@@ -180,13 +180,13 @@ The second task uses the `debug` module. The variable *ansible_facts* is extende
 === "Ansible"
 
     ``` { .console .no-copy }
-    [student@ansible-1 ~]$ ansible-playbook package.yml
+    [student@ansible-1 ansible-files]$ ansible-playbook package.yml
     ```
 
 === "Navigator"
 
     ``` { .console .no-copy }
-    [student@ansible-1 ~]$ ansible-navigator run package.yml -m stdout
+    [student@ansible-1 ansible-files]$ ansible-navigator run package.yml -m stdout
     ```
 
 The output should look like this:
@@ -233,19 +233,19 @@ Thus with the second task we make sure the Apache server is indeed running on th
 === "Ansible"
 
     ``` { .console .no-copy }
-    [student@ansible-1 ~]$ ansible-playbook apache.yml
+    [student@ansible-1 ansible-files]$ ansible-playbook apache.yml
     ```
 
 === "Navigator"
 
     ``` { .console .no-copy }
-    [student@ansible-1 ~]$ ansible-navigator run apache.yml -m stdout
+    [student@ansible-1 ansible-files]$ ansible-navigator run apache.yml -m stdout
     ```
 
     You may also run the playbook in *interactive* mode:
 
     ``` { .console .no-copy }
-    [student@ansible-1 ~]$ ansible-navigator run apache.yml -m interactive
+    [student@ansible-1 ansible-files]$ ansible-navigator run apache.yml -m interactive
     ```
 
     Notice in the output, we see the play had `1` "CHANGED" shown in yellow. Press `0` to enter the play output, you can see that task 2, "Ensure Apache is enabled and running", was the task that incorporated the latest change by the "CHANGED" value being set to True and highlighted in yellow.
@@ -261,13 +261,13 @@ Thus with the second task we make sure the Apache server is indeed running on th
 === "Ansible"
 
     ``` { .console .no-copy }
-    [student@ansible-1 ~]$ ansible-playbook service_state.yml
+    [student@ansible-1 ansible-files]$ ansible-playbook service_state.yml
     ```
 
 === "Navigator"
 
     ``` { .console .no-copy }
-    [student@ansible-1 ~]$ ansible-navigator run service_state.yml -m stdout
+    [student@ansible-1 ansible-files]$ ansible-navigator run service_state.yml -m stdout
     ```
 
 This would be the same as checking the service state manually on `node1` with: `systemctl status httpd`.
@@ -288,13 +288,13 @@ Check that the tasks were executed correctly and Apache is accepting connections
 === "Ansible"
 
     ``` { .console .no-copy }
-    [student@ansible-1 ~]$ ansible-playbook check_httpd.yml
+    [student@ansible-1 ansible-files]$ ansible-playbook check_httpd.yml
     ```
 
 === "Navigator"
 
     ``` { .console .no-copy }
-    [student@ansible-1 ~]$ ansible-navigator run check_httpd.yml -m stdout
+    [student@ansible-1 ansible-files]$ ansible-navigator run check_httpd.yml -m stdout
     ```
 
 There are a lot of red lines and an error: As long as there is not at least an `index.html` file to be served by Apache, it will throw an ugly "HTTP Error 403: Forbidden" status and Ansible will report an error.

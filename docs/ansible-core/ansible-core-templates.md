@@ -124,19 +124,19 @@ Run the newly created playbook to find the fact name.
     === "Ansible"
 
         ``` { .console .no-copy }
-        [student@ansible-1 ~]$ ansible-playbook motd-facts.yml
+        [student@ansible-1 ansible-files]$ ansible-playbook motd-facts.yml
         ```
 
     === "Navigator"
 
         ``` { .console .no-copy }
-        [student@ansible-1 ~]$ ansible-navigator run motd-facts.yml -m stdout
+        [student@ansible-1 ansible-files]$ ansible-navigator run motd-facts.yml -m stdout
         ```
 
     Verify the new message via SSH login to `node1`.
 
     ``` { .console .no-copy }
-    [student@ansible-1 ~]$ ssh node1
+    [student@ansible-1 ansible-files]$ ssh node1
     Welcome to node1.
     Host runs RedHat 8.1
     Deployed on x86_64 architecture

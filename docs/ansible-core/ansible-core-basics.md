@@ -39,6 +39,11 @@ On your control host **ansible-1**, create a directory called `ansible-files` in
 [student@ansible-1 ~]$ cd ansible-files/
 ```
 
+!!! tip
+    **Re-open the VScode Editor into this folder!**  
+    You won't see all the content of the home directory anymore, this helps keeping a better overview of what you created.  
+    In the top left, click  on **File > Open Folder...** and select `/home/student1/ansible-files`. Wait for the window to reload. Open a new *Terminal*.
+
 In this folder, create the file `ansible.cfg`:
 
 ```console
@@ -80,7 +85,7 @@ You can reach all your *managed nodes* (the hosts that you want to automate) wit
 Try it out, SSH to `node1`:
 
 ``` { .console .no-copy }
-[student1@ansible-1 ~]$ ssh node1
+[student1@ansible-1 ansible-files]$ ssh node1
 [ec2-user@node1 ~]$
 ```
 
@@ -88,7 +93,7 @@ As you can see, you are now the user `ec2-user` on `node1`. Leave `node1` again:
 
 ``` { .console .no-copy }
 [ec-user@node1 ~]$ exit
-[student1@ansible-1 ~]$
+[student1@ansible-1 ansible-files]$
 ```
 
 You can also connect to `node2` and `node3` with the same method. When you are finished, make sure you are back on your Ansible Control node (`ansible-1`), only here you can execute Ansible commands (as the Ansible binary is only installed on the Controller, Ansible works *agent-less*).
@@ -117,7 +122,7 @@ To reference all the inventory hosts, you supply a pattern to the `ansible-inven
 === "Ansible"
 
     ``` { .console .no-copy }
-    [student@ansible-1 ~]$ ansible-inventory --list
+    [student@ansible-1 ansible-files]$ ansible-inventory --list
     {
         "_meta": {
             "hostvars": {
@@ -160,7 +165,7 @@ To reference all the inventory hosts, you supply a pattern to the `ansible-inven
 === "Navigator"
 
     ``` { .console .no-copy }
-    [student@ansible-1 ~]$ ansible-navigator inventory --list -m stdout
+    [student@ansible-1 ansible-files]$ ansible-navigator inventory --list -m stdout
     {
         "_meta": {
             "hostvars": {
@@ -205,7 +210,7 @@ If `--list` is too verbose, the option of `--graph` can be used to provide a mor
 === "Ansible"
 
     ``` { .console .no-copy }
-    [student1@ansible-1 ~]$ ansible-inventory --graph
+    [student1@ansible-1 ansible-files]$ ansible-inventory --graph
     @all:
     |--@control:
     |  |--ansible-1
@@ -220,7 +225,7 @@ If `--list` is too verbose, the option of `--graph` can be used to provide a mor
 === "Navigator"
 
     ``` { .console .no-copy }
-    [student1@ansible-1 ~]$ ansible-navigator inventory --graph -m stdout
+    [student1@ansible-1 ansible-files]$ ansible-navigator inventory --graph -m stdout
     @all:
     |--@control:
     |  |--ansible-1
@@ -240,16 +245,16 @@ Using the `ansible-inventory` command, we can also run commands that provide inf
 
 === "Ansible"
     ``` { .console .no-copy }
-    [student@ansible-1 ~]$ ansible-inventory --graph web
-    [student@ansible-1 ~]$ ansible-inventory --graph control
-    [student@ansible-1 ~]$ ansible-inventory --host node1
+    [student@ansible-1 ansible-files]$ ansible-inventory --graph web
+    [student@ansible-1 ansible-files]$ ansible-inventory --graph control
+    [student@ansible-1 ansible-files]$ ansible-inventory --host node1
     ```
 
 === "Navigator"
     ``` { .console .no-copy }
-    [student@ansible-1 ~]$ ansible-navigator inventory --graph web -m stdout
-    [student@ansible-1 ~]$ ansible-navigator inventory --graph control -m stdout
-    [student@ansible-1 ~]$ ansible-navigator inventory --host node1 -m stdout
+    [student@ansible-1 ansible-files]$ ansible-navigator inventory --graph web -m stdout
+    [student@ansible-1 ansible-files]$ ansible-navigator inventory --graph control -m stdout
+    [student@ansible-1 ansible-files]$ ansible-navigator inventory --host node1 -m stdout
     ```
 
 !!! tip
@@ -268,7 +273,7 @@ ansible [pattern] -m [module] -a "[module options]"
 Ad hoc commands can be used perfectly to check if all hosts in your inventory are reachable. Ansible offers the *ping* module for that (this is not a real ICMP ping, though). Let's try to reach all hosts of the *web* group:
 
 ```{ .console .no-copy }
-[student@ansible-1 ~]$ ansible web -m ping
+[student@ansible-1 ansible-files]$ ansible web -m ping
 node2 | SUCCESS => {
     "ansible_facts": {
         "discovered_interpreter_python": "/usr/libexec/platform-python"
@@ -297,7 +302,7 @@ Success! All three nodes are reachable, we get a *pong* back, we proved that we 
 Try to run the same ad hoc command against the *control* group.  
 
 ``` { .console .no-copy }
-[student@ansible-1 ~]$ ansible control -m ping
+[student@ansible-1 ansible-files]$ ansible control -m ping
 ansible-1 | SUCCESS => {
     "ansible_facts": {
         "discovered_interpreter_python": "/usr/libexec/platform-python"
@@ -310,7 +315,7 @@ ansible-1 | SUCCESS => {
 Let's play around with ad hoc commands a bit more. You can use every *module* that Ansible provides with ad hoc commands, we will learn more about *modules* later today. By default, Ansible will use the *command* module, you can send every linux command you want to all managed nodes, the arguments are provided with the `-a` parameter:
 
 ``` { .console .no-copy }
-[student@ansible-1 ~]$ ansible web -m command -a "cat /etc/os-release"
+[student@ansible-1 ansible-files]$ ansible web -m command -a "cat /etc/os-release"
 node2 | CHANGED | rc=0 >>
 NAME="Red Hat Enterprise Linux"
 VERSION="8.5 (Ootpa)"
@@ -370,7 +375,7 @@ REDHAT_SUPPORT_PRODUCT_VERSION="8.5"
 You can shorten the command and leave out `-m command` as this module is used by default:
 
 ``` { .console .no-copy }
-[student@ansible-1 ~]$ ansible control -a "uname -a"
+[student@ansible-1 ansible-files]$ ansible control -a "uname -a"
 ansible-1 | CHANGED | rc=0 >>
 Linux ansible-1.example.com 4.18.0-348.12.2.el8_5.x86_64 #1 SMP Mon Jan 17 07:06:06 EST 2022 x86_64 x86_64 x86_64 GNU/Linux
 ```
@@ -378,7 +383,7 @@ Linux ansible-1.example.com 4.18.0-348.12.2.el8_5.x86_64 #1 SMP Mon Jan 17 07:06
 Ad hoc command are very useful to gather information about your managed nodes, the *setup* module is used. Try that against one host alone (so you won't get overwhelmed with output):
 
 ``` { .console .no-copy }
-[student@ansible-1 ~]$ ansible node1 -m setup
+[student@ansible-1 ansible-files]$ ansible node1 -m setup
 node1 | SUCCESS => {
     "ansible_facts": {
         "ansible_all_ipv4_addresses": [

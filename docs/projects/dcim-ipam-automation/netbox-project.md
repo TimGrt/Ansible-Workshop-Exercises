@@ -69,8 +69,8 @@ If, for example, you want to create an EC2 instance in AWS, you will need the mo
 Starting galaxy collection install process
 Process install dependency map
 Starting collection install process
-Downloading https://galaxy.ansible.com/download/amazon-aws-3.2.0.tar.gz to /home/student/.ansible/tmp/ansible-local-55382m3kkt4we/tmp7b2kxag4/amazon-aws-3.2.0-3itpmahr
-Installing 'amazon.aws:3.2.0' to '/home/student/.ansible/collections/ansible_collections/amazon/aws'
+Downloading https://galaxy.ansible.com/download/amazon-aws-3.2.0.tar.gz to /home/student1/.ansible/tmp/ansible-local-55382m3kkt4we/tmp7b2kxag4/amazon-aws-3.2.0-3itpmahr
+Installing 'amazon.aws:3.2.0' to '/home/student1/.ansible/collections/ansible_collections/amazon/aws'
 amazon.aws:3.2.0 was installed successfully
 ```
 
@@ -86,7 +86,7 @@ You can view the installed collections with this command:
 
 ``` { .console .no-copy }
 [student@ansible-1 netbox-automation]$ ansible-galaxy collection list
-# /home/student/.ansible/collections/ansible_collections
+# /home/student1/.ansible/collections/ansible_collections
 Collection        Version
 ----------------- -------
 ansible.posix     1.4.0  
