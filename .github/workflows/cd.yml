@@ -7,6 +7,11 @@ on:
       - main
     types:
       - closed
+permissions:
+  pages: write
+  contents: write
+  packages: write
+  deployments: write
 jobs:
   deploy:
     name: Deploy MkDocs project to Github pages
@@ -14,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
       - name: Install Python

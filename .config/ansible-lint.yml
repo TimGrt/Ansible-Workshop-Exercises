@@ -12,6 +12,7 @@ exclude_paths:
   - mkdocs.yml
   - example-site-playbook.yml # Contains references to non-existent playbooks
   - example-k8s-installation-playbook.yml # Contains references to non-existent playbooks
+  - variables-step5-setup-playbook.yml # Contains command module which triggers no-changed-when rule
 
 mock_roles:
   - role1
