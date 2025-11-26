@@ -83,7 +83,7 @@ plugins:
 theme:
   name: material
   # Uncomment to announce the current workshop URL
-  # custom_dir: docs/assets/overrides
+  custom_dir: docs/assets/overrides
   icon:
     repo: fontawesome/brands/github
     admonition:
@@ -153,3 +153,4 @@ nav:
   - "Ansible Advanced":
     - ansible-advanced-overview.md
     - ansible-navigator/ansible-navigator.md
+
