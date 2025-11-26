@@ -77,9 +77,9 @@ pip3.9 install boto3 --user
     [student@ansible-1 ~]$ ansible --version
     ansible [core 2.14.0]
     config file = /etc/ansible/ansible.cfg
-    configured module search path = ['/home/student/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+    configured module search path = ['/home/student1/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
     ansible python module location = /usr/lib/python3.9/site-packages/ansible
-    ansible collection location = /home/student/.ansible/collections:/usr/share/ansible/collections
+    ansible collection location = /home/student1/.ansible/collections:/usr/share/ansible/collections
     executable location = /usr/bin/ansible*
     python version = 3.9.13 (main, Nov  9 2022, 13:16:24) [GCC 8.5.0 20210514 (Red Hat 8.5.0-15)] (/usr/bin/python3.9)
     jinja version = 3.1.2
@@ -97,7 +97,7 @@ You can view the installed collections with this command:
 
 ``` { .console .no-copy }
 [student@ansible-1 aci-automation]$ ansible-galaxy collection list
-# /home/student/.ansible/collections/ansible_collections
+# /home/student1/.ansible/collections/ansible_collections
 Collection        Version
 ----------------- -------
 ansible.posix     1.4.0  

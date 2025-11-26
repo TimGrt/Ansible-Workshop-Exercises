@@ -108,7 +108,7 @@ Navigate to the `lab_inventory` directory on the Ansible control node terminal.
 ``` { .console .no-copy }
 [student@ansible-1 ~]$ cd lab_inventory
 [student@ansible-1 lab_inventory]$ pwd
-/home/student/lab_inventory
+/home/student1/lab_inventory
 [student@ansible-1 lab_inventory]$ ls
 [student@ansible-1 lab_inventory]$
 hosts

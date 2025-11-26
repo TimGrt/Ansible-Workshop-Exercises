@@ -41,8 +41,8 @@ The prerequisites and best practices for using `ansible-navigator` have been don
 These include:
 
 * Installing the `ansible-navigator` package
-* Creating a default settings `/home/student/.ansible-navigator.yml` for all your projects (optional)
-* All execution environment (EE) logs are stored within `/home/student/.ansible-navigator/logs/ansible-navigator.log`
+* Creating a default settings `/home/student1/.ansible-navigator.yml` for all your projects (optional)
+* All execution environment (EE) logs are stored within `/home/student1/.ansible-navigator/logs/ansible-navigator.log`
 * Playbook artifacts are saved under `/tmp/artifact.json`
 
 Follow the next link for more information on the [Ansible navigator settings](https://ansible.readthedocs.io/projects/navigator/settings/#the-ansible-navigator-settings-file){:target="_blank"}.
@@ -50,7 +50,7 @@ Follow the next link for more information on the [Ansible navigator settings](ht
 !!! tip
     The parameters for ansible-navigator maybe modified for your specific environment. The current settings use a default `ansible-navigator.yml` for all projects, but a specific `ansible-navigator.yml` can be created for each project and is the recommended practice.
 
-A useful *ansible-navigator*-configuration for the workshop environment is the following, create a new file in your project directory `/home/student/ansible-files/ansible-navigator.yml` and paste in this configuration:
+A useful *ansible-navigator*-configuration for the workshop environment is the following, create a new file in your project directory `/home/student1/ansible-files/ansible-navigator.yml` and paste in this configuration:
 
 ```yaml
 ---
@@ -58,7 +58,7 @@ ansible-navigator:
   ansible:
 # Specify an inventory file path or comma separated host list
     inventories:
-      - /home/student/lab_inventory/hosts
+      - /home/student1/lab_inventory/hosts
 # Sets configuration for  the creation of artifacts for completed playbooks.
 # Can be enabled or disabled and specify filename and location
   playbook-artifact:
@@ -310,7 +310,7 @@ $ cat ~/.ansible-navigator.yml
 ansible-navigator:
   ansible:
     inventories:
-    - /home/student/lab_inventory/hosts
+    - /home/student1/lab_inventory/hosts
 
   execution-environment:
     image: registry.redhat.io/ansible-automation-platform-20-early-access/ee-supported-rhel8:2.0.0
@@ -352,7 +352,7 @@ To run your playbook, use the `ansible-navigator run <playbook>` command as foll
 ```
 
 !!! tip
-    The existing `ansible-navigator.yml` file provides the location of your inventory file. If this was not set within your `ansible-navigator.yml` file, the command to run the playbook would be: `ansible-navigator run apache.yml -i /home/student/lab_inventory/hosts`
+    The existing `ansible-navigator.yml` file provides the location of your inventory file. If this was not set within your `ansible-navigator.yml` file, the command to run the playbook would be: `ansible-navigator run apache.yml -i /home/student1/lab_inventory/hosts`
 
 When running the playbook, you'll be displayed a text user interface (TUI) that displays the play name among other information about the playbook that is currently run.
 

@@ -8,8 +8,7 @@
         filter:
           - 'ansible_eth0'
           - 'ansible_*_mb'
-      register: setup_output
 
     - name: Output variable content
       ansible.builtin.debug:
-        msg: "{{ setup_output }}"
+        msg: "{{ ansible_facts }}"

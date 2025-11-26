@@ -3,12 +3,23 @@
   hosts: node1
   gather_facts: false
   tasks:
-    - name: Collect only facts returned by facter
+    - name: Collect only hardware facts, do not gather any other facts
       ansible.builtin.setup:
         gather_subset:
-          - 'all'
-      register: setup_output
+          - '!all'
+          - '!min'
+          - hardware
 
-    - name: Output variable content
+    - name: Output facts content
       ansible.builtin.debug:
-        msg: "{{ setup_output }}"
+        msg: "{{ ansible_facts }}"
+
+    - name: Get python interpreter with command and store as variable during runtime
+      ansible.builtin.command: which python3
+      register: command_output
+
+    - name: Output python interpreter path
+      ansible.builtin.debug:
+        msg:
+          - "Python3 interpreter path from command output: {{ command_output.stdout }}"
+          - "Python3 interpreter path from ansible fact: {{ ansible_facts.discovered_interpreter_python }}"
