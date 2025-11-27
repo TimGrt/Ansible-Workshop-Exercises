@@ -124,14 +124,15 @@ To run your playbook, use the `ansible-playbook <playbook>` command as follows:
 
     ??? failure "What does `Invalid callback for stdout specified` mean?"
 
-        If you see this error, this is not your fault, but a missing *plugin*.  
-        In the demo environment, only the `ansible-core` package is installed. The missing plugin (a *callback* plugin formats the output Ansible is producing) is not part of the `ansible.builtin` collection, you need to install it.
+        When you encounter this error, **that is not your fault**, the default `ansible.cfg` references an invalid (old and superseded) plugin. If you want to know where the configuration file is stored, take a look at the following tip.
 
-        ```bash
-        ansible-galaxy collection install community.general
+        The `ansible.cfg` was created in an [earlier exercise](ansible-core-basics.md/#step-1-check-and-create-ansible-configuration), basically, you'll need to create a new/personal one right next to your playbook with at least the following content:
+
+        ```ini
+        [defaults]
+        result_format = yaml
+        inventory = ~/lab_inventory/hosts
         ```
-
-        If you want to know where this configuration is stored, take a look at the following tip.
 
 === "Navigator"
 
