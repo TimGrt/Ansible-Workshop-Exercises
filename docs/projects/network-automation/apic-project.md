@@ -97,7 +97,7 @@ amazon.aws:3.2.0 was installed successfully
 
 Achieve the following tasks:
 
-* [X] Find appropriate collection for Cisco ACI automation in the documentation
+* [X] Find appropriate collection for **Cisco ACI** automation in the documentation
 * [X] Collection installed
 
 You can view the installed collections with this command:
@@ -117,7 +117,7 @@ community.general 5.3.0
 
 ### Step 2 - Inventory and playbook
 
-Within your newly created project folder, create an inventory file and a playbook file (the name of the files are up to you).
+Within your newly created project folder, create an inventory file and a playbook file (**the name of the files are up to you**).
 
 ``` { .console .no-copy }
 [student@ansible-1 aci-automation]$ touch inventory.ini
@@ -126,10 +126,11 @@ Within your newly created project folder, create an inventory file and a playboo
 
 !!! tip
     By default, Ansible will try to communicate via SSH. **This will not work!**  
-    You have to instruct Ansible to communicate with the APIC REST Interface, the ACI modules do not run on the network devices or controller, they need to run on the Ansible control node **locally**!  
-    Add the necessary parameters to your inventory file!
+    You have to instruct Ansible to communicate with the **APIC REST Interface**, the ACI modules do not run on the network devices or controller, they need to run on the Ansible control node **locally**!  
+    **Add the necessary parameters to your inventory file!**
 
-Use the same credentials for API communication as for the login to the APIC UI.  
+**Use the same credentials for API communication as for the login to the APIC UI.**  
+
 The API endpoint (*host*) for the ACI modules uses the URL of the sandbox, you won't need the prefix `https://`.  
 The documentation provides an [extensive Guide](https://docs.ansible.com/ansible/9/scenario_guides/guide_aci.html#aci-guide){:target="_blank"} for ACI automation, which also describes how to [setup communication with APIC](https://docs.ansible.com/ansible/9/scenario_guides/guide_aci.html#using-the-local-connection-method){:target="_blank"}.
 
