@@ -796,10 +796,10 @@
 <li>restarts Apache when the file has changed</li>
 </ul>
 <p>First we need the file Ansible will deploy, let’s just take the one from node1.</p>
-<div class="highlight"><pre><span></span><code><a href="#__codelineno-0-1" id="__codelineno-0-1" name="__codelineno-0-1"></a>scp<span class="w"> </span>node1:/etc/httpd/conf/httpd.conf<span class="w"> </span>~/ansible-files/files/.
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-0-1" id="__codelineno-0-1" name="__codelineno-0-1"></a>scp<span class="w"> </span>node1:/etc/httpd/conf/httpd.conf<span class="w"> </span>~/ansible_files/files/.
 </code></pre></div>
 <p>We now have the configuration file for our webserver, we will adjust the file later and copy it back to all webserver hosts later.<br/>
-Next, create the Playbook <code>httpd_conf.yml</code>. Make sure that you are in the directory <code>~/ansible-files</code>.</p>
+Next, create the Playbook <code>httpd_conf.yml</code>. Make sure that you are in the directory <code>~/ansible_files</code>.</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
 <span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
@@ -848,7 +848,7 @@ Next, create the Playbook <code>httpd_conf.yml</code>. Make sure that you are in
 </ul>
 <p>Run the playbook. We didn’t change anything in the file yet so there should not be any <code>changed</code> lines in the output and of course the handler shouldn’t have fired.</p>
 <ul>
-<li>Now change the <code>Listen 80</code> line in <code>~/ansible-files/files/httpd.conf</code> to:</li>
+<li>Now change the <code>Listen 80</code> line in <code>~/ansible_files/files/httpd.conf</code> to:</li>
 </ul>
 <div class="highlight"><pre><span></span><code><a href="#__codelineno-2-1" id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="na">Listen 8080</span>
 </code></pre></div>
@@ -866,9 +866,9 @@ Next, create the Playbook <code>httpd_conf.yml</code>. Make sure that you are in
 <p>By default, handlers run after all the tasks in a particular play have been completed.</p>
 </div>
 <p>Apache should now listen on port 8080. Easy enough to verify:</p>
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-3-1" id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>curl<span class="w"> </span>http://node1
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-3-1" id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>curl<span class="w"> </span>http://node1
 <a href="#__codelineno-3-2" id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="go">curl: (7) Failed to connect to node1 port 80: Connection refused</span>
-<a href="#__codelineno-3-3" id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>curl<span class="w"> </span>http://node1:8080
+<a href="#__codelineno-3-3" id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>curl<span class="w"> </span>http://node1:8080
 <a href="#__codelineno-3-4" id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="go">&lt;body&gt;</span>
 <a href="#__codelineno-3-5" id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="go">&lt;h1&gt;This is a development webserver, have fun!&lt;/h1&gt;</span>
 <a href="#__codelineno-3-6" id="__codelineno-3-6" name="__codelineno-3-6"></a><span class="go">&lt;/body&gt;</span>
@@ -886,7 +886,7 @@ Take a look at the <a href="../../demo-environment/local-demo-environment/#lab-d
 <span class="md-icon" title="Last update">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
 </span>
-<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 17, 2025 09:53:43 UTC">March 17, 2025</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 28, 2025 16:58:12 UTC">November 28, 2025</span>
 </span>
 </aside>
 </article>

@@ -850,7 +850,7 @@
 </ul>
 <p>Let’s create a user:</p>
 <ul>
-<li>Navigate to <strong>Access Management -&gt; Users</strong>.</li>
+<li>Navigate to <strong>Access Management → Users</strong>.</li>
 <li>Click the <strong>Create user</strong> button.</li>
 <li>Fill in the values for the new user:</li>
 </ul>
@@ -900,7 +900,7 @@
 <p>A Team is a subdivision of an organization with associated users, projects, credentials, and permissions. Teams provide a means to implement role-based access control schemes and delegate responsibilities across organizations. For instance, permissions may be granted to a whole Team rather than each user on the Team.</p>
 <p>Create a Team:</p>
 <ul>
-<li>Navigate to <strong>Access Management -&gt; Teams</strong>.</li>
+<li>Navigate to <strong>Access Management → Teams</strong>.</li>
 <li>Click the <strong>Create team</strong> button and create a team named <code>Web Content</code> within the <code>Default</code> organization.</li>
 <li>Click <strong>Create team</strong>.</li>
 </ul>
@@ -912,15 +912,38 @@
 </ul>
 <p><img alt="add user" src="../images/add_user.png"/></p>
 <h3 id="granting-permissions">Granting permissions</h3>
-<p>To allow users or teams to actually do something, you have to set permissions. The user <strong>wweb</strong> should only be allowed to modify content of the assigned webserver.</p>
+<p>To allow users or teams to actually do something, you have to set permissions. At first, the user <strong>wweb</strong> should only be allowed to modify content of the assigned webserver.</p>
 <p>Add the permission to use the <code>Create index.html</code> template:</p>
 <ul>
-<li>Navigate to <strong>Automation Execution -&gt; Templates</strong>.</li>
+<li>Navigate to <strong>Automation Execution → Templates</strong>.</li>
 <li>Select the template <code>Create index.html</code>.</li>
 <li>Click the <strong>User Access</strong> tab.</li>
 <li>Click <strong>Add roles</strong></li>
 <li>Select the <code>wweb</code> user and click <strong>Next</strong>.</li>
 <li>Choose the roles <strong>JobTemplate Admin</strong> and/or <strong>JobTemplate Execute</strong>, depending on the required level of access, click <strong>Next</strong>.</li>
+<li>Review the selections and click <strong>Finish</strong>.</li>
+</ul>
+<p>Now, let's give <strong>wweb</strong> some additional permissions.  </p>
+<ul>
+<li>Navigate to <strong>Access Management → Users</strong>.</li>
+<li>Select user <strong>wweb</strong>.</li>
+<li>Click the <strong>Roles</strong> tab.</li>
+<li>Click <strong>Add roles</strong>.</li>
+<li>Select <em>Resource type</em> <strong>Inventory</strong>. Click <strong>Next</strong>.</li>
+<li>Select the <strong>Workshop Inventory</strong>. Click <strong>Next</strong>.</li>
+<li>Select the <em>Role</em> <strong>Inventory Adhoc</strong>. Click <strong>Next</strong>.</li>
+<li>Review the selections and click <strong>Finish</strong>.</li>
+</ul>
+<p>Good, now <strong>wweb</strong> is allowed to run <em>Ad-Hoc commands</em> to all hosts of the <em>Workshop Inventory</em>. But wait, what about authentication to these nodes?!<br/>
+Previously, you'll had to provide a <em>Machine credential</em>, we need to add the permission to use this credential as well.</p>
+<ul>
+<li>Navigate to <strong>Access Management → Users</strong>.</li>
+<li>Select user <strong>wweb</strong>.</li>
+<li>Click the <strong>Roles</strong> tab.</li>
+<li>Click <strong>Add roles</strong>.</li>
+<li>Select <em>Resource type</em> <strong>Credential</strong>. Click <strong>Next</strong>.</li>
+<li>Select the <strong>Workshop Credentials</strong>. Click <strong>Next</strong>.</li>
+<li>Select the <em>Role</em> <strong>Credential Use</strong>. Click <strong>Next</strong>.</li>
 <li>Review the selections and click <strong>Finish</strong>.</li>
 </ul>
 <h3 id="test-permissions">Test permissions</h3>
@@ -959,7 +982,7 @@
 <span class="md-icon" title="Last update">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
 </span>
-<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 6, 2025 07:57:10 UTC">August 6, 2025</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 28, 2025 16:55:35 UTC">November 28, 2025</span>
 </span>
 </aside>
 </article>

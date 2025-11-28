@@ -829,7 +829,7 @@ The <code>until</code> keyword is used to retry a task until a certain condition
 <p>Loops enable us to repeat the same task over and over again. For example, lets say you want to create multiple users. By using an Ansible loop, you can do that in a single task. Loops can also iterate over more than just basic lists. For example, if you have a list of users with their corresponding group, loop can iterate over them as well.  </p>
 <p>Find out more about loops in the <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html" target="_blank">Ansible Loops</a> documentation.</p>
 <h3 id="step-1-simple-loops">Step 1 - Simple Loops</h3>
-<p>To show the loops feature we will generate three new users on <code>node1</code>. For that, create the file <code>loop_users.yml</code> in <code>~/ansible-files</code> on your control node as your student user. We will use the <code>user</code> module to generate the user accounts.</p>
+<p>To show the loops feature we will generate three new users on <code>node1</code>. For that, create the file <code>loop_users.yml</code> in <code>~/ansible_files</code> on your control node as your student user. We will use the <code>user</code> module to generate the user accounts.</p>
 <div class="highlight"><pre><span></span><code><a href="#__codelineno-0-1" id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="nn">---</span>
 <a href="#__codelineno-0-2" id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Demo playbook for loops</span>
 <a href="#__codelineno-0-3" id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="w">  </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">node1</span>
@@ -1062,7 +1062,7 @@ As you can see the <em>value</em> (<code>prod_user</code>) of the variable <code
 </code></pre></div></td></tr></table></div>
 <p>This playbook uses two <em><a href="https://docs.ansible.com/ansible/latest/reference_appendices/special_variables.html" target="_blank">magic variables</a></em>, these variables cannot be set directly by the user and are always defined.<br/>
 The second task for example, uses the special variable <code>ansible_play_hosts</code>, which contains a <strong>list</strong> of hosts in the current play run, failed or unreachable hosts are excluded from this list. The first task uses the special variable <code>groups</code>, this contains a <strong>dictionary</strong> with all the groups in the inventory and each group has the <strong>list</strong> of hosts that belong to it.<br/>
-Copy the contents to a file <code>special-variables.yml</code> and run the playbook.<br/>
+Copy the contents to a file <code>special_variables.yml</code> and run the playbook.<br/>
 We can use the playbook to display that the <em>loop</em> keyword needs <em>list</em>-input, if you provide otherwise, Ansible will display an error message.</p>
 <div class="highlight"><pre><span></span><code><a href="#__codelineno-10-1" id="__codelineno-10-1" name="__codelineno-10-1"></a>fatal:<span class="w"> </span><span class="o">[</span>node1<span class="o">]</span>:<span class="w"> </span>FAILED!<span class="w"> </span><span class="o">=</span>&gt;<span class="w"> </span><span class="o">{</span><span class="s2">"msg"</span>:<span class="w"> </span><span class="s2">"Invalid data passed to 'loop', it requires a list, got this instead: {'all': ['node1', 'node2', 'node3'], 'ungrouped': [], 'web': ['node1', 'node2', 'node3']}. Hint: If you passed a list/dict of just one element, try adding wantlist=True to your lookup invocation or use q/query instead of lookup."</span><span class="o">}</span>
 </code></pre></div>
@@ -1074,7 +1074,7 @@ We can use the playbook to display that the <em>loop</em> keyword needs <em>list
 <span class="md-icon" title="Last update">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
 </span>
-<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 17, 2025 09:52:40 UTC">March 17, 2025</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 28, 2025 16:58:12 UTC">November 28, 2025</span>
 </span>
 </aside>
 </article>

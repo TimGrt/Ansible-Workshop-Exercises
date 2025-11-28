@@ -926,7 +926,7 @@
 <p class="admonition-title">Tip</p>
 <p>The parameters for ansible-navigator maybe modified for your specific environment. The current settings use a default <code>ansible-navigator.yml</code> for all projects, but a specific <code>ansible-navigator.yml</code> can be created for each project and is the recommended practice.</p>
 </div>
-<p>A useful <em>ansible-navigator</em>-configuration for the workshop environment is the following, create a new file in your project directory <code>/home/student1/ansible-files/ansible-navigator.yml</code> and paste in this configuration:</p>
+<p>A useful <em>ansible-navigator</em>-configuration for the workshop environment is the following, create a new file in your project directory <code>/home/student1/ansible_files/ansible-navigator.yml</code> and paste in this configuration:</p>
 <div class="highlight"><pre><span></span><code><a href="#__codelineno-0-1" id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="nn">---</span>
 <a href="#__codelineno-0-2" id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="nt">ansible-navigator</span><span class="p">:</span>
 <a href="#__codelineno-0-3" id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="w">  </span><span class="nt">ansible</span><span class="p">:</span>
@@ -937,7 +937,7 @@
 <a href="#__codelineno-0-8" id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="c1"># Can be enabled or disabled and specify filename and location</span>
 <a href="#__codelineno-0-9" id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="w">  </span><span class="nt">playbook-artifact</span><span class="p">:</span>
 <a href="#__codelineno-0-10" id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="w">    </span><span class="nt">enable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<a href="#__codelineno-0-11" id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="w">    </span><span class="nt">save-as</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">~/ansible-files/artifacts/{playbook_name}-artifact-{ts_utc}.json</span>
+<a href="#__codelineno-0-11" id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="w">    </span><span class="nt">save-as</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">~/ansible_files/artifacts/{playbook_name}-artifact-{ts_utc}.json</span>
 <a href="#__codelineno-0-12" id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="c1"># Set user interface mode, either 'stdout' or 'interactive'</span>
 <a href="#__codelineno-0-13" id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="c1"># Mode 'stdout' ensures same output method as with ansible-playbook command</span>
 <a href="#__codelineno-0-14" id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="w">  </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">interactive</span>
@@ -1171,7 +1171,7 @@
 <a href="#__codelineno-13-9" id="__codelineno-13-9" name="__codelineno-13-9"></a><span class="w">        </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">present</span>
 </code></pre></div>
 <p>To run your playbook, use the <code>ansible-navigator run &lt;playbook&gt;</code> command as follows:</p>
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-14-1" id="__codelineno-14-1" name="__codelineno-14-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>ansible-navigator<span class="w"> </span>run<span class="w"> </span>apache.yml
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-14-1" id="__codelineno-14-1" name="__codelineno-14-1"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>ansible-navigator<span class="w"> </span>run<span class="w"> </span>apache.yml
 </code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -1195,7 +1195,7 @@
 <p>The <em>Esc</em> key only takes you back to the previous screen. Once at the main overview screen an additional <em>Esc</em> key will take you back to the terminal window.</p>
 </div>
 <p>Once the playbook has completed, connect to <code>node1</code> via <abbr title="Secure Shell">SSH</abbr> to make sure Apache has been installed. You may also skip this, as you did this yesterday.</p>
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-17-1" id="__codelineno-17-1" name="__codelineno-17-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>ssh<span class="w"> </span>node1
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-17-1" id="__codelineno-17-1" name="__codelineno-17-1"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>ssh<span class="w"> </span>node1
 <a href="#__codelineno-17-2" id="__codelineno-17-2" name="__codelineno-17-2"></a><span class="go">Last login: Wed May 15 14:03:45 2019 from 44.55.66.77</span>
 <a href="#__codelineno-17-3" id="__codelineno-17-3" name="__codelineno-17-3"></a><span class="go">Managed by Ansible</span>
 </code></pre></div>
@@ -1254,16 +1254,16 @@
 <div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-23-1" id="__codelineno-23-1" name="__codelineno-23-1"></a><span class="gp">[student@ansible-1 ~]$ </span>ansible-navigator<span class="w"> </span>run<span class="w"> </span>check_httpd.yml<span class="w"> </span>-m<span class="w"> </span>stdout
 </code></pre></div>
 <p>There are a lot of red lines and an error: As long as there is not at least an <code>web.html</code> file to be served by Apache, it will throw an ugly "<abbr title="Hyper Text Transfer Protocol">HTTP</abbr> Error 403: Forbidden" status and Ansible will report an error.</p>
-<p>So why not use Ansible to deploy a simple <code>web.html</code> file? On the ansible control host, as the <code>student</code> user, create the directory <code>files</code> to hold file resources in <code>~/ansible-files/</code>:</p>
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-24-1" id="__codelineno-24-1" name="__codelineno-24-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>mkdir<span class="w"> </span>files
+<p>So why not use Ansible to deploy a simple <code>web.html</code> file? On the ansible control host, as the <code>student</code> user, create the directory <code>files</code> to hold file resources in <code>~/ansible_files/</code>:</p>
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-24-1" id="__codelineno-24-1" name="__codelineno-24-1"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>mkdir<span class="w"> </span>files
 </code></pre></div>
-<p>Then create the file <code>~/ansible-files/files/web.html</code> on the control node:</p>
+<p>Then create the file <code>~/ansible_files/files/web.html</code> on the control node:</p>
 <div class="highlight"><pre><span></span><code><a href="#__codelineno-25-1" id="__codelineno-25-1" name="__codelineno-25-1"></a><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
 <a href="#__codelineno-25-2" id="__codelineno-25-2" name="__codelineno-25-2"></a><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Apache is running fine<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
 <a href="#__codelineno-25-3" id="__codelineno-25-3" name="__codelineno-25-3"></a><span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
 </code></pre></div>
 <p>In a previous example, you used Ansible’s <code>copy</code> module to write text supplied on the command line into a file. Now you’ll use the module in your playbook to copy a file.</p>
-<p>On the control node as your student user edit the file <code>~/ansible-files/apache.yml</code> and add a new task utilizing the <code>copy</code> module. It should now look like this:</p>
+<p>On the control node as your student user edit the file <code>~/ansible_files/apache.yml</code> and add a new task utilizing the <code>copy</code> module. It should now look like this:</p>
 <div class="highlight"><pre><span></span><code><a href="#__codelineno-26-1" id="__codelineno-26-1" name="__codelineno-26-1"></a><span class="nn">---</span>
 <a href="#__codelineno-26-2" id="__codelineno-26-2" name="__codelineno-26-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Apache server installation</span>
 <a href="#__codelineno-26-3" id="__codelineno-26-3" name="__codelineno-26-3"></a><span class="w">  </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">node1</span>
@@ -1288,7 +1288,7 @@
 </code></pre></div>
 <p>What does this new copy task do? The new task uses the <code>copy</code> module and defines the source and destination options for the copy operation as parameters.</p>
 <p>Run your extended Playbook:</p>
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-27-1" id="__codelineno-27-1" name="__codelineno-27-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>ansible-navigator<span class="w"> </span>run<span class="w"> </span>apache.yml<span class="w"> </span>-m<span class="w"> </span>stdout
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-27-1" id="__codelineno-27-1" name="__codelineno-27-1"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>ansible-navigator<span class="w"> </span>run<span class="w"> </span>apache.yml<span class="w"> </span>-m<span class="w"> </span>stdout
 </code></pre></div>
 <ul>
 <li>
@@ -1333,7 +1333,7 @@
 <a href="#__codelineno-29-21" id="__codelineno-29-21" name="__codelineno-29-21"></a><span class="w">        </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="s">"0644"</span>
 </code></pre></div>
 <p>Now run the playbook:</p>
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-30-1" id="__codelineno-30-1" name="__codelineno-30-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>ansible-navigator<span class="w"> </span>run<span class="w"> </span>apache.yml<span class="w"> </span>-m<span class="w"> </span>stdout
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-30-1" id="__codelineno-30-1" name="__codelineno-30-1"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>ansible-navigator<span class="w"> </span>run<span class="w"> </span>apache.yml<span class="w"> </span>-m<span class="w"> </span>stdout
 </code></pre></div>
 <p>Verify if Apache is now running on all web servers (node1, node2, node3). All output should be green.</p>
 
@@ -1343,7 +1343,7 @@
 <span class="md-icon" title="Last update">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
 </span>
-<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 26, 2025 17:48:48 UTC">November 26, 2025</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 28, 2025 16:58:12 UTC">November 28, 2025</span>
 </span>
 </aside>
 </article>

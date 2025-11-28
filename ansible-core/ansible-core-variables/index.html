@@ -917,18 +917,18 @@
 </div>
 <h3 id="step-1-create-variable-files">Step 1 - Create Variable Files</h3>
 <p>For understanding and practice let’s do a lab. Following up on the theme "Let’s build a web server. Or two. Or even more…​", you will change the <code>index.html</code> to show the development environment (dev/prod) a server is deployed in.</p>
-<p>On the ansible control host, as the <code>student</code> user, create the directories to hold the variable definitions in <code>~/ansible-files/</code>:</p>
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-1-1" id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>mkdir<span class="w"> </span>host_vars<span class="w"> </span>group_vars
+<p>On the ansible control host, as the <code>student</code> user, create the directories to hold the variable definitions in <code>~/ansible_files/</code>:</p>
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-1-1" id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>mkdir<span class="w"> </span>host_vars<span class="w"> </span>group_vars
 </code></pre></div>
 <p>Now create two files containing variable definitions. We’ll define a variable named <code>stage</code> which will point to different environments, <code>dev</code> or <code>prod</code>:</p>
 <ul>
-<li>Create the file <code>~/ansible-files/group_vars/web.yml</code> with this content:</li>
+<li>Create the file <code>~/ansible_files/group_vars/web.yml</code> with this content:</li>
 </ul>
 <div class="highlight"><pre><span></span><code><a href="#__codelineno-2-1" id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="nn">---</span>
 <a href="#__codelineno-2-2" id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="nt">stage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dev</span>
 </code></pre></div>
 <ul>
-<li>Create the file <code>~/ansible-files/host_vars/node2.yml</code> with this content:</li>
+<li>Create the file <code>~/ansible_files/host_vars/node2.yml</code> with this content:</li>
 </ul>
 <div class="highlight"><pre><span></span><code><a href="#__codelineno-3-1" id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="nn">---</span>
 <a href="#__codelineno-3-2" id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="nt">stage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prod</span>
@@ -939,7 +939,7 @@
 <li>For server <code>node2</code> this is overridden and the host is flagged as a production server.</li>
 </ul>
 <h3 id="step-2-create-webhtml-files">Step 2 - Create web.html Files</h3>
-<p>Now create two files in <code>~/ansible-files/files/</code>:</p>
+<p>Now create two files in <code>~/ansible_files/files/</code>:</p>
 <p>One called <code>prod_web.html</code> with the following content:</p>
 <div class="highlight"><pre><span></span><code><a href="#__codelineno-4-1" id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
 <a href="#__codelineno-4-2" id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>This is a production webserver, take care!<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
@@ -952,7 +952,7 @@
 </code></pre></div>
 <h3 id="step-3-create-the-playbook">Step 3 - Create the Playbook</h3>
 <p>Now you need a Playbook that copies the prod or dev <code>web.html</code> file - according to the "stage" variable.</p>
-<p>Create a new Playbook called <code>deploy_index_html.yml</code> in the <code>~/ansible-files/</code> directory.</p>
+<p>Create a new Playbook called <code>deploy_index_html.yml</code> in the <code>~/ansible_files/</code> directory.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>Note how the variable "stage" is used in the name of the file to copy.</p>
@@ -976,11 +976,11 @@
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio"/><input id="__tabbed_1_2" name="__tabbed_1" type="radio"/><div class="tabbed-labels"><label for="__tabbed_1_1">Ansible</label><label for="__tabbed_1_2">Navigator</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-7-1" id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>ansible-playbook<span class="w"> </span>deploy_index_html.yml
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-7-1" id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>ansible-playbook<span class="w"> </span>deploy_index_html.yml
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-8-1" id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>ansible-navigator<span class="w"> </span>run<span class="w"> </span>deploy_index_html.yml
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-8-1" id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>ansible-navigator<span class="w"> </span>run<span class="w"> </span>deploy_index_html.yml
 </code></pre></div>
 </div>
 </div>
@@ -988,19 +988,19 @@
 <h3 id="step-4-test-the-result">Step 4 - Test the Result</h3>
 <p>The Ansible Playbook copies different files as index.html to the hosts, use <code>curl</code> to test it.</p>
 <p>For node1:</p>
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-9-1" id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>curl<span class="w"> </span>http://node1
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-9-1" id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>curl<span class="w"> </span>http://node1
 <a href="#__codelineno-9-2" id="__codelineno-9-2" name="__codelineno-9-2"></a><span class="go">&lt;body&gt;</span>
 <a href="#__codelineno-9-3" id="__codelineno-9-3" name="__codelineno-9-3"></a><span class="go">&lt;h1&gt;This is a development webserver, have fun!&lt;/h1&gt;</span>
 <a href="#__codelineno-9-4" id="__codelineno-9-4" name="__codelineno-9-4"></a><span class="go">&lt;/body&gt;</span>
 </code></pre></div>
 <p>For node2:</p>
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-10-1" id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>curl<span class="w"> </span>http://node2
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-10-1" id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>curl<span class="w"> </span>http://node2
 <a href="#__codelineno-10-2" id="__codelineno-10-2" name="__codelineno-10-2"></a><span class="go">&lt;body&gt;</span>
 <a href="#__codelineno-10-3" id="__codelineno-10-3" name="__codelineno-10-3"></a><span class="go">&lt;h1&gt;This is a production webserver, take care!&lt;/h1&gt;</span>
 <a href="#__codelineno-10-4" id="__codelineno-10-4" name="__codelineno-10-4"></a><span class="go">&lt;/body&gt;</span>
 </code></pre></div>
 <p>For node3:</p>
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-11-1" id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>curl<span class="w"> </span>http://node3
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-11-1" id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>curl<span class="w"> </span>http://node3
 <a href="#__codelineno-11-2" id="__codelineno-11-2" name="__codelineno-11-2"></a><span class="go">&lt;body&gt;</span>
 <a href="#__codelineno-11-3" id="__codelineno-11-3" name="__codelineno-11-3"></a><span class="go">&lt;h1&gt;This is a development webserver, have fun!&lt;/h1&gt;</span>
 <a href="#__codelineno-11-4" id="__codelineno-11-4" name="__codelineno-11-4"></a><span class="go">&lt;/body&gt;</span>
@@ -1042,11 +1042,11 @@ The facts contain useful information stored into variables that administrators c
 <div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio"/><input id="__tabbed_2_2" name="__tabbed_2" type="radio"/><div class="tabbed-labels"><label for="__tabbed_2_1">Ansible</label><label for="__tabbed_2_2">Navigator</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-13-1" id="__codelineno-13-1" name="__codelineno-13-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>ansible-playbook<span class="w"> </span>setup.yml
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-13-1" id="__codelineno-13-1" name="__codelineno-13-1"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>ansible-playbook<span class="w"> </span>setup.yml
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-14-1" id="__codelineno-14-1" name="__codelineno-14-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>ansible-navigator<span class="w"> </span>run<span class="w"> </span>setup.yml<span class="w"> </span>-m<span class="w"> </span>stdout
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-14-1" id="__codelineno-14-1" name="__codelineno-14-1"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>ansible-navigator<span class="w"> </span>run<span class="w"> </span>setup.yml<span class="w"> </span>-m<span class="w"> </span>stdout
 </code></pre></div>
 </div>
 </div>
@@ -1071,11 +1071,11 @@ The facts contain useful information stored into variables that administrators c
 <div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio"/><input id="__tabbed_3_2" name="__tabbed_3" type="radio"/><div class="tabbed-labels"><label for="__tabbed_3_1">Ansible</label><label for="__tabbed_3_2">Navigator</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-16-1" id="__codelineno-16-1" name="__codelineno-16-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>ansible-playbook<span class="w"> </span>setup_filter.yml
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-16-1" id="__codelineno-16-1" name="__codelineno-16-1"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>ansible-playbook<span class="w"> </span>setup_filter.yml
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-17-1" id="__codelineno-17-1" name="__codelineno-17-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>ansible-navigator<span class="w"> </span>run<span class="w"> </span>setup_filter.yml<span class="w"> </span>-m<span class="w"> </span>stdout
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-17-1" id="__codelineno-17-1" name="__codelineno-17-1"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>ansible-navigator<span class="w"> </span>run<span class="w"> </span>setup_filter.yml<span class="w"> </span>-m<span class="w"> </span>stdout
 </code></pre></div>
 </div>
 </div>
@@ -1108,14 +1108,14 @@ The facts contain useful information stored into variables that administrators c
 <a href="#__codelineno-19-13" id="__codelineno-19-13" name="__codelineno-19-13"></a><span class="w">        </span><span class="nt">msg</span><span class="p">:</span><span class="w"> </span><span class="s">"{{</span><span class="nv"> </span><span class="s">ansible_os_family</span><span class="nv"> </span><span class="s">}}"</span>
 </code></pre></div>
 <p>Run the playbook:</p>
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-20-1" id="__codelineno-20-1" name="__codelineno-20-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>ansible-playbook<span class="w"> </span>setup_filter.yml
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-20-1" id="__codelineno-20-1" name="__codelineno-20-1"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>ansible-playbook<span class="w"> </span>setup_filter.yml
 </code></pre></div>
 <p>Optionally, run the playbook with the <em>ansible-navigator</em>:</p>
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-21-1" id="__codelineno-21-1" name="__codelineno-21-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>ansible-navigator<span class="w"> </span>run<span class="w"> </span>setup_filter.yml<span class="w"> </span>-m<span class="w"> </span>stdout
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-21-1" id="__codelineno-21-1" name="__codelineno-21-1"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>ansible-navigator<span class="w"> </span>run<span class="w"> </span>setup_filter.yml<span class="w"> </span>-m<span class="w"> </span>stdout
 </code></pre></div>
 </details>
 <h3 id="step-7-using-facts-in-playbooks">Step 7 - Using Facts in Playbooks</h3>
-<p>Facts can be used in a Playbook like variables, using the proper naming, of course. Create this Playbook as <code>facts.yml</code> in the <code>~/ansible-files/</code> directory:</p>
+<p>Facts can be used in a Playbook like variables, using the proper naming, of course. Create this Playbook as <code>facts.yml</code> in the <code>~/ansible_files/</code> directory:</p>
 <div class="highlight"><pre><span></span><code><a href="#__codelineno-22-1" id="__codelineno-22-1" name="__codelineno-22-1"></a><span class="nn">---</span>
 <a href="#__codelineno-22-2" id="__codelineno-22-2" name="__codelineno-22-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Output facts within a playbook</span>
 <a href="#__codelineno-22-3" id="__codelineno-22-3" name="__codelineno-22-3"></a><span class="w">  </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">all</span>
@@ -1132,11 +1132,11 @@ The facts contain useful information stored into variables that administrators c
 <div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio"/><input id="__tabbed_4_2" name="__tabbed_4" type="radio"/><div class="tabbed-labels"><label for="__tabbed_4_1">Ansible</label><label for="__tabbed_4_2">Navigator</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-23-1" id="__codelineno-23-1" name="__codelineno-23-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>ansible-playbook<span class="w"> </span>facts.yml
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-23-1" id="__codelineno-23-1" name="__codelineno-23-1"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>ansible-playbook<span class="w"> </span>facts.yml
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-24-1" id="__codelineno-24-1" name="__codelineno-24-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>ansible-navigator<span class="w"> </span>run<span class="w"> </span>facts.yml<span class="w"> </span>-m<span class="w"> </span>stdout
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-24-1" id="__codelineno-24-1" name="__codelineno-24-1"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>ansible-navigator<span class="w"> </span>run<span class="w"> </span>facts.yml<span class="w"> </span>-m<span class="w"> </span>stdout
 </code></pre></div>
 </div>
 </div>
@@ -1177,7 +1177,7 @@ The facts contain useful information stored into variables that administrators c
 <span class="md-icon" title="Last update">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
 </span>
-<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 25, 2025 08:52:17 UTC">February 25, 2025</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 28, 2025 16:58:12 UTC">November 28, 2025</span>
 </span>
 </aside>
 </article>

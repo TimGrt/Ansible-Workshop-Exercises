@@ -859,15 +859,15 @@ The goal is to familiarize yourself with some of the different cli tools Ansible
 </ol>
 <p>Ansible will process the above list and use the first file found, all others are ignored. For additional information (and a possibility to create a <em>sample</em> file with all available options and explanation for every parameter), <a href="https://docs.ansible.com/ansible/latest/reference_appendices/config.html" target="_blank">take a look at the documentation</a>.</p>
 <p>You will create all Ansible <em>content</em> in a separate folder (this makes it easy to <em>version-control</em> it if necessary).<br/>
-On your control host <strong>ansible-1</strong>, create a directory called <code>ansible-files</code> in your home directory and change directories into it:</p>
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-0-1" id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="gp">[student@ansible-1 ~]$ </span>mkdir<span class="w"> </span>ansible-files
-<a href="#__codelineno-0-2" id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="gp">[student@ansible-1 ~]$ </span><span class="nb">cd</span><span class="w"> </span>ansible-files/
+On your control host <strong>ansible-1</strong>, create a directory called <code>ansible_files</code> in your home directory and change directories into it:</p>
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-0-1" id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="gp">[student@ansible-1 ~]$ </span>mkdir<span class="w"> </span>ansible_files
+<a href="#__codelineno-0-2" id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="gp">[student@ansible-1 ~]$ </span><span class="nb">cd</span><span class="w"> </span>ansible_files/
 </code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p><strong>Re-open the VScode Editor into this folder!</strong><br/>
 You won't see all the content of the home directory anymore, this helps keeping a better overview of what you created.<br/>
-In the top left, click  on <strong>File &gt; Open Folder...</strong> and select <code>/home/student1/ansible-files</code>. Wait for the window to reload. Open a new <em>Terminal</em>.</p>
+In the top left, click  on <strong>File &gt; Open Folder...</strong> and select <code>/home/student1/ansible_files</code>. Wait for the window to reload. Open a new <em>Terminal</em>.</p>
 </div>
 <p>In this folder, create the file <code>ansible.cfg</code>:</p>
 <div class="highlight"><pre><span></span><code><a href="#__codelineno-1-1" id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="go">touch ansible.cfg</span>
@@ -895,12 +895,12 @@ In the top left, click  on <strong>File &gt; Open Folder...</strong> and select 
 If you intend to automate hosts that can't be reached with the default method, e.g. Windows hosts, network infrastructure nodes, firewall hosts and so on, you need to instruct Ansible to use another communication method. In most cases, this is very easy and only requires setting a certain variable. But, let's focus on automating Linux nodes first.</p>
 <p>You can reach all your <em>managed nodes</em> (the hosts that you want to automate) with <em>password-less <abbr title="Secure Shell">SSH</abbr></em>, you won't need to enter a password (or a user) when connecting to the nodes.</p>
 <p>Try it out, <abbr title="Secure Shell">SSH</abbr> to <code>node1</code>:</p>
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-4-1" id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="gp">[student1@ansible-1 ansible-files]$ </span>ssh<span class="w"> </span>node1
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-4-1" id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="gp">[student1@ansible-1 ansible_files]$ </span>ssh<span class="w"> </span>node1
 <a href="#__codelineno-4-2" id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="gp">[ec2-user@node1 ~]$</span>
 </code></pre></div>
 <p>As you can see, you are now the user <code>ec2-user</code> on <code>node1</code>. Leave <code>node1</code> again:</p>
 <div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-5-1" id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="gp">[ec-user@node1 ~]$ </span><span class="nb">exit</span>
-<a href="#__codelineno-5-2" id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="gp">[student1@ansible-1 ansible-files]$</span>
+<a href="#__codelineno-5-2" id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="gp">[student1@ansible-1 ansible_files]$</span>
 </code></pre></div>
 <p>You can also connect to <code>node2</code> and <code>node3</code> with the same method. When you are finished, make sure you are back on your Ansible Control node (<code>ansible-1</code>), only here you can execute Ansible commands (as the Ansible binary is only installed on the Controller, Ansible works <em>agent-less</em>).</p>
 <h3 id="step-3-work-with-your-inventory">Step 3 - Work with your Inventory</h3>
@@ -920,7 +920,7 @@ In this lab, the inventory is provided by your instructor. The inventory file is
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio"/><input id="__tabbed_1_2" name="__tabbed_1" type="radio"/><div class="tabbed-labels"><label for="__tabbed_1_1">Ansible</label><label for="__tabbed_1_2">Navigator</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-7-1" id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>ansible-inventory<span class="w"> </span>--list
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-7-1" id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>ansible-inventory<span class="w"> </span>--list
 <a href="#__codelineno-7-2" id="__codelineno-7-2" name="__codelineno-7-2"></a><span class="go">{</span>
 <a href="#__codelineno-7-3" id="__codelineno-7-3" name="__codelineno-7-3"></a><span class="go">    "_meta": {</span>
 <a href="#__codelineno-7-4" id="__codelineno-7-4" name="__codelineno-7-4"></a><span class="go">        "hostvars": {</span>
@@ -961,7 +961,7 @@ In this lab, the inventory is provided by your instructor. The inventory file is
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-8-1" id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>ansible-navigator<span class="w"> </span>inventory<span class="w"> </span>--list<span class="w"> </span>-m<span class="w"> </span>stdout
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-8-1" id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>ansible-navigator<span class="w"> </span>inventory<span class="w"> </span>--list<span class="w"> </span>-m<span class="w"> </span>stdout
 <a href="#__codelineno-8-2" id="__codelineno-8-2" name="__codelineno-8-2"></a><span class="go">{</span>
 <a href="#__codelineno-8-3" id="__codelineno-8-3" name="__codelineno-8-3"></a><span class="go">    "_meta": {</span>
 <a href="#__codelineno-8-4" id="__codelineno-8-4" name="__codelineno-8-4"></a><span class="go">        "hostvars": {</span>
@@ -1007,7 +1007,7 @@ In this lab, the inventory is provided by your instructor. The inventory file is
 <div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio"/><input id="__tabbed_2_2" name="__tabbed_2" type="radio"/><div class="tabbed-labels"><label for="__tabbed_2_1">Ansible</label><label for="__tabbed_2_2">Navigator</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-9-1" id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="gp">[student1@ansible-1 ansible-files]$ </span>ansible-inventory<span class="w"> </span>--graph
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-9-1" id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="gp">[student1@ansible-1 ansible_files]$ </span>ansible-inventory<span class="w"> </span>--graph
 <a href="#__codelineno-9-2" id="__codelineno-9-2" name="__codelineno-9-2"></a><span class="go">@all:</span>
 <a href="#__codelineno-9-3" id="__codelineno-9-3" name="__codelineno-9-3"></a><span class="go">|--@control:</span>
 <a href="#__codelineno-9-4" id="__codelineno-9-4" name="__codelineno-9-4"></a><span class="go">|  |--ansible-1</span>
@@ -1019,7 +1019,7 @@ In this lab, the inventory is provided by your instructor. The inventory file is
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-10-1" id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="gp">[student1@ansible-1 ansible-files]$ </span>ansible-navigator<span class="w"> </span>inventory<span class="w"> </span>--graph<span class="w"> </span>-m<span class="w"> </span>stdout
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-10-1" id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="gp">[student1@ansible-1 ansible_files]$ </span>ansible-navigator<span class="w"> </span>inventory<span class="w"> </span>--graph<span class="w"> </span>-m<span class="w"> </span>stdout
 <a href="#__codelineno-10-2" id="__codelineno-10-2" name="__codelineno-10-2"></a><span class="go">@all:</span>
 <a href="#__codelineno-10-3" id="__codelineno-10-3" name="__codelineno-10-3"></a><span class="go">|--@control:</span>
 <a href="#__codelineno-10-4" id="__codelineno-10-4" name="__codelineno-10-4"></a><span class="go">|  |--ansible-1</span>
@@ -1038,15 +1038,15 @@ In this lab, the inventory is provided by your instructor. The inventory file is
 <div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio"/><input id="__tabbed_3_2" name="__tabbed_3" type="radio"/><div class="tabbed-labels"><label for="__tabbed_3_1">Ansible</label><label for="__tabbed_3_2">Navigator</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-11-1" id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>ansible-inventory<span class="w"> </span>--graph<span class="w"> </span>web
-<a href="#__codelineno-11-2" id="__codelineno-11-2" name="__codelineno-11-2"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>ansible-inventory<span class="w"> </span>--graph<span class="w"> </span>control
-<a href="#__codelineno-11-3" id="__codelineno-11-3" name="__codelineno-11-3"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>ansible-inventory<span class="w"> </span>--host<span class="w"> </span>node1
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-11-1" id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>ansible-inventory<span class="w"> </span>--graph<span class="w"> </span>web
+<a href="#__codelineno-11-2" id="__codelineno-11-2" name="__codelineno-11-2"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>ansible-inventory<span class="w"> </span>--graph<span class="w"> </span>control
+<a href="#__codelineno-11-3" id="__codelineno-11-3" name="__codelineno-11-3"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>ansible-inventory<span class="w"> </span>--host<span class="w"> </span>node1
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-12-1" id="__codelineno-12-1" name="__codelineno-12-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>ansible-navigator<span class="w"> </span>inventory<span class="w"> </span>--graph<span class="w"> </span>web<span class="w"> </span>-m<span class="w"> </span>stdout
-<a href="#__codelineno-12-2" id="__codelineno-12-2" name="__codelineno-12-2"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>ansible-navigator<span class="w"> </span>inventory<span class="w"> </span>--graph<span class="w"> </span>control<span class="w"> </span>-m<span class="w"> </span>stdout
-<a href="#__codelineno-12-3" id="__codelineno-12-3" name="__codelineno-12-3"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>ansible-navigator<span class="w"> </span>inventory<span class="w"> </span>--host<span class="w"> </span>node1<span class="w"> </span>-m<span class="w"> </span>stdout
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-12-1" id="__codelineno-12-1" name="__codelineno-12-1"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>ansible-navigator<span class="w"> </span>inventory<span class="w"> </span>--graph<span class="w"> </span>web<span class="w"> </span>-m<span class="w"> </span>stdout
+<a href="#__codelineno-12-2" id="__codelineno-12-2" name="__codelineno-12-2"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>ansible-navigator<span class="w"> </span>inventory<span class="w"> </span>--graph<span class="w"> </span>control<span class="w"> </span>-m<span class="w"> </span>stdout
+<a href="#__codelineno-12-3" id="__codelineno-12-3" name="__codelineno-12-3"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>ansible-navigator<span class="w"> </span>inventory<span class="w"> </span>--host<span class="w"> </span>node1<span class="w"> </span>-m<span class="w"> </span>stdout
 </code></pre></div>
 </div>
 </div>
@@ -1061,7 +1061,7 @@ In this lab, the inventory is provided by your instructor. The inventory file is
 <div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-13-1" id="__codelineno-13-1" name="__codelineno-13-1"></a><span class="go">ansible [pattern] -m [module] -a "[module options]"</span>
 </code></pre></div>
 <p>Ad hoc commands can be used perfectly to check if all hosts in your inventory are reachable. Ansible offers the <em>ping</em> module for that (this is not a real ICMP ping, though). Let's try to reach all hosts of the <em>web</em> group:</p>
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-14-1" id="__codelineno-14-1" name="__codelineno-14-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>ansible<span class="w"> </span>web<span class="w"> </span>-m<span class="w"> </span>ping
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-14-1" id="__codelineno-14-1" name="__codelineno-14-1"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>ansible<span class="w"> </span>web<span class="w"> </span>-m<span class="w"> </span>ping
 <a href="#__codelineno-14-2" id="__codelineno-14-2" name="__codelineno-14-2"></a><span class="go">node2 | SUCCESS =&gt; {</span>
 <a href="#__codelineno-14-3" id="__codelineno-14-3" name="__codelineno-14-3"></a><span class="go">    "ansible_facts": {</span>
 <a href="#__codelineno-14-4" id="__codelineno-14-4" name="__codelineno-14-4"></a><span class="go">        "discovered_interpreter_python": "/usr/libexec/platform-python"</span>
@@ -1086,7 +1086,7 @@ In this lab, the inventory is provided by your instructor. The inventory file is
 </code></pre></div>
 <p>Success! All three nodes are reachable, we get a <em>pong</em> back, we proved that we can establish a <abbr title="Secure Shell">SSH</abbr> connection and that the node(s) have a usable Python interpreter.</p>
 <p>Try to run the same ad hoc command against the <em>control</em> group.  </p>
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-15-1" id="__codelineno-15-1" name="__codelineno-15-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>ansible<span class="w"> </span>control<span class="w"> </span>-m<span class="w"> </span>ping
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-15-1" id="__codelineno-15-1" name="__codelineno-15-1"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>ansible<span class="w"> </span>control<span class="w"> </span>-m<span class="w"> </span>ping
 <a href="#__codelineno-15-2" id="__codelineno-15-2" name="__codelineno-15-2"></a><span class="go">ansible-1 | SUCCESS =&gt; {</span>
 <a href="#__codelineno-15-3" id="__codelineno-15-3" name="__codelineno-15-3"></a><span class="go">    "ansible_facts": {</span>
 <a href="#__codelineno-15-4" id="__codelineno-15-4" name="__codelineno-15-4"></a><span class="go">        "discovered_interpreter_python": "/usr/libexec/platform-python"</span>
@@ -1096,7 +1096,7 @@ In this lab, the inventory is provided by your instructor. The inventory file is
 <a href="#__codelineno-15-8" id="__codelineno-15-8" name="__codelineno-15-8"></a><span class="go">}</span>
 </code></pre></div>
 <p>Let's play around with ad hoc commands a bit more. You can use every <em>module</em> that Ansible provides with ad hoc commands, we will learn more about <em>modules</em> later today. By default, Ansible will use the <em>command</em> module, you can send every linux command you want to all managed nodes, the arguments are provided with the <code>-a</code> parameter:</p>
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-16-1" id="__codelineno-16-1" name="__codelineno-16-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>ansible<span class="w"> </span>web<span class="w"> </span>-m<span class="w"> </span><span class="nb">command</span><span class="w"> </span>-a<span class="w"> </span><span class="s2">"cat /etc/os-release"</span>
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-16-1" id="__codelineno-16-1" name="__codelineno-16-1"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>ansible<span class="w"> </span>web<span class="w"> </span>-m<span class="w"> </span><span class="nb">command</span><span class="w"> </span>-a<span class="w"> </span><span class="s2">"cat /etc/os-release"</span>
 <a href="#__codelineno-16-2" id="__codelineno-16-2" name="__codelineno-16-2"></a><span class="go">node2 | CHANGED | rc=0 &gt;&gt;</span>
 <a href="#__codelineno-16-3" id="__codelineno-16-3" name="__codelineno-16-3"></a><span class="go">NAME="Red Hat Enterprise Linux"</span>
 <a href="#__codelineno-16-4" id="__codelineno-16-4" name="__codelineno-16-4"></a><span class="go">VERSION="8.5 (Ootpa)"</span>
@@ -1153,12 +1153,12 @@ In this lab, the inventory is provided by your instructor. The inventory file is
 <a href="#__codelineno-16-55" id="__codelineno-16-55" name="__codelineno-16-55"></a><span class="go">REDHAT_SUPPORT_PRODUCT_VERSION="8.5"</span>
 </code></pre></div>
 <p>You can shorten the command and leave out <code>-m command</code> as this module is used by default:</p>
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-17-1" id="__codelineno-17-1" name="__codelineno-17-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>ansible<span class="w"> </span>control<span class="w"> </span>-a<span class="w"> </span><span class="s2">"uname -a"</span>
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-17-1" id="__codelineno-17-1" name="__codelineno-17-1"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>ansible<span class="w"> </span>control<span class="w"> </span>-a<span class="w"> </span><span class="s2">"uname -a"</span>
 <a href="#__codelineno-17-2" id="__codelineno-17-2" name="__codelineno-17-2"></a><span class="go">ansible-1 | CHANGED | rc=0 &gt;&gt;</span>
 <a href="#__codelineno-17-3" id="__codelineno-17-3" name="__codelineno-17-3"></a><span class="go">Linux ansible-1.example.com 4.18.0-348.12.2.el8_5.x86_64 #1 SMP Mon Jan 17 07:06:06 EST 2022 x86_64 x86_64 x86_64 GNU/Linux</span>
 </code></pre></div>
 <p>Ad hoc command are very useful to gather information about your managed nodes, the <em>setup</em> module is used. Try that against one host alone (so you won't get overwhelmed with output):</p>
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-18-1" id="__codelineno-18-1" name="__codelineno-18-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>ansible<span class="w"> </span>node1<span class="w"> </span>-m<span class="w"> </span>setup
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-18-1" id="__codelineno-18-1" name="__codelineno-18-1"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>ansible<span class="w"> </span>node1<span class="w"> </span>-m<span class="w"> </span>setup
 <a href="#__codelineno-18-2" id="__codelineno-18-2" name="__codelineno-18-2"></a><span class="go">node1 | SUCCESS =&gt; {</span>
 <a href="#__codelineno-18-3" id="__codelineno-18-3" name="__codelineno-18-3"></a><span class="go">    "ansible_facts": {</span>
 <a href="#__codelineno-18-4" id="__codelineno-18-4" name="__codelineno-18-4"></a><span class="go">        "ansible_all_ipv4_addresses": [</span>
@@ -1184,7 +1184,7 @@ In this lab, the inventory is provided by your instructor. The inventory file is
 <span class="md-icon" title="Last update">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
 </span>
-<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 26, 2025 17:48:48 UTC">November 26, 2025</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 28, 2025 16:58:12 UTC">November 28, 2025</span>
 </span>
 </aside>
 </article>

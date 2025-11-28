@@ -945,15 +945,15 @@ use.</p>
 <p class="admonition-title">Tip</p>
 <p>Ansible Galaxy is your hub for finding, reusing and sharing the best Ansible content. <code>ansible-galaxy</code> helps to interact with Ansible Galaxy. For now we'll just using it as a helper to build the directory structure.</p>
 </div>
-<p>Okay, lets start to build a role. We'll build a role that installs and configures Apache to serve a virtual host. Run these commands in your <code>~/ansible-files</code> directory:</p>
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-2-1" id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>mkdir<span class="w"> </span>roles
-<a href="#__codelineno-2-2" id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>ansible-galaxy<span class="w"> </span>init<span class="w"> </span>--offline<span class="w"> </span>roles/apache-webserver
+<p>Okay, lets start to build a role. We'll build a role that installs and configures Apache to serve a virtual host. Run these commands in your <code>~/ansible_files</code> directory:</p>
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-2-1" id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>mkdir<span class="w"> </span>roles
+<a href="#__codelineno-2-2" id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>ansible-galaxy<span class="w"> </span>init<span class="w"> </span>--offline<span class="w"> </span>roles/apache_webserver
 </code></pre></div>
 <p>Have a look at the role directories and their content:</p>
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-3-1" id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>tree<span class="w"> </span>roles
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-3-1" id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>tree<span class="w"> </span>roles
 </code></pre></div>
 <div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-4-1" id="__codelineno-4-1" name="__codelineno-4-1"></a>roles/
-<a href="#__codelineno-4-2" id="__codelineno-4-2" name="__codelineno-4-2"></a>└── apache-webserver
+<a href="#__codelineno-4-2" id="__codelineno-4-2" name="__codelineno-4-2"></a>└── apache_webserver
 <a href="#__codelineno-4-3" id="__codelineno-4-3" name="__codelineno-4-3"></a>    ├── defaults
 <a href="#__codelineno-4-4" id="__codelineno-4-4" name="__codelineno-4-4"></a>    │   └── main.yml
 <a href="#__codelineno-4-5" id="__codelineno-4-5" name="__codelineno-4-5"></a>    ├── files
@@ -983,7 +983,7 @@ use.</p>
 <p class="admonition-title">Note</p>
 <p>The <code>main.yml</code> (and other files possibly included by main.yml) can <strong>only contain tasks</strong>, <strong>not</strong> complete playbooks!</p>
 </div>
-<p>Edit the <code>roles/apache-webserver/tasks/main.yml</code> file:</p>
+<p>Edit the <code>roles/apache_webserver/tasks/main.yml</code> file:</p>
 <div class="highlight"><pre><span></span><code><a href="#__codelineno-5-1" id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="nn">---</span>
 <a href="#__codelineno-5-2" id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install httpd package</span>
 <a href="#__codelineno-5-3" id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="w">  </span><span class="nt">ansible.builtin.package</span><span class="p">:</span>
@@ -1072,9 +1072,9 @@ use.</p>
 <a href="#__codelineno-8-33" id="__codelineno-8-33" name="__codelineno-8-33"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Restart_httpd</span>
 </code></pre></div>
 <h3 id="step-4-create-the-handler">Step 4 - Create the handler</h3>
-<p>Create the handler in the file <code>roles/apache-webserver/handlers/main.yml</code> to restart httpd when notified by the template task:</p>
+<p>Create the handler in the file <code>roles/apache_webserver/handlers/main.yml</code> to restart httpd when notified by the template task:</p>
 <div class="highlight"><pre><span></span><code><a href="#__codelineno-9-1" id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="nn">---</span>
-<a href="#__codelineno-9-2" id="__codelineno-9-2" name="__codelineno-9-2"></a><span class="c1"># handlers file for roles/apache-webserver</span>
+<a href="#__codelineno-9-2" id="__codelineno-9-2" name="__codelineno-9-2"></a><span class="c1"># handlers file for roles/apache_webserver</span>
 <a href="#__codelineno-9-3" id="__codelineno-9-3" name="__codelineno-9-3"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Restart_httpd</span>
 <a href="#__codelineno-9-4" id="__codelineno-9-4" name="__codelineno-9-4"></a><span class="w">  </span><span class="nt">ansible.builtin.service</span><span class="p">:</span>
 <a href="#__codelineno-9-5" id="__codelineno-9-5" name="__codelineno-9-5"></a><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">httpd</span>
@@ -1114,9 +1114,9 @@ use.</p>
 <p>The <em>vhost</em> configuration expects that the webserver announces on Port 8080, the configuration was adjusted in a <a href="../ansible-core-handlers/#step-1-handlers">previous exercise</a>.</p>
 </div>
 <h3 id="step-6-test-the-role">Step 6 - Test the role</h3>
-<p>You are ready to test the role against <code>node2</code>. But since a role cannot be assigned to a node directly, first create a playbook which connects the role and the host. Create the file <code>test_apache_role.yml</code> in the directory <code>~/ansible-files</code>:</p>
+<p>You are ready to test the role against <code>node2</code>. But since a role cannot be assigned to a node directly, first create a playbook which connects the role and the host. Create the file <code>test_apache_role.yml</code> in the directory <code>~/ansible_files</code>:</p>
 <div class="highlight"><pre><span></span><code><a href="#__codelineno-12-1" id="__codelineno-12-1" name="__codelineno-12-1"></a><span class="nn">---</span>
-<a href="#__codelineno-12-2" id="__codelineno-12-2" name="__codelineno-12-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Use apache-webserver role</span>
+<a href="#__codelineno-12-2" id="__codelineno-12-2" name="__codelineno-12-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Use apache_webserver role</span>
 <a href="#__codelineno-12-3" id="__codelineno-12-3" name="__codelineno-12-3"></a><span class="w">  </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">node2</span>
 <a href="#__codelineno-12-4" id="__codelineno-12-4" name="__codelineno-12-4"></a><span class="w">  </span><span class="nt">become</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <a href="#__codelineno-12-5" id="__codelineno-12-5" name="__codelineno-12-5"></a><span class="w">  </span><span class="nt">pre_tasks</span><span class="p">:</span>
@@ -1128,7 +1128,7 @@ use.</p>
 <a href="#__codelineno-12-11" id="__codelineno-12-11" name="__codelineno-12-11"></a><span class="w">      </span><span class="nt">ansible.builtin.debug</span><span class="p">:</span>
 <a href="#__codelineno-12-12" id="__codelineno-12-12" name="__codelineno-12-12"></a><span class="w">        </span><span class="nt">msg</span><span class="p">:</span><span class="w"> </span><span class="s">"Web</span><span class="nv"> </span><span class="s">server</span><span class="nv"> </span><span class="s">has</span><span class="nv"> </span><span class="s">been</span><span class="nv"> </span><span class="s">configured."</span>
 <a href="#__codelineno-12-13" id="__codelineno-12-13" name="__codelineno-12-13"></a><span class="w">  </span><span class="nt">roles</span><span class="p">:</span>
-<a href="#__codelineno-12-14" id="__codelineno-12-14" name="__codelineno-12-14"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apache-webserver</span>
+<a href="#__codelineno-12-14" id="__codelineno-12-14" name="__codelineno-12-14"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apache_webserver</span>
 </code></pre></div>
 <p>Note the <code>pre_tasks</code> and <code>post_tasks</code> keywords. Normally, the tasks of <em>roles</em> execute before the <em>tasks</em> of a playbook. To control order of execution <code>pre_tasks</code> are performed before any roles are applied. The <code>post_tasks</code> are performed after all the roles have completed. Here we just use them to better highlight when the actual role is executed.</p>
 <div class="admonition info">
@@ -1139,17 +1139,17 @@ use.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio"/><input id="__tabbed_1_2" name="__tabbed_1" type="radio"/><div class="tabbed-labels"><label for="__tabbed_1_1">Ansible</label><label for="__tabbed_1_2">Navigator</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-13-1" id="__codelineno-13-1" name="__codelineno-13-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>ansible-playbook<span class="w"> </span>test_apache_role.yml
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-13-1" id="__codelineno-13-1" name="__codelineno-13-1"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>ansible-playbook<span class="w"> </span>test_apache_role.yml
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-14-1" id="__codelineno-14-1" name="__codelineno-14-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>ansible-navigator<span class="w"> </span>run<span class="w"> </span>test_apache_role.yml<span class="w"> </span>-m<span class="w"> </span>stdout
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-14-1" id="__codelineno-14-1" name="__codelineno-14-1"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>ansible-navigator<span class="w"> </span>run<span class="w"> </span>test_apache_role.yml<span class="w"> </span>-m<span class="w"> </span>stdout
 </code></pre></div>
 </div>
 </div>
 </div>
 <p>Run a curl command against <code>node2</code> to confirm that the role worked or use the <code>check_httpd.yml</code> playbook (you may need to adjust the variable in it to <code>node2:8080</code>):</p>
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-15-1" id="__codelineno-15-1" name="__codelineno-15-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>curl<span class="w"> </span>-s<span class="w"> </span>http://node2:8080
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-15-1" id="__codelineno-15-1" name="__codelineno-15-1"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>curl<span class="w"> </span>-s<span class="w"> </span>http://node2:8080
 <a href="#__codelineno-15-2" id="__codelineno-15-2" name="__codelineno-15-2"></a><span class="go">&lt;body&gt;</span>
 <a href="#__codelineno-15-3" id="__codelineno-15-3" name="__codelineno-15-3"></a><span class="go">&lt;h1&gt;The virtual host configuration works!&lt;/h1&gt;</span>
 <a href="#__codelineno-15-4" id="__codelineno-15-4" name="__codelineno-15-4"></a><span class="go">&lt;/body&gt;</span>
@@ -1180,7 +1180,7 @@ You can see what ports the web server is running on by using the netstat command
 <span class="md-icon" title="Last update">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
 </span>
-<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 17, 2025 09:51:29 UTC">March 17, 2025</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 28, 2025 16:58:12 UTC">November 28, 2025</span>
 </span>
 </aside>
 </article>

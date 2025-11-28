@@ -935,9 +935,9 @@
 <p>There is a <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html" target="_blank">best practice Guide</a> on the preferred directory structures for playbooks.  We strongly encourage you to read and understand these practices as you develop your Ansible skills.<br/>
 That said, our playbook today is very basic and creating a complex structure will just confuse things.</p>
 <p>Instead, we are going to create a very simple directory structure for our playbook, and add just a couple of files to it.</p>
-<p>If you haven't done this already, on your control host <strong>ansible-1</strong>, create a directory called <code>ansible-files</code> in your home directory and change directories into it:</p>
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-0-1" id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="gp">[student@ansible-1 ~]$ </span>mkdir<span class="w"> </span>ansible-files
-<a href="#__codelineno-0-2" id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="gp">[student@ansible-1 ~]$ </span><span class="nb">cd</span><span class="w"> </span>ansible-files/
+<p>If you haven't done this already, on your control host <strong>ansible-1</strong>, create a directory called <code>ansible_files</code> in your home directory and change directories into it:</p>
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-0-1" id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="gp">[student@ansible-1 ~]$ </span>mkdir<span class="w"> </span>ansible_files
+<a href="#__codelineno-0-2" id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="gp">[student@ansible-1 ~]$ </span><span class="nb">cd</span><span class="w"> </span>ansible_files/
 </code></pre></div>
 <p>Add a file called <code>apache.yml</code> with the following content. As discussed in the previous exercises, use <code>vi</code>/<code>vim</code> or, if you are new to editors on the command line, check out the <a href="../../demo-environment/editor-alternatives/">editor alternatives</a> again.</p>
 <div class="highlight"><pre><span></span><code><a href="#__codelineno-1-1" id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="nn">---</span>
@@ -990,19 +990,20 @@ That said, our playbook today is very basic and creating a complex structure wil
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio"/><input id="__tabbed_1_2" name="__tabbed_1" type="radio"/><div class="tabbed-labels"><label for="__tabbed_1_1">Ansible</label><label for="__tabbed_1_2">Navigator</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-3-1" id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>ansible-playbook<span class="w"> </span>apache.yml
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-3-1" id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>ansible-playbook<span class="w"> </span>apache.yml
 </code></pre></div>
 <details class="failure">
 <summary>What does <code>Invalid callback for stdout specified</code> mean?</summary>
-<p>If you see this error, this is not your fault, but a missing <em>plugin</em>.<br/>
-In the demo environment, only the <code>ansible-core</code> package is installed. The missing plugin (a <em>callback</em> plugin formats the output Ansible is producing) is not part of the <code>ansible.builtin</code> collection, you need to install it.</p>
-<div class="highlight"><pre><span></span><code><a href="#__codelineno-4-1" id="__codelineno-4-1" name="__codelineno-4-1"></a>ansible-galaxy<span class="w"> </span>collection<span class="w"> </span>install<span class="w"> </span>community.general
+<p>When you encounter this error, <strong>that is not your fault</strong>, the default <code>ansible.cfg</code> references an invalid (old and superseded) plugin. If you want to know where the configuration file is stored, take a look at the following tip.</p>
+<p>The <code>ansible.cfg</code> was created in an <a href="../ansible-core-basics/#step-1-check-and-create-ansible-configuration">earlier exercise</a>, basically, you'll need to create a new/personal one right next to your playbook with at least the following content:</p>
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-4-1" id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="k">[defaults]</span>
+<a href="#__codelineno-4-2" id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="na">result_format</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">yaml</span>
+<a href="#__codelineno-4-3" id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="na">inventory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">~/lab_inventory/hosts</span>
 </code></pre></div>
-<p>If you want to know where this configuration is stored, take a look at the following tip.</p>
 </details>
 </div>
 <div class="tabbed-block">
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-5-1" id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>ansible-navigator<span class="w"> </span>run<span class="w"> </span>apache.yml<span class="w"> </span>-m<span class="w"> </span>stdout
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-5-1" id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>ansible-navigator<span class="w"> </span>run<span class="w"> </span>apache.yml<span class="w"> </span>-m<span class="w"> </span>stdout
 </code></pre></div>
 </div>
 </div>
@@ -1015,7 +1016,7 @@ In the demo environment, only the <code>ansible-core</code> package is installed
 <p>If you want to know which config file is used, run <code>ansible --version</code> and observe the output.</p>
 </div>
 <p>Once the playbook has completed, connect to <code>node1</code> via <abbr title="Secure Shell">SSH</abbr> to make sure Apache has been installed:</p>
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-7-1" id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>ssh<span class="w"> </span>node1
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-7-1" id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>ssh<span class="w"> </span>node1
 <a href="#__codelineno-7-2" id="__codelineno-7-2" name="__codelineno-7-2"></a><span class="go">Last login: Wed May 15 14:03:45 2019 from 44.55.66.77</span>
 <a href="#__codelineno-7-3" id="__codelineno-7-3" name="__codelineno-7-3"></a><span class="go">Managed by Ansible</span>
 </code></pre></div>
@@ -1050,11 +1051,11 @@ The second task uses the <code>debug</code> module. The variable <em>ansible_fac
 <div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio"/><input id="__tabbed_2_2" name="__tabbed_2" type="radio"/><div class="tabbed-labels"><label for="__tabbed_2_1">Ansible</label><label for="__tabbed_2_2">Navigator</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-10-1" id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>ansible-playbook<span class="w"> </span>package.yml
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-10-1" id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>ansible-playbook<span class="w"> </span>package.yml
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-11-1" id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>ansible-navigator<span class="w"> </span>run<span class="w"> </span>package.yml<span class="w"> </span>-m<span class="w"> </span>stdout
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-11-1" id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>ansible-navigator<span class="w"> </span>run<span class="w"> </span>package.yml<span class="w"> </span>-m<span class="w"> </span>stdout
 </code></pre></div>
 </div>
 </div>
@@ -1079,7 +1080,7 @@ The second task uses the <code>debug</code> module. The variable <em>ansible_fac
 <p>Execute the command <code>ansible-playbook apache.yml</code> for a second time, and compare the output.</p>
 <h3 id="step-4-add-one-more-task">Step 4 - Add one more task</h3>
 <p>The next part of the Ansible playbook makes sure the Apache application is enabled and started on <code>node1</code>.</p>
-<p>On the control host, as your student user, edit the file <code>~/ansible-files/apache.yml</code> to add a second task using the <code>service</code> module. The Playbook should now look like this:</p>
+<p>On the control host, as your student user, edit the file <code>~/ansible_files/apache.yml</code> to add a second task using the <code>service</code> module. The Playbook should now look like this:</p>
 <div class="highlight"><pre><span></span><code><a href="#__codelineno-13-1" id="__codelineno-13-1" name="__codelineno-13-1"></a><span class="nn">---</span>
 <a href="#__codelineno-13-2" id="__codelineno-13-2" name="__codelineno-13-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Apache server installation</span>
 <a href="#__codelineno-13-3" id="__codelineno-13-3" name="__codelineno-13-3"></a><span class="w">  </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">node1</span>
@@ -1106,14 +1107,14 @@ The second task uses the <code>debug</code> module. The variable <em>ansible_fac
 <div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio"/><input id="__tabbed_3_2" name="__tabbed_3" type="radio"/><div class="tabbed-labels"><label for="__tabbed_3_1">Ansible</label><label for="__tabbed_3_2">Navigator</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-14-1" id="__codelineno-14-1" name="__codelineno-14-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>ansible-playbook<span class="w"> </span>apache.yml
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-14-1" id="__codelineno-14-1" name="__codelineno-14-1"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>ansible-playbook<span class="w"> </span>apache.yml
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-15-1" id="__codelineno-15-1" name="__codelineno-15-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>ansible-navigator<span class="w"> </span>run<span class="w"> </span>apache.yml<span class="w"> </span>-m<span class="w"> </span>stdout
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-15-1" id="__codelineno-15-1" name="__codelineno-15-1"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>ansible-navigator<span class="w"> </span>run<span class="w"> </span>apache.yml<span class="w"> </span>-m<span class="w"> </span>stdout
 </code></pre></div>
 <p>You may also run the playbook in <em>interactive</em> mode:</p>
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-16-1" id="__codelineno-16-1" name="__codelineno-16-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>ansible-navigator<span class="w"> </span>run<span class="w"> </span>apache.yml<span class="w"> </span>-m<span class="w"> </span>interactive
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-16-1" id="__codelineno-16-1" name="__codelineno-16-1"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>ansible-navigator<span class="w"> </span>run<span class="w"> </span>apache.yml<span class="w"> </span>-m<span class="w"> </span>interactive
 </code></pre></div>
 <p>Notice in the output, we see the play had <code>1</code> "CHANGED" shown in yellow. Press <code>0</code> to enter the play output, you can see that task 2, "Ensure Apache is enabled and running", was the task that incorporated the latest change by the "CHANGED" value being set to True and highlighted in yellow.</p>
 </div>
@@ -1144,11 +1145,11 @@ The second task uses the <code>debug</code> module. The variable <em>ansible_fac
 <div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio"/><input id="__tabbed_4_2" name="__tabbed_4" type="radio"/><div class="tabbed-labels"><label for="__tabbed_4_1">Ansible</label><label for="__tabbed_4_2">Navigator</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-18-1" id="__codelineno-18-1" name="__codelineno-18-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>ansible-playbook<span class="w"> </span>service_state.yml
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-18-1" id="__codelineno-18-1" name="__codelineno-18-1"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>ansible-playbook<span class="w"> </span>service_state.yml
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-19-1" id="__codelineno-19-1" name="__codelineno-19-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>ansible-navigator<span class="w"> </span>run<span class="w"> </span>service_state.yml<span class="w"> </span>-m<span class="w"> </span>stdout
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-19-1" id="__codelineno-19-1" name="__codelineno-19-1"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>ansible-navigator<span class="w"> </span>run<span class="w"> </span>service_state.yml<span class="w"> </span>-m<span class="w"> </span>stdout
 </code></pre></div>
 </div>
 </div>
@@ -1175,26 +1176,26 @@ Take a look at the table with the ports overview or execute <code>podman ps</cod
 <div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio"/><input id="__tabbed_5_2" name="__tabbed_5" type="radio"/><div class="tabbed-labels"><label for="__tabbed_5_1">Ansible</label><label for="__tabbed_5_2">Navigator</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-21-1" id="__codelineno-21-1" name="__codelineno-21-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>ansible-playbook<span class="w"> </span>check_httpd.yml
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-21-1" id="__codelineno-21-1" name="__codelineno-21-1"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>ansible-playbook<span class="w"> </span>check_httpd.yml
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-22-1" id="__codelineno-22-1" name="__codelineno-22-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>ansible-navigator<span class="w"> </span>run<span class="w"> </span>check_httpd.yml<span class="w"> </span>-m<span class="w"> </span>stdout
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-22-1" id="__codelineno-22-1" name="__codelineno-22-1"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>ansible-navigator<span class="w"> </span>run<span class="w"> </span>check_httpd.yml<span class="w"> </span>-m<span class="w"> </span>stdout
 </code></pre></div>
 </div>
 </div>
 </div>
 <p>There are a lot of red lines and an error: As long as there is not at least an <code>index.html</code> file to be served by Apache, it will throw an ugly "<abbr title="Hyper Text Transfer Protocol">HTTP</abbr> Error 403: Forbidden" status and Ansible will report an error.</p>
-<p>So why not use Ansible to deploy a simple <code>index.html</code> file? On the ansible control host, as the <code>student</code> user, create the directory <code>files</code> to hold file resources in <code>~/ansible-files/</code>:</p>
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-23-1" id="__codelineno-23-1" name="__codelineno-23-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>mkdir<span class="w"> </span>files
+<p>So why not use Ansible to deploy a simple <code>index.html</code> file? On the ansible control host, as the <code>student</code> user, create the directory <code>files</code> to hold file resources in <code>~/ansible_files/</code>:</p>
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-23-1" id="__codelineno-23-1" name="__codelineno-23-1"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>mkdir<span class="w"> </span>files
 </code></pre></div>
-<p>Then create the file <code>~/ansible-files/files/web.html</code> on the control node:</p>
+<p>Then create the file <code>~/ansible_files/files/web.html</code> on the control node:</p>
 <div class="highlight"><pre><span></span><code><a href="#__codelineno-24-1" id="__codelineno-24-1" name="__codelineno-24-1"></a><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
 <a href="#__codelineno-24-2" id="__codelineno-24-2" name="__codelineno-24-2"></a><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Apache is running fine<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
 <a href="#__codelineno-24-3" id="__codelineno-24-3" name="__codelineno-24-3"></a><span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
 </code></pre></div>
 <p>Now, you’ll use Ansible's <code>copy</code> module in your playbook to <em>copy</em> a file from your controller to the managed node(s).</p>
-<p>On the control node, as your student user, edit the file <code>~/ansible-files/apache.yml</code> and add a new task utilizing the <code>copy</code> module. It should now look like this:</p>
+<p>On the control node, as your student user, edit the file <code>~/ansible_files/apache.yml</code> and add a new task utilizing the <code>copy</code> module. It should now look like this:</p>
 <div class="highlight"><pre><span></span><code><a href="#__codelineno-25-1" id="__codelineno-25-1" name="__codelineno-25-1"></a><span class="nn">---</span>
 <a href="#__codelineno-25-2" id="__codelineno-25-2" name="__codelineno-25-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Apache server installation</span>
 <a href="#__codelineno-25-3" id="__codelineno-25-3" name="__codelineno-25-3"></a><span class="w">  </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">node1</span>
@@ -1224,11 +1225,11 @@ Take a look at the table with the ports overview or execute <code>podman ps</cod
 <div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio"/><input id="__tabbed_6_2" name="__tabbed_6" type="radio"/><div class="tabbed-labels"><label for="__tabbed_6_1">Ansible</label><label for="__tabbed_6_2">Navigator</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-26-1" id="__codelineno-26-1" name="__codelineno-26-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>ansible-playbook<span class="w"> </span>apache.yml
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-26-1" id="__codelineno-26-1" name="__codelineno-26-1"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>ansible-playbook<span class="w"> </span>apache.yml
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-27-1" id="__codelineno-27-1" name="__codelineno-27-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>ansible-navigator<span class="w"> </span>run<span class="w"> </span>apache.yml<span class="w"> </span>-m<span class="w"> </span>stdout
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-27-1" id="__codelineno-27-1" name="__codelineno-27-1"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>ansible-navigator<span class="w"> </span>run<span class="w"> </span>apache.yml<span class="w"> </span>-m<span class="w"> </span>stdout
 </code></pre></div>
 </div>
 </div>
@@ -1281,11 +1282,11 @@ Take a look at the table with the ports overview or execute <code>podman ps</cod
 <div class="tabbed-set tabbed-alternate" data-tabs="7:2"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio"/><input id="__tabbed_7_2" name="__tabbed_7" type="radio"/><div class="tabbed-labels"><label for="__tabbed_7_1">Ansible</label><label for="__tabbed_7_2">Navigator</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-30-1" id="__codelineno-30-1" name="__codelineno-30-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>ansible-playbook<span class="w"> </span>apache.yml
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-30-1" id="__codelineno-30-1" name="__codelineno-30-1"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>ansible-playbook<span class="w"> </span>apache.yml
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-31-1" id="__codelineno-31-1" name="__codelineno-31-1"></a><span class="gp">[student@ansible-1 ansible-files]$ </span>ansible-navigator<span class="w"> </span>run<span class="w"> </span>apache.yml<span class="w"> </span>-m<span class="w"> </span>stdout
+<div class="no-copy highlight"><pre><span></span><code><a href="#__codelineno-31-1" id="__codelineno-31-1" name="__codelineno-31-1"></a><span class="gp">[student@ansible-1 ansible_files]$ </span>ansible-navigator<span class="w"> </span>run<span class="w"> </span>apache.yml<span class="w"> </span>-m<span class="w"> </span>stdout
 </code></pre></div>
 </div>
 </div>
@@ -1298,7 +1299,7 @@ Take a look at the table with the ports overview or execute <code>podman ps</cod
 <span class="md-icon" title="Last update">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
 </span>
-<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 26, 2025 17:48:48 UTC">November 26, 2025</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 28, 2025 16:58:12 UTC">November 28, 2025</span>
 </span>
 </aside>
 </article>
