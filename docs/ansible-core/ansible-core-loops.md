@@ -22,7 +22,7 @@ Find out more about loops in the [Ansible Loops](https://docs.ansible.com/ansibl
 
 ### Step 1 - Simple Loops
 
-To show the loops feature we will generate three new users on `node1`. For that, create the file `loop_users.yml` in `~/ansible-files` on your control node as your student user. We will use the `user` module to generate the user accounts.
+To show the loops feature we will generate three new users on `node1`. For that, create the file `loop_users.yml` in `~/ansible_files` on your control node as your student user. We will use the `user` module to generate the user accounts.
 
 ```yaml
 --8<-- "loops-step1-loop-users.yml"
@@ -157,7 +157,7 @@ Up to now, we always provided the list to loop in the *loop* keyword directly, m
 
 This playbook uses two *[magic variables](https://docs.ansible.com/ansible/latest/reference_appendices/special_variables.html){:target="_blank"}*, these variables cannot be set directly by the user and are always defined.  
 The second task for example, uses the special variable `ansible_play_hosts`, which contains a **list** of hosts in the current play run, failed or unreachable hosts are excluded from this list. The first task uses the special variable `groups`, this contains a **dictionary** with all the groups in the inventory and each group has the **list** of hosts that belong to it.  
-Copy the contents to a file `special-variables.yml` and run the playbook.  
+Copy the contents to a file `special_variables.yml` and run the playbook.  
 We can use the playbook to display that the *loop* keyword needs *list*-input, if you provide otherwise, Ansible will display an error message.
 
 ```bash

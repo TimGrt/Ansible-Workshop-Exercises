@@ -124,7 +124,7 @@ After adjusting the configuration, try to access the Grafana UI again. Use the h
     ??? info "Example output"
 
         ```console hl_lines="22 48"
-        [student@ansible-1 ansible-files]$ curl -L node2:8080
+        [student@ansible-1 ansible_files]$ curl -L node2:8080
         <!DOCTYPE html>
         <html lang="en">
           <head>

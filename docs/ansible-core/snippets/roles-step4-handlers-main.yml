@@ -1,5 +1,5 @@
 ---
-# handlers file for roles/apache-webserver
+# handlers file for roles/apache_webserver
 - name: Restart_httpd
   ansible.builtin.service:
     name: httpd

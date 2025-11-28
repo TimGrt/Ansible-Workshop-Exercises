@@ -221,13 +221,13 @@ Create a new user "testuser" on `node1` and `node3` with a comment using an ad h
     Your commands could look like these:
 
     ``` { .console .no-copy }
-    [student@ansible-1 ansible-files]$ ansible-doc -l | grep -i user
-    [student@ansible-1 ansible-files]$ ansible-doc user
-    [student@ansible-1 ansible-files]$ ansible node1,node3 -m user -a "name=testuser comment='Test D User'" -b
-    [student@ansible-1 ansible-files]$ ansible node1,node3 -m command -a " id testuser" -b
-    [student@ansible-1 ansible-files]$ ansible node2 -m command -a " id testuser" -b
-    [student@ansible-1 ansible-files]$ ansible node1,node3 -m user -a "name=testuser state=absent remove=yes" -b
-    [student@ansible-1 ansible-files]$ ansible web -m command -a " id testuser" -b
+    [student@ansible-1 ansible_files]$ ansible-doc -l | grep -i user
+    [student@ansible-1 ansible_files]$ ansible-doc user
+    [student@ansible-1 ansible_files]$ ansible node1,node3 -m user -a "name=testuser comment='Test D User'" -b
+    [student@ansible-1 ansible_files]$ ansible node1,node3 -m command -a " id testuser" -b
+    [student@ansible-1 ansible_files]$ ansible node2 -m command -a " id testuser" -b
+    [student@ansible-1 ansible_files]$ ansible node1,node3 -m user -a "name=testuser state=absent remove=yes" -b
+    [student@ansible-1 ansible_files]$ ansible web -m command -a " id testuser" -b
     ```
 
 ## Bonus Lab 3: Templates and Variables
@@ -296,13 +296,13 @@ Instead of editing and copying `httpd.conf` why don’t you just define a variab
     First run the playbook itself, then run curl against `node1` with port `8080` and `node2` with port `80`.
 
     ``` { .console .no-copy }
-    [student@ansible-1 ansible-files]$ ansible-playbook apache_config_tpl.yml
+    [student@ansible-1 ansible_files]$ ansible-playbook apache_config_tpl.yml
     [...]
-    [student@ansible-1 ansible-files]$ curl http://18.195.235.231:8080
+    [student@ansible-1 ansible_files]$ curl http://18.195.235.231:8080
     <body>
     <h1>This is a development webserver, have fun!</h1>
     </body>
-    [student@ansible-1 ansible-files]$ curl http://35.156.28.209:80
+    [student@ansible-1 ansible_files]$ curl http://35.156.28.209:80
     <body>
     <h1>This is a production webserver, take care!</h1>
     </body>
