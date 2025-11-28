@@ -68,22 +68,22 @@ Ansible looks for roles in a subdirectory called `roles` in the project director
 !!! tip
     Ansible Galaxy is your hub for finding, reusing and sharing the best Ansible content. `ansible-galaxy` helps to interact with Ansible Galaxy. For now we'll just using it as a helper to build the directory structure.
 
-Okay, lets start to build a role. We'll build a role that installs and configures Apache to serve a virtual host. Run these commands in your `~/ansible-files` directory:
+Okay, lets start to build a role. We'll build a role that installs and configures Apache to serve a virtual host. Run these commands in your `~/ansible_files` directory:
 
 ``` { .console .no-copy }
-[student@ansible-1 ansible-files]$ mkdir roles
-[student@ansible-1 ansible-files]$ ansible-galaxy init --offline roles/apache-webserver
+[student@ansible-1 ansible_files]$ mkdir roles
+[student@ansible-1 ansible_files]$ ansible-galaxy init --offline roles/apache_webserver
 ```
 
 Have a look at the role directories and their content:
 
 ``` { .console .no-copy }
-[student@ansible-1 ansible-files]$ tree roles
+[student@ansible-1 ansible_files]$ tree roles
 ```
 
 ``` { .text .no-copy }
 roles/
-└── apache-webserver
+└── apache_webserver
     ├── defaults
     │   └── main.yml
     ├── files
@@ -114,7 +114,7 @@ The `main.yml` file in the tasks subdirectory of the role should do the followin
 !!! note
     The `main.yml` (and other files possibly included by main.yml) can **only contain tasks**, **not** complete playbooks!
 
-Edit the `roles/apache-webserver/tasks/main.yml` file:
+Edit the `roles/apache_webserver/tasks/main.yml` file:
 
 ```yaml
 --8<-- "roles-step3-tasks-main-installation.yml"
@@ -154,7 +154,7 @@ The full `tasks/main.yml` file is:
 
 ### Step 4 - Create the handler
 
-Create the handler in the file `roles/apache-webserver/handlers/main.yml` to restart httpd when notified by the template task:
+Create the handler in the file `roles/apache_webserver/handlers/main.yml` to restart httpd when notified by the template task:
 
 ```yaml
 --8<-- "roles-step4-handlers-main.yml"
@@ -199,7 +199,7 @@ The contents of the `vhost.conf.j2` template file are found below.
 
 ### Step 6 - Test the role
 
-You are ready to test the role against `node2`. But since a role cannot be assigned to a node directly, first create a playbook which connects the role and the host. Create the file `test_apache_role.yml` in the directory `~/ansible-files`:
+You are ready to test the role against `node2`. But since a role cannot be assigned to a node directly, first create a playbook which connects the role and the host. Create the file `test_apache_role.yml` in the directory `~/ansible_files`:
 
 ```yaml
 --8<-- "roles-step6-playbook.yml"
@@ -215,19 +215,19 @@ Now you are ready to run your playbook:
 === "Ansible"
 
     ``` { .console .no-copy }
-    [student@ansible-1 ansible-files]$ ansible-playbook test_apache_role.yml
+    [student@ansible-1 ansible_files]$ ansible-playbook test_apache_role.yml
     ```
 
 === "Navigator"
 
     ``` { .console .no-copy }
-    [student@ansible-1 ansible-files]$ ansible-navigator run test_apache_role.yml -m stdout
+    [student@ansible-1 ansible_files]$ ansible-navigator run test_apache_role.yml -m stdout
     ```
 
 Run a curl command against `node2` to confirm that the role worked or use the `check_httpd.yml` playbook (you may need to adjust the variable in it to `node2:8080`):
 
 ``` { .console .no-copy }
-[student@ansible-1 ansible-files]$ curl -s http://node2:8080
+[student@ansible-1 ansible_files]$ curl -s http://node2:8080
 <body>
 <h1>The virtual host configuration works!</h1>
 </body>

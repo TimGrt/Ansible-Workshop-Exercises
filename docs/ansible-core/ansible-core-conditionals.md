@@ -48,7 +48,7 @@ node3 ansible_host=node3.example.com
 node2 ansible_host=node2.example.com
 ```
 
-Next create the file `ftpserver.yml` on your control host in the `~/ansible-files/` directory:
+Next create the file `ftpserver.yml` on your control host in the `~/ansible_files/` directory:
 
 ```yaml
 --8<-- "conditionals-step1-ftpserver.yml"

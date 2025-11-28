@@ -18,13 +18,13 @@ When a template for a file has been created, it can be deployed to the managed h
 
 As an example of using templates you will change the motd file to contain host-specific data.
 
-First create the directory `templates` to hold template resources in `~/ansible-files/`:
+First create the directory `templates` to hold template resources in `~/ansible_files/`:
 
 ``` { .console .no-copy }
-[student@ansible-1 ansible-files]$ mkdir templates
+[student@ansible-1 ansible_files]$ mkdir templates
 ```
 
-Then in the `~/ansible-files/templates/` directory create the template file `motd-facts.j2`:
+Then in the `~/ansible_files/templates/` directory create the template file `motd_facts.j2`:
 
 ```html+jinja
 Welcome to {{ ansible_hostname }}.
@@ -34,7 +34,7 @@ deployed on {{ ansible_architecture }} architecture.
 
 The template file contains the basic text that will later be copied over. It also contains variables which will be replaced on the target machines individually.
 
-Next we need a playbook to use this template. In the `~/ansible-files/` directory create the Playbook `motd-facts.yml`:
+Next we need a playbook to use this template. In the `~/ansible_files/` directory create the Playbook `motd_facts.yml`:
 
 ```yaml
 --8<-- "templates-step1-motd-facts-playbook.yml"
@@ -59,7 +59,7 @@ Before we do a bigger challenge lab, let's see if you remember how handlers are 
 You have done this a couple of times by now:
 
 * Understand what the Playbook does.
-* Execute the Playbook `motd-facts.yml`.
+* Execute the Playbook `motd_facts.yml`.
 * Observe if the handler was triggered. Re-Run the playbook multiple times.
 * Login to node1 via SSH and check the message of the day content.
 * Log out of node1.
@@ -108,9 +108,9 @@ Run the newly created playbook to find the fact name.
     ```
 
     With this we can conclude the variable we are looking for is labeled `ansible_kernel`.
-    Then we can update the motd-facts.j2 template to include `ansible_kernel` as part of its message.
+    Then we can update the motd_facts.j2 template to include `ansible_kernel` as part of its message.
 
-    Modify the template `motd-facts.j2`:
+    Modify the template `motd_facts.j2`:
 
     ```html+jinja
     Welcome to {{ ansible_hostname }}!
@@ -124,19 +124,19 @@ Run the newly created playbook to find the fact name.
     === "Ansible"
 
         ``` { .console .no-copy }
-        [student@ansible-1 ansible-files]$ ansible-playbook motd-facts.yml
+        [student@ansible-1 ansible_files]$ ansible-playbook motd_facts.yml
         ```
 
     === "Navigator"
 
         ``` { .console .no-copy }
-        [student@ansible-1 ansible-files]$ ansible-navigator run motd-facts.yml -m stdout
+        [student@ansible-1 ansible_files]$ ansible-navigator run motd_facts.yml -m stdout
         ```
 
     Verify the new message via SSH login to `node1`.
 
     ``` { .console .no-copy }
-    [student@ansible-1 ansible-files]$ ssh node1
+    [student@ansible-1 ansible_files]$ ssh node1
     Welcome to node1.
     Host runs RedHat 8.1
     Deployed on x86_64 architecture

@@ -39,22 +39,22 @@ The recommended practice to provide variables in the inventory, is to define the
 
 For understanding and practice let’s do a lab. Following up on the theme "Let’s build a web server. Or two. Or even more…​", you will change the `index.html` to show the development environment (dev/prod) a server is deployed in.
 
-On the ansible control host, as the `student` user, create the directories to hold the variable definitions in `~/ansible-files/`:
+On the ansible control host, as the `student` user, create the directories to hold the variable definitions in `~/ansible_files/`:
 
 ``` { .console .no-copy }
-[student@ansible-1 ansible-files]$ mkdir host_vars group_vars
+[student@ansible-1 ansible_files]$ mkdir host_vars group_vars
 ```
 
 Now create two files containing variable definitions. We’ll define a variable named `stage` which will point to different environments, `dev` or `prod`:
 
-* Create the file `~/ansible-files/group_vars/web.yml` with this content:
+* Create the file `~/ansible_files/group_vars/web.yml` with this content:
 
 ```yaml
 ---
 stage: dev
 ```
 
-* Create the file `~/ansible-files/host_vars/node2.yml` with this content:
+* Create the file `~/ansible_files/host_vars/node2.yml` with this content:
 
 ```yaml
 ---
@@ -68,7 +68,7 @@ What is this about?
 
 ### Step 2 - Create web.html Files
 
-Now create two files in `~/ansible-files/files/`:
+Now create two files in `~/ansible_files/files/`:
 
 One called `prod_web.html` with the following content:
 
@@ -90,7 +90,7 @@ And the other called `dev_web.html` with the following content:
 
 Now you need a Playbook that copies the prod or dev `web.html` file - according to the "stage" variable.
 
-Create a new Playbook called `deploy_index_html.yml` in the `~/ansible-files/` directory.
+Create a new Playbook called `deploy_index_html.yml` in the `~/ansible_files/` directory.
 
 !!! tip
     Note how the variable "stage" is used in the name of the file to copy.
@@ -104,13 +104,13 @@ Create a new Playbook called `deploy_index_html.yml` in the `~/ansible-files/` d
 === "Ansible"
 
     ``` { .console .no-copy }
-    [student@ansible-1 ansible-files]$ ansible-playbook deploy_index_html.yml
+    [student@ansible-1 ansible_files]$ ansible-playbook deploy_index_html.yml
     ```
 
 === "Navigator"
 
     ``` { .console .no-copy }
-    [student@ansible-1 ansible-files]$ ansible-navigator run deploy_index_html.yml
+    [student@ansible-1 ansible_files]$ ansible-navigator run deploy_index_html.yml
     ```
 
 ### Step 4 - Test the Result
@@ -120,7 +120,7 @@ The Ansible Playbook copies different files as index.html to the hosts, use `cur
 For node1:
 
 ``` { .console .no-copy }
-[student@ansible-1 ansible-files]$ curl http://node1
+[student@ansible-1 ansible_files]$ curl http://node1
 <body>
 <h1>This is a development webserver, have fun!</h1>
 </body>
@@ -129,7 +129,7 @@ For node1:
 For node2:
 
 ``` { .console .no-copy }
-[student@ansible-1 ansible-files]$ curl http://node2
+[student@ansible-1 ansible_files]$ curl http://node2
 <body>
 <h1>This is a production webserver, take care!</h1>
 </body>
@@ -138,7 +138,7 @@ For node2:
 For node3:
 
 ``` { .console .no-copy }
-[student@ansible-1 ansible-files]$ curl http://node3
+[student@ansible-1 ansible_files]$ curl http://node3
 <body>
 <h1>This is a development webserver, have fun!</h1>
 </body>
@@ -161,13 +161,13 @@ To get an idea what facts Ansible collects by default, on your control node as y
 === "Ansible"
 
     ``` { .console .no-copy }
-    [student@ansible-1 ansible-files]$ ansible-playbook setup.yml
+    [student@ansible-1 ansible_files]$ ansible-playbook setup.yml
     ```
 
 === "Navigator"
 
     ``` { .console .no-copy }
-    [student@ansible-1 ansible-files]$ ansible-navigator run setup.yml -m stdout
+    [student@ansible-1 ansible_files]$ ansible-navigator run setup.yml -m stdout
     ```
 
 This might be a bit too much, you can use filters to limit the output to certain facts, the expression is shell-style wildcard within your playbook. Create a playbook labeled `setup_filter.yml` as shown below. In this example, we filter to get the `eth0` facts as well as memory details of `node1`.
@@ -181,13 +181,13 @@ Run the playbook:
 === "Ansible"
 
     ``` { .console .no-copy }
-    [student@ansible-1 ansible-files]$ ansible-playbook setup_filter.yml
+    [student@ansible-1 ansible_files]$ ansible-playbook setup_filter.yml
     ```
 
 === "Navigator"
 
     ``` { .console .no-copy }
-    [student@ansible-1 ansible-files]$ ansible-navigator run setup_filter.yml -m stdout
+    [student@ansible-1 ansible_files]$ ansible-navigator run setup_filter.yml -m stdout
     ```
 
 ### Step 6 - Challenge Lab: Facts
@@ -211,18 +211,18 @@ Run the playbook:
     Run the playbook:
 
     ``` { .console .no-copy }
-    [student@ansible-1 ansible-files]$ ansible-playbook setup_filter.yml
+    [student@ansible-1 ansible_files]$ ansible-playbook setup_filter.yml
     ```
 
     Optionally, run the playbook with the *ansible-navigator*:
 
     ``` { .console .no-copy }
-    [student@ansible-1 ansible-files]$ ansible-navigator run setup_filter.yml -m stdout
+    [student@ansible-1 ansible_files]$ ansible-navigator run setup_filter.yml -m stdout
     ```
 
 ### Step 7 - Using Facts in Playbooks
 
-Facts can be used in a Playbook like variables, using the proper naming, of course. Create this Playbook as `facts.yml` in the `~/ansible-files/` directory:
+Facts can be used in a Playbook like variables, using the proper naming, of course. Create this Playbook as `facts.yml` in the `~/ansible_files/` directory:
 
 ```yaml
 --8<-- "variables-step7-facts-playbook.yml"
@@ -236,12 +236,12 @@ Execute it to see how the facts are printed:
 === "Ansible"
 
     ``` { .console .no-copy }
-    [student@ansible-1 ansible-files]$ ansible-playbook facts.yml
+    [student@ansible-1 ansible_files]$ ansible-playbook facts.yml
     ```
 === "Navigator"
 
     ``` { .console .no-copy }
-    [student@ansible-1 ansible-files]$ ansible-navigator run facts.yml -m stdout
+    [student@ansible-1 ansible_files]$ ansible-navigator run facts.yml -m stdout
     ```
 
 Examine the output:

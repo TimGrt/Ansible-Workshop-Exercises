@@ -26,11 +26,11 @@ As a an example, let’s write a playbook that:
 First we need the file Ansible will deploy, let’s just take the one from node1.
 
 ```bash
-scp node1:/etc/httpd/conf/httpd.conf ~/ansible-files/files/.
+scp node1:/etc/httpd/conf/httpd.conf ~/ansible_files/files/.
 ```
 
 We now have the configuration file for our webserver, we will adjust the file later and copy it back to all webserver hosts later.  
-Next, create the Playbook `httpd_conf.yml`. Make sure that you are in the directory `~/ansible-files`.
+Next, create the Playbook `httpd_conf.yml`. Make sure that you are in the directory `~/ansible_files`.
 
 ```yaml linenums="1"
 --8<-- "handlers-step1-http-conf.yml"
@@ -44,7 +44,7 @@ So what’s new here?
 
 Run the playbook. We didn’t change anything in the file yet so there should not be any `changed` lines in the output and of course the handler shouldn’t have fired.
 
-* Now change the `Listen 80` line in `~/ansible-files/files/httpd.conf` to:
+* Now change the `Listen 80` line in `~/ansible_files/files/httpd.conf` to:
 
 ```ini
 Listen 8080
@@ -61,9 +61,9 @@ Listen 8080
 Apache should now listen on port 8080. Easy enough to verify:
 
 ``` { .console .no-copy }
-[student@ansible-1 ansible-files]$ curl http://node1
+[student@ansible-1 ansible_files]$ curl http://node1
 curl: (7) Failed to connect to node1 port 80: Connection refused
-[student@ansible-1 ansible-files]$ curl http://node1:8080
+[student@ansible-1 ansible_files]$ curl http://node1:8080
 <body>
 <h1>This is a development webserver, have fun!</h1>
 </body>

@@ -65,11 +65,11 @@ That said, our playbook today is very basic and creating a complex structure wil
 
 Instead, we are going to create a very simple directory structure for our playbook, and add just a couple of files to it.
 
-If you haven't done this already, on your control host **ansible-1**, create a directory called `ansible-files` in your home directory and change directories into it:
+If you haven't done this already, on your control host **ansible-1**, create a directory called `ansible_files` in your home directory and change directories into it:
 
 ``` { .console .no-copy }
-[student@ansible-1 ~]$ mkdir ansible-files
-[student@ansible-1 ~]$ cd ansible-files/
+[student@ansible-1 ~]$ mkdir ansible_files
+[student@ansible-1 ~]$ cd ansible_files/
 ```
 
 Add a file called `apache.yml` with the following content. As discussed in the previous exercises, use `vi`/`vim` or, if you are new to editors on the command line, check out the [editor alternatives](editor-alternatives.md) again.
@@ -119,7 +119,7 @@ To run your playbook, use the `ansible-playbook <playbook>` command as follows:
 === "Ansible"
 
     ``` { .console .no-copy }
-    [student@ansible-1 ansible-files]$ ansible-playbook apache.yml
+    [student@ansible-1 ansible_files]$ ansible-playbook apache.yml
     ```
 
     ??? failure "What does `Invalid callback for stdout specified` mean?"
@@ -137,7 +137,7 @@ To run your playbook, use the `ansible-playbook <playbook>` command as follows:
 === "Navigator"
 
     ``` { .console .no-copy }
-    [student@ansible-1 ansible-files]$ ansible-navigator run apache.yml -m stdout
+    [student@ansible-1 ansible_files]$ ansible-navigator run apache.yml -m stdout
     ```
 
 !!! tip
@@ -152,7 +152,7 @@ To run your playbook, use the `ansible-playbook <playbook>` command as follows:
 Once the playbook has completed, connect to `node1` via SSH to make sure Apache has been installed:
 
 ``` { .console .no-copy }
-[student@ansible-1 ansible-files]$ ssh node1
+[student@ansible-1 ansible_files]$ ssh node1
 Last login: Wed May 15 14:03:45 2019 from 44.55.66.77
 Managed by Ansible
 ```
@@ -181,13 +181,13 @@ The second task uses the `debug` module. The variable *ansible_facts* is extende
 === "Ansible"
 
     ``` { .console .no-copy }
-    [student@ansible-1 ansible-files]$ ansible-playbook package.yml
+    [student@ansible-1 ansible_files]$ ansible-playbook package.yml
     ```
 
 === "Navigator"
 
     ``` { .console .no-copy }
-    [student@ansible-1 ansible-files]$ ansible-navigator run package.yml -m stdout
+    [student@ansible-1 ansible_files]$ ansible-navigator run package.yml -m stdout
     ```
 
 The output should look like this:
@@ -217,7 +217,7 @@ Execute the command `ansible-playbook apache.yml` for a second time, and compare
 
 The next part of the Ansible playbook makes sure the Apache application is enabled and started on `node1`.
 
-On the control host, as your student user, edit the file `~/ansible-files/apache.yml` to add a second task using the `service` module. The Playbook should now look like this:
+On the control host, as your student user, edit the file `~/ansible_files/apache.yml` to add a second task using the `service` module. The Playbook should now look like this:
 
 ```yaml
 --8<-- "playbook-step4-apache.yml"
@@ -234,19 +234,19 @@ Thus with the second task we make sure the Apache server is indeed running on th
 === "Ansible"
 
     ``` { .console .no-copy }
-    [student@ansible-1 ansible-files]$ ansible-playbook apache.yml
+    [student@ansible-1 ansible_files]$ ansible-playbook apache.yml
     ```
 
 === "Navigator"
 
     ``` { .console .no-copy }
-    [student@ansible-1 ansible-files]$ ansible-navigator run apache.yml -m stdout
+    [student@ansible-1 ansible_files]$ ansible-navigator run apache.yml -m stdout
     ```
 
     You may also run the playbook in *interactive* mode:
 
     ``` { .console .no-copy }
-    [student@ansible-1 ansible-files]$ ansible-navigator run apache.yml -m interactive
+    [student@ansible-1 ansible_files]$ ansible-navigator run apache.yml -m interactive
     ```
 
     Notice in the output, we see the play had `1` "CHANGED" shown in yellow. Press `0` to enter the play output, you can see that task 2, "Ensure Apache is enabled and running", was the task that incorporated the latest change by the "CHANGED" value being set to True and highlighted in yellow.
@@ -262,13 +262,13 @@ Thus with the second task we make sure the Apache server is indeed running on th
 === "Ansible"
 
     ``` { .console .no-copy }
-    [student@ansible-1 ansible-files]$ ansible-playbook service_state.yml
+    [student@ansible-1 ansible_files]$ ansible-playbook service_state.yml
     ```
 
 === "Navigator"
 
     ``` { .console .no-copy }
-    [student@ansible-1 ansible-files]$ ansible-navigator run service_state.yml -m stdout
+    [student@ansible-1 ansible_files]$ ansible-navigator run service_state.yml -m stdout
     ```
 
 This would be the same as checking the service state manually on `node1` with: `systemctl status httpd`.
@@ -289,24 +289,24 @@ Check that the tasks were executed correctly and Apache is accepting connections
 === "Ansible"
 
     ``` { .console .no-copy }
-    [student@ansible-1 ansible-files]$ ansible-playbook check_httpd.yml
+    [student@ansible-1 ansible_files]$ ansible-playbook check_httpd.yml
     ```
 
 === "Navigator"
 
     ``` { .console .no-copy }
-    [student@ansible-1 ansible-files]$ ansible-navigator run check_httpd.yml -m stdout
+    [student@ansible-1 ansible_files]$ ansible-navigator run check_httpd.yml -m stdout
     ```
 
 There are a lot of red lines and an error: As long as there is not at least an `index.html` file to be served by Apache, it will throw an ugly "HTTP Error 403: Forbidden" status and Ansible will report an error.
 
-So why not use Ansible to deploy a simple `index.html` file? On the ansible control host, as the `student` user, create the directory `files` to hold file resources in `~/ansible-files/`:
+So why not use Ansible to deploy a simple `index.html` file? On the ansible control host, as the `student` user, create the directory `files` to hold file resources in `~/ansible_files/`:
 
 ``` { .console .no-copy }
-[student@ansible-1 ansible-files]$ mkdir files
+[student@ansible-1 ansible_files]$ mkdir files
 ```
 
-Then create the file `~/ansible-files/files/web.html` on the control node:
+Then create the file `~/ansible_files/files/web.html` on the control node:
 
 ```html
 <body>
@@ -316,7 +316,7 @@ Then create the file `~/ansible-files/files/web.html` on the control node:
 
 Now, you’ll use Ansible's `copy` module in your playbook to *copy* a file from your controller to the managed node(s).
 
-On the control node, as your student user, edit the file `~/ansible-files/apache.yml` and add a new task utilizing the `copy` module. It should now look like this:
+On the control node, as your student user, edit the file `~/ansible_files/apache.yml` and add a new task utilizing the `copy` module. It should now look like this:
 
 ```yaml
 --8<-- "playbook-step5-apache.yml"
@@ -329,13 +329,13 @@ Run your extended Playbook:
 === "Ansible"
 
     ``` { .console .no-copy }
-    [student@ansible-1 ansible-files]$ ansible-playbook apache.yml
+    [student@ansible-1 ansible_files]$ ansible-playbook apache.yml
     ```
 
 === "Navigator"
 
     ``` { .console .no-copy }
-    [student@ansible-1 ansible-files]$ ansible-navigator run apache.yml -m stdout
+    [student@ansible-1 ansible_files]$ ansible-navigator run apache.yml -m stdout
     ```
 
 * Have a good look at the output, notice the changes of "CHANGED" and the tasks associated with that change.
@@ -368,12 +368,12 @@ Now run the playbook:
 === "Ansible"
 
     ``` { .console .no-copy }
-    [student@ansible-1 ansible-files]$ ansible-playbook apache.yml
+    [student@ansible-1 ansible_files]$ ansible-playbook apache.yml
     ```
 === "Navigator"
 
     ``` { .console .no-copy }
-    [student@ansible-1 ansible-files]$ ansible-navigator run apache.yml -m stdout
+    [student@ansible-1 ansible_files]$ ansible-navigator run apache.yml -m stdout
     ```
 
 Verify if Apache is now running on all web servers (node1, node2, node3). All output should be green.

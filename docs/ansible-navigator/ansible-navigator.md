@@ -50,7 +50,7 @@ Follow the next link for more information on the [Ansible navigator settings](ht
 !!! tip
     The parameters for ansible-navigator maybe modified for your specific environment. The current settings use a default `ansible-navigator.yml` for all projects, but a specific `ansible-navigator.yml` can be created for each project and is the recommended practice.
 
-A useful *ansible-navigator*-configuration for the workshop environment is the following, create a new file in your project directory `/home/student1/ansible-files/ansible-navigator.yml` and paste in this configuration:
+A useful *ansible-navigator*-configuration for the workshop environment is the following, create a new file in your project directory `/home/student1/ansible_files/ansible-navigator.yml` and paste in this configuration:
 
 ```yaml
 ---
@@ -63,7 +63,7 @@ ansible-navigator:
 # Can be enabled or disabled and specify filename and location
   playbook-artifact:
     enable: true
-    save-as: ~/ansible-files/artifacts/{playbook_name}-artifact-{ts_utc}.json
+    save-as: ~/ansible_files/artifacts/{playbook_name}-artifact-{ts_utc}.json
 # Set user interface mode, either 'stdout' or 'interactive'
 # Mode 'stdout' ensures same output method as with ansible-playbook command
   mode: interactive
@@ -348,7 +348,7 @@ Create a simple playbook:
 To run your playbook, use the `ansible-navigator run <playbook>` command as follows:
 
 ``` { .console .no-copy }
-[student@ansible-1 ansible-files]$ ansible-navigator run apache.yml
+[student@ansible-1 ansible_files]$ ansible-navigator run apache.yml
 ```
 
 !!! tip
@@ -383,7 +383,7 @@ Once you've completed, reviewing your Ansible playbook, you can exit out of the 
 Once the playbook has completed, connect to `node1` via SSH to make sure Apache has been installed. You may also skip this, as you did this yesterday.
 
 ``` { .console .no-copy }
-[student@ansible-1 ansible-files]$ ssh node1
+[student@ansible-1 ansible_files]$ ssh node1
 Last login: Wed May 15 14:03:45 2019 from 44.55.66.77
 Managed by Ansible
 ```
@@ -459,13 +459,13 @@ Check that the tasks were executed correctly and Apache is accepting connections
 
 There are a lot of red lines and an error: As long as there is not at least an `web.html` file to be served by Apache, it will throw an ugly "HTTP Error 403: Forbidden" status and Ansible will report an error.
 
-So why not use Ansible to deploy a simple `web.html` file? On the ansible control host, as the `student` user, create the directory `files` to hold file resources in `~/ansible-files/`:
+So why not use Ansible to deploy a simple `web.html` file? On the ansible control host, as the `student` user, create the directory `files` to hold file resources in `~/ansible_files/`:
 
 ``` { .console .no-copy }
-[student@ansible-1 ansible-files]$ mkdir files
+[student@ansible-1 ansible_files]$ mkdir files
 ```
 
-Then create the file `~/ansible-files/files/web.html` on the control node:
+Then create the file `~/ansible_files/files/web.html` on the control node:
 
 ```html
 <body>
@@ -475,7 +475,7 @@ Then create the file `~/ansible-files/files/web.html` on the control node:
 
 In a previous example, you used Ansible’s `copy` module to write text supplied on the command line into a file. Now you’ll use the module in your playbook to copy a file.
 
-On the control node as your student user edit the file `~/ansible-files/apache.yml` and add a new task utilizing the `copy` module. It should now look like this:
+On the control node as your student user edit the file `~/ansible_files/apache.yml` and add a new task utilizing the `copy` module. It should now look like this:
 
 ```yaml
 ---
@@ -506,7 +506,7 @@ What does this new copy task do? The new task uses the `copy` module and defines
 Run your extended Playbook:
 
 ``` { .console .no-copy }
-[student@ansible-1 ansible-files]$ ansible-navigator run apache.yml -m stdout
+[student@ansible-1 ansible_files]$ ansible-navigator run apache.yml -m stdout
 ```
 
 * Have a good look at the output, notice the changes of "CHANGED" and the tasks associated with that change.
@@ -557,7 +557,7 @@ Change the playbook `hosts` parameter to point to `web` instead of `node1`:
 Now run the playbook:
 
 ``` { .console .no-copy }
-[student@ansible-1 ansible-files]$ ansible-navigator run apache.yml -m stdout
+[student@ansible-1 ansible_files]$ ansible-navigator run apache.yml -m stdout
 ```
 
 Verify if Apache is now running on all web servers (node1, node2, node3). All output should be green.
