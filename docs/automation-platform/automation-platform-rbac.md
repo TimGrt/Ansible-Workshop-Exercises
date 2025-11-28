@@ -22,7 +22,7 @@ There are three types of users in Ansible Automation Controller:
 
 Let’s create a user:
 
-* Navigate to **Access Management -> Users**.
+* Navigate to **Access Management → Users**.
 * Click the **Create user** button.
 * Fill in the values for the new user:
 
@@ -46,7 +46,7 @@ A Team is a subdivision of an organization with associated users, projects, cred
 
 Create a Team:
 
-* Navigate to **Access Management -> Teams**.
+* Navigate to **Access Management → Teams**.
 * Click the **Create team** button and create a team named `Web Content` within the `Default` organization.
 * Click **Create team**.
 
@@ -60,16 +60,39 @@ Add a user to the team:
 
 ### Granting permissions
 
-To allow users or teams to actually do something, you have to set permissions. The user **wweb** should only be allowed to modify content of the assigned webserver.
+To allow users or teams to actually do something, you have to set permissions. At first, the user **wweb** should only be allowed to modify content of the assigned webserver.
 
 Add the permission to use the `Create index.html` template:
 
-* Navigate to **Automation Execution -> Templates**.
+* Navigate to **Automation Execution → Templates**.
 * Select the template `Create index.html`.
 * Click the **User Access** tab.
 * Click **Add roles**
 * Select the `wweb` user and click **Next**.
 * Choose the roles **JobTemplate Admin** and/or **JobTemplate Execute**, depending on the required level of access, click **Next**.
+* Review the selections and click **Finish**.
+
+Now, let's give **wweb** some additional permissions.  
+
+* Navigate to **Access Management → Users**.
+* Select user **wweb**.
+* Click the **Roles** tab.
+* Click **Add roles**.
+* Select *Resource type* **Inventory**. Click **Next**.
+* Select the **Workshop Inventory**. Click **Next**.
+* Select the *Role* **Inventory Adhoc**. Click **Next**.
+* Review the selections and click **Finish**.
+
+Good, now **wweb** is allowed to run *Ad-Hoc commands* to all hosts of the *Workshop Inventory*. But wait, what about authentication to these nodes?!  
+Previously, you'll had to provide a *Machine credential*, we need to add the permission to use this credential as well.
+
+* Navigate to **Access Management → Users**.
+* Select user **wweb**.
+* Click the **Roles** tab.
+* Click **Add roles**.
+* Select *Resource type* **Credential**. Click **Next**.
+* Select the **Workshop Credentials**. Click **Next**.
+* Select the *Role* **Credential Use**. Click **Next**.
 * Review the selections and click **Finish**.
 
 ### Test permissions
