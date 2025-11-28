@@ -105,7 +105,7 @@ A job template is a definition and set of parameters for running an Ansible job.
 
 * **What** playbook to use?
 
-Okay, let’s just do that: To create a Job Template, go to the **Automation Execution -> Templates** view,click the **Create template** button and choose **Create job template**.
+Okay, let’s just do that: To create a Job Template, go to the **Automation Execution -> Templates** view, click the **Create template** button and choose **Create job template**.
 
 !!! tip
     Remember that you can often click on the question mark with a circle to get more details about the field.
@@ -148,14 +148,44 @@ After the Job has finished go to the main **Jobs** view: All jobs are listed her
 
 Time for a little challenge:
 
-* Use an ad hoc command on all hosts to make sure Apache has been installed and is running.
+* [X] Use the playbook `check_httpd_service.yml` from the Github Repository `https://github.com/TimGrt/workshop-demo.git` to check the state of the webserver on all `web` hosts.
 
 You have already been through all the steps needed, so try this for yourself.
 
-!!! tip
-    What about `systemctl status httpd`?
-
 ??? success "Solution"
+
+    Go to **Automation Execution → Projects**, click the **Create Project** button. Fill in the form:
+
+    | Parameter                      | Value                           |
+    | ------------------------------ | ------------------------------- |
+    | Name                           | `Workshop Demo Project`         |
+    | Organization                   | `Default`                       |
+    | Default Execution Environment  | `Default Execution Environment` |
+    | Source Control Type            | `Git`                           |
+
+    Enter the URL into the Project configuration:
+
+    | Parameter          | Value                                                                                                                                                       |
+    | ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | Source Control URL | `https://github.com/TimGrt/workshop-demo.git`                                                                                                               |
+    | Options            | Select **Clean**, **Delete** and **Update Revision on Launch** to request a fresh copy of the repository and to update the repository when launching a job. |
+
+    Click **Create project**.  
+    Go to **Automation Execution -> Templates**, click the **Create template** button and choose **Create job template**.
+
+    | Parameter             | Value                                            |
+    | --------------------- | ------------------------------------------------ |
+    | Name                  | `Check webserver service`                        |
+    | Job Type              | `Run`                                            |
+    | Inventory             | `Workshop Inventory`                             |
+    | Project               | `Workshop Project`                               |
+    | Execution Environment | `Default execution environment`                  |
+    | Playbook              | `check_httpd_service.yml`                        |
+    | Credentials           | `Workshop Credential`                            |
+    | Limit                 | `web`                                            |
+    | Options               | :material-checkbox-outline: Privilege Escalation |
+
+    To check the state with an *ad-hoc* command, do the following:
 
     * Go to **Automation Execution → Infrastructure →  Inventories** → **Workshop Inventory**
     * In the **Automation Execution → Infrastructure → Inventories → Workshop Inventory**, select the **Hosts** tab and select `node1`, `node2`, `node3` and click **Run Command**
