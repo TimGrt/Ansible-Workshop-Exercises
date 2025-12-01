@@ -158,7 +158,7 @@ You have already been through all the steps needed, so try this for yourself.
 
     | Parameter                      | Value                           |
     | ------------------------------ | ------------------------------- |
-    | Name                           | `Workshop Demo Project`         |
+    | Name                           | `Workshop Demo Content`         |
     | Organization                   | `Default`                       |
     | Default Execution Environment  | `Default Execution Environment` |
     | Source Control Type            | `Git`                           |
@@ -178,7 +178,7 @@ You have already been through all the steps needed, so try this for yourself.
     | Name                  | `Check webserver service`                        |
     | Job Type              | `Run`                                            |
     | Inventory             | `Workshop Inventory`                             |
-    | Project               | `Workshop Project`                               |
+    | Project               | `Workshop Demo Content`                          |
     | Execution Environment | `Default execution environment`                  |
     | Playbook              | `check_httpd_service.yml`                        |
     | Credentials           | `Workshop Credential`                            |
@@ -196,3 +196,4 @@ You have already been through all the steps needed, so try this for yourself.
 
     !!! info
         The output of the results is displayed once the command has completed.
+
