@@ -31,7 +31,7 @@ Your operations team and your application development team likes what they see i
 
 ### The Git Repository
 
-All code is already in place - this is a automation controller lab after all. Check out the **Workshop Project** git repository at [https://github.com/ansible/workshop-examples](https://github.com/ansible/workshop-examples){:target="_blank"}. There you will find the playbook `webcontent.yml`, which calls the role `role_webcontent`.
+All code is already in place - this is a automation controller lab after all. Check out the **Workshop Project** git repository at [https://github.com/ansible/workshop-examples](https://github.com/ansible/workshop-examples){:target="_blank"}. In the `webops` branch, you will find the playbook `webcontent.yml`, which calls the role `role_webcontent`.
 
 Compared to the previous Apache installation role there is a major difference: there are now multiple versions of an `index.html` template, and a task deploying the template file, which has a variable as part of the source file name.
 
@@ -66,28 +66,26 @@ The playbook `main.yml` deploys the template:
 
 ### Prepare Inventory
 
-There is of course more then one way to accomplish this, but for the purposes of this lab, we will use Ansible automation controller.
-
 Navigate to **Automation Execution → Infrastructure → Inventories**. Select 'Workshop Inventory' and complete the following:
 
-* Go to the Groups tab, click **Create group**, and create a new group labeled Webserver. Click **Create group**.
-* In the Webserver group, click **Edit group** and define the following variable:
+* Go to the Groups tab, click **Create group**, and *edit* the **web** group (using the small *pencil* symbol on the right of the group).
+* In the **Variables** textfield, add the following content:
 
 ```yaml
 ---
 stage: dev
 ```
 
-Within the **Details** tab of the `Webserver` inventory, click the **Hosts** tab, click the **Add existing host** button. Select `node1`, `node2`, `node3` as the hosts to be part of the `Webserver` inventory.
+* Click **Save group**.
 
-Within **Automation Execution → Infrastructure → Inventories**, select the `Workshop` Inventory. Click on the `Hosts` tab and click on `node2`.  Click on `Edit` and add the `stage: prod` variable in the **Variables** window. This overrides the inventory variable due to order of operations of how the variables are accessed during playbook execution.
-
-Within the **Variables** textbox define a variable labeled `stage` with the value of `prod` and click **Save host**.
+Within **Automation Execution → Infrastructure → Inventories**, select the `Workshop` Inventory. Click on the `Hosts` tab and click on `node2`.  Click on `Edit host` and add the `stage: prod` variable in the **Variables** window. This overrides the inventory variable due to order of operations of how the variables are accessed during playbook execution.
 
 ```yaml
 ansible_host: node2.example.com
 stage: prod
 ```
+
+* Click **Save host**
 
 ![edit host](images/edit_host.png)
 
@@ -108,43 +106,24 @@ Within **Automation Execution → Templates**, select the **Create template** bu
 | Variables             | `dev_content: "default dev content", prod_content: "default prod content"` |
 | Options               | :material-checkbox-outline: Privilege Escalation                           |
 
-Click **Create job template**.
+* Click **Create job template**.
 
 ![web_content_job_template](images/web_content_job_template.png)
 
-Run the template by clicking the **Launch** button.
+* **Run the template** by clicking the **Launch** button.
 
 ### Check the Results
 
-This time we use the power of Ansible to check the results: execute uri to get the web content from each node, orchestrated by an Ansible playbook labeled `check_url.yml`
+Let's use a ad-hoc command to check the results.
 
-!!! tip
-    We are using the `ansible_host` variable in the URL to access every node in the inventory group.
+* Go to **Automation Execution → Infrastructure → Inventories** and select the **Workshop Inventory**.
+* Choose the **Groups** tab, select the **web** group and click **Run command**.
+* Select the module **command**, as the argument provide the following: `curl http://localhost`. Click **Next**.
+* Select the **Default execution environment**, click **Next**.
+* Choose **Workshop Credentials**, click **Next**.
+* Review and click **Finish**.
 
-```yaml
---8<-- "wrapup-check-results-check-html-playbook.yml"
-```
-
-Execute the playbook:
-
-``` { .console .no-copy }
-[student@ansible-1 ~]$ ansible-navigator run check_url.yml -m stdout
-```
-
-Snippet of output:
-
-``` { .console .no-copy }
-TASK [debug] *******************************************************************
-ok: [node1] => {
-    "uri_output.content": "<body>\n<h1>This is a development webserver, have fun!</h1>\ndev wweb</body>\n"
-}
-ok: [node2] => {
-    "uri_output.content": "<body>\n<h1>This is a production webserver, take care!</h1>\nprod wweb</body>\n"
-}
-ok: [node3] => {
-    "uri_output.content": "<body>\n<h1>This is a development webserver, have fun!</h1>\ndev wweb</body>\n"
-}
-```
+Observe the output, you should see the expected content.
 
 ### Add Survey
 
@@ -162,11 +141,11 @@ ok: [node3] => {
 
 In the same fashion add a second **Survey Question**
 
-| Parameter            | Value                                      |
-| -------------------- | ------------------------------------------ |
+| Parameter            | Value                                       |
+| -------------------- | ------------------------------------------- |
 | Question             | `What should the value of prod_content be?` |
 | Answer Variable Name | `prod_content`                              |
-| Answer Type          | `Text`                                     |
+| Answer Type          | `Text`                                      |
 
 * Click **Create survey question**
 * Click the toggle **Survey disabled** to enable the Survey questions.

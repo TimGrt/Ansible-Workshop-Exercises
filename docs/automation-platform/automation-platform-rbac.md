@@ -97,7 +97,8 @@ Previously, you'll had to provide a *Machine credential*, we need to add the per
 
 ### Test permissions
 
-Now log out of automation controller’s web UI and in again as the **wweb** user.
+!!! success
+    Now, log out of automation controller’s web UI and **log in again** as the **wweb** user!
 
 * Navigate to **Templates**. You should only see the `Create index.html` template listed. He is allowed to view and launch, but not to edit the Template (no Edit button available).
 * Run the job by clicking the rocket icon. Enter the required values for the survey questions and launch the job.
